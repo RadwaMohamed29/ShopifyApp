@@ -184,10 +184,6 @@
 		1654EB9F2835F20E000B78F1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9C898C2728381F8700A86758 /* Favorite */,
-				9C898C1528381BE600A86758 /* Home */,
-				9C898C1B28381C6700A86758 /* Category */,
-				9C898C2128381C9C00A86758 /* Me */,
 				1654EB6E2835EB2F000B78F1 /* ViewController.swift */,
 				9C898C1128381A6200A86758 /* TabBarViewController.swift */,
 				9C898C1228381A6200A86758 /* TabBarViewController.xib */,
@@ -199,6 +195,10 @@
 			isa = PBXGroup;
 			children = (
 				1654EB6A2835EB2F000B78F1 /* AppDelegate.swift */,
+				9C898C2828381F9700A86758 /* View */,
+				9C898C2128381C9C00A86758 /* Me */,
+				9C898C1528381BE600A86758 /* Home */,
+				9C898C2728381F8700A86758 /* Favorite */,
 				1654EB6C2835EB2F000B78F1 /* SceneDelegate.swift */,
 				1654EB9D2835F1AF000B78F1 /* Main */,
 			);
@@ -239,6 +239,7 @@
 		9C898C1528381BE600A86758 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				9C898C1B28381C6700A86758 /* Category */,
 				9C898C1628381C0C00A86758 /* View */,
 			);
 			path = Home;
@@ -290,7 +291,6 @@
 		9C898C2728381F8700A86758 /* Favorite */ = {
 			isa = PBXGroup;
 			children = (
-				9C898C2828381F9700A86758 /* View */,
 			);
 			path = Favorite;
 			sourceTree = "<group>";
@@ -301,7 +301,8 @@
 				9C898C2928381FAB00A86758 /* FavoriteViewController.swift */,
 				9C898C2A28381FAB00A86758 /* FavoriteViewController.xib */,
 			);
-			path = View;
+			name = View;
+			path = Favorite/View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
