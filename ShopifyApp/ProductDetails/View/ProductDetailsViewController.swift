@@ -9,12 +9,17 @@ import UIKit
 
 class ProductDetailsViewController: UIViewController{
 
-    
+    @IBOutlet weak var imageControl: UIPageControl!
+    @IBOutlet weak var productDescription: UITextView!{
+        didSet{
+            productDescription.isEditable = false
+        }
+    }
     @IBOutlet weak var sizeTableView: UITableView!{
         didSet{
             sizeTableView.dataSource = self
             sizeTableView.delegate = self
-            productCollectionView.register(UINib(nibName: "SizeTableViewCell", bundle: nil), forCellWithReuseIdentifier: "SizeTableViewCell")
+            sizeTableView.register(UINib(nibName: String(describing: SizeTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: SizeTableViewCell.self))
             
         }
     }
@@ -52,11 +57,16 @@ extension ProductDetailsViewController: UICollectionViewDataSource,UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let productImagesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductImagesCollectionViewCell", for: indexPath) as! ProductImagesCollectionViewCell
         productImagesCell.productImage.image = images[indexPath.row]
+        imageControl.numberOfPages = images.count
         return productImagesCell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: productCollectionView.frame.width, height: productCollectionView.frame.height)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        imageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
 }
 
@@ -67,9 +77,11 @@ extension ProductDetailsViewController: UITableViewDelegate,UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let sizesCell = sizeTableView.dequeueReusableCell(withIdentifier: "SizeTableViewCell", for: indexPath) as! SizeTableViewCell
+        
         sizesCell.sixe.text = sizes[indexPath.row]
         return sizesCell
     }
+    
     
     
 }
