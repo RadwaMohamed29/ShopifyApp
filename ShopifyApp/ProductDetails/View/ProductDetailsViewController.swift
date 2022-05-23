@@ -9,6 +9,7 @@ import UIKit
 
 class ProductDetailsViewController: UIViewController{
 
+    @IBOutlet weak var collectionContainerView: UIView!
     @IBOutlet weak var imageControl: UIPageControl!
     @IBOutlet weak var productDescription: UITextView!{
         didSet{
@@ -32,10 +33,12 @@ class ProductDetailsViewController: UIViewController{
         }
     }
     let images = [UIImage(named: "p2"),UIImage(named: "p2"),UIImage(named: "p2")]
-    let sizes = ["2x2","5x8","9x"]
+    let sizes = ["2x2","5x8","9x7"]
+    var uiImageView = UIImageView()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupImageCollection()
+        uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 30.0)
         // Do any additional setup after loading the view.
     }
 
