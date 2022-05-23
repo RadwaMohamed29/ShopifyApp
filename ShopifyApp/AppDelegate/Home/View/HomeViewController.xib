@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
+                <outlet property="homeTV" destination="zhH-Ov-8dC" id="uRe-eB-ZWe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -17,12 +18,62 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5xp-Od-UGU">
+                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="f8g-Go-aZz"/>
+                        <constraint firstAttribute="width" constant="414" id="wax-pM-yoX"/>
+                    </constraints>
+                    <items>
+                        <navigationItem title="Home" id="vB9-Q2-xMi">
+                            <barButtonItem key="leftBarButtonItem" title="search" image="magnifyingglass" catalog="system" id="YnU-gd-J2B">
+                                <connections>
+                                    <action selector="pressedOnSearchButton:" destination="-1" id="FAE-Ec-Cv5"/>
+                                </connections>
+                            </barButtonItem>
+                            <rightBarButtonItems>
+                                <barButtonItem title="Fav" image="heart" catalog="system" id="Oba-0R-Ccr">
+                                    <connections>
+                                        <action selector="pressedOnFavBtn:" destination="-1" id="EY1-MR-9Sb"/>
+                                    </connections>
+                                </barButtonItem>
+                                <barButtonItem title="cart" image="cart" catalog="system" id="gy7-vo-qqt">
+                                    <connections>
+                                        <action selector="pressedOnCartBtn:" destination="-1" id="0SE-Aj-l7f"/>
+                                    </connections>
+                                </barButtonItem>
+                            </rightBarButtonItems>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zhH-Ov-8dC">
+                    <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="774" id="cBL-f1-Qqr"/>
+                        <constraint firstAttribute="width" constant="414" id="opl-pf-Pce"/>
+                    </constraints>
+                </tableView>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-            <point key="canvasLocation" x="139" y="59"/>
+            <constraints>
+                <constraint firstItem="5xp-Od-UGU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="9yu-6C-A2s"/>
+                <constraint firstItem="zhH-Ov-8dC" firstAttribute="top" secondItem="5xp-Od-UGU" secondAttribute="bottom" id="EMl-Ki-DbJ"/>
+                <constraint firstItem="zhH-Ov-8dC" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="JYA-4q-FjE"/>
+                <constraint firstItem="5xp-Od-UGU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="ODu-1t-G1X"/>
+                <constraint firstItem="5xp-Od-UGU" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="VfV-1W-bgs"/>
+                <constraint firstItem="zhH-Ov-8dC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="o35-j9-l9r"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="zhH-Ov-8dC" secondAttribute="bottom" id="zZR-xK-jqW"/>
+            </constraints>
+            <point key="canvasLocation" x="47.826086956521742" y="3.3482142857142856"/>
         </view>
     </objects>
     <resources>
+        <image name="cart" catalog="system" width="128" height="102"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
