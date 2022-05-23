@@ -6,24 +6,46 @@
 //
 
 import UIKit
-
+import Floaty
 class CategoryViewController: UIViewController {
 
+    var list = [Items(name: "1"), Items(name: "1"), Items(name: "2"),
+              Items(name: "2"), Items(name: "1"), Items(name: "2"), Items(name: "1")]    
+  
+    
+    @IBOutlet private weak var fabBtn: Floaty!
+    @IBOutlet  weak var categoryCollection: UICollectionView!
+    var collectionFlowLayout:UICollectionViewFlowLayout!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setupCollectionView()
+        fabBtn.addItem("Shoes", icon: UIImage(named: "1")) { _ in
+            print("floaty 1 pressed")
+        }
+        fabBtn.addItem("T_shirts", icon: UIImage(named: "jersey")) { _ in
+            print("floaty 1 pressed")
+        }
+        fabBtn.buttonColor = UIColor.black
+        fabBtn.plusColor = UIColor.white
+        
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+            return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupCollectionItemSize()
     }
-    */
-
+    
+    func setupCollectionView(){
+        categoryCollection.delegate = self
+        categoryCollection.dataSource = self
+        let nib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
+        categoryCollection.register(nib, forCellWithReuseIdentifier: "CategoryCollectionViewCell")
+    }
+    
+ 
 }
