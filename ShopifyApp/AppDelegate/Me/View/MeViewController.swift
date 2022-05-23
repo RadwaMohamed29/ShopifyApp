@@ -15,5 +15,9 @@ class MeViewController: UIViewController {
     }
 
 
-
+    @IBAction func asd(_ sender: Any) {
+        let a = FavouriteViewController(nibName: "FavouriteViewController", bundle: nil)
+        self.navigationController?.pushViewController(a, animated: true)
+    }
+    
 }

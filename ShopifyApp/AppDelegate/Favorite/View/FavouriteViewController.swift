@@ -2,15 +2,18 @@
 //  FavouriteViewController.swift
 //  ShopifyApp
 //
-//  Created by AbdElrahman sayed on 22/05/2022.
+//  Created by AbdElrahman sayed on 23/05/2022.
 //
 
 import UIKit
 import Kingfisher
 class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
+
     @IBOutlet weak var noDataView: UIView!
+    
     @IBOutlet weak var favouriteCollectionView: UICollectionView!
+
     var favProducts : Array<String> = []
     var productName :String?
     var productImage : String?
