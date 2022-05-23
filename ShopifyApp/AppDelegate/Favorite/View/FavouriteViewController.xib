@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FavouriteViewController" customModule="ShopifyApp" customModuleProvider="target">
+            <connections>
+                <outlet property="favouriteCollectionView" destination="8c1-9l-lAL" id="Cac-M1-FKA"/>
+                <outlet property="noDataView" destination="rbD-dV-iku" id="yo3-Nc-VhH"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhY-v3-Mya">
+                    <rect key="frame" x="83" y="804" width="248" height="58"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
+                        <backgroundConfiguration key="background">
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </backgroundConfiguration>
+                        <attributedString key="attributedTitle">
+                            <fragment content="Add To Cart">
+                                <attributes>
+                                    <font key="NSFont" size="20" name="Helvetica"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </buttonConfiguration>
+                </button>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8c1-9l-lAL">
+                    <rect key="frame" x="0.0" y="44" width="414" height="760"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PCB-Cm-dnb">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rbD-dV-iku">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="MhY-v3-Mya" firstAttribute="top" secondItem="8c1-9l-lAL" secondAttribute="bottom" id="6U6-a3-Q2h"/>
+                <constraint firstItem="8c1-9l-lAL" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Dnu-FN-HtV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="rbD-dV-iku" secondAttribute="bottom" id="QTh-xN-qZf"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="8c1-9l-lAL" secondAttribute="trailing" id="gPH-jP-vzP"/>
+                <constraint firstItem="MhY-v3-Mya" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0645982" id="gb6-NM-GhO"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rbD-dV-iku" secondAttribute="trailing" id="ggn-bN-e66"/>
+                <constraint firstItem="MhY-v3-Mya" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="lrj-9W-Kyf"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="MhY-v3-Mya" secondAttribute="bottom" id="lzL-ZT-8GD"/>
+                <constraint firstItem="MhY-v3-Mya" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.6" id="mcQ-Py-QKV"/>
+                <constraint firstItem="rbD-dV-iku" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="q3y-hX-MPG"/>
+                <constraint firstItem="rbD-dV-iku" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="tGX-hu-9mM"/>
+                <constraint firstItem="8c1-9l-lAL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="zpD-7d-VdX"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="44"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
