@@ -15,5 +15,10 @@ class MeViewController: UIViewController {
     }
 
 
-
+    @IBAction func navigateTest(_ sender: Any) {
+        let detailsVC = ProductDetailsViewController(nibName: String(describing: ProductDetailsViewController.self), bundle: nil)
+    
+        self.navigationController?.pushViewController(detailsVC, animated: true)
+    }
+    
 }
