@@ -22,14 +22,14 @@ class HomeViewController: UIViewController {
         homeTV.delegate = self
         homeTV.dataSource = self
     }
-    @IBAction func pressedOnSearchBtn(_ sender: UIBarButtonItem) {
-        
+    @IBAction func search(_ sender: Any) {
     }
-    
-    @IBAction func pressedOnFavBtn(_ sender: UIBarButtonItem) {
-        
+
+    @IBAction func fav(_ sender: Any) {
     }
-    @IBAction  func pressedOnCartBtn(_ sender: UIBarButtonItem) {
+    @IBAction func cart(_ sender: Any) {
+        let a = ShoppingCartVC(nibName: "ShoppingCartVC", bundle: nil)
+         self.navigationController?.pushViewController(a, animated: true)
         
     }
 }
