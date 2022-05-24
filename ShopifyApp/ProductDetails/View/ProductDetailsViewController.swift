@@ -38,7 +38,7 @@ class ProductDetailsViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         setupImageCollection()
-        uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 30.0)
+        uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
         // Do any additional setup after loading the view.
     }
 

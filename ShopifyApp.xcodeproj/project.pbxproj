@@ -17,8 +17,6 @@
 		1654EB8F2835EB31000B78F1 /* ShopifyAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654EB8E2835EB31000B78F1 /* ShopifyAppUITests.swift */; };
 		1654EB912835EB31000B78F1 /* ShopifyAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654EB902835EB31000B78F1 /* ShopifyAppUITestsLaunchTests.swift */; };
 		1654EBA32836091F000B78F1 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654EBA22836091F000B78F1 /* APIClient.swift */; };
-		1666C451283C533300D6901B /* testViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1666C44F283C533300D6901B /* testViewController.swift */; };
-		1666C452283C533300D6901B /* testViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1666C450283C533300D6901B /* testViewController.xib */; };
 		16E3BE99283B356000210604 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16E3BE97283B356000210604 /* ProductDetailsViewController.swift */; };
 		16E3BE9A283B356000210604 /* ProductDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16E3BE98283B356000210604 /* ProductDetailsViewController.xib */; };
 		16EE4EBB283B73890073618E /* SizeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16EE4EB9283B73890073618E /* SizeTableViewCell.swift */; };
@@ -75,8 +73,6 @@
 		1654EB8E2835EB31000B78F1 /* ShopifyAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopifyAppUITests.swift; sourceTree = "<group>"; };
 		1654EB902835EB31000B78F1 /* ShopifyAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopifyAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1654EBA22836091F000B78F1 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
-		1666C44F283C533300D6901B /* testViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testViewController.swift; sourceTree = "<group>"; };
-		1666C450283C533300D6901B /* testViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = testViewController.xib; sourceTree = "<group>"; };
 		16E3BE97283B356000210604 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		16E3BE98283B356000210604 /* ProductDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProductDetailsViewController.xib; sourceTree = "<group>"; };
 		16EE4EB9283B73890073618E /* SizeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeTableViewCell.swift; sourceTree = "<group>"; };
@@ -163,8 +159,6 @@
 				1654EB762835EB30000B78F1 /* Assets.xcassets */,
 				1654EB7B2835EB30000B78F1 /* Info.plist */,
 				1654EB732835EB2F000B78F1 /* ShopifyApp.xcdatamodeld */,
-				1666C44F283C533300D6901B /* testViewController.swift */,
-				1666C450283C533300D6901B /* testViewController.xib */,
 			);
 			path = ShopifyApp;
 			sourceTree = "<group>";
@@ -474,7 +468,6 @@
 				16E3BE9A283B356000210604 /* ProductDetailsViewController.xib in Resources */,
 				16EE4EC0283B78700073618E /* ProductImagesCollectionViewCell.xib in Resources */,
 				9C898C1A28381C3000A86758 /* HomeViewController.xib in Resources */,
-				1666C452283C533300D6901B /* testViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,7 +598,6 @@
 				16EE4EBF283B78700073618E /* ProductImagesCollectionViewCell.swift in Sources */,
 				9C898C2528381CB500A86758 /* MeViewController.swift in Sources */,
 				1654EB6F2835EB2F000B78F1 /* ViewController.swift in Sources */,
-				1666C451283C533300D6901B /* testViewController.swift in Sources */,
 				16E3BE99283B356000210604 /* ProductDetailsViewController.swift in Sources */,
 				1654EB6B2835EB2F000B78F1 /* AppDelegate.swift in Sources */,
 				1654EB752835EB2F000B78F1 /* ShopifyApp.xcdatamodeld in Sources */,
