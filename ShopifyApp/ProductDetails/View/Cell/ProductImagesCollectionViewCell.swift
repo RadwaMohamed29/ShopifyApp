@@ -2,7 +2,7 @@
 //  ProductImagesCollectionViewCell.swift
 //  ShopifyApp
 //
-//  Created by Radwa on 24/05/2022.
+//  Created by Radwa on 23/05/2022.
 //
 
 import UIKit
@@ -18,4 +18,3 @@ class ProductImagesCollectionViewCell: UICollectionViewCell {
     }
 
 }
-

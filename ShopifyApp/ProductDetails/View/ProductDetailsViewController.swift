@@ -1,27 +1,27 @@
 //
-//  ProductDetailViewController.swift
+//  ProductDetailsViewController.swift
 //  ShopifyApp
 //
-//  Created by Radwa on 24/05/2022.
+//  Created by Radwa on 22/05/2022.
 //
 
 import UIKit
 
-class ProductDetailViewController: UIViewController{
-    
-    
+class ProductDetailsViewController: UIViewController{
+
     @IBOutlet weak var collectionContainerView: UIView!
+    @IBOutlet weak var imageControl: UIPageControl!
     @IBOutlet weak var productDescription: UITextView!{
         didSet{
             productDescription.isEditable = false
         }
     }
-    
     @IBOutlet weak var sizeTableView: UITableView!{
         didSet{
             sizeTableView.dataSource = self
             sizeTableView.delegate = self
             sizeTableView.register(UINib(nibName: String(describing: SizeTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: SizeTableViewCell.self))
+            
         }
     }
     
@@ -32,27 +32,26 @@ class ProductDetailViewController: UIViewController{
             productCollectionView.register(UINib(nibName: "ProductImagesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ProductImagesCollectionViewCell")
         }
     }
-    @IBOutlet weak var imageControl: UIPageControl!
     let images = [UIImage(named: "p2"),UIImage(named: "p2"),UIImage(named: "p2")]
     let sizes = ["2x2","5x8","9x7"]
     var uiImageView = UIImageView()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupImageCollection()
-        //   uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 30.0)
+       // uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 30.0)
         // Do any additional setup after loading the view.
     }
-    
-    func setupImageCollection(){
-        
+
+     func setupImageCollection(){
+       
     }
-    
-    
+
+
 }
 
-extension ProductDetailViewController: UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate {
+extension ProductDetailsViewController: UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate {
     
-    
+   
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
         
@@ -74,7 +73,7 @@ extension ProductDetailViewController: UICollectionViewDataSource,UICollectionVi
     }
 }
 
-extension ProductDetailViewController: UITableViewDelegate,UITableViewDataSource{
+extension ProductDetailsViewController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         sizes.count
     }
