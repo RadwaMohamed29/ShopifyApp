@@ -8,6 +8,7 @@ target 'ShopifyApp' do
   pod 'ReachabilitySwift'
   pod 'lottie-ios'
   pod "KRProgressHUD"
+  pod 'Floaty', '~> 4.2.0'
 
   target 'ShopifyAppTests' do
     inherit! :search_paths
