@@ -46,8 +46,13 @@ class MeViewController: UIViewController {
     @IBAction func gotoFavoriteScreen(_ sender: Any) {
         let favScreen = FavouriteViewController(nibName: "FavouriteViewController", bundle: nil)
         self.navigationController?.pushViewController(favScreen, animated: true)
+
     }
     
+    @IBAction func navToPayment(_ sender: Any) {
+        let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nibBundle)
+        self.navigationController?.pushViewController(payment, animated: true)
+    }
 }
 
 extension MeViewController : UICollectionViewDataSource ,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{

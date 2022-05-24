@@ -12,6 +12,7 @@ class CategoryViewController: UIViewController {
     var list = [Items(name: "1"), Items(name: "1"), Items(name: "2"),
               Items(name: "2"), Items(name: "1"), Items(name: "2"), Items(name: "1")]    
   
+    let refreshController = UIRefreshControl()
     
     @IBOutlet private weak var fabBtn: Floaty!
     @IBOutlet  weak var categoryCollection: UICollectionView!
@@ -28,7 +29,15 @@ class CategoryViewController: UIViewController {
         }
         fabBtn.buttonColor = UIColor.black
         fabBtn.plusColor = UIColor.white
-        
+        refreshController.tintColor = UIColor.blue
+        refreshController.addTarget(self, action: #selector(getData), for: .valueChanged)
+        categoryCollection.addSubview(refreshController)
+    }
+    
+    @objc func getData(){
+        list.append(Items(name: "heart"))
+        refreshController.endRefreshing()
+        categoryCollection.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

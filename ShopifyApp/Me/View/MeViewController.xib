@@ -22,6 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7nS-Ws-oux">
                     <rect key="frame" x="0.0" y="44" width="414" height="935"/>
                     <subviews>
@@ -288,6 +289,7 @@
                         <constraint firstItem="T0A-Ue-DII" firstAttribute="leading" secondItem="dg0-GX-7hS" secondAttribute="leading" id="xH1-zo-zVu"/>
                     </constraints>
                 </view>
+
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
