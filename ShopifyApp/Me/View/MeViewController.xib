@@ -27,6 +27,16 @@
                         <action selector="asd:" destination="-1" eventType="touchUpInside" id="xHQ-yM-i9r"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="72W-fR-Z5O">
+                    <rect key="frame" x="120" y="319" width="174" height="152"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Payment"/>
+                    <connections>
+                        <action selector="asd:" destination="-1" eventType="touchUpInside" id="mF1-OS-Sze"/>
+                        <action selector="navToPayment:" destination="-1" eventType="touchUpInside" id="Ihu-lz-ElT"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

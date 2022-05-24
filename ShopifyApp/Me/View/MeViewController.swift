@@ -16,8 +16,12 @@ class MeViewController: UIViewController {
 
 
     @IBAction func asd(_ sender: Any) {
-        let a = FavouriteViewController(nibName: "FavouriteViewController", bundle: nil)
-         self.navigationController?.pushViewController(a, animated: true)
+//        let a = FavouriteViewController(nibName: "FavouriteViewController", bundle: nil)
+//         self.navigationController?.pushViewController(a, animated: true)
     }
     
+    @IBAction func navToPayment(_ sender: Any) {
+        let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nibBundle)
+        self.navigationController?.pushViewController(payment, animated: true)
+    }
 }
