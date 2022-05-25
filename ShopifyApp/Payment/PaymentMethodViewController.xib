@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PaymentMethodViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
+                <outlet property="segmentedControl" destination="qj0-SA-kbW" id="2lW-AQ-Gdf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,10 +20,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gdD-45-4eg">
-                    <rect key="frame" x="27" y="760" width="360" height="49"/>
+                    <rect key="frame" x="27" y="793" width="360" height="49"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" title="Apply Method" cornerStyle="capsule">
                         <backgroundConfiguration key="background"/>
+                        <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
                         <color key="baseBackgroundColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </buttonConfiguration>
                 </button>
@@ -49,6 +51,20 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GPay" translatesAutoresizingMaskIntoConstraints="NO" id="Oxw-gB-vbs">
                     <rect key="frame" x="211" y="344" width="176" height="64"/>
                 </imageView>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="write coupon number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zaU-Ve-UP1">
+                    <rect key="frame" x="45.5" y="565" width="323" height="42"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coupon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sn2-AR-5GG">
+                    <rect key="frame" x="45.5" y="516" width="124" height="31"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    </variation>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -58,21 +74,29 @@
                 <constraint firstItem="gdD-45-4eg" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.869565" id="6cg-U0-m2c"/>
                 <constraint firstItem="qj0-SA-kbW" firstAttribute="top" secondItem="Oxw-gB-vbs" secondAttribute="bottom" id="6j7-Xl-VAa"/>
                 <constraint firstItem="qj0-SA-kbW" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.869565" id="6xN-L5-CPb"/>
+                <constraint firstItem="sn2-AR-5GG" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.035" id="Dq0-Z5-dcc"/>
                 <constraint firstItem="gdD-45-4eg" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0545982" id="LvV-rh-Qjg"/>
+                <constraint firstItem="zaU-Ve-UP1" firstAttribute="top" secondItem="sn2-AR-5GG" secondAttribute="bottom" constant="18" id="MWS-Go-sX0"/>
+                <constraint firstItem="sn2-AR-5GG" firstAttribute="leading" secondItem="zaU-Ve-UP1" secondAttribute="leading" id="MwA-TB-sE8"/>
                 <constraint firstItem="qj0-SA-kbW" firstAttribute="top" secondItem="RBM-f7-JrR" secondAttribute="bottom" id="N5f-4B-eZu"/>
                 <constraint firstItem="19U-6Y-vmI" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0636161" id="NkD-Gs-eWf"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="gdD-45-4eg" secondAttribute="bottom" constant="53" id="PVM-JU-u3j"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="gdD-45-4eg" secondAttribute="bottom" constant="20" id="PVM-JU-u3j"/>
                 <constraint firstItem="Oxw-gB-vbs" firstAttribute="trailing" secondItem="qj0-SA-kbW" secondAttribute="trailing" id="Pxg-9u-58P"/>
                 <constraint firstItem="19U-6Y-vmI" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.741546" id="Sk2-cu-7IW"/>
                 <constraint firstItem="Oxw-gB-vbs" firstAttribute="height" secondItem="qj0-SA-kbW" secondAttribute="height" multiplier="0.715084" id="Xpj-QY-GxW"/>
                 <constraint firstItem="gdD-45-4eg" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Y83-d4-dA5"/>
+                <constraint firstItem="zaU-Ve-UP1" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Zqh-Eo-qdb"/>
                 <constraint firstItem="qj0-SA-kbW" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="ZwF-xF-dJJ"/>
+                <constraint firstItem="zaU-Ve-UP1" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.780193" id="auZ-Lb-NDv"/>
                 <constraint firstItem="Oxw-gB-vbs" firstAttribute="width" secondItem="qj0-SA-kbW" secondAttribute="width" multiplier="0.488889" id="g75-I2-v5z"/>
                 <constraint firstItem="RBM-f7-JrR" firstAttribute="width" secondItem="qj0-SA-kbW" secondAttribute="width" multiplier="0.488889" id="hFE-nR-tnv"/>
                 <constraint firstItem="RBM-f7-JrR" firstAttribute="height" secondItem="qj0-SA-kbW" secondAttribute="height" multiplier="0.715084" id="itm-2Q-i9d"/>
+                <constraint firstItem="zaU-Ve-UP1" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.046875" id="sys-n1-YOS"/>
                 <constraint firstItem="qj0-SA-kbW" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.1" id="tKF-80-T9i"/>
                 <constraint firstItem="qj0-SA-kbW" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="u0I-Lu-3Zr"/>
+                <constraint firstItem="sn2-AR-5GG" firstAttribute="top" secondItem="qj0-SA-kbW" secondAttribute="bottom" constant="18" id="v0s-ca-YYE"/>
                 <constraint firstItem="19U-6Y-vmI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="41" id="x5j-mv-nYY"/>
+                <constraint firstItem="sn2-AR-5GG" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.3" id="zF4-Kj-f63"/>
             </constraints>
             <point key="canvasLocation" x="334.78260869565219" y="34.821428571428569"/>
         </view>
