@@ -8,9 +8,11 @@
 import UIKit
 import Kingfisher
 import RxSwift
+import RxCocoa
 class AllProductsViewController: UIViewController {
 
-    @IBOutlet weak var searchBar: UIToolbar!
+
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchProductsCV: UICollectionView!
     var listOfProducts : [Product] = []
     var productViewModel : ProductDetailsViewModel?
@@ -25,6 +27,7 @@ class AllProductsViewController: UIViewController {
         searchProductsCV.delegate = self
         searchProductsCV.dataSource = self
         getAllProductsFromApi()
+        setubSearchBar()
     }
 
 
@@ -39,8 +42,16 @@ class AllProductsViewController: UIViewController {
             } onError: { error in
                 print(error)
             }.disposed(by: disBag)
-        
-        
+    }
+    
+    func setubSearchBar(){
+        searchBar.rx.text.orEmpty.throttle(RxTimeInterval.microseconds(500), scheduler: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .subscribe { result in
+                self.productViewModel?.searchWithWord(word: result)
+            } .disposed(by: disBag)
+
+       
     }
 }
 
