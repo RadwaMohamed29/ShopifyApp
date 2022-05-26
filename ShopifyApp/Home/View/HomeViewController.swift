@@ -11,11 +11,12 @@ class HomeViewController: UIViewController {
 
     @IBOutlet weak var homeTV: UITableView!
     override func viewDidLoad() {
+  //  homeViewModel = HomeViewModel()
         super.viewDidLoad()
         setupTableView()
-
         // Do any additional setup after loading the view.
     }
+
     func setupTableView(){
         homeTV.register(AbsTableViewCell.Nib(), forCellReuseIdentifier: AbsTableViewCell.identifier)
         homeTV.register(BrandTableViewCell.Nib(), forCellReuseIdentifier: BrandTableViewCell.identifier)
@@ -55,9 +56,7 @@ extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
             let adsCell = tableView.dequeueReusableCell(withIdentifier: AbsTableViewCell.identifier, for: indexPath)
             return adsCell
         default:
-       
-            
-                    let brandCell = tableView.dequeueReusableCell(withIdentifier: BrandTableViewCell.identifier, for: indexPath) as! BrandTableViewCell
+        let brandCell = tableView.dequeueReusableCell(withIdentifier: BrandTableViewCell.identifier, for: indexPath) as! BrandTableViewCell
                     return brandCell
         }
     }
@@ -76,15 +75,15 @@ extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
         var title = ""
         switch section{
         case 0:
-            title = ""
+            title = "ADS"
         default:
-            title = ""
+            title = "BRANDS"
         }
         return title
     }
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont(name: "Optima", size: 18)
+        header.textLabel?.font = UIFont(name: "Verdana", size: 18)
         header.textLabel?.textAlignment = NSTextAlignment.center
         header.textLabel?.textColor = UIColor.label
     }
