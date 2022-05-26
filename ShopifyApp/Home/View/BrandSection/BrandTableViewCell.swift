@@ -8,6 +8,8 @@
 import UIKit
 import Kingfisher
 import KRProgressHUD
+import RxSwift
+
 class BrandTableViewCell: UITableViewCell {
 
     @IBOutlet weak var brandCollectionView: UICollectionView!
@@ -16,30 +18,26 @@ class BrandTableViewCell: UITableViewCell {
         return UINib(nibName: "BrandTableViewCell", bundle: nil)
     }
     var homeViewModel: HomeViewModel?
-    {
-        didSet{
-            homeViewModel?.callFuncTogetBrands(completionHandler: {
-                            (isFinished) in
-                            if !isFinished {
-                                KRProgressHUD.show()
-                            }else {
-                                KRProgressHUD.dismiss()
-                            }
-            
-                        })
-                                homeViewModel?.getBrands = {[weak self] vm in
-                    DispatchQueue.main.async {
-                  self?.brandCollectionView.reloadData()
-              }
-             }
-        }
-    }
-  
+    let disBag = DisposeBag()
     var arrayOfBrands: [Smart_collections] = []
     override func awakeFromNib() {
         super.awakeFromNib()
         homeViewModel = HomeViewModel()
         setupCollectionView()
+        getAllBrandsFromApi()
+    }
+    func getAllBrandsFromApi(){
+        homeViewModel?.getAllBrands()
+        homeViewModel?.allBrandObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { brands in
+                self.arrayOfBrands = brands
+                self.brandCollectionView.reloadData()
+            } onError: { error in
+                print(error)
+            }.disposed(by: disBag)
+        
+
     }
     func setupCollectionView(){
         brandCollectionView.register(BrandsCollectionViewCell.Nib(), forCellWithReuseIdentifier: BrandsCollectionViewCell.identifier)
@@ -50,7 +48,7 @@ class BrandTableViewCell: UITableViewCell {
 }
 extension BrandTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return homeViewModel?.brandsData?.smart_collections?.count ?? 0
+        return arrayOfBrands.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -63,10 +61,7 @@ extension BrandTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
         return cell
     }
     private func setupCell(cell: BrandsCollectionViewCell , indexPath: IndexPath) {
-        let item = homeViewModel?.brandsData?.smart_collections?[indexPath.row]
-        guard let item = item else {
-            return
-        }
+        let item = arrayOfBrands[indexPath.row]
         cell.brandLabel.text = item.title
         let url = URL(string: (item.image?.src)!)
         cell.brandImageView.kf.setImage(with: url)

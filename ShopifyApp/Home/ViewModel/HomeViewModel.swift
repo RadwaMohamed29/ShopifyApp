@@ -6,38 +6,29 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 protocol DataOfBrands{
-    func callFuncTogetBrands(completionHandler:@escaping (Bool) -> Void)
-    var getBrands: ((DataOfBrands)->Void)? {get set}
-    var brandsData: Brands? {get set}
+    func  getAllBrands()
+  var allBrandObservable :Observable<[Smart_collections]>{get set}
 }
 class HomeViewModel: DataOfBrands {
-    var getBrands: ((DataOfBrands) -> Void)?
-
-    var brandsData: Brands?{
-        didSet{
-            getBrands!(self)
-
-        }
-    }
-
+    var allBrandObservable: Observable<[Smart_collections]>
     
-    let allBrandsProvider: NetworkServiceProtocol = APIClient()
-
-    func callFuncTogetBrands(completionHandler: @escaping (Bool) -> Void) {
-        completionHandler(false)
-        allBrandsProvider.getBrandsFromAPI { [weak self] result in
+    var network = APIClient()
+    private var allBrandsSubject : PublishSubject = PublishSubject<[Smart_collections]>()
+    init(){
+        allBrandObservable = allBrandsSubject.asObserver()
+    }
+    func getAllBrands() {
+        network.getBrandsFromAPI { [weak self] result in
             switch result {
-            case .success(let allBrands):
-                self?.brandsData = allBrands
-                print("fen el dataaaa\(allBrands)")
-            case.failure(let error):
-                print(error.localizedDescription)
+            case .success(let response):
+                guard let allBrands = response.smart_collections else{return}
+                self?.allBrandsSubject.asObserver().onNext(allBrands)
+            case .failure(let error):
+                self?.allBrandsSubject.asObserver().onError(error)
             }
-            completionHandler(true)
-
-
         }
     }
-    
 }
