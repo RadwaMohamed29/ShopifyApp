@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AllProductsViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
-                <outlet property="searchBar" destination="XBF-iO-QVO" id="LwP-sU-NB6"/>
+                <outlet property="searchBar" destination="Pj6-g3-cX5" id="Ybq-Em-NlU"/>
                 <outlet property="searchProductsCV" destination="JbU-VK-Tzp" id="bMN-r6-3VK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

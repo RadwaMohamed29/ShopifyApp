@@ -22,7 +22,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
    
     
    
-    
+    private var listOfProduct : [Product] = []
     var network = APIClient()
     var productObservable: Observable<Product>
     var allProductsObservable :Observable<[Product]>
@@ -58,6 +58,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                
             case .success(let response):
                 guard let allProducts = response.products else{return}
+                self?.listOfProduct = allProducts
                 self?.allProductsSubject.asObserver().onNext(allProducts)
             case .failure(let error):
                 self?.allProductsSubject.asObserver().onError(error)
@@ -65,5 +66,15 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         }
     }
     
-    
+    func searchWithWord(word:String){
+        if word.isEmpty{
+            allProductsSubject.onNext(listOfProduct)
+            return
+        }
+            let filterProducts = listOfProduct.filter { Product in
+                return Product.title.lowercased().contains(word.lowercased())
+        }
+        allProductsSubject.onNext(filterProducts)
+
+    }
 }
