@@ -23,6 +23,8 @@ class HomeViewController: UIViewController {
         homeTV.dataSource = self
     }
     @IBAction func search(_ sender: Any) {
+        let searchVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
+        self.navigationController?.pushViewController(searchVC, animated: true)
     }
 
     @IBAction func fav(_ sender: Any) {

@@ -33,7 +33,7 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
 
     override func viewWillAppear(_ animated: Bool) {
         if !favProducts.isEmpty{
-            noDataView.removeFromSuperview()
+            noDataView.isHidden = true
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

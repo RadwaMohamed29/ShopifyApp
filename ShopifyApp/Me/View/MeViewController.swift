@@ -28,7 +28,7 @@ class MeViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-            noUserFound.removeFromSuperview()
+            noUserFound.isHidden = true
         
     }
     @IBAction func gotoSignInScreen(_ sender: Any) {
