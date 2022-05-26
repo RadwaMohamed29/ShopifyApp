@@ -6,9 +6,16 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import CoreMedia
 
 class ProductDetailsViewController: UIViewController{
 
+    @IBOutlet weak var productOPtion: UILabel!
+    @IBOutlet weak var productRate: UILabel!
+    @IBOutlet weak var productPrice: UILabel!
+    @IBOutlet weak var productTitle: UILabel!
     @IBOutlet weak var collectionContainerView: UIView!
     @IBOutlet weak var imageControl: UIPageControl!
     @IBOutlet weak var productDescription: UITextView!{
@@ -32,19 +39,37 @@ class ProductDetailsViewController: UIViewController{
             productCollectionView.register(UINib(nibName: "ProductImagesCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ProductImagesCollectionViewCell")
         }
     }
-    let images = [UIImage(named: "p2"),UIImage(named: "p2"),UIImage(named: "p2")]
-    let sizes = ["2x2","5x8","9x7"]
+    var disposeBag = DisposeBag()
+    var images: [Images] = []
+    var optionsValue:[Options] = []
     var uiImageView = UIImageView()
+    var productViewModel: ProductDetailsViewModel?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupImageCollection()
-       // uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 30.0)
-        // Do any additional setup after loading the view.
+        productViewModel = ProductDetailsViewModel()
+        setUpScreen()
+        uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
     }
-
-     func setupImageCollection(){
-       
+    
+    func setUpScreen(){
+        productViewModel?.getProduct(id:"7782820085989")
+        productViewModel?.productObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance).subscribe{ [weak self] result in
+            guard let self = self else {return}
+                self.productTitle.text = result.element?.title
+                self.productDescription.text = result.element?.bodyHTML
+                self.images = result.element?.images ?? []
+                self.optionsValue = result.element?.options ?? []
+                
+              //  self.productPrice.text = result.element?.variants[0].price.append(" $")
+                self.productCollectionView.reloadData()
+                self.sizeTableView.reloadData()
+            
+        }.disposed(by: disposeBag)
     }
+    
 
 
 }
@@ -55,12 +80,14 @@ extension ProductDetailsViewController: UICollectionViewDataSource,UICollectionV
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
         
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let productImagesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductImagesCollectionViewCell", for: indexPath) as! ProductImagesCollectionViewCell
-        productImagesCell.productImage.image = images[indexPath.row]
-        imageControl.numberOfPages = images.count
+                let url = URL(string: self.images[indexPath.row].src)
+                productImagesCell.productImage.kf.setImage(with: url)
+        self.imageControl.numberOfPages = images.count
         return productImagesCell
     }
     
@@ -75,13 +102,12 @@ extension ProductDetailsViewController: UICollectionViewDataSource,UICollectionV
 
 extension ProductDetailsViewController: UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        sizes.count
+        return optionsValue.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let sizesCell = sizeTableView.dequeueReusableCell(withIdentifier: "SizeTableViewCell", for: indexPath) as! SizeTableViewCell
-        
-        sizesCell.sixe.text = sizes[indexPath.row]
+        sizesCell.sixe.text = optionsValue[0].values[indexPath.row]
         return sizesCell
     }
     
