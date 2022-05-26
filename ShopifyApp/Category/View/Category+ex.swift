@@ -7,17 +7,17 @@
 
 import Foundation
 import UIKit
+import RxCocoa
+import RxSwift
+import Kingfisher
 
 struct Items{
     var name:String
 }
-
-
-
 extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list.count
+        return categoryList?.count ?? 0
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -26,8 +26,13 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as! CategoryCollectionViewCell
-        cell.imgView.image = UIImage(named: list[indexPath.row].name)
-        cell.label.text = "2500 $"
+//        cell.imgView.image = UIImage(named: list[indexPath.row].name)
+//        cell.label.text = "2500 $"
+        
+        let url = URL(string: categoryList?[indexPath.row].image.src ?? "")
+        cell.imgView.kf.setImage(with: url)
+//        cell.label.text = imagesList[indexPath.row]
+        
         cell.layer.cornerRadius = 12
         
         cell.label.shadowColor = UIColor.gray
@@ -35,8 +40,22 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         return cell
     }
     
-    
-    
+    func getCategory(target:Endpoints){
+        viewModel.getFilteredProducts(target: target)
+        viewModel.categoryObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background)).observe(on: MainScheduler.instance)
+            .subscribe { [weak self]result in
+                self?.categoryList = result
+                self?.categoryCollection.reloadData()
+            } onError: { error in
+                //MARK: show Dialog
+                print("\(error)")
+            } onCompleted: {
+                print("completed")
+            } onDisposed: {
+                print("disposed")
+            }.disposed(by: disposeBag)
+
+                       }
     
      func setupCollectionItemSize(){
         if collectionFlowLayout == nil{

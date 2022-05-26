@@ -13,14 +13,18 @@ enum Endpoints {
     case MenCategoryProduct
     case WomenCategoryProduct
     case KidsCategoryProduct
+    case SaleCategoryProduct
     case ProductDetails(id:String)
     
     var path:String{
         switch self {
+            
+        case .SaleCategoryProduct:
+            return "collections/395728224485/products.json"
         case .HomeCategoryProducts:
             return "products.json"
         case .MenCategoryProduct:
-            return "collections/268359598278/products.json"
+            return "collections/395728126181‬/products.json"
         case .WomenCategoryProduct:
             return "collections/395728158949/products.json"
         case .KidsCategoryProduct:

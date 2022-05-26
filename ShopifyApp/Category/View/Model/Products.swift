@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Products:Codable{
-    let products:[ProductElement]
+struct CategoryProducts:Codable{
+    let products:[ProductElement]?
 }
 
 struct ProductElement:Codable {

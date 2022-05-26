@@ -12,7 +12,11 @@
             <connections>
                 <outlet property="categoryCollection" destination="nvr-ww-Pqi" id="T3j-gf-4ja"/>
                 <outlet property="fabBtn" destination="6de-Pc-Q7o" id="IDP-dr-bWV"/>
+                <outlet property="kids" destination="PuE-Mg-ccB" id="sIc-BW-cgo"/>
+                <outlet property="men" destination="hkk-V7-Kdv" id="pfW-Yr-Fld"/>
+                <outlet property="sale" destination="F8i-HZ-4M9" id="9Hf-6G-kUF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="women" destination="7aq-fw-yjc" id="VZe-dz-AHb"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

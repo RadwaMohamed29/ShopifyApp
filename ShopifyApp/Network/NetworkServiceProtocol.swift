@@ -10,4 +10,5 @@ import Foundation
 protocol NetworkServiceProtocol{
     func productDetailsProvider(id:String ,completion :@escaping (Result<Products,ErrorType>)->Void)
     
+    func getFilteredCategory(target:Endpoints, completion: @escaping(Result<CategoryProducts, ErrorType>)->())
 }

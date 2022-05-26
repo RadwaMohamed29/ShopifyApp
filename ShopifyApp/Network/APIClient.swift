@@ -10,6 +10,10 @@ import Foundation
 private let BASE_URL = "https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/"
 
 class APIClient: NetworkServiceProtocol{
+    func getFilteredCategory(target: Endpoints, completion: @escaping (Result<CategoryProducts, ErrorType>) -> ()) {
+        request(endpoint: target, method: .GET, compeletion: completion)
+    }
+    
     func productDetailsProvider(id: String, completion: @escaping (Result<Products, ErrorType>) -> Void) {
         request(endpoint: .ProductDetails(id: id), method: .GET, compeletion: completion)
     }
@@ -50,7 +54,7 @@ class APIClient: NetworkServiceProtocol{
                 let object = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(object))
             }    catch {
-                print(fatalError(error.localizedDescription))
+//                print(fatalError(error.localizedDescription))
                 completion(.failure(.parsingError))
             }
             
