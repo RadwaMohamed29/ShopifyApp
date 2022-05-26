@@ -58,10 +58,14 @@
 		9CC2D428283AA22F00C9B59E /* FavouriteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CC2D426283AA22F00C9B59E /* FavouriteCollectionViewCell.xib */; };
 		9CCBF3DE283BF81F00825219 /* FavouriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CCBF3DC283BF81F00825219 /* FavouriteViewController.swift */; };
 		9CCBF3DF283BF81F00825219 /* FavouriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CCBF3DD283BF81F00825219 /* FavouriteViewController.xib */; };
+		BE05DE1A29610B1E00B5A454 /* ErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05DE1929610B1E00B5A454 /* ErrorType.swift */; };
+		BE05DE1C29610B8700B5A454 /* Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE05DE1B29610B8700B5A454 /* Methods.swift */; };
 		BED44803283E57EA00EA74BC /* CheckoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED44801283E57EA00EA74BC /* CheckoutViewController.xib */; };
 		BED44804283E57EA00EA74BC /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED44802283E57EA00EA74BC /* CheckoutViewController.swift */; };
 		BED44807283E582500EA74BC /* PaymentMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED44805283E582400EA74BC /* PaymentMethodViewController.xib */; };
 		BED44808283E582500EA74BC /* PaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED44806283E582500EA74BC /* PaymentMethodViewController.swift */; };
+		BED4480B283E773400EA74BC /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED4480A283E773400EA74BC /* NetworkServiceProtocol.swift */; };
+		BED4480D283E7CBE00EA74BC /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED4480C283E7CBE00EA74BC /* Endpoints.swift */; };
 		C2312FF061798C585876F69D /* Pods_ShopifyApp_ShopifyAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 860C60966C760F2A8C2247D2 /* Pods_ShopifyApp_ShopifyAppUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -145,10 +149,14 @@
 		9CCBF3DC283BF81F00825219 /* FavouriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteViewController.swift; sourceTree = "<group>"; };
 		9CCBF3DD283BF81F00825219 /* FavouriteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavouriteViewController.xib; sourceTree = "<group>"; };
 		AB501590C743C258956D947D /* Pods-ShopifyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShopifyApp.debug.xcconfig"; path = "Target Support Files/Pods-ShopifyApp/Pods-ShopifyApp.debug.xcconfig"; sourceTree = "<group>"; };
+		BE05DE1929610B1E00B5A454 /* ErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorType.swift; sourceTree = "<group>"; };
+		BE05DE1B29610B8700B5A454 /* Methods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Methods.swift; sourceTree = "<group>"; };
 		BED44801283E57EA00EA74BC /* CheckoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckoutViewController.xib; sourceTree = "<group>"; };
 		BED44802283E57EA00EA74BC /* CheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		BED44805283E582400EA74BC /* PaymentMethodViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentMethodViewController.xib; sourceTree = "<group>"; };
 		BED44806283E582500EA74BC /* PaymentMethodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewController.swift; sourceTree = "<group>"; };
+		BED4480A283E773400EA74BC /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
+		BED4480C283E7CBE00EA74BC /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -312,6 +320,10 @@
 			isa = PBXGroup;
 			children = (
 				1654EBA22836091F000B78F1 /* APIClient.swift */,
+				BED4480A283E773400EA74BC /* NetworkServiceProtocol.swift */,
+				BED4480C283E7CBE00EA74BC /* Endpoints.swift */,
+				BE05DE1929610B1E00B5A454 /* ErrorType.swift */,
+				BE05DE1B29610B8700B5A454 /* Methods.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -772,22 +784,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BED4480D283E7CBE00EA74BC /* Endpoints.swift in Sources */,
 				16873CDA283D86A000694061 /* ProductDetailsViewController.swift in Sources */,
 				162FEA45283D84F6007BD95B /* CategoryCollectionViewCell.xib in Sources */,
 				162FEA46283D84F6007BD95B /* CategoryCollectionViewCell.swift in Sources */,
 				162FEA47283D84F6007BD95B /* Category+ex.swift in Sources */,
 				9C898C2528381CB500A86758 /* MeViewController.swift in Sources */,
 				3E37B9B6283D9860000A0FD9 /* ShoppingCartVC.swift in Sources */,
+				BED4480B283E773400EA74BC /* NetworkServiceProtocol.swift in Sources */,
 				16B7CB53283F0F27001E0342 /* productDetailsViewModel.swift in Sources */,
 				1654EB6F2835EB2F000B78F1 /* ViewController.swift in Sources */,
 				BED44808283E582500EA74BC /* PaymentMethodViewController.swift in Sources */,
 				9CCBF3DE283BF81F00825219 /* FavouriteViewController.swift in Sources */,
 				1654EB6B2835EB2F000B78F1 /* AppDelegate.swift in Sources */,
 				1654EB752835EB2F000B78F1 /* ShopifyApp.xcdatamodeld in Sources */,
+				BE05DE1C29610B8700B5A454 /* Methods.swift in Sources */,
 				3E753465283AEEA90072EF9A /* BrandTableViewCell.swift in Sources */,
 				3E37B9BA283D986A000A0FD9 /* OrdersTVC.swift in Sources */,
 				16B7CB50283EF5B1001E0342 /* Product.swift in Sources */,
 				3E75345D283ADFF70072EF9A /* AbsTableViewCell.swift in Sources */,
+				BE05DE1A29610B1E00B5A454 /* ErrorType.swift in Sources */,
 				3E37B9B3283D9853000A0FD9 /* LoginViewController.swift in Sources */,
 				3EC598F8283B0E6400050CE5 /* BrandsCollectionViewCell.swift in Sources */,
 				BED44804283E57EA00EA74BC /* CheckoutViewController.swift in Sources */,
