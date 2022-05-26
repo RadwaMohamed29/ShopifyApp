@@ -108,7 +108,7 @@ extension ProductDetailsViewController: UITableViewDelegate,UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let sizesCell = sizeTableView.dequeueReusableCell(withIdentifier: "SizeTableViewCell", for: indexPath) as! SizeTableViewCell
-       // sizesCell.sixe.text = optionsValue[0].values[indexPath.row]
+        sizesCell.sixe.text = optionsValue[0].values[indexPath.row]
         return sizesCell
     }
     
