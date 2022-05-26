@@ -60,13 +60,9 @@ class APIClient: NetworkServiceProtocol{
             }    catch {
 
                     completion(.failure(.parsingError))
-                }
-
                 print(fatalError(error.localizedDescription))
-                completion(.failure(.parsingError))
-            }
-            
 
+                }
         }.resume()
     }
     

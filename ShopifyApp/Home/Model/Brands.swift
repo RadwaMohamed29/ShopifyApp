@@ -23,7 +23,7 @@ struct Smart_collections: Codable{
     let rules : [Rules]?
     let published_scope : String?
     let admin_graphql_api_id : String?
-    let image : Image?
+    let image : ImageBrand?
 
 }
 struct Rules : Codable {
@@ -31,7 +31,7 @@ struct Rules : Codable {
     let relation : String?
     let condition : String?
 }
-struct Image : Codable {
+struct ImageBrand : Codable {
     let created_at : String?
     let alt : String?
     let width : Int?
