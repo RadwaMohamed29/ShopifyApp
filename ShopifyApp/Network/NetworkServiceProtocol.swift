@@ -8,6 +8,6 @@
 import Foundation
 
 protocol NetworkServiceProtocol{
-
+    func productDetailsProvider(id:String ,completion :@escaping (Result<Products,ErrorType>)->Void)
     
 }

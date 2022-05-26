@@ -438,7 +438,7 @@
 		1AEF14B224A7B665BFE80BC03EF5A7FF /* Kingfisher-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Kingfisher-Info.plist"; sourceTree = "<group>"; };
 		1C33CB84138510317C9CFF8E19C47C23 /* KRProgressHUD */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = KRProgressHUD; path = KRProgressHUD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D07F5D646511C2355EC4473685EB9A8 /* AuthenticationChallengeResponsable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AuthenticationChallengeResponsable.swift; path = Sources/Networking/AuthenticationChallengeResponsable.swift; sourceTree = "<group>"; };
-		1D987EDF994D7E19924277775EB2747F /* Pods-ShopifyApp */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ShopifyApp"; path = Pods_ShopifyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D987EDF994D7E19924277775EB2747F /* Pods_ShopifyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShopifyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E8DCF1359355909314065E802C15F9A /* KRProgressHUDIconType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KRProgressHUDIconType.swift; path = KRProgressHUD/Classes/KRProgressHUDIconType.swift; sourceTree = "<group>"; };
 		1EF207CDE8F89449493C8A1C22FCF058 /* Alamofire.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Alamofire.modulemap; sourceTree = "<group>"; };
 		1F673472BFA10D635CCE2306AA35CD7D /* Kingfisher-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Kingfisher-prefix.pch"; sourceTree = "<group>"; };
@@ -593,7 +593,7 @@
 		99ED6E327142E4C88061B48491CE8CDA /* StringExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Sources/Private/Utility/Extensions/StringExtensions.swift; sourceTree = "<group>"; };
 		9AD6FF212568D5131AC3A69EF9F8F1A9 /* AnimationView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimationView.swift; path = Sources/Public/Animation/AnimationView.swift; sourceTree = "<group>"; };
 		9CEB787677B16A30C9AEAE5AFAFED6E5 /* Resource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Resource.swift; path = Sources/General/ImageSource/Resource.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E58576A4748204A7033A9E1280A4176 /* Pods-ShopifyApp-ShopifyAppUITests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ShopifyApp-ShopifyAppUITests-Info.plist"; sourceTree = "<group>"; };
 		9E646000D1F8ECC47A1723EE8CD021BE /* Kingfisher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Kingfisher.debug.xcconfig; sourceTree = "<group>"; };
 		9FD47401C03E7751787A14DE94ECCB4F /* KRActivityIndicatorView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KRActivityIndicatorView.swift; path = KRActivityIndicatorView/Classes/KRActivityIndicatorView.swift; sourceTree = "<group>"; };
@@ -896,7 +896,6 @@
 				DD0974B73189D8BB1A69A24D8A34362C /* KRActivityIndicatorViewStyle.swift */,
 				46474ABCB63BC829AD1BCF20E2737C96 /* Support Files */,
 			);
-			name = KRActivityIndicatorView;
 			path = KRActivityIndicatorView;
 			sourceTree = "<group>";
 		};
@@ -996,7 +995,6 @@
 				FF46CF485AB8C36D14D99B36C2EA870C /* WKInterfaceImage+Kingfisher.swift */,
 				26E9294EE99D52152A175EBE8E03B1D5 /* Support Files */,
 			);
-			name = Kingfisher;
 			path = Kingfisher;
 			sourceTree = "<group>";
 		};
@@ -1136,7 +1134,6 @@
 				391495FB83C377615CDDC3A7E596F9BA /* VectorsExtensions.swift */,
 				36946C3DC1D7DB7CB561A62CE33523B0 /* Support Files */,
 			);
-			name = "lottie-ios";
 			path = "lottie-ios";
 			sourceTree = "<group>";
 		};
@@ -1210,7 +1207,7 @@
 				9258ECC23A4C8B0274C7A6DF69DDFE95 /* KRActivityIndicatorView */,
 				1C33CB84138510317C9CFF8E19C47C23 /* KRProgressHUD */,
 				51BA97E8B5085EFFB47BC9C0B785CEA7 /* lottie-ios */,
-				1D987EDF994D7E19924277775EB2747F /* Pods-ShopifyApp */,
+				1D987EDF994D7E19924277775EB2747F /* Pods_ShopifyApp.framework */,
 				810D98D4F74FF88CCFB8A0E50F1442EF /* Pods-ShopifyApp-ShopifyAppUITests */,
 				3C3F6DA6A80225A3B38F41B997A59B8A /* Pods-ShopifyAppTests */,
 				21B03CA622E690725A6626C088E1D09F /* ReachabilitySwift */,
@@ -1273,7 +1270,6 @@
 				CBB7727BC776D95E492161D350219207 /* Validation.swift */,
 				BD999721FFE95DA3001D17840DC634F0 /* Support Files */,
 			);
-			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -1283,7 +1279,6 @@
 				CE45B135A54B42104BF3803C4CEF573E /* Reachability.swift */,
 				8FB5F1AD1705D3CEA4449C153A13E6F5 /* Support Files */,
 			);
-			name = ReachabilitySwift;
 			path = ReachabilitySwift;
 			sourceTree = "<group>";
 		};
@@ -1297,7 +1292,6 @@
 				5C74F895895CCA9FE5CE957A4C141ACE /* KRProgressHUDViewController.swift */,
 				E4B46866C7947F912F65D7F2E300B093 /* Support Files */,
 			);
-			name = KRProgressHUD;
 			path = KRProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -1324,7 +1318,6 @@
 				257566D1C87E9EF0893D630DCEA7C93B /* UIView+Draggable.swift */,
 				742DF8D84E01A6360122CBFCEB81951B /* Support Files */,
 			);
-			name = Floaty;
 			path = Floaty;
 			sourceTree = "<group>";
 		};
@@ -1657,7 +1650,7 @@
 			);
 			name = "Pods-ShopifyApp";
 			productName = Pods_ShopifyApp;
-			productReference = 1D987EDF994D7E19924277775EB2747F /* Pods-ShopifyApp */;
+			productReference = 1D987EDF994D7E19924277775EB2747F /* Pods_ShopifyApp.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
