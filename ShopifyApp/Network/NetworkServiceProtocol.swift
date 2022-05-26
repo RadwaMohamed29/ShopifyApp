@@ -9,5 +9,7 @@ import Foundation
 
 protocol NetworkServiceProtocol{
 
+    func getBrandsFromAPI(completion: @escaping(Result<Brands,ErrorType>) -> Void)
+
     
 }
