@@ -29,7 +29,7 @@ class HomeViewController: UIViewController {
     @IBAction func fav(_ sender: Any) {
     }
     @IBAction func cart(_ sender: Any) {
-        let a = ShoppingCartVC(nibName: "ShoppingCartVC", bundle: nil)
+        let a = ProductDetailsViewController(nibName:"ProductDetailsViewController", bundle: nil)
          self.navigationController?.pushViewController(a, animated: true)
         
     }

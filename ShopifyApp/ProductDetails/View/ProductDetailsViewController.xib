@@ -15,6 +15,10 @@
                 <outlet property="imageControl" destination="T3y-St-RsN" id="scS-A0-Lw5"/>
                 <outlet property="productCollectionView" destination="4hv-Ss-yBH" id="lKc-gc-mBm"/>
                 <outlet property="productDescription" destination="2FZ-wd-2Js" id="l6F-7S-ny0"/>
+                <outlet property="productOPtion" destination="7jT-UP-pvu" id="BBU-zK-fm1"/>
+                <outlet property="productPrice" destination="wb9-ca-uxf" id="Bce-Xl-Oao"/>
+                <outlet property="productRate" destination="qdc-cH-AKW" id="rIS-oY-IiI"/>
+                <outlet property="productTitle" destination="ln0-v4-zqu" id="TE3-eM-ERi"/>
                 <outlet property="sizeTableView" destination="zkV-If-rji" id="Mwz-fW-NA5"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -68,12 +72,12 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="React Frenzy" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ln0-v4-zqu">
-                                    <rect key="frame" x="18" y="24" width="228.5" height="29"/>
-                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                    <rect key="frame" x="18" y="24" width="290" height="29"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                                     <color key="textColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                     <variation key="heightClass=regular-widthClass=compact">
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                     </variation>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Sizes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jT-UP-pvu">
@@ -212,7 +216,7 @@
                 <constraint firstItem="OPl-ZU-5R6" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Jw5-ry-Hwf"/>
                 <constraint firstItem="EYL-vn-RsG" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.135266" id="f6A-TD-GDu"/>
                 <constraint firstItem="ln0-v4-zqu" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0323661" id="ocw-LW-L8I"/>
-                <constraint firstItem="ln0-v4-zqu" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.551449" id="pH0-fc-p5u"/>
+                <constraint firstItem="ln0-v4-zqu" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.7" id="pH0-fc-p5u"/>
                 <constraint firstItem="OPl-ZU-5R6" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="rRH-Ja-VNf"/>
                 <constraint firstItem="OPl-ZU-5R6" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="sd8-S5-6Vr"/>
             </constraints>
