@@ -11,10 +11,18 @@ private let BASE_URL = "https://c48655414af1ada2cd256a6b5ee391be:shpat_f2576052b
 
 class APIClient: NetworkServiceProtocol{
 
+    func getAllProduct(completion: @escaping (Result<AllProducts, ErrorType>) -> Void) {
+        request(endpoint: .allProducts, method: .GET, compeletion: completion)
+    }
+    
+    
+
+
     func getBrandsFromAPI(completion: @escaping (Result<Brands, ErrorType>) -> Void) {
         request(endpoint: .Smart_collections, method: .GET, compeletion: completion)
     
     }
+
 
     func productDetailsProvider(id: String, completion: @escaping (Result<Products, ErrorType>) -> Void) {
         request(endpoint: .ProductDetails(id: id), method: .GET, compeletion: completion)

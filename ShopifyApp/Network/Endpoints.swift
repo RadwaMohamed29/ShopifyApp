@@ -9,7 +9,7 @@ import Foundation
 
 
 enum Endpoints {
-    
+    case allProducts
     case MenCategoryProduct
     case WomenCategoryProduct
     case KidsCategoryProduct
@@ -27,6 +27,10 @@ enum Endpoints {
             return "collections/268359663814/products.json"
         case .ProductDetails(id: let productId):
             return "products/\(productId).json"
+
+        case .allProducts:
+            return "products.json"
+
         case .Smart_collections:
             return "smart_collections.json"
         }

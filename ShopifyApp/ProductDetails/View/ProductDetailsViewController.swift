@@ -12,6 +12,7 @@ import CoreMedia
 
 class ProductDetailsViewController: UIViewController{
 
+    var productId : Int?
     @IBOutlet weak var productOPtion: UILabel!
     @IBOutlet weak var productRate: UILabel!
     @IBOutlet weak var productPrice: UILabel!
@@ -54,7 +55,7 @@ class ProductDetailsViewController: UIViewController{
     }
     
     func setUpScreen(){
-        productViewModel?.getProduct(id:"7782820085989")
+        productViewModel?.getProduct(id: "\(productId ?? 0)")
         productViewModel?.productObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
             .observe(on: MainScheduler.asyncInstance).subscribe{ [weak self] result in
             guard let self = self else {return}
