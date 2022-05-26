@@ -10,6 +10,14 @@ import UIKit
 class SizeTableViewCell: UITableViewCell {
 
     @IBOutlet weak var sixe: UILabel!
+    var index: Int?
+    var product: Product!{
+        didSet{
+            self.sixe.text = product.options[index!].name
+            
+            
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
