@@ -9,7 +9,7 @@ import Foundation
 
 
 enum Endpoints {
-    
+    case HomeCategoryProducts
     case MenCategoryProduct
     case WomenCategoryProduct
     case KidsCategoryProduct
@@ -17,13 +17,14 @@ enum Endpoints {
     
     var path:String{
         switch self {
-        
+        case .HomeCategoryProducts:
+            return "products.json"
         case .MenCategoryProduct:
             return "collections/268359598278/products.json"
         case .WomenCategoryProduct:
-            return "collections/268359631046/products.json"
+            return "collections/395728158949/products.json"
         case .KidsCategoryProduct:
-            return "collections/268359663814/products.json"
+            return "collections/395728191717/products.json"
         case .ProductDetails(id: let productId):
             return "products/\(productId).json"
         }
