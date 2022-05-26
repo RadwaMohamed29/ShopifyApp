@@ -7,6 +7,9 @@
 
 import Foundation
 import SwiftUI
+struct AllProducts :Codable{
+    let products : [Product]?
+}
 
 struct Products: Codable{
     let product: Product?

@@ -7,33 +7,52 @@
 
 import UIKit
 import Kingfisher
+import RxSwift
 class AllProductsViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UIToolbar!
     @IBOutlet weak var searchProductsCV: UICollectionView!
-    var listOfProducts : [String] = []
+    var listOfProducts : [Product] = []
+    var productViewModel : ProductDetailsViewModel?
+    let disBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Products"
+        productViewModel = ProductDetailsViewModel()
+        
         let searchProductCell = UINib(nibName: "SearchCollectionViewCell", bundle: nil)
         searchProductsCV.register(searchProductCell, forCellWithReuseIdentifier: "searchCell")
         searchProductsCV.delegate = self
         searchProductsCV.dataSource = self
+        getAllProductsFromApi()
     }
 
 
 
+    func getAllProductsFromApi(){
+        productViewModel?.getAllProducts()
+        productViewModel?.allProductsObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { products in
+                self.listOfProducts = products
+                self.searchProductsCV.reloadData()
+            } onError: { error in
+                print(error)
+            }.disposed(by: disBag)
+        
+        
+    }
 }
 
 extension AllProductsViewController : UICollectionViewDelegate ,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        20
+        return listOfProducts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchCell", for: indexPath) as! SearchCollectionViewCell
         
-        let url = URL(string: "https://cdn.shopify.com/s/files/1/0643/6637/9237/products/85cc58608bf138a50036bcfe86a3a362.jpg?v=1652442194")
+        let url = URL(string: listOfProducts[indexPath.row].image.src)
         let processor = DownsamplingImageProcessor(size: cell.productImage.bounds.size)
                      |> RoundCornerImageProcessor(cornerRadius: 20)
         cell.productImage.kf.indicatorType = .activity
@@ -46,11 +65,19 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
                 .transition(.fade(1)),
                 .cacheOriginalImage
             ])
-        
+        cell.productName.text = listOfProducts[indexPath.row].title
         cell.favBtn.tag = indexPath.row
         cell.favBtn.addTarget(self, action: #selector(showConformDialog), for: .touchUpInside)
         return cell
     }
+    
+  
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let productDetailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
+        productDetailsVC.productId = listOfProducts[indexPath.row].id
+        self.navigationController?.pushViewController(productDetailsVC, animated: true)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
     }
