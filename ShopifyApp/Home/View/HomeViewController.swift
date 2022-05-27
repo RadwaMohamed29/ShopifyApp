@@ -42,7 +42,7 @@ class HomeViewController: UIViewController,brandIdProtocol {
     @IBAction func fav(_ sender: Any) {
     }
     @IBAction func cart(_ sender: Any) {
-        let a = ProductDetailsViewController(nibName:"ProductDetailsViewController", bundle: nil)
+        let a = ShoppingCartVC(nibName:"ShoppingCartVC", bundle: nil)
          self.navigationController?.pushViewController(a, animated: true)
         
     }
