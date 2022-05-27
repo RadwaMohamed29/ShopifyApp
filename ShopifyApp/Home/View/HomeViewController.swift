@@ -7,13 +7,23 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController,brandIdProtocol {
+    func transBrandName(brandName: String) {
+        let productListVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
+        productListVC.brandName = brandName
+        productListVC.isCommingFromHome = "true"
+        self.navigationController?.pushViewController(productListVC, animated: true)
+    }
+    
 
     @IBOutlet weak var homeTV: UITableView!
+ 
     override func viewDidLoad() {
-  //  homeViewModel = HomeViewModel()
+        
         super.viewDidLoad()
+        BrandTableViewCell.setHome(deleget: self)
         setupTableView()
+        
         // Do any additional setup after loading the view.
     }
 
@@ -24,8 +34,9 @@ class HomeViewController: UIViewController {
         homeTV.dataSource = self
     }
     @IBAction func search(_ sender: Any) {
-        let searchVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
-        self.navigationController?.pushViewController(searchVC, animated: true)
+        
+        goToAllProduct(isCommingFromBrand: "true", brnadName: "")
+
     }
 
     @IBAction func fav(_ sender: Any) {
@@ -35,6 +46,15 @@ class HomeViewController: UIViewController {
          self.navigationController?.pushViewController(a, animated: true)
         
     }
+   
+}
+extension HomeViewController{
+    func goToAllProduct(isCommingFromBrand: String,brnadName: String){
+    let productListVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
+    productListVC.brandName = brnadName
+    productListVC.isCommingFromHome = isCommingFromBrand
+    self.navigationController?.pushViewController(productListVC, animated: true)
+     }
 }
 extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -93,4 +113,5 @@ extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         homeTV.deselectRow(at: indexPath, animated: false)
     }
+    
 }

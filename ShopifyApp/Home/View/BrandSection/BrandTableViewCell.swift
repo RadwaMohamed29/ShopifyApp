@@ -9,14 +9,24 @@ import UIKit
 import Kingfisher
 import KRProgressHUD
 import RxSwift
+protocol brandIdProtocol{
+    func transBrandName (brandName: String)
+}
 
 class BrandTableViewCell: UITableViewCell {
 
     @IBOutlet weak var brandCollectionView: UICollectionView!
     static let identifier = "BrandTableViewCell"
+    var homeVc : HomeViewController?
+    static var brandDelegate: brandIdProtocol?
+    static func setHome(deleget :brandIdProtocol){
+        self.brandDelegate = deleget
+    }
+    
     static func Nib()-> UINib{
         return UINib(nibName: "BrandTableViewCell", bundle: nil)
     }
+    
     var homeViewModel: HomeViewModel?
     let disBag = DisposeBag()
     var arrayOfBrands: [Smart_collections] = []
@@ -81,5 +91,9 @@ extension BrandTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       guard let brandName = arrayOfBrands[indexPath.row].title  else {return}
+        BrandTableViewCell.brandDelegate?.transBrandName(brandName: brandName)
     }
 }
