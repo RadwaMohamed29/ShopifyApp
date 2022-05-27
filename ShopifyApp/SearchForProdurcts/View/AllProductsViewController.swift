@@ -11,10 +11,12 @@ import RxSwift
 import RxCocoa
 class AllProductsViewController: UIViewController {
 
-
+    var brandName : String?
+    var isCommingFromHome :String?
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchProductsCV: UICollectionView!
     var listOfProducts : [Product] = []
+    var filtered : [Product] = []
     var productViewModel : ProductDetailsViewModel?
     let disBag = DisposeBag()
     override func viewDidLoad() {
@@ -26,24 +28,70 @@ class AllProductsViewController: UIViewController {
         searchProductsCV.register(searchProductCell, forCellWithReuseIdentifier: "searchCell")
         searchProductsCV.delegate = self
         searchProductsCV.dataSource = self
-        getAllProductsFromApi()
+    
         setubSearchBar()
+        if isCommingFromHome == "true" {
+            getAllProductsFromApi()
+          
+        }else{
+            
+        }
     }
-
-
-
     func getAllProductsFromApi(){
         productViewModel?.getAllProducts()
         productViewModel?.allProductsObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
             .observe(on: MainScheduler.asyncInstance)
             .subscribe { products in
                 self.listOfProducts = products
-                self.searchProductsCV.reloadData()
+                if self.brandName == ""{
+                    self.searchProductsCV.reloadData()
+                }
+                else{
+                    switch (self.brandName!){
+                case "ADIDAS":
+                    self.filterProduct(BrandName: "ADIDAS")
+                case "ASICS TIGER":
+                    self.filterProduct(BrandName: "ASICS TIGER")
+                case "CONVERSE":
+                        self.filterProduct(BrandName: "CONVERSE")
+                case "DR MARTENS":
+                        self.filterProduct(BrandName: "DR MARTENS")
+                case "FLEX FIT":
+                        self.filterProduct(BrandName: "FLEX FIT")
+                case "HERSCHEL":
+                        self.filterProduct(BrandName: "HERSCHEL")
+                case "NIKE":
+                        self.filterProduct(BrandName: "NIKE")
+                case "PALLADUIM":
+                        self.filterProduct(BrandName: "PALLADUIM")
+                case "PUMA":
+                        self.filterProduct(BrandName: "PUMA")
+                case "SUPRA":
+                        self.filterProduct(BrandName: "SUPRA")
+                case "TIMBERLAND":
+                        self.filterProduct(BrandName: "TIMBERLAND")
+                case "VANS":
+                        self.filterProduct(BrandName: "VANS")
+                default:
+                    return
+                }
+                    
+                }
             } onError: { error in
                 print(error)
             }.disposed(by: disBag)
     }
-    
+    func filterProduct(BrandName: String) -> Array<Product> {
+        for product in self.listOfProducts {
+            if product.vendor == self.brandName!
+           {
+                self.filtered.append(product)
+           }
+        }
+        self.listOfProducts = self.filtered
+        self.searchProductsCV.reloadData()
+        return self.listOfProducts
+    }
     func setubSearchBar(){
         searchBar.rx.text.orEmpty.throttle(RxTimeInterval.microseconds(500), scheduler: MainScheduler.asyncInstance)
             .distinctUntilChanged()
@@ -87,6 +135,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         let productDetailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
         productDetailsVC.productId = listOfProducts[indexPath.row].id
         self.navigationController?.pushViewController(productDetailsVC, animated: true)
+        print("id productttttttttttttt\(listOfProducts[indexPath.row].id)")
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
