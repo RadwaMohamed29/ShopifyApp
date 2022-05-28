@@ -18,19 +18,19 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tca-sH-wnj">
-                        <rect key="frame" x="0.0" y="0.0" width="251" height="148.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="251" height="138"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uKu-kj-SBB">
-                        <rect key="frame" x="0.0" y="148.5" width="251" height="63.5"/>
+                        <rect key="frame" x="0.0" y="138" width="251" height="74"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKL-ei-KkC">
-                                <rect key="frame" x="4" y="8" width="243" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Product name" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKL-ei-KkC">
+                                <rect key="frame" x="4" y="0.0" width="243" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcJ-AV-iP8">
-                                <rect key="frame" x="216" y="37" width="31" height="23"/>
+                                <rect key="frame" x="216" y="47" width="31" height="27"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system" cornerStyle="capsule">
                                     <backgroundConfiguration key="background">
@@ -40,7 +40,7 @@
                                 </buttonConfiguration>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7G-4D-cJa">
-                                <rect key="frame" x="4" y="38" width="33" height="21"/>
+                                <rect key="frame" x="4" y="50" width="33" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -50,9 +50,11 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="RKL-ei-KkC" secondAttribute="trailing" constant="4" id="B6z-6C-FK9"/>
                             <constraint firstItem="RKL-ei-KkC" firstAttribute="leading" secondItem="uKu-kj-SBB" secondAttribute="leading" constant="4" id="CXH-ui-9y1"/>
+                            <constraint firstItem="RKL-ei-KkC" firstAttribute="height" secondItem="uKu-kj-SBB" secondAttribute="height" multiplier="0.530709" id="FXS-xp-T7P"/>
                             <constraint firstItem="tcJ-AV-iP8" firstAttribute="width" secondItem="uKu-kj-SBB" secondAttribute="width" multiplier="0.123506" id="GeP-lJ-hA0"/>
                             <constraint firstItem="tcJ-AV-iP8" firstAttribute="height" secondItem="uKu-kj-SBB" secondAttribute="height" multiplier="0.364706" id="It2-sw-72O"/>
-                            <constraint firstItem="RKL-ei-KkC" firstAttribute="top" secondItem="uKu-kj-SBB" secondAttribute="top" constant="8" id="SEv-Sx-3p3"/>
+                            <constraint firstItem="RKL-ei-KkC" firstAttribute="top" secondItem="uKu-kj-SBB" secondAttribute="top" id="SEv-Sx-3p3"/>
+                            <constraint firstItem="RKL-ei-KkC" firstAttribute="width" secondItem="uKu-kj-SBB" secondAttribute="width" multiplier="0.968127" id="h0Z-iC-9Gx"/>
                             <constraint firstItem="T7G-4D-cJa" firstAttribute="centerY" secondItem="tcJ-AV-iP8" secondAttribute="centerY" id="hfB-g2-0ja"/>
                             <constraint firstItem="tcJ-AV-iP8" firstAttribute="top" secondItem="RKL-ei-KkC" secondAttribute="bottom" constant="8" id="l5X-IH-rBe"/>
                             <constraint firstItem="T7G-4D-cJa" firstAttribute="leading" secondItem="RKL-ei-KkC" secondAttribute="leading" id="rbx-iV-nqC"/>
@@ -66,7 +68,7 @@
             <constraints>
                 <constraint firstItem="uKu-kj-SBB" firstAttribute="top" secondItem="tca-sH-wnj" secondAttribute="bottom" id="ACg-TF-1rb"/>
                 <constraint firstItem="uKu-kj-SBB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="BsT-NH-1YK"/>
-                <constraint firstItem="tca-sH-wnj" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.7" id="VF2-mz-JBT"/>
+                <constraint firstItem="tca-sH-wnj" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.65" id="VF2-mz-JBT"/>
                 <constraint firstAttribute="bottom" secondItem="uKu-kj-SBB" secondAttribute="bottom" id="f5b-We-J1x"/>
                 <constraint firstItem="tca-sH-wnj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="kdk-qM-eCI"/>
                 <constraint firstAttribute="trailing" secondItem="tca-sH-wnj" secondAttribute="trailing" id="oeD-U3-KE9"/>

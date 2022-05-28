@@ -73,14 +73,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECw-3x-onP">
                         <rect key="frame" x="0.0" y="376" width="436" height="80"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Black Bag" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y9G-hB-zty">
-                                <rect key="frame" x="0.0" y="8" width="436" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Black Bag" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y9G-hB-zty">
+                                <rect key="frame" x="0.0" y="8" width="436" height="44.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 97" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LJY-NN-0Sl">
-                                <rect key="frame" x="0.0" y="33" width="436" height="21"/>
+                                <rect key="frame" x="0.0" y="56.5" width="436" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -90,8 +90,10 @@
                         <constraints>
                             <constraint firstItem="LJY-NN-0Sl" firstAttribute="leading" secondItem="ECw-3x-onP" secondAttribute="leading" id="1wo-r8-kcs"/>
                             <constraint firstAttribute="trailing" secondItem="y9G-hB-zty" secondAttribute="trailing" id="5R4-YG-SFb"/>
+                            <constraint firstItem="y9G-hB-zty" firstAttribute="width" secondItem="ECw-3x-onP" secondAttribute="width" id="AfC-ms-qmU"/>
                             <constraint firstAttribute="trailing" secondItem="LJY-NN-0Sl" secondAttribute="trailing" id="LlZ-aO-J7P"/>
                             <constraint firstItem="y9G-hB-zty" firstAttribute="top" secondItem="ECw-3x-onP" secondAttribute="top" constant="8" id="dwS-wL-Rrp"/>
+                            <constraint firstItem="y9G-hB-zty" firstAttribute="height" secondItem="ECw-3x-onP" secondAttribute="height" multiplier="0.55625" id="fgw-8h-owJ"/>
                             <constraint firstItem="y9G-hB-zty" firstAttribute="leading" secondItem="ECw-3x-onP" secondAttribute="leading" id="i9b-J2-1TE"/>
                             <constraint firstItem="LJY-NN-0Sl" firstAttribute="top" secondItem="y9G-hB-zty" secondAttribute="bottom" constant="4" id="jHW-zi-Zl0"/>
                         </constraints>
@@ -116,6 +118,7 @@
             <size key="customSize" width="436" height="456"/>
             <connections>
                 <outlet property="ProductName" destination="y9G-hB-zty" id="RwT-dt-O4x"/>
+                <outlet property="bottomView" destination="ECw-3x-onP" id="Gz6-vA-RpB"/>
                 <outlet property="favouriteBtn" destination="XWk-tL-GSI" id="Cr5-gy-vUl"/>
                 <outlet property="priceOfTheProduct" destination="LJY-NN-0Sl" id="DvL-es-eWI"/>
                 <outlet property="productImage" destination="E1Y-6W-B7q" id="FF0-W7-ox3"/>
