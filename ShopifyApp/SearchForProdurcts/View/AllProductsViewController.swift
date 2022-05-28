@@ -34,18 +34,18 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         searchProductsCV.dataSource = self
     
         setubSearchBar()
-        if brandId == 0 {
-            getAllProductsFromApi()
+       
+        if isCommingFromHome == "true" {
+            if brandId == 0 {
+                getAllProductsFromApi()
+            }
+            else{
+                getProductOfBrands(cID: brandId!)
+            }
+
+        }else{
+
         }
-        else{
-            getProductOfBrands(cID: brandId!)
-        }
-//        if isCommingFromHome == "true" {
-//            getAllProductsFromApi()
-//
-//        }else{
-//
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -107,13 +107,19 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
                 .transition(.fade(1)),
                 .cacheOriginalImage
             ])
+        cell.productImage.layer.borderWidth = 1
+        cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
+        cell.productImage.layer.cornerRadius = 20
         cell.productName.text = listOfProducts[indexPath.row].title
+        cell.prodcutPrice.text = "$ \(listOfProducts[indexPath.row].variant[0].price ?? "")"
         productViewModel?.checkFavorite(id: "\(listOfProducts[indexPath.row].id)")
         if productViewModel?.isFav == true {
             cell.favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
         }else{
             cell.favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
         }
+        
+        
         cell.favBtn.tag = indexPath.row
         cell.favBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
         return cell
