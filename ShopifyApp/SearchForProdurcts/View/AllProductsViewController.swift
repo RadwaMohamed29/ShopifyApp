@@ -41,6 +41,11 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
             
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        searchProductsCV.reloadData()
+    }
     func getAllProductsFromApi(){
         productViewModel?.getAllProducts()
         productViewModel?.allProductsObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
@@ -160,7 +165,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
        
     @objc private func longPress(recognizer: UIButton) {
      
-        Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: listOfProducts, sharedProtocol: self)
+        Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: listOfProducts[recognizer.tag], sharedProtocol: self)
        
       }
     

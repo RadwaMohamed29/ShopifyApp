@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductDetailsViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
                 <outlet property="collectionContainerView" destination="Sfo-qx-DnQ" id="PMf-hD-0Wa"/>
+                <outlet property="favBtn" destination="EYL-vn-RsG" id="qAt-ur-yyV"/>
                 <outlet property="imageControl" destination="T3y-St-RsN" id="scS-A0-Lw5"/>
                 <outlet property="productCollectionView" destination="4hv-Ss-yBH" id="lKc-gc-mBm"/>
                 <outlet property="productDescription" destination="2FZ-wd-2Js" id="l6F-7S-ny0"/>

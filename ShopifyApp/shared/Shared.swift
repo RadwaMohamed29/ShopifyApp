@@ -13,12 +13,12 @@ protocol SharedProtocol{
 class Shared{
     static var sharedProtocol : SharedProtocol?
     
-    static func setOrRemoveProductToFavoriteList(recognizer: UIButton,delegate: AppDelegate,listOfProducts:[Product],sharedProtocol:SharedProtocol){
+    static func setOrRemoveProductToFavoriteList(recognizer: UIButton,delegate: AppDelegate,listOfProducts:Product,sharedProtocol:SharedProtocol){
         self.sharedProtocol = sharedProtocol
         let viewModel = ProductDetailsViewModel(appDelegate: delegate)
         var alertMessage = ""
         var alertTitle = ""
-        viewModel.checkFavorite(id: "\(listOfProducts[recognizer.tag].id)")
+        viewModel.checkFavorite(id: "\(listOfProducts.id)")
         
        
            
@@ -34,7 +34,7 @@ class Shared{
             }
     }
     
-   static func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool,viewModel: ProductDetailsViewModel,listOfProducts: [Product]){
+   static func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool,viewModel: ProductDetailsViewModel,listOfProducts: Product){
       let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
       let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
           self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav,viewModel: viewModel, listOfProducts: listOfProducts)
@@ -48,10 +48,10 @@ class Shared{
         
     }
     
-   static func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool,viewModel: ProductDetailsViewModel,listOfProducts: [Product]){
+   static func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool,viewModel: ProductDetailsViewModel,listOfProducts: Product){
         if isFav == false{
             do{
-                try viewModel.addFavouriteProductToCoreData(product: listOfProducts[index], completion: { response in
+                try viewModel.addFavouriteProductToCoreData(product: listOfProducts, completion: { response in
                     switch response{
                     case true:
                         print("add seuccessfully")
@@ -68,7 +68,7 @@ class Shared{
         }
        else if isFav == true{
             do{
-                try viewModel.removeProductFromFavorites(productID: "\(listOfProducts[index].id)", completionHandler: { response in
+                try viewModel.removeProductFromFavorites(productID: "\(listOfProducts.id)", completionHandler: { response in
                     switch response{
                     case true:
                         print("removed seuccessfully")

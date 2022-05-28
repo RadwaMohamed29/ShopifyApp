@@ -10,8 +10,13 @@ import RxSwift
 import RxCocoa
 import CoreMedia
 
-class ProductDetailsViewController: UIViewController{
+class ProductDetailsViewController: UIViewController,SharedProtocol{
+    func presentAlert(alert: UIAlertController) {
+        self.present(alert, animated: true, completion: nil)
+    }
     
+    
+    @IBOutlet weak var favBtn: UIButton!
     var productId : Int?
     @IBOutlet weak var productOPtion: UILabel!
     @IBOutlet weak var productRate: UILabel!
@@ -43,6 +48,7 @@ class ProductDetailsViewController: UIViewController{
     var disposeBag = DisposeBag()
     var images: [Images] = []
     var optionsValue:[String] = []
+    var listOfProducts : Product?
     var uiImageView = UIImageView()
     var productViewModel: ProductDetailsViewModel?
     
@@ -51,6 +57,7 @@ class ProductDetailsViewController: UIViewController{
         super.viewDidLoad()
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         setUpScreen()
+        setUpFavButton()
         uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
     }
     
@@ -61,6 +68,7 @@ class ProductDetailsViewController: UIViewController{
                         .observe(on: MainScheduler.asyncInstance)
                         .subscribe{ [weak self] result in
                 guard let self = self else {return}
+                            self.listOfProducts = result.element
                 self.productTitle.text = result.element?.title
                 self.productDescription.text = result.element?.bodyHTML
                 self.images = result.element?.images ?? []
@@ -69,11 +77,29 @@ class ProductDetailsViewController: UIViewController{
                 
                 self.productCollectionView.reloadData()
                 self.sizeTableView.reloadData()
-                
+                         
             }.disposed(by: disposeBag)
     }
     
     
+    func setUpFavButton(){
+        productViewModel?.checkFavorite(id: "\(productId ?? 0)")
+       if productViewModel?.isFav == true {
+          favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+       }else{
+          favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+       }
+      // cell.favBtn.tag = indexPath.row
+      favBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
+    }
+    
+    
+    
+ @objc private func longPress(recognizer: UIButton) {
+  
+     Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: listOfProducts!, sharedProtocol: self)
+    
+   }
     
 }
 
