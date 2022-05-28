@@ -58,6 +58,7 @@
 		9C898C2028381C9500A86758 /* CategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C898C1E28381C9500A86758 /* CategoryViewController.xib */; };
 		9C898C2528381CB500A86758 /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C898C2328381CB500A86758 /* MeViewController.swift */; };
 		9C898C2628381CB500A86758 /* MeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C898C2428381CB500A86758 /* MeViewController.xib */; };
+		9CA3FC9728426569005FF7CF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3FC9628426569005FF7CF /* Shared.swift */; };
 		9CB996D2283FC59100136ABC /* AllProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB996D0283FC59100136ABC /* AllProductsViewController.swift */; };
 		9CB996D3283FC59100136ABC /* AllProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CB996D1283FC59100136ABC /* AllProductsViewController.xib */; };
 		9CB996D8283FD8C500136ABC /* SearchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB996D6283FD8C500136ABC /* SearchCollectionViewCell.swift */; };
@@ -156,6 +157,7 @@
 		9C898C1E28381C9500A86758 /* CategoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryViewController.xib; sourceTree = "<group>"; };
 		9C898C2328381CB500A86758 /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		9C898C2428381CB500A86758 /* MeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeViewController.xib; sourceTree = "<group>"; };
+		9CA3FC9628426569005FF7CF /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		9CB996D0283FC59100136ABC /* AllProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProductsViewController.swift; sourceTree = "<group>"; };
 		9CB996D1283FC59100136ABC /* AllProductsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllProductsViewController.xib; sourceTree = "<group>"; };
 		9CB996D6283FD8C500136ABC /* SearchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 		1654EB692835EB2F000B78F1 /* ShopifyApp */ = {
 			isa = PBXGroup;
 			children = (
+				9CA3FC9528426551005FF7CF /* shared */,
 				1642622928417AA200DAF5F4 /* CoreData */,
 				162D068D284046A100820D0B /* Utils */,
 				9CB996CD283FC53A00136ABC /* SearchForProdurcts */,
@@ -541,6 +544,14 @@
 				9CC2D41D283A965B00C9B59E /* View */,
 			);
 			path = Favorite;
+			sourceTree = "<group>";
+		};
+		9CA3FC9528426551005FF7CF /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				9CA3FC9628426569005FF7CF /* Shared.swift */,
+			);
+			path = shared;
 			sourceTree = "<group>";
 		};
 		9CB996CD283FC53A00136ABC /* SearchForProdurcts */ = {
@@ -896,6 +907,7 @@
 				3EC598F8283B0E6400050CE5 /* BrandsCollectionViewCell.swift in Sources */,
 				BED44804283E57EA00EA74BC /* CheckoutViewController.swift in Sources */,
 				1654EBA32836091F000B78F1 /* APIClient.swift in Sources */,
+				9CA3FC9728426569005FF7CF /* Shared.swift in Sources */,
 				3E37B9AE283D9845000A0FD9 /* RegisterViewController.swift in Sources */,
 				3E753461283AEB530072EF9A /* AbsCollectionViewCell.swift in Sources */,
 				16873CD5283D868A00694061 /* SizeTableViewCell.swift in Sources */,
