@@ -112,7 +112,7 @@ extension LocalDataSource{
                                     ,price: product.value(forKey: "price")as? String
                                     ,image: product.value(forKey: "image")as? String
                                     ,quantity: product.value(forKey: "quantity")as? Int
-                                     ,sizes: product.value(forKey: "sizes")as? [String]
+                                 
                 ))
             }
             return selectedCart
@@ -129,7 +129,7 @@ extension LocalDataSource{
         product.setValue(newItem.image.src, forKey: "image")
         product.setValue(newItem.variant[0].price, forKey: "price")
         product.setValue(newItem.variant[0].inventoryQuantity, forKey: "quantity")
-        product.setValue(newItem.options[0].values, forKey: "size")
+    //    product.setValue(newItem.options[0].values, forKey: "size")
     //    let data = NSKeyedArchiver.archivedData(withRootObject: product.options[0].values)
         do{
             try contextCart.save()

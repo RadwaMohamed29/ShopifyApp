@@ -12,6 +12,5 @@ struct CartModel{
     var price: String?
     var image: String?
     var quantity: Int?
-    var sizes: [String]?
     
 }
