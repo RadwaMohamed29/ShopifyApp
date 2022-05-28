@@ -157,6 +157,9 @@
                                             </fragment>
                                         </attributedString>
                                     </buttonConfiguration>
+                                    <connections>
+                                        <action selector="addToCartBtn:" destination="-1" eventType="touchUpInside" id="EpV-Ka-Nem"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
