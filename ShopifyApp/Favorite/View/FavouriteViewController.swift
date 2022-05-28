@@ -7,43 +7,80 @@
 
 import UIKit
 import Kingfisher
+import RxSwift
 class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
-    
-
+    var disBag = DisposeBag()
+    var productViewModel : ProductDetailsViewModel?
+    var localDataSource : LocalDataSource?
     @IBOutlet weak var noDataView: UIView!
     
     @IBOutlet weak var favouriteCollectionView: UICollectionView!
 
-    var favProducts : Array<String> = []
+    var favProducts : [FavoriteProducts] = []
     var productName :String?
     var productImage : String?
     var productSize : Int?
     var productRate : Double?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "favorite"
+        self.title = "Favorite"
         
+        productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
+//        localDataSource = LocalDataSource(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
+//        do{
+//            favProducts = try localDataSource!.getProductFromCoreData()
+//        }catch{
+//
+//        }
+       
+        getFavoriteProductsFromCoreData()
+
         let favProductCell = UINib(nibName: "FavouriteCollectionViewCell", bundle: nil)
         favouriteCollectionView.register(favProductCell, forCellWithReuseIdentifier: "FavouriteproductCell")
-        favProducts.append("element")
         favouriteCollectionView.delegate = self
       favouriteCollectionView.dataSource = self
         // Do any additional setup after loading the view.
     }
+    
+    func getFavoriteProductsFromCoreData(){
+        
+        do{
+            try  productViewModel?.getAllFavoriteProducts(completion: { response in
+                //MARK: LSA M5LST4
+                switch response{
+                case true:
+                    print("data retrived successfuly")
+                case false:
+                    print("data cant't retrieved")
+                }
+            })
 
+        }
+        catch let error{
+            print(error.localizedDescription)
+        }
+        favProducts = (productViewModel?.favoriteProducts)!
+        favouriteCollectionView.reloadData()
+//        productViewModel?.favoriteProductObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+//            .observe(on: MainScheduler.asyncInstance)
+//            .subscribe(onNext: { [weak self] products in
+//                self?.favProducts = products
+//            }).disposed(by: disBag)
+       
+    }
     override func viewWillAppear(_ animated: Bool) {
         if !favProducts.isEmpty{
             noDataView.isHidden = true
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        20
+       return favProducts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
       let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
-        let url = URL(string: "https://cdn.shopify.com/s/files/1/0643/6637/9237/products/85cc58608bf138a50036bcfe86a3a362.jpg?v=1652442194")
+        let url = URL(string: favProducts[indexPath.row].scr)
         let processor = DownsamplingImageProcessor(size: cell.productImage.bounds.size)
                      |> RoundCornerImageProcessor(cornerRadius: 20)
         cell.productImage.kf.indicatorType = .activity

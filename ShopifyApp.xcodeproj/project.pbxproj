@@ -246,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				1642622A2841884000DAF5F4 /* LocalDataSource.swift */,
+				1654EB732835EB2F000B78F1 /* ShopifyApp.xcdatamodeld */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -293,7 +294,6 @@
 				1654EBA02835F21E000B78F1 /* AppDelegate */,
 				1654EB762835EB30000B78F1 /* Assets.xcassets */,
 				1654EB7B2835EB30000B78F1 /* Info.plist */,
-				1654EB732835EB2F000B78F1 /* ShopifyApp.xcdatamodeld */,
 			);
 			path = ShopifyApp;
 			sourceTree = "<group>";

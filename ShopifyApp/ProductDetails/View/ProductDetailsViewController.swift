@@ -49,7 +49,7 @@ class ProductDetailsViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        productViewModel = ProductDetailsViewModel()
+        productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         setUpScreen()
         uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
     }

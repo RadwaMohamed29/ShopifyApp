@@ -11,7 +11,7 @@ import CoreData
 protocol LocalDataSourcable{
     func saveProductToCoreData(newProduct: Product) throws
     func removeProductFromCoreData(productID: Int) throws
-    func getProductFromCoreData() throws -> [Product]
+    func getProductFromCoreData() throws -> [FavoriteProducts]
     func isFavouriteProduct(productID: Int) throws -> Bool
     
 }
@@ -29,7 +29,7 @@ final class LocalDataSource: LocalDataSourcable{
         let product = NSManagedObject(entity: entity, insertInto: context)
         product.setValue(newProduct.id, forKey: "id")
         product.setValue(newProduct.bodyHTML, forKey: "body_html")
-        product.setValue(newProduct.image.src, forKey: "images")
+        product.setValue(newProduct.image.src, forKey: "scr")
         product.setValue(newProduct.title, forKey: "title")
         product.setValue(newProduct.variant[0].price, forKey: "price")
         
@@ -58,24 +58,21 @@ final class LocalDataSource: LocalDataSourcable{
     }
     
     
-    func getProductFromCoreData() throws -> [Product] {
-        var favouriteProducts = [Product]()
+    func getProductFromCoreData() throws -> [FavoriteProducts] {
+        var favouriteProducts = [FavoriteProducts]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavouriteProduct")
         do{
-            let productList = try context.fetch(fetchRequest) as? [Product]
-            productList?.forEach  { favouriteProduct in
-//                let idProduct: Int = favouriteProduct.value(forKey: "id") as? Int ?? 0
-//                let titleProduct: String = favouriteProduct.value(forKey: "title") as? String ?? ""
-//                let descProduct: String = favouriteProduct.value(forKey: "body_html") as? String ?? ""
-//                let imagesProduct: [Images] = favouriteProduct.value(forKey: "images") as? [Images] ?? []
-//                let priceProduct: [Variant] = favouriteProduct.value(forKey: "price") as? [Variant] ?? []
-//                let valuesProduct: [Options] = favouriteProduct.value(forKey: "values") as? [Options] ?? []
-                favouriteProducts.append(favouriteProduct)
-                
-                
-//                favouriteProducts.append(Product(id: idProduct, title: titleProduct, bodyHTML: descProduct , vendor: "" , productType: "", createdAt: "", handle: "", updatedAt: "", publishedAt: "", publishedScope: "", tags: "", adminGraphqlAPIID: "", options: valuesProduct, images: imagesProduct , variant:priceProduct , image: "{}" )
-//                )
+            let productList = try context.fetch(fetchRequest)
+            for product in productList {
+                favouriteProducts.append(FavoriteProducts(id: product.value(forKey: "id" )as! Int
+                                                          , body_html: product.value(forKey: "body_html" )as! String
+                                                          , price: product.value(forKey: "price" )as! String
+                                                          , scr: product.value(forKey: "scr") as! String
+                                                          , title: product.value(forKey: "title") as!String
+                                                         ))
             }
+            
+            
             
             return favouriteProducts
         }catch let error as NSError{

@@ -22,7 +22,7 @@ class AllProductsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Products"
-        productViewModel = ProductDetailsViewModel()
+        productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
         let searchProductCell = UINib(nibName: "SearchCollectionViewCell", bundle: nil)
         searchProductsCV.register(searchProductCell, forCellWithReuseIdentifier: "searchCell")
@@ -81,7 +81,7 @@ class AllProductsViewController: UIViewController {
                 print(error)
             }.disposed(by: disBag)
     }
-    func filterProduct(BrandName: String) -> Array<Product> {
+    func filterProduct(BrandName: String)  {
         for product in self.listOfProducts {
             if product.vendor == self.brandName!
            {
@@ -90,7 +90,7 @@ class AllProductsViewController: UIViewController {
         }
         self.listOfProducts = self.filtered
         self.searchProductsCV.reloadData()
-        return self.listOfProducts
+        
     }
     func setubSearchBar(){
         searchBar.rx.text.orEmpty.throttle(RxTimeInterval.microseconds(500), scheduler: MainScheduler.asyncInstance)
@@ -126,7 +126,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
             ])
         cell.productName.text = listOfProducts[indexPath.row].title
         cell.favBtn.tag = indexPath.row
-        cell.favBtn.addTarget(self, action: #selector(showConformDialog), for: .touchUpInside)
+        cell.favBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
         return cell
     }
     
@@ -135,7 +135,6 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         let productDetailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
         productDetailsVC.productId = listOfProducts[indexPath.row].id
         self.navigationController?.pushViewController(productDetailsVC, animated: true)
-        print("id productttttttttttttt\(listOfProducts[indexPath.row].id)")
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -148,14 +147,35 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
     }
     //not finished
     @objc  func showConformDialog(){
+        
+        
+    }
+    @objc private func longPress(recognizer: UIButton) {
+     
+        
         let favouriteAlert = UIAlertController(title: "REMOVE FAVOURITE PRODUCT", message: "Are you sure to remove this product from your favourite list.", preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "Yes", style: .default, handler: nil)
+        let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
+            do{
+                try self.productViewModel?.addFavouriteProductToCoreData(product: self.listOfProducts[recognizer.tag], completion: { response in
+                    switch response{
+                    case true:
+                        print("add seuccessfully")
+                        recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+                    case false:
+                        print("faild to add")
+                    }
+                    
+                })
+            }catch let error{
+                print(error.localizedDescription)
+            }
+         
+        }
         let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
         
         favouriteAlert.addAction(confirmAction)
         favouriteAlert.addAction(cancleAction)
         self.present(favouriteAlert, animated: true, completion: nil)
-        
-    }
+      }
     
 }
