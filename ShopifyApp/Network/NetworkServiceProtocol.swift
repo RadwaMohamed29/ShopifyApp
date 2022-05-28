@@ -18,4 +18,6 @@ protocol NetworkServiceProtocol{
     func getAllProduct(completion : @escaping (Result<AllProducts,ErrorType>)->Void)
     func productOfBrandsProvider(id:String ,completion :@escaping (Result<AllProducts,ErrorType>)->Void)
 
+    
+    func getFilteredCategory(target:Endpoints, completion: @escaping(Result<CategoryProducts, ErrorType>)->())
 }

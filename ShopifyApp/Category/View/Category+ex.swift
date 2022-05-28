@@ -7,17 +7,17 @@
 
 import Foundation
 import UIKit
+import RxCocoa
+import RxSwift
+import Kingfisher
 
 struct Items{
     var name:String
 }
-
-
-
 extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return list.count
+        return showList?.count ?? 0
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -26,19 +26,60 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as! CategoryCollectionViewCell
-        cell.imgView.image = UIImage(named: list[indexPath.row].name)
-        cell.label.text = "2500 $"
+        let url = URL(string: showList?[indexPath.row].image.src ?? "")
+        cell.imgView.kf.setImage(with: url)
+        //        cell.label.text = imagesList[indexPath.row]
         cell.layer.cornerRadius = 12
-        
         cell.label.shadowColor = UIColor.gray
         cell.topView.layer.cornerRadius =  24
         return cell
     }
     
+    func setNavigationItem() {
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: self, action: #selector(heartTapped))
+    }
     
+    @objc func heartTapped(){
+        
+    }
     
+    func getCategory(target:Endpoints){
+        viewModel.getFilteredProducts(target: target)
+        viewModel.categoryObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background)).observe(on: MainScheduler.instance)
+            .subscribe { [weak self]result in
+                self?.showList = result
+                self?.categoryCollection.reloadData()
+            } onError: { error in
+                //MARK: show Dialog
+                print("\(error)")
+            } onCompleted: {
+                print("completed")
+            } onDisposed: {
+                print("disposed")
+            }.disposed(by: disposeBag)
+    }
     
-     func setupCollectionItemSize(){
+    func checkListSize(productName:String = "Data") {
+        if let list = showList {
+            if list.count==0{
+                showNoDataMessage(ProductName: productName, flag: false)
+            }else{
+                showNoDataMessage(ProductName: productName, flag: true)
+                categoryCollection.reloadData()
+            }
+        }
+    }
+
+    func showNoDataMessage(ProductName:String, flag:Bool) {
+        labelNoData.isHidden = !flag //false showed
+        noDataImg.isHidden = !flag //false
+        noDataImg.image = UIImage(named: ProductName)
+        categoryCollection.isHidden = flag //true
+        labelNoData.text = "There's No \(ProductName) in This Category"
+    }
+    
+    func setupCollectionItemSize(){
         if collectionFlowLayout == nil{
             let numberOfItemPerRow:CGFloat = 2
             let lineSpacing:CGFloat = 20

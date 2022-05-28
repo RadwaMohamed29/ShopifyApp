@@ -24,10 +24,14 @@ class APIClient: NetworkServiceProtocol{
 
     func getBrandsFromAPI(completion: @escaping (Result<Brands, ErrorType>) -> Void) {
         request(endpoint: .Smart_collections, method: .GET, compeletion: completion)
+    }
     
+    func getFilteredCategory(target: Endpoints, completion: @escaping (Result<CategoryProducts, ErrorType>) -> ()) {
+        request(endpoint: target, method: .GET, compeletion: completion)
     }
 
 
+    
     func productDetailsProvider(id: String, completion: @escaping (Result<Products, ErrorType>) -> Void) {
         request(endpoint: .ProductDetails(id: id), method: .GET, compeletion: completion)
     }
@@ -77,5 +81,5 @@ class APIClient: NetworkServiceProtocol{
                 }
         }.resume()
     }
-    
-}
+    }
+
