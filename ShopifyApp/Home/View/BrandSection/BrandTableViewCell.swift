@@ -10,7 +10,7 @@ import Kingfisher
 import KRProgressHUD
 import RxSwift
 protocol brandIdProtocol{
-    func transBrandName (brandName: String)
+    func transBrandName (brandId: Int)
 }
 
 class BrandTableViewCell: UITableViewCell {
@@ -93,7 +93,7 @@ extension BrandTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       guard let brandName = arrayOfBrands[indexPath.row].title  else {return}
-        BrandTableViewCell.brandDelegate?.transBrandName(brandName: brandName)
+       guard let brandId = arrayOfBrands[indexPath.row].id  else {return}
+        BrandTableViewCell.brandDelegate?.transBrandName(brandId: brandId)
     }
 }

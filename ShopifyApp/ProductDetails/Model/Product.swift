@@ -27,6 +27,7 @@ struct Product: Codable{
     let images: [Images]
     let variant: [Variant]
     let image: Image
+  //  let status: String
     
     enum CodingKeys: String, CodingKey {
         case id, title
@@ -42,6 +43,7 @@ struct Product: Codable{
         case adminGraphqlAPIID = "admin_graphql_api_id"
         case options, images, image
         case variant = "variants"
+       // case status
     }
 }
 

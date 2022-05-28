@@ -8,10 +8,13 @@
 import UIKit
 
 class HomeViewController: UIViewController,brandIdProtocol {
-    func transBrandName(brandName: String) {
+    
+    func transBrandName(brandId: Int) {
         let productListVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
-        productListVC.brandName = brandName
+        productListVC.brandId = brandId
         productListVC.isCommingFromHome = "true"
+        print("iddddddddd\(brandId)")
+   //     goToAllProduct(isCommingFromBrand: "true", brnadId: brandId)
         self.navigationController?.pushViewController(productListVC, animated: true)
     }
     
@@ -35,7 +38,8 @@ class HomeViewController: UIViewController,brandIdProtocol {
     }
     @IBAction func search(_ sender: Any) {
         
-        goToAllProduct(isCommingFromBrand: "true", brnadName: "")
+       // goToAllProduct(isCommingFromBrand: "true", brandId: nil)
+        goToAllProduct(isCommingFromBrand: "true", brnadId: 0 )
 
     }
 
@@ -49,9 +53,9 @@ class HomeViewController: UIViewController,brandIdProtocol {
    
 }
 extension HomeViewController{
-    func goToAllProduct(isCommingFromBrand: String,brnadName: String){
+    func goToAllProduct(isCommingFromBrand: String,brnadId: Int){
     let productListVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
-    productListVC.brandName = brnadName
+    productListVC.brandId = brnadId
     productListVC.isCommingFromHome = isCommingFromBrand
     self.navigationController?.pushViewController(productListVC, animated: true)
      }
