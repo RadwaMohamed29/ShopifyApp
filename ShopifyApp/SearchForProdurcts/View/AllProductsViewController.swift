@@ -9,7 +9,11 @@ import UIKit
 import Kingfisher
 import RxSwift
 import RxCocoa
-class AllProductsViewController: UIViewController {
+class AllProductsViewController: UIViewController ,SharedProtocol{
+    func presentAlert(alert: UIAlertController) {
+        self.present(alert, animated: true,completion: nil)
+    }
+    
 
     var brandName : String?
     var isCommingFromHome :String?
@@ -152,74 +156,15 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         return CGSize(width: availableWidth, height: availableHieght)
     }
    
-    @objc  func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool){
-        let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
-            self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav)
-    }
-        let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
-        
-        favouriteAlert.addAction(confirmAction)
-        favouriteAlert.addAction(cancleAction)
-        self.present(favouriteAlert, animated: true, completion: nil)
-        
-    }
+     
+       
     @objc private func longPress(recognizer: UIButton) {
      
-        var alertMessage = ""
-        var alertTitle = ""
-        self.productViewModel?.checkFavorite(id: "\(self.listOfProducts[recognizer.tag].id)")
-        
-       
-           
-            if self.productViewModel?.isFav == false {
-                alertMessage = "Are you sure to add this product to your favourite list."
-               alertTitle = "Add favorite product"
-                showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: false)
-                
-            }else{
-                alertMessage = "Are you sure to remove this product from your favourite list."
-                alertTitle = "Remove favorite product"
-                showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: true)
-            }
+        Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: listOfProducts, sharedProtocol: self)
        
       }
-    func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool){
-        if isFav == false{
-            do{
-                try self.productViewModel?.addFavouriteProductToCoreData(product: self.listOfProducts[index], completion: { response in
-                    switch response{
-                    case true:
-                        print("add seuccessfully")
-                        favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
-                    case false:
-                        print("faild to add")
-                        favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
-                    }
-                    
-                })
-            }catch let error{
-                print(error.localizedDescription)
-            }
-        }
-       else if isFav == true{
-            do{
-                try self.productViewModel?.removeProductFromFavorites(productID: "\(listOfProducts[index].id)", completionHandler: { response in
-                    switch response{
-                    case true:
-                        print("removed seuccessfully")
-                        favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
-                    case false:
-                        print("faild to remove")
-                        favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
-                    }
-                })
-            }catch let error{
-                print(error.localizedDescription)
-            }
-        }
-      
-    }
+    
+    
     
   
 }

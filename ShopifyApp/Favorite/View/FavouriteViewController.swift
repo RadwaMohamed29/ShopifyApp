@@ -8,7 +8,11 @@
 import UIKit
 import Kingfisher
 import RxSwift
-class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,SharedProtocol {
+    func presentAlert(alert: UIAlertController) {
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     var disBag = DisposeBag()
     var productViewModel : ProductDetailsViewModel?
     var localDataSource : LocalDataSource?
@@ -83,7 +87,7 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
             ])
         
         cell.favouriteBtn.tag = indexPath.row
-        cell.favouriteBtn.addTarget(self, action: #selector(showConformDialog), for: .touchUpInside)
+        cell.favouriteBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
         return cell
     }
 
@@ -100,14 +104,59 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
     }
     
     
-  @objc  func showConformDialog(){
-      let favouriteAlert = UIAlertController(title: "REMOVE FAVOURITE PRODUCT", message: "Are you sure to remove this product from your favourite list.", preferredStyle: .alert)
-      // Present alert to user
-      let confirmAction = UIAlertAction(title: "Yes", style: .default, handler: nil)
-      let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
-      
-      favouriteAlert.addAction(confirmAction)
-      favouriteAlert.addAction(cancleAction)
-      self.present(favouriteAlert, animated: true, completion: nil)    }
+    func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool){
+            let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
+                self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav)
+        }
+            let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
+            
+            favouriteAlert.addAction(confirmAction)
+            favouriteAlert.addAction(cancleAction)
+            self.present(favouriteAlert, animated: true, completion: nil)
+            
+        }
+        @objc private func longPress(recognizer: UIButton) {
+         
+            var alertMessage = ""
+            var alertTitle = ""
+            self.productViewModel?.checkFavorite(id: "\(self.favProducts[recognizer.tag].id)")
+            
+           
+               
+                if self.productViewModel?.isFav == false {
+                    alertMessage = "Are you sure to add this product to your favourite list."
+                   alertTitle = "Add favorite product"
+                    showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: false)
+                    
+                }else{
+                    alertMessage = "Are you sure to remove this product from your favourite list."
+                    alertTitle = "Remove favorite product"
+                    showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: true)
+                }
+           
+          }
+        func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool){
+           
+            if isFav == true{
+                do{
+                    try self.productViewModel?.removeProductFromFavorites(productID: "\(favProducts[index].id)", completionHandler: { response in
+                        switch response{
+                        case true:
+                            print("removed seuccessfully")
+                            self.getFavoriteProductsFromCoreData()
+                            self.favouriteCollectionView.reloadData()
+                            
+                        case false:
+                            print("Failed to remove")
+                        }
+                    })
+                }catch let error{
+                    print(error.localizedDescription)
+                }
+            }
+          
+        }
+
 
 }
