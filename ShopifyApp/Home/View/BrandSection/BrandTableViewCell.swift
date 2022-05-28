@@ -6,21 +6,48 @@
 //
 
 import UIKit
+import Kingfisher
+import KRProgressHUD
+import RxSwift
+protocol brandIdProtocol{
+    func transBrandName (brandId: Int)
+}
 
 class BrandTableViewCell: UITableViewCell {
 
     @IBOutlet weak var brandCollectionView: UICollectionView!
     static let identifier = "BrandTableViewCell"
+    var homeVc : HomeViewController?
+    static var brandDelegate: brandIdProtocol?
+    static func setHome(deleget :brandIdProtocol){
+        self.brandDelegate = deleget
+    }
+    
     static func Nib()-> UINib{
         return UINib(nibName: "BrandTableViewCell", bundle: nil)
     }
-    var arrayOfBrands: [UIImage] = []
     
+    var homeViewModel: HomeViewModel?
+    let disBag = DisposeBag()
+    var arrayOfBrands: [Smart_collections] = []
     override func awakeFromNib() {
         super.awakeFromNib()
+        homeViewModel = HomeViewModel()
         setupCollectionView()
-      
-        // Initialization code
+        getAllBrandsFromApi()
+    }
+    func getAllBrandsFromApi(){
+        homeViewModel?.getAllBrands()
+        homeViewModel?.allBrandObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { brands in
+                self.arrayOfBrands = brands
+                self.brandCollectionView.reloadData()
+            } onError: { error in
+                print(error)
+            }.disposed(by: disBag)
+        
+
     }
     func setupCollectionView(){
         brandCollectionView.register(BrandsCollectionViewCell.Nib(), forCellWithReuseIdentifier: BrandsCollectionViewCell.identifier)
@@ -31,19 +58,25 @@ class BrandTableViewCell: UITableViewCell {
 }
 extension BrandTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return arrayOfBrands.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BrandsCollectionViewCell.identifier, for: indexPath) as! BrandsCollectionViewCell
-        cell.brandLabel.text = "H&M"
         cell.brandImageView.layer.borderColor = UIColor.gray.cgColor
         cell.brandImageView.layer.borderWidth = 0.5
         cell.brandImageView.layer.cornerRadius = 25
         cell.viewBrandImage.layer.cornerRadius = 25
+        setupCell(cell: cell, indexPath: indexPath)
         return cell
     }
-    
+    private func setupCell(cell: BrandsCollectionViewCell , indexPath: IndexPath) {
+        let item = arrayOfBrands[indexPath.row]
+        cell.brandLabel.text = item.title
+        let url = URL(string: (item.image?.src)!)
+        cell.brandImageView.kf.setImage(with: url)
+
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.frame.width * 0.43, height: self.frame.width * 0.45)
     }
@@ -58,5 +91,9 @@ extension BrandTableViewCell: UICollectionViewDelegate, UICollectionViewDataSour
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+       guard let brandId = arrayOfBrands[indexPath.row].id  else {return}
+        BrandTableViewCell.brandDelegate?.transBrandName(brandId: brandId)
     }
 }

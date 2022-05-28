@@ -14,6 +14,7 @@ class FavouriteCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var favouriteBtn: UIButton!
     @IBOutlet weak var productImage: UIImageView!
+    @IBOutlet weak var bottomView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -9,6 +9,7 @@ import Foundation
 
 
 enum Endpoints {
+    case allProducts
     case HomeCategoryProducts
     case MenCategoryProduct
     case WomenCategoryProduct
@@ -16,6 +17,9 @@ enum Endpoints {
     case SaleCategoryProduct
     case HomeWithProductType(id:categoryID)
     case ProductDetails(id:String)
+    case Smart_collections
+    case CollectionID(id:String)
+
     case TshirtType(id:String)
     case ShoesType(id:String)
     case AccecoriesType(id:String)
@@ -34,6 +38,17 @@ enum Endpoints {
             return "collections/395728191717/products.json"
         case .ProductDetails(id: let productId):
             return "products/\(productId).json"
+
+        case .allProducts:
+            return "products.json"
+
+        case .Smart_collections:
+            return "smart_collections.json"
+        case .CollectionID(id: let collectionId):
+            return "products.json?collection_id=\(collectionId)"
+        }
+    }
+}
         case .TshirtType(id: let categoryID):
             return "products.json?collection_id=\(categoryID)&product_type=T-SHIRTS"
         case .ShoesType(id: let categoryID):

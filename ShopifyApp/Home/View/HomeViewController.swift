@@ -7,15 +7,29 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController,brandIdProtocol {
+    
+    func transBrandName(brandId: Int) {
+        let productListVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
+        productListVC.brandId = brandId
+        productListVC.isCommingFromHome = "true"
+        print("iddddddddd\(brandId)")
+   //     goToAllProduct(isCommingFromBrand: "true", brnadId: brandId)
+        self.navigationController?.pushViewController(productListVC, animated: true)
+    }
+    
 
     @IBOutlet weak var homeTV: UITableView!
+ 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        BrandTableViewCell.setHome(deleget: self)
         setupTableView()
-
+        
         // Do any additional setup after loading the view.
     }
+
     func setupTableView(){
         homeTV.register(AbsTableViewCell.Nib(), forCellReuseIdentifier: AbsTableViewCell.identifier)
         homeTV.register(BrandTableViewCell.Nib(), forCellReuseIdentifier: BrandTableViewCell.identifier)
@@ -23,15 +37,31 @@ class HomeViewController: UIViewController {
         homeTV.dataSource = self
     }
     @IBAction func search(_ sender: Any) {
+        
+       // goToAllProduct(isCommingFromBrand: "true", brandId: nil)
+        goToAllProduct(isCommingFromBrand: "true", brnadId: 0 )
+
     }
 
     @IBAction func fav(_ sender: Any) {
-    }
-    @IBAction func cart(_ sender: Any) {
-        let a = ProductDetailsViewController(nibName:"ProductDetailsViewController", bundle: nil)
+        let a = FavouriteViewController(nibName:"FavouriteViewController", bundle: nil)
          self.navigationController?.pushViewController(a, animated: true)
         
     }
+    @IBAction func cart(_ sender: Any) {
+        let a = ShoppingCartVC(nibName:"ShoppingCartVC", bundle: nil)
+         self.navigationController?.pushViewController(a, animated: true)
+        
+    }
+   
+}
+extension HomeViewController{
+    func goToAllProduct(isCommingFromBrand: String,brnadId: Int){
+    let productListVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
+    productListVC.brandId = brnadId
+    productListVC.isCommingFromHome = isCommingFromBrand
+    self.navigationController?.pushViewController(productListVC, animated: true)
+     }
 }
 extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,9 +85,7 @@ extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
             let adsCell = tableView.dequeueReusableCell(withIdentifier: AbsTableViewCell.identifier, for: indexPath)
             return adsCell
         default:
-       
-            
-                    let brandCell = tableView.dequeueReusableCell(withIdentifier: BrandTableViewCell.identifier, for: indexPath) as! BrandTableViewCell
+        let brandCell = tableView.dequeueReusableCell(withIdentifier: BrandTableViewCell.identifier, for: indexPath) as! BrandTableViewCell
                     return brandCell
         }
     }
@@ -76,15 +104,15 @@ extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
         var title = ""
         switch section{
         case 0:
-            title = ""
+            title = "ADS"
         default:
-            title = ""
+            title = "BRANDS"
         }
         return title
     }
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.textLabel?.font = UIFont(name: "Optima", size: 18)
+        header.textLabel?.font = UIFont(name: "Verdana", size: 18)
         header.textLabel?.textAlignment = NSTextAlignment.center
         header.textLabel?.textColor = UIColor.label
     }
@@ -92,4 +120,5 @@ extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         homeTV.deselectRow(at: indexPath, animated: false)
     }
+    
 }

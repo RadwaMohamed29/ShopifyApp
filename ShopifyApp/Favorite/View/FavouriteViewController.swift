@@ -7,43 +7,73 @@
 
 import UIKit
 import Kingfisher
-class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
+import RxSwift
+import Lottie
+class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,SharedProtocol {
+    func presentAlert(alert: UIAlertController) {
+        self.present(alert, animated: true, completion: nil)
+    }
     
-
+    var disBag = DisposeBag()
+    var productViewModel : ProductDetailsViewModel?
+    var localDataSource : LocalDataSource?
     @IBOutlet weak var noDataView: UIView!
     
     @IBOutlet weak var favouriteCollectionView: UICollectionView!
 
-    var favProducts : Array<String> = []
+    var favProducts : [FavoriteProducts] = []
     var productName :String?
     var productImage : String?
     var productSize : Int?
     var productRate : Double?
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "favorite"
+        self.title = "Favorite"
         
+        productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
+        getFavoriteProductsFromCoreData()
+
         let favProductCell = UINib(nibName: "FavouriteCollectionViewCell", bundle: nil)
         favouriteCollectionView.register(favProductCell, forCellWithReuseIdentifier: "FavouriteproductCell")
-        favProducts.append("element")
         favouriteCollectionView.delegate = self
       favouriteCollectionView.dataSource = self
         // Do any additional setup after loading the view.
     }
+    
+    func getFavoriteProductsFromCoreData(){
+        
+        do{
+            try  productViewModel?.getAllFavoriteProducts(completion: { response in
+                //MARK: LSA M5LST4
+                switch response{
+                case true:
+                    print("data retrived successfuly")
+                case false:
+                    print("data cant't retrieved")
+                }
+            })
 
+        }
+        catch let error{
+            print(error.localizedDescription)
+        }
+        favProducts = (productViewModel?.favoriteProducts)!
+        favouriteCollectionView.reloadData()
+       
+    }
     override func viewWillAppear(_ animated: Bool) {
         if !favProducts.isEmpty{
-            noDataView.removeFromSuperview()
+            noDataView.isHidden = true
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        20
+       return favProducts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
       let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
-        let url = URL(string: "https://cdn.shopify.com/s/files/1/0643/6637/9237/products/85cc58608bf138a50036bcfe86a3a362.jpg?v=1652442194")
+        let url = URL(string: favProducts[indexPath.row].scr)
         let processor = DownsamplingImageProcessor(size: cell.productImage.bounds.size)
                      |> RoundCornerImageProcessor(cornerRadius: 20)
         cell.productImage.kf.indicatorType = .activity
@@ -56,14 +86,23 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
                 .transition(.fade(1)),
                 .cacheOriginalImage
             ])
+        cell.ProductName.text = favProducts[indexPath.row].title
+        cell.priceOfTheProduct.text = "$ \(favProducts[indexPath.row].price)"
+        cell.productImage.layer.borderWidth = 1
+        cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
+        cell.productImage.layer.cornerRadius = 20
         
         cell.favouriteBtn.tag = indexPath.row
-        cell.favouriteBtn.addTarget(self, action: #selector(showConformDialog), for: .touchUpInside)
+        cell.favouriteBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
         return cell
     }
 
 
- 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
+        detailsVC.productId = favProducts[indexPath.row].id
+        self.navigationController?.pushViewController(detailsVC, animated: true)
+    }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
@@ -75,14 +114,59 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
     }
     
     
-  @objc  func showConformDialog(){
-      let favouriteAlert = UIAlertController(title: "REMOVE FAVOURITE PRODUCT", message: "Are you sure to remove this product from your favourite list.", preferredStyle: .alert)
-      // Present alert to user
-      let confirmAction = UIAlertAction(title: "Yes", style: .default, handler: nil)
-      let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
-      
-      favouriteAlert.addAction(confirmAction)
-      favouriteAlert.addAction(cancleAction)
-      self.present(favouriteAlert, animated: true, completion: nil)    }
+    func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool){
+            let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
+                self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav)
+        }
+            let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
+            
+            favouriteAlert.addAction(confirmAction)
+            favouriteAlert.addAction(cancleAction)
+            self.present(favouriteAlert, animated: true, completion: nil)
+            
+        }
+        @objc private func longPress(recognizer: UIButton) {
+         
+            var alertMessage = ""
+            var alertTitle = ""
+            self.productViewModel?.checkFavorite(id: "\(self.favProducts[recognizer.tag].id)")
+            
+           
+               
+                if self.productViewModel?.isFav == false {
+                    alertMessage = "Are you sure to add this product to your favourite list."
+                   alertTitle = "Add favorite product"
+                    showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: false)
+                    
+                }else{
+                    alertMessage = "Are you sure to remove this product from your favourite list."
+                    alertTitle = "Remove favorite product"
+                    showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: true)
+                }
+           
+          }
+        func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool){
+           
+            if isFav == true{
+                do{
+                    try self.productViewModel?.removeProductFromFavorites(productID: "\(favProducts[index].id)", completionHandler: { response in
+                        switch response{
+                        case true:
+                            print("removed seuccessfully")
+                            self.getFavoriteProductsFromCoreData()
+                            self.favouriteCollectionView.reloadData()
+                            
+                        case false:
+                            print("Failed to remove")
+                        }
+                    })
+                }catch let error{
+                    print(error.localizedDescription)
+                }
+            }
+          
+        }
+
 
 }

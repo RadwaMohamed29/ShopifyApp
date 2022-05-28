@@ -10,8 +10,14 @@ import RxSwift
 import RxCocoa
 import CoreMedia
 
-class ProductDetailsViewController: UIViewController{
-
+class ProductDetailsViewController: UIViewController,SharedProtocol{
+    func presentAlert(alert: UIAlertController) {
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    @IBOutlet weak var favBtn: UIButton!
+    var productId : String?
     @IBOutlet weak var productOPtion: UILabel!
     @IBOutlet weak var productRate: UILabel!
     @IBOutlet weak var productPrice: UILabel!
@@ -41,42 +47,65 @@ class ProductDetailsViewController: UIViewController{
     }
     var disposeBag = DisposeBag()
     var images: [Images] = []
-    var optionsValue:[Options] = []
+    var optionsValue:[String] = []
+    var listOfProducts : Product?
     var uiImageView = UIImageView()
     var productViewModel: ProductDetailsViewModel?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        productViewModel = ProductDetailsViewModel()
+        productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         setUpScreen()
+        setUpFavButton()
         uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
     }
     
     func setUpScreen(){
-        productViewModel?.getProduct(id:"7782820085989")
-        productViewModel?.productObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
-            .observe(on: MainScheduler.asyncInstance).subscribe{ [weak self] result in
-            guard let self = self else {return}
+        productViewModel?.getProduct(id: "\(productId ?? "0")")
+        productViewModel?.productObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+                        .init(qos: .background))
+                        .observe(on: MainScheduler.asyncInstance)
+                        .subscribe{ [weak self] result in
+                guard let self = self else {return}
+                            self.listOfProducts = result.element
                 self.productTitle.text = result.element?.title
                 self.productDescription.text = result.element?.bodyHTML
                 self.images = result.element?.images ?? []
-                self.optionsValue = result.element?.options ?? []
+                self.optionsValue = result.element?.options[0].values ?? []
+                self.productPrice.text = "$\(String(describing: result.element?.variant[0].price ?? ""))"
                 
-              //  self.productPrice.text = result.element?.variants[0].price.append(" $")
                 self.productCollectionView.reloadData()
                 self.sizeTableView.reloadData()
-            
-        }.disposed(by: disposeBag)
+                         
+            }.disposed(by: disposeBag)
     }
     
-
-
+    
+    func setUpFavButton(){
+        productViewModel?.checkFavorite(id: "\(productId ?? "0")")
+       if productViewModel?.isFav == true {
+          favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+       }else{
+          favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+       }
+      // cell.favBtn.tag = indexPath.row
+      favBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
+    }
+    
+    
+    
+ @objc private func longPress(recognizer: UIButton) {
+  
+     Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: listOfProducts!, sharedProtocol: self)
+    
+   }
+    
 }
 
 extension ProductDetailsViewController: UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate {
     
-   
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
         
@@ -85,8 +114,8 @@ extension ProductDetailsViewController: UICollectionViewDataSource,UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let productImagesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductImagesCollectionViewCell", for: indexPath) as! ProductImagesCollectionViewCell
-                let url = URL(string: self.images[indexPath.row].src)
-                productImagesCell.productImage.kf.setImage(with: url)
+        let url = URL(string: self.images[indexPath.row].src)
+        productImagesCell.productImage.kf.setImage(with: url)
         self.imageControl.numberOfPages = images.count
         return productImagesCell
     }
@@ -107,7 +136,7 @@ extension ProductDetailsViewController: UITableViewDelegate,UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let sizesCell = sizeTableView.dequeueReusableCell(withIdentifier: "SizeTableViewCell", for: indexPath) as! SizeTableViewCell
-        sizesCell.sixe.text = optionsValue[0].values[indexPath.row]
+        sizesCell.sixe.text = optionsValue[indexPath.row]
         return sizesCell
     }
     
