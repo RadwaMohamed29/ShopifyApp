@@ -35,6 +35,15 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         return cell
     }
     
+    func setNavigationItem() {
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: self, action: #selector(heartTapped))
+    }
+    
+    @objc func heartTapped(){
+        
+    }
+    
     func getCategory(target:Endpoints){
         viewModel.getFilteredProducts(target: target)
         viewModel.categoryObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background)).observe(on: MainScheduler.instance)
@@ -49,6 +58,25 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
             } onDisposed: {
                 print("disposed")
             }.disposed(by: disposeBag)
+    }
+    
+    func checkListSize(productName:String = "Data") {
+        if let list = showList {
+            if list.count==0{
+                showNoDataMessage(ProductName: productName, flag: false)
+            }else{
+                showNoDataMessage(ProductName: productName, flag: true)
+                categoryCollection.reloadData()
+            }
+        }
+    }
+
+    func showNoDataMessage(ProductName:String, flag:Bool) {
+        labelNoData.isHidden = !flag //false showed
+        noDataImg.isHidden = !flag //false
+        noDataImg.image = UIImage(named: ProductName)
+        categoryCollection.isHidden = flag //true
+        labelNoData.text = "There's No \(ProductName) in This Category"
     }
     
     func setupCollectionItemSize(){

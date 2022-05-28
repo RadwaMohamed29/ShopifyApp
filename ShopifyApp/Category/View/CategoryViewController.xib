@@ -13,7 +13,9 @@
                 <outlet property="categoryCollection" destination="nvr-ww-Pqi" id="T3j-gf-4ja"/>
                 <outlet property="fabBtn" destination="6de-Pc-Q7o" id="IDP-dr-bWV"/>
                 <outlet property="kids" destination="PuE-Mg-ccB" id="sIc-BW-cgo"/>
+                <outlet property="labelNoData" destination="qah-G2-WRK" id="bWT-ig-8f6"/>
                 <outlet property="men" destination="hkk-V7-Kdv" id="pfW-Yr-Fld"/>
+                <outlet property="noDataImg" destination="iKH-d5-X1p" id="Wjs-kX-wC0"/>
                 <outlet property="sale" destination="F8i-HZ-4M9" id="9Hf-6G-kUF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="women" destination="7aq-fw-yjc" id="VZe-dz-AHb"/>
@@ -25,7 +27,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="nvr-ww-Pqi">
-                    <rect key="frame" x="8" y="88" width="394" height="774"/>
+                    <rect key="frame" x="8" y="108" width="394" height="754"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="OHj-oN-H48">
                         <size key="itemSize" width="128" height="128"/>
@@ -39,7 +41,7 @@
                     <color key="backgroundColor" systemColor="systemBlueColor"/>
                 </view>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQf-c2-YEb">
-                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <rect key="frame" x="0.0" y="64" width="414" height="44"/>
                     <items>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="de8-ac-Q1b"/>
                         <barButtonItem title="Women" id="7aq-fw-yjc">
@@ -60,6 +62,15 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="xEM-Qj-CCh"/>
                     </items>
                 </toolbar>
+                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cash" translatesAutoresizingMaskIntoConstraints="NO" id="iKH-d5-X1p">
+                    <rect key="frame" x="87" y="389" width="240" height="128"/>
+                </imageView>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Theres no data in this category" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qah-G2-WRK">
+                    <rect key="frame" x="66.5" y="329" width="281.5" height="51"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -69,17 +80,25 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6de-Pc-Q7o" secondAttribute="trailing" constant="20" id="8rJ-Qd-xg6"/>
                 <constraint firstItem="QQf-c2-YEb" firstAttribute="baseline" secondItem="nvr-ww-Pqi" secondAttribute="firstBaseline" symbolType="layoutAnchor" id="Abb-6I-G7B"/>
                 <constraint firstAttribute="trailing" secondItem="QQf-c2-YEb" secondAttribute="trailing" id="FdI-32-BEL"/>
+                <constraint firstItem="iKH-d5-X1p" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="JJI-gq-YTq"/>
                 <constraint firstItem="nvr-ww-Pqi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="P33-i6-qC2"/>
+                <constraint firstItem="iKH-d5-X1p" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.156479" id="WGR-7C-2LB"/>
                 <constraint firstItem="QQf-c2-YEb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Y4M-LA-vbT"/>
                 <constraint firstItem="nvr-ww-Pqi" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-12" id="ajL-gC-066"/>
-                <constraint firstItem="QQf-c2-YEb" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="geI-3c-qWU"/>
+                <constraint firstItem="qah-G2-WRK" firstAttribute="height" secondItem="iKH-d5-X1p" secondAttribute="height" multiplier="0.4" id="aya-xX-0eH"/>
+                <constraint firstItem="QQf-c2-YEb" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="geI-3c-qWU"/>
+                <constraint firstItem="iKH-d5-X1p" firstAttribute="firstBaseline" secondItem="qah-G2-WRK" secondAttribute="baseline" constant="12.5" symbolType="layoutAnchor" id="hVg-S1-1gN"/>
+                <constraint firstItem="iKH-d5-X1p" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="moe-Vt-yBC"/>
                 <constraint firstItem="6de-Pc-Q7o" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.120773" id="oCS-1u-R7J"/>
+                <constraint firstItem="qah-G2-WRK" firstAttribute="centerX" secondItem="iKH-d5-X1p" secondAttribute="centerX" id="rsz-Fl-e96"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="nvr-ww-Pqi" secondAttribute="bottom" id="sNW-XC-J3g"/>
+                <constraint firstItem="iKH-d5-X1p" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.57971" id="tme-rg-tKM"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="143.97321428571428"/>
         </view>
     </objects>
     <resources>
+        <image name="cash" width="840" height="859"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

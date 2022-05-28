@@ -70,7 +70,6 @@
 		BED44808283E582500EA74BC /* PaymentMethodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED44806283E582500EA74BC /* PaymentMethodViewController.swift */; };
 		BED4480B283E773400EA74BC /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED4480A283E773400EA74BC /* NetworkServiceProtocol.swift */; };
 		BED4480D283E7CBE00EA74BC /* Endpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED4480C283E7CBE00EA74BC /* Endpoints.swift */; };
-		BEF750782841B27C004C9B69 /* Prod.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF750772841B27C004C9B69 /* Prod.swift */; };
 		C2312FF061798C585876F69D /* Pods_ShopifyApp_ShopifyAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 860C60966C760F2A8C2247D2 /* Pods_ShopifyApp_ShopifyAppUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -166,7 +165,6 @@
 		BED44806283E582500EA74BC /* PaymentMethodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentMethodViewController.swift; sourceTree = "<group>"; };
 		BED4480A283E773400EA74BC /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		BED4480C283E7CBE00EA74BC /* Endpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoints.swift; sourceTree = "<group>"; };
-		BEF750772841B27C004C9B69 /* Prod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -535,7 +533,6 @@
 			children = (
 				BE736ACF283FA19C00B61A98 /* Filter.swift */,
 				BE14A597283FD87B001D8A9D /* Products.swift */,
-				BEF750772841B27C004C9B69 /* Prod.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -823,7 +820,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEF750782841B27C004C9B69 /* Prod.swift in Sources */,
 				BED4480D283E7CBE00EA74BC /* Endpoints.swift in Sources */,
 				16873CDA283D86A000694061 /* ProductDetailsViewController.swift in Sources */,
 				162FEA45283D84F6007BD95B /* CategoryCollectionViewCell.xib in Sources */,
