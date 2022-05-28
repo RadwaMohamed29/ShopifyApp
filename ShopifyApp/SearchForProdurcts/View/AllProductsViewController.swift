@@ -22,7 +22,7 @@ class AllProductsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Products"
-        productViewModel = ProductDetailsViewModel()
+        productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
         let searchProductCell = UINib(nibName: "SearchCollectionViewCell", bundle: nil)
         searchProductsCV.register(searchProductCell, forCellWithReuseIdentifier: "searchCell")
@@ -81,7 +81,7 @@ class AllProductsViewController: UIViewController {
                 print(error)
             }.disposed(by: disBag)
     }
-    func filterProduct(BrandName: String) -> Array<Product> {
+    func filterProduct(BrandName: String)  {
         for product in self.listOfProducts {
             if product.vendor == self.brandName!
            {
@@ -90,7 +90,7 @@ class AllProductsViewController: UIViewController {
         }
         self.listOfProducts = self.filtered
         self.searchProductsCV.reloadData()
-        return self.listOfProducts
+        
     }
     func setubSearchBar(){
         searchBar.rx.text.orEmpty.throttle(RxTimeInterval.microseconds(500), scheduler: MainScheduler.asyncInstance)
@@ -125,8 +125,14 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
                 .cacheOriginalImage
             ])
         cell.productName.text = listOfProducts[indexPath.row].title
+        productViewModel?.checkFavorite(id: "\(listOfProducts[indexPath.row].id)")
+        if productViewModel?.isFav == true {
+            cell.favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+        }else{
+            cell.favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+        }
         cell.favBtn.tag = indexPath.row
-        cell.favBtn.addTarget(self, action: #selector(showConformDialog), for: .touchUpInside)
+        cell.favBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
         return cell
     }
     
@@ -135,7 +141,6 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         let productDetailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
         productDetailsVC.productId = listOfProducts[indexPath.row].id
         self.navigationController?.pushViewController(productDetailsVC, animated: true)
-        print("id productttttttttttttt\(listOfProducts[indexPath.row].id)")
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -146,10 +151,12 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         let availableHieght = view.frame.width/1.7
         return CGSize(width: availableWidth, height: availableHieght)
     }
-    //not finished
-    @objc  func showConformDialog(){
-        let favouriteAlert = UIAlertController(title: "REMOVE FAVOURITE PRODUCT", message: "Are you sure to remove this product from your favourite list.", preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "Yes", style: .default, handler: nil)
+   
+    @objc  func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool){
+        let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
+            self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav)
+    }
         let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
         
         favouriteAlert.addAction(confirmAction)
@@ -157,5 +164,62 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         self.present(favouriteAlert, animated: true, completion: nil)
         
     }
+    @objc private func longPress(recognizer: UIButton) {
+     
+        var alertMessage = ""
+        var alertTitle = ""
+        self.productViewModel?.checkFavorite(id: "\(self.listOfProducts[recognizer.tag].id)")
+        
+       
+           
+            if self.productViewModel?.isFav == false {
+                alertMessage = "Are you sure to add this product to your favourite list."
+               alertTitle = "Add favorite product"
+                showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: false)
+                
+            }else{
+                alertMessage = "Are you sure to remove this product from your favourite list."
+                alertTitle = "Remove favorite product"
+                showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: true)
+            }
+       
+      }
+    func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool){
+        if isFav == false{
+            do{
+                try self.productViewModel?.addFavouriteProductToCoreData(product: self.listOfProducts[index], completion: { response in
+                    switch response{
+                    case true:
+                        print("add seuccessfully")
+                        favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+                    case false:
+                        print("faild to add")
+                        favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+                    }
+                    
+                })
+            }catch let error{
+                print(error.localizedDescription)
+            }
+        }
+       else if isFav == true{
+            do{
+                try self.productViewModel?.removeProductFromFavorites(productID: "\(listOfProducts[index].id)", completionHandler: { response in
+                    switch response{
+                    case true:
+                        print("removed seuccessfully")
+                        favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+                    case false:
+                        print("faild to remove")
+                        favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+                    }
+                })
+            }catch let error{
+                print(error.localizedDescription)
+            }
+        }
+      
+    }
     
+  
 }

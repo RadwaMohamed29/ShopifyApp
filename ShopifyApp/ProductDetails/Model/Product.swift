@@ -138,4 +138,13 @@ struct Image: Codable{
         case alt, width, height, src
         case adminGraphqlAPIID = "admin_graphql_api_id"
     }
+    
+}
+
+struct FavoriteProducts:Codable{
+    let id : String
+    let body_html :String
+    let price :String
+    let scr:String
+    let title:String
 }
