@@ -13,8 +13,9 @@ protocol SharedProtocol{
 class Shared{
     static var sharedProtocol : SharedProtocol?
     
-    static func setOrRemoveProductToFavoriteList(recognizer: UIButton,viewModel: ProductDetailsViewModel,listOfProducts:[Product],sharedProtocol:SharedProtocol){
+    static func setOrRemoveProductToFavoriteList(recognizer: UIButton,delegate: AppDelegate,listOfProducts:[Product],sharedProtocol:SharedProtocol){
         self.sharedProtocol = sharedProtocol
+        let viewModel = ProductDetailsViewModel(appDelegate: delegate)
         var alertMessage = ""
         var alertTitle = ""
         viewModel.checkFavorite(id: "\(listOfProducts[recognizer.tag].id)")

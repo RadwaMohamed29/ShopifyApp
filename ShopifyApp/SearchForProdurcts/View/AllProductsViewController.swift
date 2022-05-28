@@ -160,7 +160,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
        
     @objc private func longPress(recognizer: UIButton) {
      
-        Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, viewModel: self.productViewModel!, listOfProducts: listOfProducts, sharedProtocol: self)
+        Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: listOfProducts, sharedProtocol: self)
        
       }
     
