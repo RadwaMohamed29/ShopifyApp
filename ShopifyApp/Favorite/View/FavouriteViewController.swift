@@ -26,13 +26,6 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
         self.title = "Favorite"
         
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
-//        localDataSource = LocalDataSource(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
-//        do{
-//            favProducts = try localDataSource!.getProductFromCoreData()
-//        }catch{
-//
-//        }
-       
         getFavoriteProductsFromCoreData()
 
         let favProductCell = UINib(nibName: "FavouriteCollectionViewCell", bundle: nil)
@@ -61,11 +54,6 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
         }
         favProducts = (productViewModel?.favoriteProducts)!
         favouriteCollectionView.reloadData()
-//        productViewModel?.favoriteProductObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
-//            .observe(on: MainScheduler.asyncInstance)
-//            .subscribe(onNext: { [weak self] products in
-//                self?.favProducts = products
-//            }).disposed(by: disBag)
        
     }
     override func viewWillAppear(_ animated: Bool) {

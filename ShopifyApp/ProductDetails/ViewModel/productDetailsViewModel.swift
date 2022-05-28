@@ -15,7 +15,6 @@ protocol ProductDetailsViewModelType{
     var  favoriteProducts : [FavoriteProducts]? {get set}
     var  productObservable: Observable<Product>{get set}
     var allProductsObservable :Observable<[Product]>{get set}
-    var favoriteProductObservable: Observable<[FavoriteProducts]>{get set}
     func addFavouriteProductToCoreData(product:Product , completion: @escaping (Bool)->Void) throws
     func getAllFavoriteProducts(completion: @escaping (Bool)->Void) throws
 }
@@ -24,7 +23,7 @@ protocol ProductDetailsViewModelType{
 
 final class ProductDetailsViewModel: ProductDetailsViewModelType{
     var favoriteProducts: [FavoriteProducts]?
-    
+    var isFav : Bool?
    
     
     private var listOfProduct : [Product] = []
@@ -33,10 +32,8 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
    
     var productObservable: Observable<Product>
     var allProductsObservable :Observable<[Product]>
-    var favoriteProductObservable: Observable<[FavoriteProducts]>
     private var productSubject: PublishSubject = PublishSubject<Product>()
     private var allProductsSubject : PublishSubject = PublishSubject<[Product]>()
-    private var favoriteProductSubject : PublishSubject = PublishSubject<[FavoriteProducts]>()
 
     
    
@@ -44,7 +41,6 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         localDataSource = LocalDataSource(appDelegate: appDelegate)
         productObservable = productSubject.asObserver()
         allProductsObservable = allProductsSubject.asObserver()
-        favoriteProductObservable = favoriteProductSubject.asObserver()
     }
     
     
@@ -83,8 +79,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     func getAllFavoriteProducts(completion: @escaping (Bool)->Void) throws{
         
         do{
-            try favoriteProducts =   localDataSource.getProductFromCoreData()
-           // self.favoriteProductSubject.asObserver().onNext(favoriteProducts)
+           try  favoriteProducts =  localDataSource.getProductFromCoreData()
             completion(true)
         }catch let error{
             completion(false)
@@ -114,6 +109,15 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             completion(false)
             throw error
         }
+    }
+    
+    func checkFavorite(id : Int){
+        do{
+           try isFav = localDataSource.isFavouriteProduct(productID: id)
+        }catch let error{
+            print(error.localizedDescription)
+        }
+       
     }
  
 
