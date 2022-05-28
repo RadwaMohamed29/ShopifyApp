@@ -44,7 +44,7 @@ class CategoryViewController: UIViewController {
         let width = self.view.frame.width
         let navigationBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 35, width: width, height: 10));       self.view.addSubview(navigationBar)
         let searchBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(self.cartBtn))
-        navigationItem.title = "Category"
+        navigationItem.title = ""
         let favoriteBtn = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .done, target: self, action: #selector(selectorX))
         let cartBtn = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .done, target: self, action: #selector(cartBtn))
         navigationItem.leftBarButtonItem = searchBtn

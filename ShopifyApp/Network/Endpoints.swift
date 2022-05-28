@@ -46,9 +46,6 @@ enum Endpoints {
             return "smart_collections.json"
         case .CollectionID(id: let collectionId):
             return "products.json?collection_id=\(collectionId)"
-        }
-    }
-}
         case .TshirtType(id: let categoryID):
             return "products.json?collection_id=\(categoryID)&product_type=T-SHIRTS"
         case .ShoesType(id: let categoryID):
@@ -60,6 +57,7 @@ enum Endpoints {
         }
     }
 }
+
 enum categoryID {
     case MEN
     case WOMEN
