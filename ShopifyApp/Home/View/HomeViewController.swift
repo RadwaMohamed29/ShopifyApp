@@ -14,21 +14,22 @@ class HomeViewController: UIViewController,brandIdProtocol {
         productListVC.brandId = brandId
         productListVC.isCommingFromHome = "true"
         print("iddddddddd\(brandId)")
-   //     goToAllProduct(isCommingFromBrand: "true", brnadId: brandId)
         self.navigationController?.pushViewController(productListVC, animated: true)
     }
     
 
     @IBOutlet weak var homeTV: UITableView!
- 
+    var imageNotConnection = UIImageView()
     override func viewDidLoad() {
         
         super.viewDidLoad()
         BrandTableViewCell.setHome(deleget: self)
         setupTableView()
+        checkConnection()
         
         // Do any additional setup after loading the view.
     }
+    
 
     func setupTableView(){
         homeTV.register(AbsTableViewCell.Nib(), forCellReuseIdentifier: AbsTableViewCell.identifier)
@@ -62,6 +63,27 @@ extension HomeViewController{
     productListVC.isCommingFromHome = isCommingFromBrand
     self.navigationController?.pushViewController(productListVC, animated: true)
      }
+    func noInterNetConnectImage(){
+        let image = UIImage(named: "network")
+        imageNotConnection = UIImageView(image: image!)
+        imageNotConnection.frame = CGRect(x: 0, y: 0, width: 300, height: 300)
+        imageNotConnection.center = self.view.center
+        view.addSubview(imageNotConnection)
+    }
+   
+    func checkConnection(){
+        HandelConnection.handelConnection.checkNetworkConnection { isConnected in
+            if !isConnected{
+                self.homeTV.isHidden = true
+                self.imageNotConnection.isHidden = false
+               // self.showAlertForInterNetConnection()
+            }else{
+                self.homeTV.isHidden = false
+                self.imageNotConnection.isHidden = true
+                self.homeTV.reloadData()
+            }
+        }
+    }
 }
 extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,7 +126,7 @@ extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
         var title = ""
         switch section{
         case 0:
-            title = "ADS"
+            title = ""
         default:
             title = "BRANDS"
         }
