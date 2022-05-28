@@ -125,6 +125,12 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
                 .cacheOriginalImage
             ])
         cell.productName.text = listOfProducts[indexPath.row].title
+        productViewModel?.checkFavorite(id: "\(listOfProducts[indexPath.row].id)")
+        if productViewModel?.isFav == true {
+            cell.favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+        }else{
+            cell.favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+        }
         cell.favBtn.tag = indexPath.row
         cell.favBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
         return cell
