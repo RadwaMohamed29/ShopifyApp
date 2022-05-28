@@ -122,7 +122,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
   
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let productDetailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
-        productDetailsVC.productId = listOfProducts[indexPath.row].id
+        productDetailsVC.productId = "\(listOfProducts[indexPath.row].id)"
         self.navigationController?.pushViewController(productDetailsVC, animated: true)
     }
     

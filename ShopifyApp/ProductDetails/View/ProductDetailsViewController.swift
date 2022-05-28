@@ -17,7 +17,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     
     
     @IBOutlet weak var favBtn: UIButton!
-    var productId : Int?
+    var productId : String?
     @IBOutlet weak var productOPtion: UILabel!
     @IBOutlet weak var productRate: UILabel!
     @IBOutlet weak var productPrice: UILabel!
@@ -62,7 +62,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     }
     
     func setUpScreen(){
-        productViewModel?.getProduct(id: "\(productId ?? 0)")
+        productViewModel?.getProduct(id: "\(productId ?? "0")")
         productViewModel?.productObservable.subscribe(on: ConcurrentDispatchQueueScheduler
                         .init(qos: .background))
                         .observe(on: MainScheduler.asyncInstance)
@@ -83,7 +83,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     
     
     func setUpFavButton(){
-        productViewModel?.checkFavorite(id: "\(productId ?? 0)")
+        productViewModel?.checkFavorite(id: "\(productId ?? "0")")
        if productViewModel?.isFav == true {
           favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
        }else{

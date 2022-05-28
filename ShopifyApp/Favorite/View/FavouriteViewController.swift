@@ -8,6 +8,7 @@
 import UIKit
 import Kingfisher
 import RxSwift
+import Lottie
 class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,SharedProtocol {
     func presentAlert(alert: UIAlertController) {
         self.present(alert, animated: true, completion: nil)
@@ -85,6 +86,11 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
                 .transition(.fade(1)),
                 .cacheOriginalImage
             ])
+        cell.ProductName.text = favProducts[indexPath.row].title
+        cell.priceOfTheProduct.text = "$ \(favProducts[indexPath.row].price)"
+        cell.productImage.layer.borderWidth = 1
+        cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
+        cell.productImage.layer.cornerRadius = 20
         
         cell.favouriteBtn.tag = indexPath.row
         cell.favouriteBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
@@ -92,7 +98,11 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
     }
 
 
- 
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
+        detailsVC.productId = favProducts[indexPath.row].id
+        self.navigationController?.pushViewController(detailsVC, animated: true)
+    }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
