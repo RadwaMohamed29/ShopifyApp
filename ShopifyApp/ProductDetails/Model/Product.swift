@@ -142,7 +142,7 @@ struct Image: Codable{
 }
 
 struct FavoriteProducts:Codable{
-    let id : Int
+    let id : String
     let body_html :String
     let price :String
     let scr:String

@@ -145,25 +145,11 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         let availableHieght = view.frame.width/1.7
         return CGSize(width: availableWidth, height: availableHieght)
     }
-    //not finished
-    @objc  func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton){
+   
+    @objc  func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool){
         let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
-        do{
-            try self.productViewModel?.addFavouriteProductToCoreData(product: self.listOfProducts[index], completion: { response in
-                switch response{
-                case true:
-                    print("add seuccessfully")
-                    favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
-                case false:
-                    print("faild to add")
-                    favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
-                }
-                
-            })
-        }catch let error{
-            print(error.localizedDescription)
-        }
+            self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav)
     }
         let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
         
@@ -176,21 +162,58 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
      
         var alertMessage = ""
         var alertTitle = ""
-        self.productViewModel?.checkFavorite(id: self.listOfProducts[recognizer.tag].id)
+        self.productViewModel?.checkFavorite(id: "\(self.listOfProducts[recognizer.tag].id)")
         
        
            
             if self.productViewModel?.isFav == false {
                 alertMessage = "Are you sure to add this product to your favourite list."
                alertTitle = "Add favorite product"
-                showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer)
+                showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: false)
                 
             }else{
                 alertMessage = "Are you sure to remove this product from your favourite list."
                 alertTitle = "Remove favorite product"
-                showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer)
+                showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: true)
             }
        
       }
+    func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool){
+        if isFav == false{
+            do{
+                try self.productViewModel?.addFavouriteProductToCoreData(product: self.listOfProducts[index], completion: { response in
+                    switch response{
+                    case true:
+                        print("add seuccessfully")
+                        favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+                    case false:
+                        print("faild to add")
+                        favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+                    }
+                    
+                })
+            }catch let error{
+                print(error.localizedDescription)
+            }
+        }
+       else if isFav == true{
+            do{
+                try self.productViewModel?.removeProductFromFavorites(productID: "\(listOfProducts[index].id)", completionHandler: { response in
+                    switch response{
+                    case true:
+                        print("removed seuccessfully")
+                        favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+                    case false:
+                        print("faild to remove")
+                        favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+                    }
+                })
+            }catch let error{
+                print(error.localizedDescription)
+            }
+        }
+      
+    }
     
+  
 }

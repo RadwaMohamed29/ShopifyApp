@@ -10,9 +10,9 @@ import CoreData
 
 protocol LocalDataSourcable{
     func saveProductToCoreData(newProduct: Product) throws
-    func removeProductFromCoreData(productID: Int) throws
+    func removeProductFromCoreData(productID: String) throws
     func getProductFromCoreData() throws -> [FavoriteProducts]
-    func isFavouriteProduct(productID: Int) throws -> Bool
+    func isFavouriteProduct(productID: String) throws -> Bool
     
 }
 
@@ -27,7 +27,7 @@ final class LocalDataSource: LocalDataSourcable{
     
     func saveProductToCoreData(newProduct: Product) throws {
         let product = NSManagedObject(entity: entity, insertInto: context)
-        product.setValue(newProduct.id, forKey: "id")
+        product.setValue("\(newProduct.id)", forKey: "id")
         product.setValue(newProduct.bodyHTML, forKey: "body_html")
         product.setValue(newProduct.image.src, forKey: "scr")
         product.setValue(newProduct.title, forKey: "title")
@@ -42,7 +42,7 @@ final class LocalDataSource: LocalDataSourcable{
         
     }
     
-    func removeProductFromCoreData(productID: Int) throws {
+    func removeProductFromCoreData(productID: String) throws {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavouriteProduct")
         let myPredicate = NSPredicate(format: "id == %@", productID)
         fetchRequest.predicate = myPredicate
@@ -64,7 +64,7 @@ final class LocalDataSource: LocalDataSourcable{
         do{
             let productList = try context.fetch(fetchRequest)
             for product in productList {
-                favouriteProducts.append(FavoriteProducts(id: product.value(forKey: "id" )as! Int
+                favouriteProducts.append(FavoriteProducts(id: product.value(forKey: "id" )as! String
                                                           , body_html: product.value(forKey: "body_html" )as! String
                                                           , price: product.value(forKey: "price" )as! String
                                                           , scr: product.value(forKey: "scr") as! String
@@ -80,7 +80,7 @@ final class LocalDataSource: LocalDataSourcable{
         }
     }
     
-    func isFavouriteProduct(productID: Int) throws -> Bool {
+    func isFavouriteProduct(productID: String) throws -> Bool {
         do{
             let products = try self.getProductFromCoreData()
             for item in products{
