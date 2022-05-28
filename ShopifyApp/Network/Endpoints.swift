@@ -15,6 +15,8 @@ enum Endpoints {
     case KidsCategoryProduct
     case ProductDetails(id:String)
     case Smart_collections
+    case CollectionID(id:String)
+
     
     var path:String{
         switch self {
@@ -33,6 +35,8 @@ enum Endpoints {
 
         case .Smart_collections:
             return "smart_collections.json"
+        case .CollectionID(id: let collectionId):
+            return "products.json?collection_id=\(collectionId)"
         }
     }
 }

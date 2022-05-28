@@ -15,27 +15,29 @@ protocol ProductDetailsViewModelType{
     var  favoriteProducts : [FavoriteProducts]? {get set}
     var  productObservable: Observable<Product>{get set}
     var allProductsObservable :Observable<[Product]>{get set}
+    var  brandsObservable :Observable<[Product]>{get set}
     func addFavouriteProductToCoreData(product:Product , completion: @escaping (Bool)->Void) throws
     func getAllFavoriteProducts(completion: @escaping (Bool)->Void) throws
     func removeProductFromFavorites(productID:String, completionHandler:@escaping (Bool) -> Void) throws
+    func  getProductOfBrand(id:String)
+    
+
 }
 
 
 final class ProductDetailsViewModel: ProductDetailsViewModelType{
-    
-    
     var favoriteProducts: [FavoriteProducts]?
     var isFav : Bool?
-   
-    
     private var listOfProduct : [Product] = []
     var network = APIClient()
     var localDataSource :LocalDataSource
    
     var productObservable: Observable<Product>
     var allProductsObservable :Observable<[Product]>
+    var brandsObservable: Observable<[Product]>
     private var productSubject: PublishSubject = PublishSubject<Product>()
     private var allProductsSubject : PublishSubject = PublishSubject<[Product]>()
+    private var brandsSubject : PublishSubject = PublishSubject<[Product]>()
 
     
    
@@ -43,6 +45,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         localDataSource = LocalDataSource(appDelegate: appDelegate)
         productObservable = productSubject.asObserver()
         allProductsObservable = allProductsSubject.asObserver()
+        brandsObservable=brandsSubject.asObservable()
     }
     
     
@@ -63,7 +66,21 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
 
     }
 
-
+    func getProductOfBrand(id: String) {
+        network.productOfBrandsProvider(id: id, completion:
+                {[weak self] result in
+                 switch result {
+                 case .success(let response):
+                     guard let product = response.products else {return}
+                     self?.brandsSubject.asObserver().onNext(product)
+                     print(product.count)
+                 case .failure(let error):
+                     self?.brandsSubject.asObserver().onError(error)
+                     print(error.localizedDescription)
+            }
+       })
+                                            
+    }
     func getAllProducts() {
         network.getAllProduct { [weak self] result in
             switch result {

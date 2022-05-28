@@ -15,7 +15,7 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
     }
     
 
-    var brandName : String?
+    var brandId: Int?
     var isCommingFromHome :String?
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchProductsCV: UICollectionView!
@@ -34,12 +34,18 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         searchProductsCV.dataSource = self
     
         setubSearchBar()
-        if isCommingFromHome == "true" {
+        if brandId == 0 {
             getAllProductsFromApi()
-          
-        }else{
-            
         }
+        else{
+            getProductOfBrands(cID: brandId!)
+        }
+//        if isCommingFromHome == "true" {
+//            getAllProductsFromApi()
+//
+//        }else{
+//
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,54 +58,22 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
             .observe(on: MainScheduler.asyncInstance)
             .subscribe { products in
                 self.listOfProducts = products
-                if self.brandName == ""{
-                    self.searchProductsCV.reloadData()
-                }
-                else{
-                    switch (self.brandName!){
-                case "ADIDAS":
-                    self.filterProduct(BrandName: "ADIDAS")
-                case "ASICS TIGER":
-                    self.filterProduct(BrandName: "ASICS TIGER")
-                case "CONVERSE":
-                        self.filterProduct(BrandName: "CONVERSE")
-                case "DR MARTENS":
-                        self.filterProduct(BrandName: "DR MARTENS")
-                case "FLEX FIT":
-                        self.filterProduct(BrandName: "FLEX FIT")
-                case "HERSCHEL":
-                        self.filterProduct(BrandName: "HERSCHEL")
-                case "NIKE":
-                        self.filterProduct(BrandName: "NIKE")
-                case "PALLADUIM":
-                        self.filterProduct(BrandName: "PALLADUIM")
-                case "PUMA":
-                        self.filterProduct(BrandName: "PUMA")
-                case "SUPRA":
-                        self.filterProduct(BrandName: "SUPRA")
-                case "TIMBERLAND":
-                        self.filterProduct(BrandName: "TIMBERLAND")
-                case "VANS":
-                        self.filterProduct(BrandName: "VANS")
-                default:
-                    return
-                }
-                    
-                }
+                self.searchProductsCV.reloadData()
             } onError: { error in
                 print(error)
             }.disposed(by: disBag)
     }
-    func filterProduct(BrandName: String)  {
-        for product in self.listOfProducts {
-            if product.vendor == self.brandName!
-           {
-                self.filtered.append(product)
-           }
-        }
-        self.listOfProducts = self.filtered
-        self.searchProductsCV.reloadData()
-        
+    func getProductOfBrands(cID:Int){
+        productViewModel?.getProductOfBrand(id:  "\(cID)")
+        productViewModel?.brandsObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { products in
+                self.listOfProducts = products
+                self.searchProductsCV.reloadData()
+                print("pppppppppppp\(products.count)")
+            } onError: { error in
+                print(error)
+            }.disposed(by: disBag)
     }
     func setubSearchBar(){
         searchBar.rx.text.orEmpty.throttle(RxTimeInterval.microseconds(500), scheduler: MainScheduler.asyncInstance)
