@@ -20,7 +20,7 @@ protocol ProductDetailsViewModelType{
     func getAllFavoriteProducts(completion: @escaping (Bool)->Void) throws
     func removeProductFromFavorites(productID:String, completionHandler:@escaping (Bool) -> Void) throws
     func getProductOfBrand(id:String)
-    func addProductToCoreDataCart(product:Product ,itemCount: Int,  completion: @escaping (Bool)->Void) throws
+    func addProductToCoreDataCart(id: String,title:String,image:String,price:String, itemCount: Int,  completion: @escaping (Bool)->Void) throws
     func checkProductInCart(id: String)
     
     
@@ -168,9 +168,9 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         }
     }
     
-    func addProductToCoreDataCart(product: Product, itemCount: Int, completion: @escaping (Bool) -> Void) throws {
+    func addProductToCoreDataCart(id: String,title:String,image:String,price:String, itemCount: Int, completion: @escaping (Bool) -> Void) throws {
         do{
-            try localDataSource.saveProductToCartCoreData(newItem: product, itemCount: itemCount)
+            try localDataSource.saveProductToCartCoreData(id: id, title: title, image: image, price: price, itemCount: 1)
             completion(true)
             
         }catch let error {

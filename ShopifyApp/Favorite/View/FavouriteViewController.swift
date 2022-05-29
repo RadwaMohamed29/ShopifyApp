@@ -113,6 +113,38 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
         
     }
 
+    @IBAction func addSelectedItemToCart(_ sender: Any) {
+        for product in listOfSelectedProducts{
+            productViewModel?.checkProductInCart(id: "\(product.id )")
+            guard let inCart = productViewModel?.isProductInCart else{return}
+            
+            if(inCart){
+                let alert = UIAlertController(title: "\(product.title) Already In Bag!", message: "if you need to increase the amount of product , you can from your bag ", preferredStyle: .alert)
+                        let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                        alert.addAction(okBtn)
+                        self.present(alert, animated: true, completion: nil)
+                
+                print("alert \(inCart)")
+            }else{
+                do{
+                    try productViewModel?.addProductToCoreDataCart(id: "\(product.id)",title:product.title,image:product.scr,price:product.price, itemCount: 1, completion: { result in
+                        switch result{
+                        case true:
+                            Shared.showMessage(message: "Added To Bag Successfully!", error: false)
+                            print("add to cart \(inCart)")
+                            
+                           
+                        case false :
+                            print("faild to add to cart")
+                        }
+                    })
+
+                }catch let error{
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
     }
@@ -211,14 +243,10 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
             
             favProducts[indexPath.row].isSelected = false
         }
-        for i in listOfSelectedProducts{
-            print(i.title)
-        }
-        
-      
         
     }
     
+ 
 
 
 }
