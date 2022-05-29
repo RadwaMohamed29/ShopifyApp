@@ -34,7 +34,9 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
         
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         getFavoriteProductsFromCoreData()
-        
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
+        lpgr.minimumPressDuration = 0.5
+        favouriteCollectionView.addGestureRecognizer(lpgr)
         let favProductCell = UINib(nibName: "FavouriteCollectionViewCell", bundle: nil)
         favouriteCollectionView.register(favProductCell, forCellWithReuseIdentifier: "FavouriteproductCell")
         favouriteCollectionView.delegate = self
