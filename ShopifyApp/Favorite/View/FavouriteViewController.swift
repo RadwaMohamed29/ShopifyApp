@@ -15,6 +15,7 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
     }
     var countOfSelectedItem = 0
     var disBag = DisposeBag()
+    var listOfSelectedProducts:[FavoriteProducts] = []
     var productViewModel : ProductDetailsViewModel?
     var localDataSource : LocalDataSource?
     @IBOutlet weak var noDataView: UIView!
@@ -195,12 +196,25 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
         if favProducts[indexPath.row].isSelected == false{
             cell.productImage.layer.borderWidth = 1
             countOfSelectedItem += 1
+            listOfSelectedProducts.append(favProducts[indexPath.row])
             favProducts[indexPath.row].isSelected =  true
         }else{
             cell.productImage.layer.borderWidth = 0
             countOfSelectedItem -= 1
+            let numberOfItems = listOfSelectedProducts.count
+            for i in 0..<numberOfItems{
+                if listOfSelectedProducts[i].id == favProducts[indexPath.row].id{
+                    listOfSelectedProducts.remove(at: i)
+                }
+                
+            }
+            
             favProducts[indexPath.row].isSelected = false
         }
+        for i in listOfSelectedProducts{
+            print(i.title)
+        }
+        
       
         
     }
