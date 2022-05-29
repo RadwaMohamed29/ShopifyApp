@@ -72,7 +72,7 @@ final class LocalDataSource: LocalDataSourcable{
                                                           , body_html: product.value(forKey: "body_html" )as! String
                                                           , price: product.value(forKey: "price" )as! String
                                                           , scr: product.value(forKey: "scr") as! String
-                                                          , title: product.value(forKey: "title") as!String
+                                                          , title: product.value(forKey: "title") as!String, isSelected: false
                                                          ))
             }
             
@@ -122,12 +122,12 @@ extension LocalDataSource{
     }
     
     
-    func saveProductToCartCoreData(newItem: Product, itemCount: Int )throws{
+    func saveProductToCartCoreData(id: String,title:String,image:String,price:String, itemCount: Int )throws{
         let product = NSManagedObject(entity: entityCart, insertInto: contextCart)
-        product.setValue("\(newItem.id)", forKey: "id")
-        product.setValue(newItem.title, forKey: "title")
-        product.setValue(newItem.image.src, forKey: "image")
-        product.setValue(newItem.variant[0].price, forKey: "price")
+        product.setValue(id, forKey: "id")
+        product.setValue(title, forKey: "title")
+        product.setValue(image, forKey: "image")
+        product.setValue(price, forKey: "price")
         product.setValue(Int64(itemCount), forKey: "count")
     //    product.setValue(newItem.options[0].values, forKey: "size")
     //    let data = NSKeyedArchiver.archivedData(withRootObject: product.options[0].values)

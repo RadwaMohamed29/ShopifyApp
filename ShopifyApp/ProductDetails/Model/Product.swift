@@ -28,6 +28,7 @@ struct Product: Codable{
     let variant: [Variant]
     let image: Image
     
+   
     enum CodingKeys: String, CodingKey {
         case id, title
         case bodyHTML = "body_html"
@@ -147,4 +148,5 @@ struct FavoriteProducts:Codable{
     let price :String
     let scr:String
     let title:String
+    var isSelected:Bool
 }

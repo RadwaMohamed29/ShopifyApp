@@ -67,7 +67,6 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="uKu-kj-SBB" firstAttribute="top" secondItem="tca-sH-wnj" secondAttribute="bottom" id="ACg-TF-1rb"/>
-                <constraint firstItem="uKu-kj-SBB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="BsT-NH-1YK"/>
                 <constraint firstItem="tca-sH-wnj" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" multiplier="0.65" id="VF2-mz-JBT"/>
                 <constraint firstAttribute="bottom" secondItem="uKu-kj-SBB" secondAttribute="bottom" id="f5b-We-J1x"/>
                 <constraint firstItem="tca-sH-wnj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="kdk-qM-eCI"/>

@@ -36,6 +36,9 @@
                         </attributedString>
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="addSelectedItemToCart:" destination="-1" eventType="touchUpInside" id="irW-Lz-326"/>
+                    </connections>
                 </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8c1-9l-lAL">
                     <rect key="frame" x="0.0" y="44" width="414" height="760"/>

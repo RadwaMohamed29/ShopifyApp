@@ -115,7 +115,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
             print("alert \(inCart)")
         }else{
             do{
-                try productViewModel?.addProductToCoreDataCart(product: product!, itemCount: 1, completion: { result in
+                try productViewModel?.addProductToCoreDataCart(id: "\(productId!)",title:(product?.title)!,image:(product?.image.src)!,price:(product?.variant[0].price)!, itemCount: 1, completion: { result in
                     switch result{
                     case true:
                         Shared.showMessage(message: "Added To Bag Successfully!", error: false)
