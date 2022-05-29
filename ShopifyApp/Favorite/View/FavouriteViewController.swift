@@ -13,7 +13,7 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
     func presentAlert(alert: UIAlertController) {
         self.present(alert, animated: true, completion: nil)
     }
-    
+    var countOfSelectedItem = 0
     var disBag = DisposeBag()
     var productViewModel : ProductDetailsViewModel?
     var localDataSource : LocalDataSource?
@@ -29,7 +29,10 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Favorite"
-        
+       
+        let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
+        lpgr.minimumPressDuration = 0.5
+        favouriteCollectionView.addGestureRecognizer(lpgr)
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         getFavoriteProductsFromCoreData()
 
@@ -88,7 +91,7 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
             ])
         cell.ProductName.text = favProducts[indexPath.row].title
         cell.priceOfTheProduct.text = "$ \(favProducts[indexPath.row].price)"
-        cell.productImage.layer.borderWidth = 1
+        cell.productImage.layer.borderWidth = 0
         cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
         cell.productImage.layer.cornerRadius = 20
         
@@ -167,6 +170,27 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
             }
           
         }
+    @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
+        if gesture.state != .ended {
+            return
+        }
+
+        let p = gesture.location(in: self.favouriteCollectionView)
+
+        if let indexPath = self.favouriteCollectionView.indexPathForItem(at: p) {
+            let cell = self.favouriteCollectionView.cellForItem(at: indexPath) as! FavouriteCollectionViewCell
+            cell.productImage.layer.borderWidth = 1
+            countOfSelectedItem += 1
+            print(countOfSelectedItem)
+            // do stuff with the cell
+        } else {
+            print("couldn't find index path")
+        }
+    }
 
 
 }
+
+
+
+
