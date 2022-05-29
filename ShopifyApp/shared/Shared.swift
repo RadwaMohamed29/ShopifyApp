@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import SwiftMessages
+
 protocol SharedProtocol{
     func presentAlert(alert:UIAlertController)->Void
 }
@@ -85,4 +87,23 @@ class Shared{
       
     }
     
+}
+
+extension Shared{
+    static func showMessage(message:String, error:Bool){
+            
+            let view = MessageView.viewFromNib(layout: .messageView)
+            if error == true {
+                view.configureTheme(.error)
+            }else{
+                view.configureTheme(.success)
+            }
+            view.button?.isHidden = true
+            view.titleLabel?.isHidden = true
+            view.bodyLabel?.text = message
+            
+            var config = SwiftMessages.Config()
+            config.presentationStyle = .top
+            SwiftMessages.show(config: config, view: view)
+        }
 }

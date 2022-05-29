@@ -937,7 +937,7 @@
 		1C51042745B7EE2F93755F73812F07BB /* Catch.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Catch.swift; path = RxSwift/Observables/Catch.swift; sourceTree = "<group>"; };
 		1C95A0FEFF8E86BAE42E0590D45882C6 /* KRProgressHUDIconType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KRProgressHUDIconType.swift; path = KRProgressHUD/Classes/KRProgressHUDIconType.swift; sourceTree = "<group>"; };
 		1D8B48E3DB99D56F8C57110910782217 /* SingleAsync.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SingleAsync.swift; path = RxSwift/Observables/SingleAsync.swift; sourceTree = "<group>"; };
-		1D987EDF994D7E19924277775EB2747F /* Pods_ShopifyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShopifyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D987EDF994D7E19924277775EB2747F /* Pods-ShopifyApp */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-ShopifyApp"; path = Pods_ShopifyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E42D83E61C218846BC515A987D07265 /* BezierPath.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BezierPath.swift; path = Sources/Private/Utility/Primitives/BezierPath.swift; sourceTree = "<group>"; };
 		1E59ADB9D7BE971E1474E4BC8925E77E /* SynchronizedUnsubscribeType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SynchronizedUnsubscribeType.swift; path = RxSwift/Concurrency/SynchronizedUnsubscribeType.swift; sourceTree = "<group>"; };
 		1F5F0B03C86069CF4619DC86555B532A /* Infallible+Zip+arity.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Infallible+Zip+arity.swift"; path = "RxSwift/Traits/Infallible/Infallible+Zip+arity.swift"; sourceTree = "<group>"; };
@@ -1295,7 +1295,7 @@
 		9B0D2550E12EB64D038CBB8C2CD37838 /* ReachabilitySwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ReachabilitySwift-prefix.pch"; sourceTree = "<group>"; };
 		9D244E26F6D5D561CCD95A317F50333A /* SessionDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionDelegate.swift; path = Sources/Networking/SessionDelegate.swift; sourceTree = "<group>"; };
 		9D2DA59D760AF2583C74AFEC431B591E /* GroupBy.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GroupBy.swift; path = RxSwift/Observables/GroupBy.swift; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9E2EB870D3E8C865760A43FDA3B6C8B9 /* Bag.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Bag.swift; path = Platform/DataStructures/Bag.swift; sourceTree = "<group>"; };
 		9E58576A4748204A7033A9E1280A4176 /* Pods-ShopifyApp-ShopifyAppUITests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-ShopifyApp-ShopifyAppUITests-Info.plist"; sourceTree = "<group>"; };
 		9ED89A14EF8ED1DEB858E00C286AC8CC /* Trim.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Trim.swift; path = Sources/Private/Model/ShapeItems/Trim.swift; sourceTree = "<group>"; };
@@ -1763,6 +1763,7 @@
 				587B999285EEC2D4FA81C5EFB8790431 /* Validation.swift */,
 				0158B2A72407360F44DA9502EFA8E116 /* Support Files */,
 			);
+			name = Alamofire;
 			path = Alamofire;
 			sourceTree = "<group>";
 		};
@@ -1821,6 +1822,7 @@
 				92AC0D0274BFC91F5730AEA24288F1C9 /* KRActivityIndicatorViewStyle.swift */,
 				0822C4902B3E1BA75CC4BB5A45970930 /* Support Files */,
 			);
+			name = KRActivityIndicatorView;
 			path = KRActivityIndicatorView;
 			sourceTree = "<group>";
 		};
@@ -2015,6 +2017,7 @@
 				A08C6D8C3042E33D3AD3A3211D405A5D /* Utils.swift */,
 				9D2F5F03CF0D1CF8029A041493281D89 /* Support Files */,
 			);
+			name = RxRelay;
 			path = RxRelay;
 			sourceTree = "<group>";
 		};
@@ -2043,6 +2046,7 @@
 				B189A363F9501487CE76FD7DF4CD4BD2 /* KRProgressHUDViewController.swift */,
 				EDF68048B13FADA8CD69C5B7DBA7B3B2 /* Support Files */,
 			);
+			name = KRProgressHUD;
 			path = KRProgressHUD;
 			sourceTree = "<group>";
 		};
@@ -2052,6 +2056,7 @@
 				5E6985CD03CF82712DCE4351470F7245 /* App */,
 				E5F60FD4DC0F0F3F78AB8D4C7628F778 /* Support Files */,
 			);
+			name = SwiftMessages;
 			path = SwiftMessages;
 			sourceTree = "<group>";
 		};
@@ -2079,7 +2084,7 @@
 				9258ECC23A4C8B0274C7A6DF69DDFE95 /* KRActivityIndicatorView */,
 				1C33CB84138510317C9CFF8E19C47C23 /* KRProgressHUD */,
 				51BA97E8B5085EFFB47BC9C0B785CEA7 /* lottie-ios */,
-				1D987EDF994D7E19924277775EB2747F /* Pods_ShopifyApp.framework */,
+				1D987EDF994D7E19924277775EB2747F /* Pods-ShopifyApp */,
 				810D98D4F74FF88CCFB8A0E50F1442EF /* Pods-ShopifyApp-ShopifyAppUITests */,
 				3C3F6DA6A80225A3B38F41B997A59B8A /* Pods-ShopifyAppTests */,
 				21B03CA622E690725A6626C088E1D09F /* ReachabilitySwift */,
@@ -2257,6 +2262,7 @@
 				541E05B2BAC025DEB8F54C736BBFB8B7 /* Zip+Collection.swift */,
 				6092C7F5A7A9E8460A6D93C8A789DC3C /* Support Files */,
 			);
+			name = RxSwift;
 			path = RxSwift;
 			sourceTree = "<group>";
 		};
@@ -2401,6 +2407,7 @@
 				BCB1DA9DF558C860792CBCCB1EC301B3 /* WKWebView+Rx.swift */,
 				729D0EB9734DD106A9017AD5275EFC78 /* Support Files */,
 			);
+			name = RxCocoa;
 			path = RxCocoa;
 			sourceTree = "<group>";
 		};
@@ -2410,6 +2417,7 @@
 				ADCDCF831A7C55CC5DB149784FAAF57F /* Reachability.swift */,
 				D32546DB4E35C8235B57A523AA0DAE31 /* Support Files */,
 			);
+			name = ReachabilitySwift;
 			path = ReachabilitySwift;
 			sourceTree = "<group>";
 		};
@@ -2425,6 +2433,7 @@
 				C53CA7722D4A0F856B83742B725493E3 /* UIView+Draggable.swift */,
 				B78BEEBF978B16FFE5504BB62D810137 /* Support Files */,
 			);
+			name = Floaty;
 			path = Floaty;
 			sourceTree = "<group>";
 		};
@@ -2560,6 +2569,7 @@
 				109690FB4B535D739A2A15F77265940B /* WKInterfaceImage+Kingfisher.swift */,
 				72B8B5E2BA5B15805CC90D35FE93305D /* Support Files */,
 			);
+			name = Kingfisher;
 			path = Kingfisher;
 			sourceTree = "<group>";
 		};
@@ -2699,6 +2709,7 @@
 				BA5E50CFE860005CC68B5D156C9C5392 /* VectorsExtensions.swift */,
 				0D3B1878A98F52DE01087AF336F28F21 /* Support Files */,
 			);
+			name = "lottie-ios";
 			path = "lottie-ios";
 			sourceTree = "<group>";
 		};
@@ -3120,7 +3131,7 @@
 			);
 			name = "Pods-ShopifyApp";
 			productName = Pods_ShopifyApp;
-			productReference = 1D987EDF994D7E19924277775EB2747F /* Pods_ShopifyApp.framework */;
+			productReference = 1D987EDF994D7E19924277775EB2747F /* Pods-ShopifyApp */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */

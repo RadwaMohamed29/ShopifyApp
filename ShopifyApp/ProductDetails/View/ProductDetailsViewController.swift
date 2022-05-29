@@ -48,7 +48,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     var disposeBag = DisposeBag()
     var images: [Images] = []
     var optionsValue:[String] = []
-    var listOfProducts : Product?
+    var product : Product?
     var uiImageView = UIImageView()
     var productViewModel: ProductDetailsViewModel?
     
@@ -68,7 +68,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                         .observe(on: MainScheduler.asyncInstance)
                         .subscribe{ [weak self] result in
                 guard let self = self else {return}
-                            self.listOfProducts = result.element
+                            self.product = result.element
                 self.productTitle.text = result.element?.title
                 self.productDescription.text = result.element?.bodyHTML
                 self.images = result.element?.images ?? []
@@ -97,9 +97,41 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     
  @objc private func longPress(recognizer: UIButton) {
   
-     Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: listOfProducts!, sharedProtocol: self)
+     Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: product!, sharedProtocol: self)
     
    }
+    
+    
+    @IBAction func addToCartBtn(_ sender: Any) {
+        productViewModel?.checkProductInCart(id: "\(productId ?? "")")
+        guard let inCart = productViewModel?.isProductInCart else{return}
+        
+        if(inCart){
+            let alert = UIAlertController(title: "Already In Bag!", message: "if you need to increase the amount of product , you can from your bag ", preferredStyle: .alert)
+                    let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alert.addAction(okBtn)
+                    self.present(alert, animated: true, completion: nil)
+            
+            print("alert \(inCart)")
+        }else{
+            do{
+                try productViewModel?.addProductToCoreDataCart(product: product!, itemCount: 1, completion: { result in
+                    switch result{
+                    case true:
+                        Shared.showMessage(message: "Added To Bag Successfully!", error: false)
+                        print("add to cart \(inCart)")
+                       
+                    case false :
+                        print("faild to add to cart")
+                    }
+                })
+
+            }catch let error{
+                print(error.localizedDescription)
+            }
+        }
+      
+    }
     
 }
 
