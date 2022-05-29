@@ -6,6 +6,7 @@
 //
 import Reachability
 import Foundation
+//import LPSnackbar
 class HandelConnection{
     static let handelConnection = HandelConnection()
     var reachability: Reachability?
@@ -40,4 +41,21 @@ extension UIViewController{
         alert.addAction(okBtn)
         self.present(alert, animated: true, completion: nil)
     }
+    func showSnackBar(){
+      //  LPSnackbar.showSnack(title: "network is not connected")
+//        let snack = LPSnackbar(title: "network is not connected", buttonTitle: "dismiss")
+//        // Customize the snack
+//        snack.bottomSpacing = (tabBarController?.tabBar.frame.minX ?? 0)
+//        snack.view.titleLabel.font = UIFont.systemFont(ofSize: 20)
+//
+//        // Show a snack to allow user to undo deletion
+//        snack.show(animated: true) { (undone) in
+//            if undone {
+//                snack.dismiss()
+//            } else {
+//                snack.show()
+//            }
+//        }
+    }
+
 }
