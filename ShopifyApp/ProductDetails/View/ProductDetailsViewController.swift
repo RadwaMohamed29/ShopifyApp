@@ -103,11 +103,11 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     
     
     @IBAction func addToCartBtn(_ sender: Any) {
-        productViewModel?.checkProductInCart(id: "\(productId ?? 0)")
+        productViewModel?.checkProductInCart(id: "\(productId ?? "")")
         guard let inCart = productViewModel?.isProductInCart else{return}
         
         if(inCart){
-            let alert = UIAlertController(title: "Already in cart!", message: "if you need to increase the amount of product , you can from your bag ", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Already In Bag!", message: "if you need to increase the amount of product , you can from your bag ", preferredStyle: .alert)
                     let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alert.addAction(okBtn)
                     self.present(alert, animated: true, completion: nil)
@@ -118,6 +118,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                 try productViewModel?.addProductToCoreDataCart(product: product!, itemCount: 1, completion: { result in
                     switch result{
                     case true:
+                        Shared.showMessage(message: "Added To Bag Successfully!", error: false)
                         print("add to cart \(inCart)")
                        
                     case false :
