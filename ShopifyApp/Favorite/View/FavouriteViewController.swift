@@ -103,8 +103,13 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
-        detailsVC.productId = favProducts[indexPath.row].id
-        self.navigationController?.pushViewController(detailsVC, animated: true)
+        if countOfSelectedItem > 0 {
+           selectOrUnselectProduct(indexPath: indexPath)
+        }else if countOfSelectedItem == 0 {
+            detailsVC.productId = favProducts[indexPath.row].id
+            self.navigationController?.pushViewController(detailsVC, animated: true)
+        }
+        
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -178,15 +183,28 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
         let p = gesture.location(in: self.favouriteCollectionView)
 
         if let indexPath = self.favouriteCollectionView.indexPathForItem(at: p) {
-            let cell = self.favouriteCollectionView.cellForItem(at: indexPath) as! FavouriteCollectionViewCell
-            cell.productImage.layer.borderWidth = 1
-            countOfSelectedItem += 1
-            print(countOfSelectedItem)
+          selectOrUnselectProduct(indexPath: indexPath)
             // do stuff with the cell
         } else {
             print("couldn't find index path")
         }
     }
+    
+    func selectOrUnselectProduct(indexPath:IndexPath){
+        let cell = self.favouriteCollectionView.cellForItem(at: indexPath) as! FavouriteCollectionViewCell
+        if favProducts[indexPath.row].isSelected == false{
+            cell.productImage.layer.borderWidth = 1
+            countOfSelectedItem += 1
+            favProducts[indexPath.row].isSelected =  true
+        }else{
+            cell.productImage.layer.borderWidth = 0
+            countOfSelectedItem -= 1
+            favProducts[indexPath.row].isSelected = false
+        }
+      
+        
+    }
+    
 
 
 }

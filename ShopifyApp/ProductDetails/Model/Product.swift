@@ -147,4 +147,5 @@ struct FavoriteProducts:Codable{
     let price :String
     let scr:String
     let title:String
+    var isSelected:Bool
 }

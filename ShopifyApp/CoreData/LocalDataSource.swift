@@ -72,7 +72,7 @@ final class LocalDataSource: LocalDataSourcable{
                                                           , body_html: product.value(forKey: "body_html" )as! String
                                                           , price: product.value(forKey: "price" )as! String
                                                           , scr: product.value(forKey: "scr") as! String
-                                                          , title: product.value(forKey: "title") as!String
+                                                          , title: product.value(forKey: "title") as!String, isSelected: false
                                                          ))
             }
             
