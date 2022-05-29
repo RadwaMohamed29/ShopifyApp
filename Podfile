@@ -11,7 +11,6 @@ target 'ShopifyApp' do
   pod 'Floaty', '~> 4.2.0'
   pod 'RxSwift', '6.5.0'
   pod 'RxCocoa', '6.5.0'
-  pod 'LPSnackbar'
   target 'ShopifyAppTests' do
     inherit! :search_paths
   end
