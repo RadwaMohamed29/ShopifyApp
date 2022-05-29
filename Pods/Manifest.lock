@@ -6,6 +6,7 @@ PODS:
   - KRProgressHUD (3.4.7):
     - KRActivityIndicatorView (= 3.0.7)
   - lottie-ios (3.3.0)
+  - LPSnackbar (4.0.0)
   - ReachabilitySwift (5.0.0)
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
@@ -20,6 +21,7 @@ DEPENDENCIES:
   - Kingfisher (~> 7.0)
   - KRProgressHUD
   - lottie-ios
+  - LPSnackbar
   - ReachabilitySwift
   - RxCocoa (= 6.5.0)
   - RxSwift (= 6.5.0)
@@ -32,6 +34,7 @@ SPEC REPOS:
     - KRActivityIndicatorView
     - KRProgressHUD
     - lottie-ios
+    - LPSnackbar
     - ReachabilitySwift
     - RxCocoa
     - RxRelay
@@ -44,11 +47,12 @@ SPEC CHECKSUMS:
   KRActivityIndicatorView: ad69e89c4ce40c986cf580595be4829dcad0e35a
   KRProgressHUD: a248f0bc6c9c2aed40a37b76e03ffecc7f85c887
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
+  LPSnackbar: 703bd205ac18182b3ee1eedaeb94dbdd18800cfa
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
 
-PODFILE CHECKSUM: 898312137d85ab1451070249142a503f749f7d90
+PODFILE CHECKSUM: 93e4814c3da2cbd5875d3245ca1903909c0f7872
 
 COCOAPODS: 1.11.3
