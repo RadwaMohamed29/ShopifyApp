@@ -22,6 +22,10 @@ protocol ProductDetailsViewModelType{
     func getProductOfBrand(id:String)
     func addProductToCoreDataCart(id: String,title:String,image:String,price:String, itemCount: Int,  completion: @escaping (Bool)->Void) throws
     func checkProductInCart(id: String)
+    func getAllProductsInCart(completion: @escaping (Bool)->Void) throws
+    func removeProductFromCart(productID:String, completionHandler:@escaping (Bool) -> Void) throws
+    func updateCount(productID : Int , count : Int,completionHandler:@escaping (Bool) -> Void) throws
+    
     
     
     
@@ -30,9 +34,8 @@ protocol ProductDetailsViewModelType{
 
 final class ProductDetailsViewModel: ProductDetailsViewModelType{
 
-
-    
     var favoriteProducts: [FavoriteProducts]?
+    var productsInCart: [CartModel]?
     var isFav : Bool?
     var isProductInCart: Bool?
     private var listOfProduct : [Product] = []
@@ -112,7 +115,6 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             throw error
         }
     }
-    
     func searchWithWord(word:String){
         if word.isEmpty{
             allProductsSubject.onNext(listOfProduct)
@@ -148,8 +150,6 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         }
         
     }
-    
-    
     func checkFavorite(id : String){
         do{
             try isFav = localDataSource.isFavouriteProduct(productID: id)
@@ -179,5 +179,33 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         }
     }
     
+    func getAllProductsInCart(completion: @escaping (Bool) -> Void) throws {
+        do{
+            try  productsInCart =  localDataSource.getCartFromCoreData()
+            completion(true)
+        }catch let error{
+            completion(false)
+            throw error
+        }
+    }
+    func removeProductFromCart(productID: String, completionHandler: @escaping (Bool) -> Void) throws {
+        do{
+            try localDataSource.removeFromCartCoreData(itemId: productID)
+            completionHandler(true)
+        }catch let error{
+            completionHandler(false)
+            throw error
+        }
+        
+    }
+    func updateCount(productID: Int, count: Int, completionHandler: @escaping (Bool) -> Void) throws {
+        do{
+            try localDataSource.updateCount(productID: productID, count: count)
+            completionHandler(true)
+        }catch let error{
+            completionHandler(false)
+            throw error
+        }
+    }
     
 }

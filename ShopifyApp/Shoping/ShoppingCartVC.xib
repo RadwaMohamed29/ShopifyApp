@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShoppingCartVC" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
-                <outlet property="emptyCart" destination="xFi-iI-4KI" id="JM8-bX-UBi"/>
+                <outlet property="emptyView" destination="mSe-P0-8Ib" id="fGd-d8-6fG"/>
                 <outlet property="tableView" destination="Kka-bL-Oe2" id="cbO-DO-Rlx"/>
                 <outlet property="totalLable" destination="jIz-He-i1j" id="Jwf-Rk-LSj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -21,17 +21,8 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cart" translatesAutoresizingMaskIntoConstraints="NO" id="xFi-iI-4KI">
-                    <rect key="frame" x="-193" y="153" width="800" height="600"/>
-                </imageView>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="efU-JS-SYd">
-                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                    <items>
-                        <navigationItem title="Cart" id="fAH-XA-Y8O"/>
-                    </items>
-                </navigationBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Kka-bL-Oe2">
-                    <rect key="frame" x="0.0" y="88" width="414" height="540"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="584"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUD-mx-jfF" userLabel="Total">
@@ -63,38 +54,71 @@
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="Procced To Checkout"/>
                 </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mSe-P0-8Ib">
+                    <rect key="frame" x="0.0" y="44" width="414" height="836.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry not foun product in your cart" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Z9-cl-1aI">
+                            <rect key="frame" x="67.5" y="291" width="279" height="49"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cart.badge.plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ibT-Ll-zkE">
+                            <rect key="frame" x="87" y="349" width="241" height="129.5"/>
+                            <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="129.5" id="ObH-bh-c77"/>
+                                <constraint firstAttribute="width" constant="240" id="oTR-Fb-kvi"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="please add some product to your cart" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kvx-hU-jH6">
+                            <rect key="frame" x="34" y="486.5" width="346.5" height="23"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="ibT-Ll-zkE" firstAttribute="leading" secondItem="mSe-P0-8Ib" secondAttribute="leading" constant="87" id="80O-Rq-gCr"/>
+                        <constraint firstItem="Kvx-hU-jH6" firstAttribute="top" secondItem="ibT-Ll-zkE" secondAttribute="bottom" constant="8" id="gwv-RR-gCX"/>
+                        <constraint firstAttribute="trailing" secondItem="ibT-Ll-zkE" secondAttribute="trailing" constant="87" id="jKd-qr-L2c"/>
+                        <constraint firstItem="ibT-Ll-zkE" firstAttribute="top" secondItem="3Z9-cl-1aI" secondAttribute="bottom" constant="9" id="wkd-dR-Exo"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="efU-JS-SYd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="GWw-6p-QHn"/>
+                <constraint firstItem="3Z9-cl-1aI" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0546875" id="44d-Cb-ob0"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mSe-P0-8Ib" secondAttribute="trailing" id="5Tm-do-1Kv"/>
+                <constraint firstItem="Kvx-hU-jH6" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.836957" id="A2G-tH-LaJ"/>
+                <constraint firstItem="Kvx-hU-jH6" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0256696" id="FZY-xR-aiV"/>
                 <constraint firstItem="Kka-bL-Oe2" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="H1b-vz-UG4"/>
+                <constraint firstItem="Kka-bL-Oe2" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="JsV-w8-kvC"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RSA-m1-r96" secondAttribute="trailing" constant="44" id="L4W-s9-Q0h"/>
                 <constraint firstItem="RSA-m1-r96" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="45" id="L61-dS-Qhh"/>
-                <constraint firstItem="xFi-iI-4KI" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="MRf-k2-gCN"/>
-                <constraint firstItem="xFi-iI-4KI" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.669643" id="MWX-zf-KLR"/>
-                <constraint firstItem="efU-JS-SYd" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="NcN-1F-JqR"/>
-                <constraint firstItem="efU-JS-SYd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="PH5-iw-pDo"/>
-                <constraint firstItem="efU-JS-SYd" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="REj-eP-9aJ"/>
                 <constraint firstItem="XUD-mx-jfF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="32" id="RfG-11-caE"/>
                 <constraint firstItem="RSA-m1-r96" firstAttribute="top" secondItem="XUD-mx-jfF" secondAttribute="bottom" constant="28" id="SM8-1D-ZHl"/>
-                <constraint firstItem="efU-JS-SYd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Uv7-2O-8xP"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="RSA-m1-r96" secondAttribute="bottom" constant="101" id="WJA-fS-Mfa"/>
                 <constraint firstItem="jIz-He-i1j" firstAttribute="top" secondItem="Kka-bL-Oe2" secondAttribute="bottom" constant="48" id="X9b-eE-T0g"/>
                 <constraint firstItem="XUD-mx-jfF" firstAttribute="top" secondItem="Kka-bL-Oe2" secondAttribute="bottom" constant="48" id="cVu-QW-vRp"/>
-                <constraint firstItem="Kka-bL-Oe2" firstAttribute="top" secondItem="efU-JS-SYd" secondAttribute="bottom" id="dFK-tt-ffO"/>
+                <constraint firstItem="Kvx-hU-jH6" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="eOZ-kN-8uO"/>
+                <constraint firstItem="3Z9-cl-1aI" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.673913" id="fSS-8D-q8w"/>
                 <constraint firstItem="jIz-He-i1j" firstAttribute="leading" secondItem="XUD-mx-jfF" secondAttribute="trailing" constant="8" id="gSd-6G-qsZ"/>
                 <constraint firstItem="Kka-bL-Oe2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="i8E-2Z-MVl"/>
-                <constraint firstItem="xFi-iI-4KI" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="jcF-tB-q6k"/>
                 <constraint firstItem="XUD-mx-jfF" firstAttribute="centerY" secondItem="jIz-He-i1j" secondAttribute="centerY" id="nXC-P4-7R0"/>
-                <constraint firstItem="efU-JS-SYd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="rqb-zZ-tkK"/>
-                <constraint firstItem="xFi-iI-4KI" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="1.93237" id="tIT-20-yHk"/>
+                <constraint firstItem="mSe-P0-8Ib" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="18.5" id="qMQ-AE-sM9"/>
+                <constraint firstItem="mSe-P0-8Ib" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="vu9-Nu-xcQ"/>
+                <constraint firstItem="3Z9-cl-1aI" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="xs3-d1-gpe"/>
+                <constraint firstItem="3Z9-cl-1aI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="291" id="yLR-t3-oG5"/>
+                <constraint firstItem="mSe-P0-8Ib" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="zuL-KB-Gzn"/>
             </constraints>
             <point key="canvasLocation" x="131.8840579710145" y="63.616071428571423"/>
         </view>
     </objects>
     <resources>
-        <image name="cart" width="225" height="225"/>
+        <image name="cart.badge.plus" catalog="system" width="128" height="106"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -167,4 +167,13 @@ extension LocalDataSource{
         }
         return false
     }
+    func updateCount(productID :Int , count : Int) throws{
+        do{
+            let products = try self.getCartFromCoreData()
+            for var item in products{
+                item.count = count
+                try?self.contextCart.save()
+                }
+            }
+        }
 }
