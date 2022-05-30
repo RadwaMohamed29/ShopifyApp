@@ -102,6 +102,9 @@
                                 <integer key="value" value="15"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="addCount:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="D9v-ni-lx8"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d6V-ze-VoX">
                         <rect key="frame" x="318" y="107" width="31" height="31"/>
@@ -122,6 +125,9 @@
                                 <integer key="value" value="15"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="subCount:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Yp2-et-Bdy"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tdW-95-TMk">
                         <rect key="frame" x="288.5" y="114" width="20.5" height="21.5"/>
@@ -147,6 +153,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="productCount" destination="tdW-95-TMk" id="P37-v8-5qq"/>
+                <outlet property="productImage" destination="Kcc-43-poD" id="sbX-Cr-DCt"/>
+                <outlet property="productPrice" destination="Xcq-aQ-fN3" id="aVV-gb-HDr"/>
+                <outlet property="productTitle" destination="Cuv-JL-Em5" id="1EF-FI-PdZ"/>
+            </connections>
             <point key="canvasLocation" x="181.8840579710145" y="97.767857142857139"/>
         </tableViewCell>
     </objects>
