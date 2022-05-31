@@ -14,8 +14,9 @@ class CategoryViewController: UIViewController {
     var showList:[ProductElement]?
     let refreshController = UIRefreshControl()
     var viewModel:CategoryViewModelProtocol!
+    let queue = OperationQueue()
     
-
+    var productViewModel : ProductDetailsViewModel?
     @IBOutlet weak var noDataImg: UIImageView!
     @IBOutlet weak var labelNoData: UILabel!
     @IBOutlet weak var sale: UIBarButtonItem!
@@ -59,29 +60,27 @@ class CategoryViewController: UIViewController {
     @objc func selectorX() {print("cart pressed") }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
         showList = []
         viewModel = CategoryViewModel(network: APIClient())
         setupCollectionView()
+        
         fabBtn.addItem("Shoes", icon: UIImage(named: "heart")) { [weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "SHOES")
             self?.getCategory(target: .ShoesType(id: index!.ID))
-           self?.checkListSize(productName: "SHOES")
-//            self?.categoryCollection.reloadData()
         }
+        
         fabBtn.addItem("T_shirts", icon: UIImage(named: "star")) {[weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "T-SHIRTS")
             self?.getCategory(target: .TshirtType(id: index!.ID))
-           self?.checkListSize(productName: "T-SHIRTS")
-//            self?.categoryCollection.reloadData()
         }
+        
         fabBtn.addItem("Accecories", icon: UIImage(named: "heart")) {[weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "ACCESSORIES")
             self?.getCategory(target: .AccecoriesType(id: index!.ID))
-           self?.checkListSize(productName: "ACCESSORIES")
-//            self?.categoryCollection.reloadData()
         }
+        categoryCollection.backgroundView = refreshController
         fabBtn.buttonColor = UIColor.black
         fabBtn.plusColor = UIColor.white
         refreshController.tintColor = UIColor.blue
@@ -95,7 +94,9 @@ class CategoryViewController: UIViewController {
     }
     
     @objc func getData(){
+//        categoryCollection.setContentOffset(CGPoint(x: 0, y: -150), animated: true)
         //MARK: will check network and reload data from api
+        getCategory(target: .HomeCategoryProducts)
         refreshController.endRefreshing()
         categoryCollection.reloadData()
     }
@@ -120,7 +121,7 @@ class CategoryViewController: UIViewController {
         men.rx.tap.throttle(RxTimeInterval.seconds(2), latest: false, scheduler: MainScheduler.instance).subscribe {[weak self] _ in
             self?.getCategory(target: .MenCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 2)
-            self?.categoryCollection.reloadData()
+//            self?.categoryCollection.reloadData()
         }.disposed(by: disposeBag)
     }
     
@@ -128,7 +129,7 @@ class CategoryViewController: UIViewController {
         women.rx.tap.throttle(RxTimeInterval.seconds(2), latest: false, scheduler: MainScheduler.instance).subscribe {[weak self] _ in
             self?.getCategory(target: .WomenCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 1)
-            self?.categoryCollection.reloadData()
+//            self?.categoryCollection.reloadData()
         }.disposed(by: disposeBag)
     }
     
@@ -136,7 +137,7 @@ class CategoryViewController: UIViewController {
         sale.rx.tap.throttle(RxTimeInterval.seconds(2), latest: false, scheduler: MainScheduler.instance).subscribe {[weak self] _ in
             self?.getCategory(target: .SaleCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 4)
-            self?.categoryCollection.reloadData()
+//            self?.categoryCollection.reloadData()
         }.disposed(by: disposeBag)
     }
     
@@ -144,7 +145,7 @@ class CategoryViewController: UIViewController {
         kids.rx.tap.throttle(RxTimeInterval.seconds(2), latest: false, scheduler: MainScheduler.instance).subscribe {[weak self] _ in
             self?.getCategory(target: .KidsCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 3)
-            self?.categoryCollection.reloadData()
+//            self?.categoryCollection.reloadData()
         }.disposed(by: disposeBag)
     }
     
@@ -188,7 +189,15 @@ class CategoryViewController: UIViewController {
         }else if sale.isSelected{
             return .SALE
         }
-        return .Home(type: type)
+        else{
+            return .Home(type: type)
+        }
     }
+    
+  
 }
 
+//https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/products.json?collection_id=products.json?product_type=SHOES&product_type=shoes
+
+
+//https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/products.json?collection_id=395728126181&product_type=shoes
