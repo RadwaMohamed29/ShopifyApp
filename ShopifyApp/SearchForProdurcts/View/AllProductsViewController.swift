@@ -14,9 +14,11 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         self.present(alert, animated: true,completion: nil)
     }
     
-
+    let refreshControl = UIRefreshControl()
     var brandId: Int?
     var isCommingFromHome :String?
+    
+    @IBOutlet weak var networkView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchProductsCV: UICollectionView!
     var listOfProducts : [Product] = []
@@ -34,23 +36,17 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         searchProductsCV.dataSource = self
     
         setubSearchBar()
-       
-        if isCommingFromHome == "true" {
-            if brandId == 0 {
-                getAllProductsFromApi()
-            }
-            else{
-                getProductOfBrands(cID: brandId!)
-            }
-
-        }else{
-
-        }
+                
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         searchProductsCV.reloadData()
+        refreshControl.tintColor = UIColor.darkGray
+        refreshControl.addTarget(self, action:#selector(getProductsWithCheckingConnection), for: .valueChanged)
+        searchProductsCV.addSubview(refreshControl)
+        networkView.isHidden = true
+        getProductsWithCheckingConnection()
     }
     func getAllProductsFromApi(){
         productViewModel?.getAllProducts()
@@ -149,7 +145,37 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
        
       }
     
-    
-    
+    @objc func getProductsWithCheckingConnection(){
+         HandelConnection.handelConnection.checkNetworkConnection { [weak self] isConnected in
+             if isConnected{
+                 self?.searchProductsCV.isHidden = false
+                 self?.networkView.isHidden = true
+                 self?.checkWichListThatWillPresenting()
+                 self?.searchProductsCV.reloadData()
+             }else{
+                 self?.networkView.isHidden = false
+                 self?.showAlertForInterNetConnection()
+                 self?.searchProductsCV.reloadData()
+                 self?.showSnackBar()
+             }
+             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                 self?.refreshControl.endRefreshing()
+             }
+            
+         }
+     }
+    func checkWichListThatWillPresenting(){
+        if isCommingFromHome == "true" {
+            if brandId == 0 {
+                getAllProductsFromApi()
+            }
+            else{
+                getProductOfBrands(cID: brandId!)
+            }
+
+        }else{
+
+        }
+    }
   
 }

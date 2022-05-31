@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AllProductsViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
+                <outlet property="networkView" destination="Et2-NZ-V2o" id="Kyk-Uz-1Eh"/>
                 <outlet property="searchBar" destination="Pj6-g3-cX5" id="Ybq-Em-NlU"/>
                 <outlet property="searchProductsCV" destination="JbU-VK-Tzp" id="bMN-r6-3VK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -42,6 +43,22 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                 </collectionView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Et2-NZ-V2o">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="images" translatesAutoresizingMaskIntoConstraints="NO" id="PrE-OP-sCY">
+                            <rect key="frame" x="94.5" y="296.5" width="225" height="225"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="PrE-OP-sCY" secondAttribute="height" multiplier="1:1" id="G1E-8s-eH2"/>
+                            </constraints>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="PrE-OP-sCY" firstAttribute="centerX" secondItem="Et2-NZ-V2o" secondAttribute="centerX" id="ZJH-zM-x4L"/>
+                        <constraint firstItem="PrE-OP-sCY" firstAttribute="centerY" secondItem="Et2-NZ-V2o" secondAttribute="centerY" id="cLY-61-o0S"/>
+                    </constraints>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -49,15 +66,20 @@
                 <constraint firstItem="XBF-iO-QVO" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="6KA-B9-xhL"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="JbU-VK-Tzp" secondAttribute="bottom" id="ECd-c6-lUo"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JbU-VK-Tzp" secondAttribute="trailing" id="FhG-u5-R9k"/>
+                <constraint firstItem="Et2-NZ-V2o" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="NU2-ss-406"/>
                 <constraint firstItem="XBF-iO-QVO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Scq-BA-Rin"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Et2-NZ-V2o" secondAttribute="trailing" id="UNo-3I-naF"/>
                 <constraint firstItem="JbU-VK-Tzp" firstAttribute="top" secondItem="XBF-iO-QVO" secondAttribute="bottom" id="WCO-o1-D5P"/>
                 <constraint firstItem="XBF-iO-QVO" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Xxt-81-cfR"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Et2-NZ-V2o" secondAttribute="bottom" id="csS-3z-1Ix"/>
                 <constraint firstItem="JbU-VK-Tzp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="mU5-Nx-w3L"/>
+                <constraint firstItem="Et2-NZ-V2o" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="oXq-O3-U9j"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="42"/>
+            <point key="canvasLocation" x="137.68115942028987" y="41.517857142857139"/>
         </view>
     </objects>
     <resources>
+        <image name="images" width="225" height="225"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
