@@ -53,9 +53,9 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         super.viewWillAppear(animated)
         searchProductsCV.reloadData()
         refreshControl.tintColor = UIColor.darkGray
-      //  refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
-        searchProductsCV.addSubview(refreshControl)
-      //  checkConnection()
+        refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
+       // searchProductsCV.addSubview(refreshControl)
+        checkConnection()
     }
     func getAllProductsFromApi(){
         productViewModel?.getAllProducts()
@@ -154,7 +154,25 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
        
       }
     
-    
+    @objc func checkConnection(){
+         HandelConnection.handelConnection.checkNetworkConnection { [weak self] isConnected in
+             self?.searchProductsCV.addSubview((self?.refreshControl)!)
+             DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                 if isConnected{
+                     self?.searchProductsCV.isHidden = false
+                     self?.searchProductsCV.reloadData()
+                 }else{
+                     self?.searchProductsCV.isHidden = true
+                     self?.searchProductsCV.isHidden = false
+                     self?.showAlertForInterNetConnection()
+                    
+                     self?.showSnackBar()
+                 }
+                 self?.refreshControl.endRefreshing()
+             }
+            
+         }
+     }
     
   
 }
