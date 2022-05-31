@@ -14,7 +14,7 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         self.present(alert, animated: true,completion: nil)
     }
     
-
+    let refreshControl = UIRefreshControl()
     var brandId: Int?
     var isCommingFromHome :String?
     @IBOutlet weak var searchBar: UISearchBar!
@@ -46,11 +46,16 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         }else{
 
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         searchProductsCV.reloadData()
+        refreshControl.tintColor = UIColor.darkGray
+      //  refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
+        searchProductsCV.addSubview(refreshControl)
+      //  checkConnection()
     }
     func getAllProductsFromApi(){
         productViewModel?.getAllProducts()
