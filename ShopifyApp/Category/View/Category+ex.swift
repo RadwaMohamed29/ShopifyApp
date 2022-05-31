@@ -56,6 +56,14 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
             .subscribe { [weak self]result in
                 self?.showList = result
                 self?.categoryCollection.reloadData()
+                if CategoryViewController.subProduct == 1{
+                    self?.checkListSize(productName: "SHOES")
+                }else if CategoryViewController.subProduct == 2{
+                    self?.checkListSize(productName: "T-SHIRTS")
+                }else{
+                    self?.checkListSize(productName: "ACCESSORIES")
+                }
+                
             } onError: { error in
                 //MARK: show Dialog
                 print("\(error)")
@@ -66,7 +74,7 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
             }.disposed(by: disposeBag)
     }
     
-    func checkListSize(productName:String = "Data") {
+    func checkListSize(productName:String) {
         if let list = showList {
             if list.isEmpty == true{
                 showNoDataMessage(ProductName: productName, errorMsgHidden: false)
