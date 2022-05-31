@@ -16,6 +16,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     }
     
     
+    @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var favBtn: UIButton!
     var productId : String?
     @IBOutlet weak var productOPtion: UILabel!
@@ -51,6 +52,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     var product : Product?
     var uiImageView = UIImageView()
     var productViewModel: ProductDetailsViewModel?
+    let refreshControl = UIRefreshControl()
     
     
     override func viewDidLoad() {
@@ -61,14 +63,36 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refreshControl.tintColor = UIColor.darkGray
+        refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
+        viewContainer.addSubview(refreshControl)
+        checkConnection()
+    }
+    
+    @objc func checkConnection(){
+        HandelConnection.handelConnection.checkNetworkConnection { isConnected in
+            if isConnected{
+                self.setUpScreen()
+            }else{
+                
+                self.showSnackBar()
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                self.refreshControl.endRefreshing()
+            }
+        }
+    }
+    
     func setUpScreen(){
         productViewModel?.getProduct(id: "\(productId ?? "0")")
         productViewModel?.productObservable.subscribe(on: ConcurrentDispatchQueueScheduler
-                        .init(qos: .background))
-                        .observe(on: MainScheduler.asyncInstance)
-                        .subscribe{ [weak self] result in
+                                                        .init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe{ [weak self] result in
                 guard let self = self else {return}
-                            self.product = result.element
+                self.product = result.element
                 self.productTitle.text = result.element?.title
                 self.productDescription.text = result.element?.bodyHTML
                 self.images = result.element?.images ?? []
@@ -77,29 +101,28 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                 
                 self.productCollectionView.reloadData()
                 self.sizeTableView.reloadData()
-                         
+                
             }.disposed(by: disposeBag)
     }
     
     
     func setUpFavButton(){
         productViewModel?.checkFavorite(id: "\(productId ?? "0")")
-       if productViewModel?.isFav == true {
-          favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
-       }else{
-          favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
-       }
-      // cell.favBtn.tag = indexPath.row
-      favBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
+        if productViewModel?.isFav == true {
+            favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+        }else{
+            favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+        }
+        favBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
     }
     
     
     
- @objc private func longPress(recognizer: UIButton) {
-  
-     Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: product!, sharedProtocol: self)
-    
-   }
+    @objc private func longPress(recognizer: UIButton) {
+        
+        Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: product!, sharedProtocol: self)
+        
+    }
     
     
     @IBAction func addToCartBtn(_ sender: Any) {
@@ -108,9 +131,9 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         
         if(inCart){
             let alert = UIAlertController(title: "Already In Bag!", message: "if you need to increase the amount of product , you can from your bag ", preferredStyle: .alert)
-                    let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alert.addAction(okBtn)
-                    self.present(alert, animated: true, completion: nil)
+            let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(okBtn)
+            self.present(alert, animated: true, completion: nil)
             
             print("alert \(inCart)")
         }else{
@@ -120,17 +143,17 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                     case true:
                         Shared.showMessage(message: "Added To Bag Successfully!", error: false)
                         print("add to cart \(inCart)")
-                       
+                        
                     case false :
                         print("faild to add to cart")
                     }
                 })
-
+                
             }catch let error{
                 print(error.localizedDescription)
             }
         }
-      
+        
     }
     
 }
