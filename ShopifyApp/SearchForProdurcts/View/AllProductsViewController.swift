@@ -25,6 +25,8 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
     var filtered : [Product] = []
     var productViewModel : ProductDetailsViewModel?
     let disBag = DisposeBag()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Products"
@@ -34,10 +36,9 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         searchProductsCV.register(favProductCell, forCellWithReuseIdentifier: "FavouriteproductCell")
         searchProductsCV.delegate = self
         searchProductsCV.dataSource = self
-    
         setubSearchBar()
-                
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -48,6 +49,8 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         networkView.isHidden = true
         getProductsWithCheckingConnection()
     }
+    
+    
     func getAllProductsFromApi(){
         productViewModel?.getAllProducts()
         productViewModel?.allProductsObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
@@ -59,18 +62,21 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
                 print(error)
             }.disposed(by: disBag)
     }
+    
+    
     func getProductOfBrands(cID:Int){
         productViewModel?.getProductOfBrand(id:  "\(cID)")
-        productViewModel?.brandsObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+        productViewModel?.allProductsObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
             .observe(on: MainScheduler.asyncInstance)
             .subscribe { products in
                 self.listOfProducts = products
                 self.searchProductsCV.reloadData()
-                print("pppppppppppp\(products.count)")
             } onError: { error in
                 print(error)
             }.disposed(by: disBag)
     }
+    
+    
     func setubSearchBar(){
         searchBar.rx.text.orEmpty.throttle(RxTimeInterval.microseconds(500), scheduler: MainScheduler.asyncInstance)
             .distinctUntilChanged()
@@ -82,10 +88,14 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
     }
 }
 
+
+
 extension AllProductsViewController : UICollectionViewDelegate ,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return listOfProducts.count
     }
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
@@ -96,7 +106,6 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         cell.productImage.kf.indicatorType = .activity
         cell.productImage.kf.setImage(
             with: url,
-            placeholder: UIImage(named: "placeholderImage"),
             options: [
                 .processor(processor),
                 .scaleFactor(UIScreen.main.scale),

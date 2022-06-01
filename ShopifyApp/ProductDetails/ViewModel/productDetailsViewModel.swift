@@ -82,10 +82,11 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             switch result {
             case .success(let response):
                 guard let product = response.products else {return}
-                self?.brandsSubject.asObserver().onNext(product)
+                self?.listOfProduct = product   
+                self?.allProductsSubject.asObserver().onNext(product)
                 print(product.count)
             case .failure(let error):
-                self?.brandsSubject.asObserver().onError(error)
+                self?.allProductsSubject.asObserver().onError(error)
                 print(error.localizedDescription)
             }
         })
