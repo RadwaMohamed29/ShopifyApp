@@ -176,4 +176,13 @@ extension LocalDataSource{
                 }
             }
         }
+    func setPrice(price: Double)throws{
+        do{
+            let products = try self.getCartFromCoreData()
+            for var item in products{
+                item.price = "\(price)"
+                try?self.contextCart.save()
+                }
+            }
+    }
 }

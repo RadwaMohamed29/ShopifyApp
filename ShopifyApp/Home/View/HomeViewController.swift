@@ -7,7 +7,8 @@
 
 import UIKit
 class HomeViewController: UIViewController,brandIdProtocol {
-    @IBOutlet weak var networkImage: UIImageView!
+    @IBOutlet weak var noImageView: UIView!
+   
     @IBOutlet weak var homeTV: UITableView!
     let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
@@ -62,11 +63,11 @@ extension HomeViewController{
         HandelConnection.handelConnection.checkNetworkConnection { isConnected in
             if isConnected{
                 self.homeTV.isHidden = false
-                self.networkImage.isHidden = true
+                self.noImageView.isHidden = true
                 self.homeTV.reloadData()
             }else{
                 self.homeTV.isHidden = true
-                self.networkImage.isHidden = false
+                self.noImageView.isHidden = false
               //  self.showAlertForInterNetConnection()
                 self.showSnackBar()
             }

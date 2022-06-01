@@ -200,12 +200,53 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     }
     func updateCount(productID: Int, count: Int, completionHandler: @escaping (Bool) -> Void) throws {
         do{
-            try localDataSource.updateCount(productID: productID, count: count)
+            try localDataSource.updateCount(productID: Int(productID), count: count)
             completionHandler(true)
         }catch let error{
             completionHandler(false)
             throw error
         }
     }
+    func calcTotalPrice(price: Double, completionHandler: @escaping (Bool) -> Void) throws{
+        //var totalPrice: Double = 0.0
+        do{
+            try localDataSource.setPrice(price:price)
+            completionHandler(true)
+        }catch let error{
+            completionHandler(false)
+            throw error
+        }
+    }
+    func updatePrice(completion: @escaping (Double?)-> Void)throws{
+            var totalPrice: Double = 0.0
+            do{
+                try  productsInCart =  localDataSource.getCartFromCoreData()
+                for item in productsInCart!{
+                    guard let priceStr = item.price, let price = Double(priceStr) else {return}
+                    totalPrice += Double(item.count ?? 1)*price
+                }
+                Utilities.utilities.setTotalPrice(totalPrice: totalPrice)
+                completion(totalPrice)
+            }catch let error{
+                completion(nil)
+                throw error
+            }
+        }
+       func getCount(productId: Int64, completion: @escaping (CartModel?)-> Void)throws{
+           do{
+               try  productsInCart =  localDataSource.getCartFromCoreData()
+               for item in productsInCart!{
+                   if item.id == "\(productId)" {
+                       completion(item)
+                   }
+               }
+            
+           }catch let error{
+               completion(nil)
+               throw error
+           }
+           
+       }
+
     
 }
