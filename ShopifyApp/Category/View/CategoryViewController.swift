@@ -66,19 +66,19 @@ class CategoryViewController: UIViewController {
         viewModel = CategoryViewModel(network: APIClient())
         setupCollectionView()
         
-        fabBtn.addItem("Shoes", icon: UIImage(named: "SHOES")) { [weak self] _ in
+        fabBtn.addItem("Shoes", icon: UIImage(named: "fabShoe")) { [weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "SHOES")
             CategoryViewController.subProduct = 1
             self?.getCategory(target: .ShoesType(id: index!.ID))
         }
         
-        fabBtn.addItem("T_shirts", icon: UIImage(named: "T-SHIRTS")) {[weak self] _ in
+        fabBtn.addItem("T_shirts", icon: UIImage(named: "fabTshirt")) {[weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "T-SHIRTS")
             CategoryViewController.subProduct = 2
             self?.getCategory(target: .TshirtType(id: index!.ID))
         }
         
-        fabBtn.addItem("Accecories", icon: UIImage(named: "ACCESSORIES")) {[weak self] _ in
+        fabBtn.addItem("Accecories", icon: UIImage(named: "fabAcc")) {[weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "ACCESSORIES")
             CategoryViewController.subProduct = 3
             self?.getCategory(target: .AccecoriesType(id: index!.ID))

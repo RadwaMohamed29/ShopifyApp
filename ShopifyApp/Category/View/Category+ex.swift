@@ -41,6 +41,12 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let productDetailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
+        productDetailsVC.productId = "\(showList![indexPath.row].id)"
+        self.navigationController?.pushViewController(productDetailsVC, animated: true)
+    }
+    
     func setNavigationItem() {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: self, action: #selector(heartTapped))
