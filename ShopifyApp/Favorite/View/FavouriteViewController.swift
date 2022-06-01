@@ -131,20 +131,24 @@ class FavouriteViewController: UIViewController {
     func selectOrUnselectProduct(indexPath:IndexPath){
         let cell = self.favouriteCollectionView.cellForItem(at: indexPath) as! FavouriteCollectionViewCell
         if favProducts[indexPath.row].isSelected == false{
-            cell.productImage.layer.borderWidth = 1
+            cell.productImage.layer.borderWidth = 2
+            cell.productImage.layer.borderColor = UIColor.systemGreen.cgColor
             countOfSelectedItem += 1
             listOfSelectedProducts.append(favProducts[indexPath.row])
             favProducts[indexPath.row].isSelected =  true
         }else{
-            cell.productImage.layer.borderWidth = 0
+            cell.productImage.layer.borderWidth = 1
+            cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
             countOfSelectedItem -= 1
             let numberOfItems = listOfSelectedProducts.count
             for i in 0..<numberOfItems{
                 if listOfSelectedProducts[i].id == favProducts[indexPath.row].id{
                     listOfSelectedProducts.remove(at: i)
+                    favProducts[indexPath.row].isSelected = false
+                    return
                 }
             }
-            favProducts[indexPath.row].isSelected = false
+            
         }
     }
 }

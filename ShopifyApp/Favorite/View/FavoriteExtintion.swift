@@ -16,25 +16,9 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
-        let url = URL(string: favProducts[indexPath.row].scr)
-        let processor = DownsamplingImageProcessor(size: cell.productImage.bounds.size)
-        |> RoundCornerImageProcessor(cornerRadius: 20)
-        cell.productImage.kf.indicatorType = .activity
-        cell.productImage.kf.setImage(
-            with: url,
-            placeholder: UIImage(named: "placeholderImage"),
-            options: [
-                .processor(processor),
-                .scaleFactor(UIScreen.main.scale),
-                .transition(.fade(1)),
-                .cacheOriginalImage
-            ])
+        setImage(image: cell.productImage, index: indexPath.row)
         cell.ProductName.text = favProducts[indexPath.row].title
         cell.priceOfTheProduct.text = "$ \(favProducts[indexPath.row].price)"
-        cell.productImage.layer.borderWidth = 0
-        cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
-        cell.productImage.layer.cornerRadius = 20
-        
         cell.favouriteBtn.tag = indexPath.row
         cell.favouriteBtn.addTarget(self, action: #selector(favPress(recognizer:)), for: .touchUpInside)
         return cell
@@ -70,24 +54,22 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
             self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav)
         }
         let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
-        
         favouriteAlert.addAction(confirmAction)
         favouriteAlert.addAction(cancleAction)
         self.present(favouriteAlert, animated: true, completion: nil)
-        
     }
+    
+    
     @objc private func favPress(recognizer: UIButton) {
-        
         var alertMessage = ""
         var alertTitle = ""
         self.productViewModel?.checkFavorite(id: "\(self.favProducts[recognizer.tag].id)")
         alertMessage = "Are you sure to remove this product from your favourite list."
         alertTitle = "Remove favorite product"
         showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: true)
-        
-       
-        
     }
+    
+    
     func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool){
         
         if isFav == true{
@@ -110,6 +92,24 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
                 print(error.localizedDescription)
             }
         }
-        
+    }
+    
+    
+    func setImage(image: UIImageView,index : Int)  {
+        let url = URL(string: favProducts[index].scr)
+          let processor = DownsamplingImageProcessor(size: image.bounds.size)
+                       |> RoundCornerImageProcessor(cornerRadius: 20)
+          image.kf.indicatorType = .activity
+        image.kf.setImage(
+              with: url,
+              options: [
+                  .processor(processor),
+                  .scaleFactor(UIScreen.main.scale),
+                  .transition(.fade(1)),
+                  .cacheOriginalImage
+              ])
+        image.layer.borderWidth = 1
+        image.layer.borderColor = UIColor.lightGray.cgColor
+        image.layer.cornerRadius = 20
     }
 }
