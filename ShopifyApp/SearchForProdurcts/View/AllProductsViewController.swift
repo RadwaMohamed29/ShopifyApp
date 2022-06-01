@@ -83,8 +83,6 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
             .subscribe { result in
                 self.productViewModel?.searchWithWord(word: result)
             } .disposed(by: disBag)
-
-       
     }
 }
 

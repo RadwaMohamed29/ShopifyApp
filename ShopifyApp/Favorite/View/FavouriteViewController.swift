@@ -9,15 +9,12 @@ import UIKit
 import Kingfisher
 import RxSwift
 import Lottie
-class FavouriteViewController: UIViewController,SharedProtocol {
-    func presentAlert(alert: UIAlertController) {
-        self.present(alert, animated: true, completion: nil)
-    }
+class FavouriteViewController: UIViewController {
+  
     var countOfSelectedItem = 0
     var disBag = DisposeBag()
     var listOfSelectedProducts:[FavoriteProducts] = []
     var productViewModel : ProductDetailsViewModel?
-    var localDataSource : LocalDataSource?
     @IBOutlet weak var noDataView: UIView!
     
     @IBOutlet weak var favouriteCollectionView: UICollectionView!
@@ -32,7 +29,7 @@ class FavouriteViewController: UIViewController,SharedProtocol {
         self.title = "Favorite"
         
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
-        getFavoriteProductsFromCoreData()
+        
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
         lpgr.minimumPressDuration = 0.5
         favouriteCollectionView.addGestureRecognizer(lpgr)
@@ -40,12 +37,14 @@ class FavouriteViewController: UIViewController,SharedProtocol {
         favouriteCollectionView.register(favProductCell, forCellWithReuseIdentifier: "FavouriteproductCell")
         favouriteCollectionView.delegate = self
         favouriteCollectionView.dataSource = self
+        getFavoriteProductsFromCoreData()
         // Do any additional setup after loading the view.
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        if !favProducts.isEmpty{
+        super.viewWillAppear(animated)
+                if !favProducts.isEmpty{
             noDataView.isHidden = true
         }
         else{

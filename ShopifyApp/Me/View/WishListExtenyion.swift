@@ -1,5 +1,5 @@
 //
-//  FavoriteExtintion.swift
+//  WishListExtenyion.swift
 //  ShopifyApp
 //
 //  Created by AbdElrahman sayed on 01/06/2022.
@@ -8,62 +8,56 @@
 import Foundation
 import UIKit
 import Kingfisher
-extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
+
+extension MeViewController : UICollectionViewDataSource ,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if favProducts.count > 2{
+            return 2
+        }
         return favProducts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
-        let url = URL(string: favProducts[indexPath.row].scr)
-        let processor = DownsamplingImageProcessor(size: cell.productImage.bounds.size)
-        |> RoundCornerImageProcessor(cornerRadius: 20)
-        cell.productImage.kf.indicatorType = .activity
-        cell.productImage.kf.setImage(
-            with: url,
-            placeholder: UIImage(named: "placeholderImage"),
-            options: [
-                .processor(processor),
-                .scaleFactor(UIScreen.main.scale),
-                .transition(.fade(1)),
-                .cacheOriginalImage
-            ])
+        setImage(image: cell.productImage, index: indexPath.row)
+        cell.priceOfTheProduct.text = favProducts[indexPath.row].price
         cell.ProductName.text = favProducts[indexPath.row].title
-        cell.priceOfTheProduct.text = "$ \(favProducts[indexPath.row].price)"
-        cell.productImage.layer.borderWidth = 0
-        cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
-        cell.productImage.layer.cornerRadius = 20
-        
         cell.favouriteBtn.tag = indexPath.row
-        cell.favouriteBtn.addTarget(self, action: #selector(favPress(recognizer:)), for: .touchUpInside)
-        return cell
+          cell.favouriteBtn.addTarget(self, action: #selector(favPress(recognizer:)), for: .touchUpInside)
+          return cell
     }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
-        if countOfSelectedItem > 0 {
-            selectOrUnselectProduct(indexPath: indexPath)
-        }else if countOfSelectedItem == 0 {
-            detailsVC.productId = favProducts[indexPath.row].id
-            self.navigationController?.pushViewController(detailsVC, animated: true)
-        }
-    }
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
+        return UIEdgeInsets(top: 10, left: 15, bottom: 15, right: 15)
     }
-    
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let availableWidth = view.frame.width / 2.4
-        let availableHieght = view.frame.width/1.7
+        let availableWidth = view.frame.width / 2.5
+        
+        let availableHieght = view.frame.width/2.3
+        
         return CGSize(width: availableWidth, height: availableHieght)
     }
+  
     
-    
+    func setImage(image: UIImageView,index : Int)  {
+        let url = URL(string: favProducts[index].scr)
+          let processor = DownsamplingImageProcessor(size: image.bounds.size)
+                       |> RoundCornerImageProcessor(cornerRadius: 20)
+          image.kf.indicatorType = .activity
+        image.kf.setImage(
+              with: url,
+              options: [
+                  .processor(processor),
+                  .scaleFactor(UIScreen.main.scale),
+                  .transition(.fade(1)),
+                  .cacheOriginalImage
+              ])
+        image.layer.borderWidth = 1
+        image.layer.borderColor = UIColor.lightGray.cgColor
+        image.layer.cornerRadius = 20
+    }
+
     func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool){
         let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
@@ -97,9 +91,9 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
                     case true:
                         print("removed seuccessfully")
                         self.getFavoriteProductsFromCoreData()
-                        self.favouriteCollectionView.reloadData()
+                        self.wishListCV.reloadData()
                         if self.favProducts.count == 0 {
-                            self.noDataView.isHidden = false
+                           // self.noDataView.isHidden = false
                         }
                         
                     case false:
@@ -112,4 +106,5 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
         }
         
     }
+
 }
