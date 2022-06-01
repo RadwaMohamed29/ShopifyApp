@@ -16,8 +16,6 @@ class OrdersTVC : UITableViewCell {
     @IBOutlet weak var productCount: UILabel!
     
     var countNumber = 1
-    var availableStoredCount = 0
-    var selectedSize = ""
     static let identifier = "ordersTVC"
     static func nib() ->UINib{
         UINib(nibName: "OrdersTVC", bundle: nil)
@@ -27,33 +25,24 @@ class OrdersTVC : UITableViewCell {
         // Initialization code
     }
     var deleteFromBagProducts:()->() = {}
-    var updateSavedCount:(Int , Bool,String)->() = {_,_,_ in}
+    var updateSavedCount:(Int)->() = {_ in }
+    var addItemQuantity : (Int)->() = {_ in }
+    var subItemQuantity : (Int)->() = {_ in }
     @IBAction func subCount(_ sender: Any) {
-        if countNumber == 0 {
-            deleteFromBagProducts()
-        }
-        else{
+        if countNumber != 0 {
             countNumber-=1
             self.productCount.text = "\(countNumber)"
+            self.subItemQuantity(countNumber)
             
-            self.updateSavedCount(countNumber ,true,selectedSize)
+        }
+        else{
+            deleteFromBagProducts()
         }
     }
     @IBAction func addCount(_ sender: Any) {
+        countNumber+=1
+        self.productCount.text = "\(countNumber)"
+        self.addItemQuantity(countNumber)
         
-        if countNumber+1 <= availableStoredCount {
-            countNumber+=1
-            self.productCount.text = "\(countNumber)"
-            self.updateSavedCount(countNumber,true,selectedSize)
-        }else{
-            self.updateSavedCount(countNumber,false,selectedSize)
-        }
-    }
-    //    @IBAction func addQuantity(_ sender: Any) {
-//        addItemQuantity?()
-//    }
-//
-//    @IBAction func subQuantity(_ sender: Any) {
-//        subItemQuantity?()
-//    }
+  }
 }

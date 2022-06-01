@@ -17,6 +17,7 @@ class ShoppingCartVC: UIViewController {
     var localDataSource : LocalDataSource?
     var disBag = DisposeBag()
     var CartProducts : [CartModel] = []
+    var totalPrice:Double = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Cart"
@@ -25,6 +26,7 @@ class ShoppingCartVC: UIViewController {
         tableView.dataSource = self
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         getCartProductsFromCoreData()
+        setTotalPrice()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -59,15 +61,45 @@ class ShoppingCartVC: UIViewController {
         tableView.reloadData()
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setTotalPrice(){
+        do{
+            try productViewModel?.updatePrice(completion: { totalPrice in
+                guard let totalPrice = totalPrice else { return }
+                Utilities.utilities.setTotalPrice(totalPrice:totalPrice)
+                self.totalLable.text = String(totalPrice) + " $"
+                })
+        }catch let error{
+            print(error.localizedDescription)
+        }
     }
-    */
+//    func updateTotalPrice(price:Double){
+//        do{
+//            try  productViewModel?.calcTotalPrice(price:price, completionHandler: { response in
+//                switch response{
+//                case true:
+//                    self.CartProducts = (self.productViewModel?.productsInCart)!
+//                    let bagProducts = self.CartProducts
+//                    for item in bagProducts{
+//                    let count = Double(item.count ?? 0)
+//                    let price = Double(item.price ?? "0.0")
+//                        self.totalPrice += price! * count
+//                    }
+//                    print("\(self.totalPrice)")
+//                      DispatchQueue.main.async {
+//                     self.totalLable.text = "\(self.totalPrice) $"
+//                    }
+//                    print("data updated successfuly")
+//                case false:
+//                    print("data cant't update")
+//                }
+//            })
+//        }
+//        catch let error{
+//            print(error.localizedDescription)
+//        }
+//
+//    }
+
     func updateCount(productID : Int , count : Int) {
         do{
             try  productViewModel?.updateCount(productID: productID, count: count, completionHandler: { response in
@@ -84,6 +116,7 @@ class ShoppingCartVC: UIViewController {
             print(error.localizedDescription)
         }
     }
+
 
 }
 extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
@@ -108,16 +141,65 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                     ])
         cell.productCount.text = " \(CartProducts[indexPath.row].count ?? 2)"
         cell.productPrice.text = "$ \(CartProducts[indexPath.row].price ?? "10")"
-        cell.updateSavedCount = {[weak self](count , available,size) in
-            if available {
-              //  self?.updateCount(productID: Int(self?.CartProducts[indexPath.row].id ?? 1) , count: count)
-                self?.getCartProductsFromCoreData()
-            }
-            else{
-                self?.showInfoAlert()
-            }
-            
+        cell.deleteFromBagProducts = {[weak self] in
+            self?.showDeleteAlert(indexPath: indexPath)
         }
+        cell.addItemQuantity = {[weak self] (count) in
+         let id = self?.CartProducts[indexPath.row].id
+         self?.updateCount(productID: Int(id!)!, count: count)
+         self?.setTotalPrice()
+        }
+        cell.subItemQuantity = {[weak self] (count) in
+            let id = self?.CartProducts[indexPath.row].id
+            self?.updateCount(productID: Int(id!)!, count: count)
+            self?.setTotalPrice()
+     
+        }
+//        cell.updateSavedCount = {[weak self] (count) in
+//
+//                let id = self?.CartProducts[indexPath.row].id
+//                let price = self?.CartProducts[indexPath.row].price
+//                self?.updateCount(productID: Int(id!)!, count: count)
+//              self?.updateTotalPrice(price: Double(price ?? "10")!)
+//            self?.setTotalPrice()
+//
+//        }
+//        cell.addItemQuantity = {
+//            do{
+//                let id = self.CartProducts[indexPath.row].id
+//                try self.productViewModel?.getCount(productId: Int64(id!)!) { selectedItem in
+//                    if selectedItem != nil {
+//
+//                  //      selectedItem?.count!+=1
+//                    }
+//                //    self.productViewModel?.localDataSource.saveProductToCoreData(newProduct: <#T##Product#>)
+//                   //self.orderViewModel.saveProductToCart()
+//                }
+//                self.tableView.reloadData()
+//                self.setTotalPrice()
+//            }catch let error{
+//                print(error.localizedDescription)
+//            }
+//        }
+//
+//        cell.subItemQuantity = {
+//            do{
+//            if self.CartProducts[indexPath.row].count! > 1 {
+//                let id = self.CartProducts[indexPath.row].id
+//               try self.productViewModel?.getCount(productId: Int64(id!)!) { selectedOrder in
+//                    if selectedOrder != nil {
+//                     //   selectedOrder?.count!-=1
+//                    }
+//                    //self.orderViewModel.saveProductToCart()
+//                }
+//            }
+//            self.tableView.reloadData()
+//            self.setTotalPrice()
+//        }catch let error{
+//            print(error.localizedDescription)
+//        }
+//        }
+        
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -159,6 +241,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
         let alert = UIAlertController(title: "Are you sure?", message: "You will remove this item from the cart", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { [self] UIAlertAction in
             self.deleteItemFromCart(index: indexPath.row)
+            self.setTotalPrice()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)

@@ -11,7 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
                 <outlet property="homeTV" destination="zhH-Ov-8dC" id="uRe-eB-ZWe"/>
-                <outlet property="networkImage" destination="sIB-Ap-vDg" id="Fd9-3m-kea"/>
+                <outlet property="noImageView" destination="uT6-mQ-GHK" id="pR4-0n-v9c"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -28,10 +28,6 @@
                         <constraint firstAttribute="width" constant="414" id="opl-pf-Pce"/>
                     </constraints>
                 </tableView>
-                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="images" id="sIB-Ap-vDg">
-                    <rect key="frame" x="20" y="88" width="374" height="751"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DNj-oh-SRI">
                     <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                     <items>
@@ -55,18 +51,35 @@
                         </barButtonItem>
                     </items>
                 </toolbar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uT6-mQ-GHK">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="images" translatesAutoresizingMaskIntoConstraints="NO" id="oiX-IE-yfY">
+                            <rect key="frame" x="94.5" y="340.5" width="225" height="225"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="uT6-mQ-GHK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="0ew-HT-RWE"/>
                 <constraint firstItem="zhH-Ov-8dC" firstAttribute="top" secondItem="DNj-oh-SRI" secondAttribute="bottom" id="3Nx-JN-Abk"/>
                 <constraint firstItem="DNj-oh-SRI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Dnv-u3-OGz"/>
                 <constraint firstItem="zhH-Ov-8dC" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="JYA-4q-FjE"/>
+                <constraint firstItem="oiX-IE-yfY" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.251116" id="NrJ-S5-cIo"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="uT6-mQ-GHK" secondAttribute="bottom" id="S0s-PG-5eI"/>
+                <constraint firstItem="oiX-IE-yfY" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="bUd-O4-Ncw"/>
+                <constraint firstItem="uT6-mQ-GHK" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="hmi-F1-xBc"/>
                 <constraint firstItem="DNj-oh-SRI" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="l1j-FV-BaH"/>
                 <constraint firstItem="DNj-oh-SRI" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0491071" id="lo5-6R-6q7"/>
                 <constraint firstItem="zhH-Ov-8dC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="o35-j9-l9r"/>
                 <constraint firstItem="DNj-oh-SRI" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="oET-Hh-8wS"/>
                 <constraint firstItem="DNj-oh-SRI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="ooZ-ww-0ex"/>
+                <constraint firstItem="oiX-IE-yfY" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.543478" id="p0Y-rG-N8c"/>
+                <constraint firstItem="oiX-IE-yfY" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="qo5-sZ-Mlm"/>
+                <constraint firstItem="uT6-mQ-GHK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="sVn-Wl-Asc"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="zhH-Ov-8dC" secondAttribute="bottom" id="zZR-xK-jqW"/>
             </constraints>
             <point key="canvasLocation" x="47.826086956521742" y="3.3482142857142856"/>
