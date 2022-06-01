@@ -14,7 +14,11 @@ import Kingfisher
 struct Items{
     var name:String
 }
-extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataSource{
+extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataSource, SharedProtocol{
+    func presentAlert(alert: UIAlertController) {
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return showList?.count ?? 0
@@ -28,11 +32,19 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as! CategoryCollectionViewCell
         let url = URL(string: showList?[indexPath.row].image.src ?? "")
         cell.imgView.kf.setImage(with: url)
-        //        cell.label.text = imagesList[indexPath.row]
+        cell.label.text = showList?[indexPath.row].title
         cell.layer.cornerRadius = 12
         cell.label.shadowColor = UIColor.gray
         cell.topView.layer.cornerRadius =  24
+//        cell.btnAddToFav.tag = indexPath.row
+//        cell.btnAddToFav.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let productDetailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
+        productDetailsVC.productId = "\(showList![indexPath.row].id)"
+        self.navigationController?.pushViewController(productDetailsVC, animated: true)
     }
     
     func setNavigationItem() {
@@ -50,6 +62,14 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
             .subscribe { [weak self]result in
                 self?.showList = result
                 self?.categoryCollection.reloadData()
+                if CategoryViewController.subProduct == 1{
+                    self?.checkListSize(productName: "SHOES")
+                }else if CategoryViewController.subProduct == 2{
+                    self?.checkListSize(productName: "T-SHIRTS")
+                }else{
+                    self?.checkListSize(productName: "ACCESSORIES")
+                }
+                
             } onError: { error in
                 //MARK: show Dialog
                 print("\(error)")
@@ -60,22 +80,23 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
             }.disposed(by: disposeBag)
     }
     
-    func checkListSize(productName:String = "Data") {
+    func checkListSize(productName:String) {
         if let list = showList {
-            if list.count==0{
-                showNoDataMessage(ProductName: productName, flag: false)
+            if list.isEmpty == true{
+                showNoDataMessage(ProductName: productName, errorMsgHidden: false)
             }else{
-                showNoDataMessage(ProductName: productName, flag: true)
+                showNoDataMessage(ProductName: productName, errorMsgHidden: true)
                 categoryCollection.reloadData()
             }
         }
     }
 
-    func showNoDataMessage(ProductName:String, flag:Bool) {
-        labelNoData.isHidden = !flag //false showed
-        noDataImg.isHidden = !flag //false
+    func showNoDataMessage(ProductName:String, errorMsgHidden:Bool) {
+        
+        labelNoData.isHidden = errorMsgHidden //false showed
+        noDataImg.isHidden = errorMsgHidden //false
         noDataImg.image = UIImage(named: ProductName)
-        categoryCollection.isHidden = flag //true
+        categoryCollection.isHidden = !errorMsgHidden //true
         labelNoData.text = "There's No \(ProductName) in This Category"
     }
     
@@ -95,5 +116,11 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
             categoryCollection.setCollectionViewLayout(collectionFlowLayout, animated: true)
         }
     }
+    
+//    @objc private func longPress(recognizer: UIButton) {
+//
+//        Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: showList, sharedProtocol: self)
+//
+//      }
 }
 
