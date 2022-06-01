@@ -30,8 +30,8 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         self.title = "Products"
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
-        let searchProductCell = UINib(nibName: "SearchCollectionViewCell", bundle: nil)
-        searchProductsCV.register(searchProductCell, forCellWithReuseIdentifier: "searchCell")
+        let favProductCell = UINib(nibName: "FavouriteCollectionViewCell", bundle: nil)
+        searchProductsCV.register(favProductCell, forCellWithReuseIdentifier: "FavouriteproductCell")
         searchProductsCV.delegate = self
         searchProductsCV.dataSource = self
     
@@ -88,7 +88,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchCell", for: indexPath) as! SearchCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
         
         let url = URL(string: listOfProducts[indexPath.row].image.src)
         let processor = DownsamplingImageProcessor(size: cell.productImage.bounds.size)
@@ -106,18 +106,18 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         cell.productImage.layer.borderWidth = 1
         cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
         cell.productImage.layer.cornerRadius = 20
-        cell.productName.text = listOfProducts[indexPath.row].title
-        cell.prodcutPrice.text = "$ \(listOfProducts[indexPath.row].variant[0].price ?? "")"
+        cell.ProductName.text = listOfProducts[indexPath.row].title
+        cell.priceOfTheProduct.text = "$ \(listOfProducts[indexPath.row].variant[0].price ?? "")"
         productViewModel?.checkFavorite(id: "\(listOfProducts[indexPath.row].id)")
         if productViewModel?.isFav == true {
-            cell.favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+            cell.favouriteBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
         }else{
-            cell.favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+            cell.favouriteBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
         }
         
         
-        cell.favBtn.tag = indexPath.row
-        cell.favBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
+        cell.favouriteBtn.tag = indexPath.row
+        cell.favouriteBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
         return cell
     }
     

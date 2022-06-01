@@ -61,6 +61,7 @@
 		9C898C2028381C9500A86758 /* CategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C898C1E28381C9500A86758 /* CategoryViewController.xib */; };
 		9C898C2528381CB500A86758 /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C898C2328381CB500A86758 /* MeViewController.swift */; };
 		9C898C2628381CB500A86758 /* MeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C898C2428381CB500A86758 /* MeViewController.xib */; };
+		9C9DB7CE2847DB9500A886BA /* FavoriteExtintion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9DB7CD2847DB9500A886BA /* FavoriteExtintion.swift */; };
 		9CA3FC9728426569005FF7CF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3FC9628426569005FF7CF /* Shared.swift */; };
 		9CB996D2283FC59100136ABC /* AllProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB996D0283FC59100136ABC /* AllProductsViewController.swift */; };
 		9CB996D3283FC59100136ABC /* AllProductsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9CB996D1283FC59100136ABC /* AllProductsViewController.xib */; };
@@ -166,6 +167,7 @@
 		9C898C1E28381C9500A86758 /* CategoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryViewController.xib; sourceTree = "<group>"; };
 		9C898C2328381CB500A86758 /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		9C898C2428381CB500A86758 /* MeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeViewController.xib; sourceTree = "<group>"; };
+		9C9DB7CD2847DB9500A886BA /* FavoriteExtintion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteExtintion.swift; sourceTree = "<group>"; };
 		9CA3FC9628426569005FF7CF /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		9CB996D0283FC59100136ABC /* AllProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProductsViewController.swift; sourceTree = "<group>"; };
 		9CB996D1283FC59100136ABC /* AllProductsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllProductsViewController.xib; sourceTree = "<group>"; };
@@ -604,6 +606,7 @@
 				9CC2D424283AA1A900C9B59E /* Cell */,
 				9CCBF3DC283BF81F00825219 /* FavouriteViewController.swift */,
 				9CCBF3DD283BF81F00825219 /* FavouriteViewController.xib */,
+				9C9DB7CD2847DB9500A886BA /* FavoriteExtintion.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -956,6 +959,7 @@
 				BE736AD0283FA19C00B61A98 /* Filter.swift in Sources */,
 				BE14A598283FD87B001D8A9D /* Products.swift in Sources */,
 				9CC2D427283AA22F00C9B59E /* FavouriteCollectionViewCell.swift in Sources */,
+				9C9DB7CE2847DB9500A886BA /* FavoriteExtintion.swift in Sources */,
 				1654EB6D2835EB2F000B78F1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
