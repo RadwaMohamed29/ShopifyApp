@@ -9,15 +9,12 @@ import UIKit
 import Kingfisher
 import RxSwift
 import Lottie
-class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,SharedProtocol {
-    func presentAlert(alert: UIAlertController) {
-        self.present(alert, animated: true, completion: nil)
-    }
+class FavouriteViewController: UIViewController {
+  
     var countOfSelectedItem = 0
     var disBag = DisposeBag()
     var listOfSelectedProducts:[FavoriteProducts] = []
     var productViewModel : ProductDetailsViewModel?
-    var localDataSource : LocalDataSource?
     @IBOutlet weak var noDataView: UIView!
     
     @IBOutlet weak var favouriteCollectionView: UICollectionView!
@@ -31,9 +28,8 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
         super.viewDidLoad()
         self.title = "Favorite"
         
-        
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
-        getFavoriteProductsFromCoreData()
+        
         let lpgr = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress))
         lpgr.minimumPressDuration = 0.5
         favouriteCollectionView.addGestureRecognizer(lpgr)
@@ -41,10 +37,14 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
         favouriteCollectionView.register(favProductCell, forCellWithReuseIdentifier: "FavouriteproductCell")
         favouriteCollectionView.delegate = self
         favouriteCollectionView.dataSource = self
+        getFavoriteProductsFromCoreData()
         // Do any additional setup after loading the view.
     }
+    
+    
     override func viewWillAppear(_ animated: Bool) {
-        if !favProducts.isEmpty{
+        super.viewWillAppear(animated)
+                if !favProducts.isEmpty{
             noDataView.isHidden = true
         }
         else{
@@ -52,8 +52,8 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
         }
     }
     
+    
     func getFavoriteProductsFromCoreData(){
-        
         do{
             try  productViewModel?.getAllFavoriteProducts(completion: { response in
                 //MARK: LSA M5LST4
@@ -64,58 +64,15 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
                     print("data cant't retrieved")
                 }
             })
-            
         }
         catch let error{
             print(error.localizedDescription)
         }
         favProducts = (productViewModel?.favoriteProducts)!
         favouriteCollectionView.reloadData()
-        
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return favProducts.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
-        let url = URL(string: favProducts[indexPath.row].scr)
-        let processor = DownsamplingImageProcessor(size: cell.productImage.bounds.size)
-        |> RoundCornerImageProcessor(cornerRadius: 20)
-        cell.productImage.kf.indicatorType = .activity
-        cell.productImage.kf.setImage(
-            with: url,
-            placeholder: UIImage(named: "placeholderImage"),
-            options: [
-                .processor(processor),
-                .scaleFactor(UIScreen.main.scale),
-                .transition(.fade(1)),
-                .cacheOriginalImage
-            ])
-        cell.ProductName.text = favProducts[indexPath.row].title
-        cell.priceOfTheProduct.text = "$ \(favProducts[indexPath.row].price)"
-        cell.productImage.layer.borderWidth = 0
-        cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
-        cell.productImage.layer.cornerRadius = 20
-        
-        cell.favouriteBtn.tag = indexPath.row
-        cell.favouriteBtn.addTarget(self, action: #selector(favPress(recognizer:)), for: .touchUpInside)
-        return cell
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
-        if countOfSelectedItem > 0 {
-            selectOrUnselectProduct(indexPath: indexPath)
-        }else if countOfSelectedItem == 0 {
-            detailsVC.productId = favProducts[indexPath.row].id
-            self.navigationController?.pushViewController(detailsVC, animated: true)
-        }
-        
-    }
+   
     
     @IBAction func addSelectedItemToCart(_ sender: Any) {
         for product in listOfSelectedProducts{
@@ -156,69 +113,11 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
         favouriteCollectionView.reloadData()
         
     }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let availableWidth = view.frame.width / 2.4
-        let availableHieght = view.frame.width/1.7
-        return CGSize(width: availableWidth, height: availableHieght)
-    }
-    
-    
-    func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool){
-        let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
-            self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav)
-        }
-        let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
-        
-        favouriteAlert.addAction(confirmAction)
-        favouriteAlert.addAction(cancleAction)
-        self.present(favouriteAlert, animated: true, completion: nil)
-        
-    }
-    @objc private func favPress(recognizer: UIButton) {
-        
-        var alertMessage = ""
-        var alertTitle = ""
-        self.productViewModel?.checkFavorite(id: "\(self.favProducts[recognizer.tag].id)")
-        alertMessage = "Are you sure to remove this product from your favourite list."
-        alertTitle = "Remove favorite product"
-        showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: true)
-        
-       
-        
-    }
-    func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool){
-        
-        if isFav == true{
-            do{
-                try self.productViewModel?.removeProductFromFavorites(productID: "\(favProducts[index].id)", completionHandler: { response in
-                    switch response{
-                    case true:
-                        print("removed seuccessfully")
-                        self.getFavoriteProductsFromCoreData()
-                        self.favouriteCollectionView.reloadData()
-                        if self.favProducts.count == 0 {
-                            self.noDataView.isHidden = false
-                        }
-                        
-                    case false:
-                        print("Failed to remove")
-                    }
-                })
-            }catch let error{
-                print(error.localizedDescription)
-            }
-        }
-        
-    }
+   
     @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
         if gesture.state != .ended {
             return
         }
-        
         let p = gesture.location(in: self.favouriteCollectionView)
         
         if let indexPath = self.favouriteCollectionView.indexPathForItem(at: p) {
@@ -244,18 +143,12 @@ class FavouriteViewController: UIViewController ,UICollectionViewDataSource,UICo
                 if listOfSelectedProducts[i].id == favProducts[indexPath.row].id{
                     listOfSelectedProducts.remove(at: i)
                 }
-                
             }
-            
             favProducts[indexPath.row].isSelected = false
         }
-        
     }
-    
-    
-    
-    
 }
+
 
 
 

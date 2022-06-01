@@ -25,19 +25,20 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
     var filtered : [Product] = []
     var productViewModel : ProductDetailsViewModel?
     let disBag = DisposeBag()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Products"
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
-        let searchProductCell = UINib(nibName: "SearchCollectionViewCell", bundle: nil)
-        searchProductsCV.register(searchProductCell, forCellWithReuseIdentifier: "searchCell")
+        let favProductCell = UINib(nibName: "FavouriteCollectionViewCell", bundle: nil)
+        searchProductsCV.register(favProductCell, forCellWithReuseIdentifier: "FavouriteproductCell")
         searchProductsCV.delegate = self
         searchProductsCV.dataSource = self
-    
         setubSearchBar()
-                
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -48,6 +49,8 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         networkView.isHidden = true
         getProductsWithCheckingConnection()
     }
+    
+    
     func getAllProductsFromApi(){
         productViewModel?.getAllProducts()
         productViewModel?.allProductsObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
@@ -59,36 +62,41 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
                 print(error)
             }.disposed(by: disBag)
     }
+    
+    
     func getProductOfBrands(cID:Int){
         productViewModel?.getProductOfBrand(id:  "\(cID)")
-        productViewModel?.brandsObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+        productViewModel?.allProductsObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
             .observe(on: MainScheduler.asyncInstance)
             .subscribe { products in
                 self.listOfProducts = products
                 self.searchProductsCV.reloadData()
-                print("pppppppppppp\(products.count)")
             } onError: { error in
                 print(error)
             }.disposed(by: disBag)
     }
+    
+    
     func setubSearchBar(){
         searchBar.rx.text.orEmpty.throttle(RxTimeInterval.microseconds(500), scheduler: MainScheduler.asyncInstance)
             .distinctUntilChanged()
             .subscribe { result in
                 self.productViewModel?.searchWithWord(word: result)
             } .disposed(by: disBag)
-
-       
     }
 }
+
+
 
 extension AllProductsViewController : UICollectionViewDelegate ,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return listOfProducts.count
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "searchCell", for: indexPath) as! SearchCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
         
         let url = URL(string: listOfProducts[indexPath.row].image.src)
         let processor = DownsamplingImageProcessor(size: cell.productImage.bounds.size)
@@ -96,7 +104,6 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         cell.productImage.kf.indicatorType = .activity
         cell.productImage.kf.setImage(
             with: url,
-            placeholder: UIImage(named: "placeholderImage"),
             options: [
                 .processor(processor),
                 .scaleFactor(UIScreen.main.scale),
@@ -106,18 +113,18 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         cell.productImage.layer.borderWidth = 1
         cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
         cell.productImage.layer.cornerRadius = 20
-        cell.productName.text = listOfProducts[indexPath.row].title
-        cell.prodcutPrice.text = "$ \(listOfProducts[indexPath.row].variant[0].price ?? "")"
+        cell.ProductName.text = listOfProducts[indexPath.row].title
+        cell.priceOfTheProduct.text = "$ \(listOfProducts[indexPath.row].variant[0].price ?? "")"
         productViewModel?.checkFavorite(id: "\(listOfProducts[indexPath.row].id)")
         if productViewModel?.isFav == true {
-            cell.favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+            cell.favouriteBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
         }else{
-            cell.favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+            cell.favouriteBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
         }
         
         
-        cell.favBtn.tag = indexPath.row
-        cell.favBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
+        cell.favouriteBtn.tag = indexPath.row
+        cell.favouriteBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
         return cell
     }
     
