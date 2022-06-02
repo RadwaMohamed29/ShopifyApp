@@ -15,8 +15,11 @@
                 <outlet property="kids" destination="PuE-Mg-ccB" id="sIc-BW-cgo"/>
                 <outlet property="labelNoData" destination="qah-G2-WRK" id="bWT-ig-8f6"/>
                 <outlet property="men" destination="hkk-V7-Kdv" id="pfW-Yr-Fld"/>
+                <outlet property="networkError" destination="2DS-oi-eoN" id="bgW-fc-FKS"/>
                 <outlet property="noDataImg" destination="iKH-d5-X1p" id="Wjs-kX-wC0"/>
                 <outlet property="sale" destination="F8i-HZ-4M9" id="9Hf-6G-kUF"/>
+                <outlet property="spinner" destination="TAx-LR-zOW" id="Zme-my-Bfx"/>
+                <outlet property="toolbar" destination="QQf-c2-YEb" id="bi1-vd-tdg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="women" destination="7aq-fw-yjc" id="VZe-dz-AHb"/>
             </connections>
@@ -27,8 +30,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="nvr-ww-Pqi">
-                    <rect key="frame" x="8" y="108" width="394" height="754"/>
+                    <rect key="frame" x="0.0" y="134" width="414" height="700"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="700" id="L5K-DQ-hem"/>
+                    </constraints>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="OHj-oN-H48">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -41,7 +47,7 @@
                     <color key="backgroundColor" systemColor="systemBlueColor"/>
                 </view>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.75" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QQf-c2-YEb">
-                    <rect key="frame" x="0.0" y="64" width="414" height="44"/>
+                    <rect key="frame" x="0.0" y="90" width="414" height="44"/>
                     <items>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="de8-ac-Q1b"/>
                         <barButtonItem title="Women" id="7aq-fw-yjc">
@@ -62,7 +68,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="xEM-Qj-CCh"/>
                     </items>
                 </toolbar>
-                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cash" translatesAutoresizingMaskIntoConstraints="NO" id="iKH-d5-X1p">
+                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="T_shirts" translatesAutoresizingMaskIntoConstraints="NO" id="iKH-d5-X1p">
                     <rect key="frame" x="87" y="389" width="240" height="128"/>
                 </imageView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Theres no data in this category" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qah-G2-WRK">
@@ -71,34 +77,77 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHD-Zq-In2" userLabel="Toolbar  upper ">
+                    <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <items>
+                        <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="X5C-LP-y2N">
+                            <connections>
+                                <action selector="searchBtn" destination="-1" id="sWh-kF-frl"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="lUz-Rv-3YX"/>
+                        <barButtonItem title="Item" image="heart" catalog="system" id="V7W-Gv-DTf">
+                            <connections>
+                                <action selector="navigateToFavorite" destination="-1" id="QCB-IK-Q0q"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Item" image="cart" catalog="system" id="fe4-Fn-6pC">
+                            <connections>
+                                <action selector="cartBtn" destination="-1" id="FLl-YQ-eLE"/>
+                            </connections>
+                        </barButtonItem>
+                    </items>
+                </toolbar>
+                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="network" translatesAutoresizingMaskIntoConstraints="NO" id="2DS-oi-eoN">
+                    <rect key="frame" x="87" y="248.5" width="240" height="409"/>
+                </imageView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="TAx-LR-zOW">
+                    <rect key="frame" x="197" y="443" width="20" height="20"/>
+                    <color key="color" red="0.043460675490000003" green="0.0020998884369999998" blue="0.31034257679999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="TAx-LR-zOW" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="490-SC-bnv"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="6de-Pc-Q7o" secondAttribute="bottom" constant="40" id="4mv-yw-ut5"/>
                 <constraint firstItem="6de-Pc-Q7o" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0558036" id="5fz-SE-69f"/>
+                <constraint firstItem="2DS-oi-eoN" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.57971" id="8Cp-gM-NcD"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6de-Pc-Q7o" secondAttribute="trailing" constant="20" id="8rJ-Qd-xg6"/>
-                <constraint firstItem="QQf-c2-YEb" firstAttribute="baseline" secondItem="nvr-ww-Pqi" secondAttribute="firstBaseline" symbolType="layoutAnchor" id="Abb-6I-G7B"/>
-                <constraint firstAttribute="trailing" secondItem="QQf-c2-YEb" secondAttribute="trailing" id="FdI-32-BEL"/>
+                <constraint firstItem="nvr-ww-Pqi" firstAttribute="top" secondItem="QQf-c2-YEb" secondAttribute="bottom" id="Eh8-Qa-t9f"/>
+                <constraint firstItem="TAx-LR-zOW" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0244499" id="IrR-sk-c1U"/>
                 <constraint firstItem="iKH-d5-X1p" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="JJI-gq-YTq"/>
-                <constraint firstItem="nvr-ww-Pqi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="P33-i6-qC2"/>
+                <constraint firstItem="2DS-oi-eoN" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="K3F-Qc-Abg"/>
+                <constraint firstItem="QQf-c2-YEb" firstAttribute="top" secondItem="fHD-Zq-In2" secondAttribute="bottom" constant="2" id="Lhb-Nf-R8E"/>
+                <constraint firstItem="nvr-ww-Pqi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="P33-i6-qC2"/>
+                <constraint firstItem="QQf-c2-YEb" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Pzq-CE-8ES"/>
+                <constraint firstItem="TAx-LR-zOW" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.0483092" id="TUN-KX-jhw"/>
+                <constraint firstItem="TAx-LR-zOW" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Uzy-5X-cZo"/>
                 <constraint firstItem="iKH-d5-X1p" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.156479" id="WGR-7C-2LB"/>
-                <constraint firstItem="QQf-c2-YEb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Y4M-LA-vbT"/>
-                <constraint firstItem="nvr-ww-Pqi" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-12" id="ajL-gC-066"/>
+                <constraint firstItem="QQf-c2-YEb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ZR0-WM-irK"/>
+                <constraint firstItem="nvr-ww-Pqi" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="ajL-gC-066"/>
                 <constraint firstItem="qah-G2-WRK" firstAttribute="height" secondItem="iKH-d5-X1p" secondAttribute="height" multiplier="0.4" id="aya-xX-0eH"/>
-                <constraint firstItem="QQf-c2-YEb" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="geI-3c-qWU"/>
-                <constraint firstItem="iKH-d5-X1p" firstAttribute="firstBaseline" secondItem="qah-G2-WRK" secondAttribute="baseline" constant="12.5" symbolType="layoutAnchor" id="hVg-S1-1gN"/>
+                <constraint firstItem="fHD-Zq-In2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="caU-sN-6Zw"/>
+                <constraint firstItem="2DS-oi-eoN" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="dVX-hh-22A"/>
+                <constraint firstItem="fHD-Zq-In2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="topMargin" id="gTh-Bb-NHy"/>
+                <constraint firstItem="iKH-d5-X1p" firstAttribute="firstBaseline" secondItem="qah-G2-WRK" secondAttribute="baseline" constant="14.5" symbolType="layoutAnchor" id="hVg-S1-1gN"/>
+                <constraint firstItem="2DS-oi-eoN" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.5" id="k26-uY-wo1"/>
                 <constraint firstItem="iKH-d5-X1p" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="moe-Vt-yBC"/>
                 <constraint firstItem="6de-Pc-Q7o" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.120773" id="oCS-1u-R7J"/>
                 <constraint firstItem="qah-G2-WRK" firstAttribute="centerX" secondItem="iKH-d5-X1p" secondAttribute="centerX" id="rsz-Fl-e96"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="nvr-ww-Pqi" secondAttribute="bottom" id="sNW-XC-J3g"/>
                 <constraint firstItem="iKH-d5-X1p" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.57971" id="tme-rg-tKM"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fHD-Zq-In2" secondAttribute="trailing" id="wwU-Ef-XPf"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="143.97321428571428"/>
         </view>
+        <barButtonItem style="plain" systemItem="flexibleSpace" id="VNg-cP-dBY"/>
     </objects>
     <resources>
-        <image name="cash" width="840" height="859"/>
+        <image name="T_shirts" width="284" height="177"/>
+        <image name="cart" catalog="system" width="128" height="102"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="network" width="225" height="225"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
