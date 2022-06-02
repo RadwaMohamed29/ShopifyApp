@@ -63,6 +63,7 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
                 HandelConnection.handelConnection.checkNetworkConnection(complition: { isconn in
                     if isconn{
                         self?.showList = result
+                        self?.spinner.stopAnimating()
                         self?.categoryCollection.reloadData()
                         if CategoryViewController.subProduct == 1{
                             self?.checkListSize(productName: "SHOES")

@@ -18,6 +18,7 @@
                 <outlet property="networkError" destination="2DS-oi-eoN" id="bgW-fc-FKS"/>
                 <outlet property="noDataImg" destination="iKH-d5-X1p" id="Wjs-kX-wC0"/>
                 <outlet property="sale" destination="F8i-HZ-4M9" id="9Hf-6G-kUF"/>
+                <outlet property="spinner" destination="TAx-LR-zOW" id="Zme-my-Bfx"/>
                 <outlet property="toolbar" destination="QQf-c2-YEb" id="bi1-vd-tdg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="women" destination="7aq-fw-yjc" id="VZe-dz-AHb"/>
@@ -100,20 +101,28 @@
                 <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="network" translatesAutoresizingMaskIntoConstraints="NO" id="2DS-oi-eoN">
                     <rect key="frame" x="87" y="248.5" width="240" height="409"/>
                 </imageView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="TAx-LR-zOW">
+                    <rect key="frame" x="197" y="443" width="20" height="20"/>
+                    <color key="color" red="0.043460675490000003" green="0.0020998884369999998" blue="0.31034257679999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="TAx-LR-zOW" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="490-SC-bnv"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="6de-Pc-Q7o" secondAttribute="bottom" constant="40" id="4mv-yw-ut5"/>
                 <constraint firstItem="6de-Pc-Q7o" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0558036" id="5fz-SE-69f"/>
                 <constraint firstItem="2DS-oi-eoN" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.57971" id="8Cp-gM-NcD"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6de-Pc-Q7o" secondAttribute="trailing" constant="20" id="8rJ-Qd-xg6"/>
                 <constraint firstItem="nvr-ww-Pqi" firstAttribute="top" secondItem="QQf-c2-YEb" secondAttribute="bottom" id="Eh8-Qa-t9f"/>
+                <constraint firstItem="TAx-LR-zOW" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0244499" id="IrR-sk-c1U"/>
                 <constraint firstItem="iKH-d5-X1p" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="JJI-gq-YTq"/>
                 <constraint firstItem="2DS-oi-eoN" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="K3F-Qc-Abg"/>
                 <constraint firstItem="QQf-c2-YEb" firstAttribute="top" secondItem="fHD-Zq-In2" secondAttribute="bottom" constant="2" id="Lhb-Nf-R8E"/>
                 <constraint firstItem="nvr-ww-Pqi" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="P33-i6-qC2"/>
                 <constraint firstItem="QQf-c2-YEb" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Pzq-CE-8ES"/>
+                <constraint firstItem="TAx-LR-zOW" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.0483092" id="TUN-KX-jhw"/>
+                <constraint firstItem="TAx-LR-zOW" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Uzy-5X-cZo"/>
                 <constraint firstItem="iKH-d5-X1p" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.156479" id="WGR-7C-2LB"/>
                 <constraint firstItem="QQf-c2-YEb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ZR0-WM-irK"/>
                 <constraint firstItem="nvr-ww-Pqi" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="ajL-gC-066"/>

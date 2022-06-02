@@ -19,6 +19,7 @@ class CategoryViewController: UIViewController {
     var viewModel:CategoryViewModelProtocol!
     let queue = OperationQueue()
     static var subProduct:Int = 0
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var networkError: UIImageView!
     var productViewModel : ProductDetailsViewModel?
@@ -60,7 +61,9 @@ class CategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.spinner.hidesWhenStopped=true
+        self.spinner.startAnimating()
+        stopSpinnerIfNoNetwork()
 //        toolbar.topAnchor.constraint(equalTo: self.navigationBar!.topAnchor, constant: 20).isActive = true
         
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
@@ -72,22 +75,19 @@ class CategoryViewController: UIViewController {
         
         fabBtn.addItem("Shoes", icon: UIImage(named: "fabShoe")) { [weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "SHOES")
-            CategoryViewController.subProduct = 1
-            self?.getCategory(target: .ShoesType(id: index!.ID))
+            self?.fabActions(type: "Shoes", subProductIndex: 1, target: .ShoesType(id: index!.ID))
         }
         
         fabBtn.addItem("T_shirts", icon: UIImage(named: "fabTshirt")) {[weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "T_shirts")
-            CategoryViewController.subProduct = 2
-            self?.getCategory(target: .TshirtType(id: index!.ID))
+            self?.fabActions(type: "T_shirts", subProductIndex: 2, target: .TshirtType(id: index!.ID))
         }
         
         fabBtn.addItem("Accessories", icon: UIImage(named: "fabAcc")) {[weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "Accessories")
-            CategoryViewController.subProduct = 3
-            
-            self?.getCategory(target: .AccecoriesType(id: index!.ID))
+            self?.fabActions(type: "Accessories", subProductIndex: 3, target: .AccecoriesType(id: index!.ID))
         }
+        
         categoryCollection.backgroundView = refreshController
         fabBtn.buttonColor = UIColor.black
         fabBtn.plusColor = UIColor.white
@@ -101,6 +101,14 @@ class CategoryViewController: UIViewController {
         menBtnAction()
         kidsBtnAction()
         saleBtnAction()
+    }
+    
+    func fabActions(type:String, subProductIndex:Int, target:Endpoints) {
+        spinner.startAnimating()
+        CategoryViewController.subProduct = subProductIndex
+        getCategory(target: target)
+        stopSpinnerIfNoNetwork()
+        
     }
     
     func checkNetworkAndGetData(target:Endpoints) {
@@ -140,30 +148,49 @@ class CategoryViewController: UIViewController {
     
     func menBtnAction() {
         men.rx.tap.throttle(RxTimeInterval.seconds(2), latest: false, scheduler: MainScheduler.instance).subscribe {[weak self] _ in
+            self?.spinner.startAnimating()
             self?.getCategory(target: .MenCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 2)
+            self?.stopSpinnerIfNoNetwork()
         }.disposed(by: disposeBag)
     }
     
     func womenBtnAction(){
         women.rx.tap.throttle(RxTimeInterval.seconds(2), latest: false, scheduler: MainScheduler.instance).subscribe {[weak self] _ in
+            self?.spinner.startAnimating()
             self?.getCategory(target: .WomenCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 1)
+            self?.stopSpinnerIfNoNetwork()
         }.disposed(by: disposeBag)
     }
     
     func saleBtnAction() {
         sale.rx.tap.throttle(RxTimeInterval.seconds(2), latest: false, scheduler: MainScheduler.instance).subscribe {[weak self] _ in
+            self?.spinner.startAnimating()
             self?.getCategory(target: .SaleCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 4)
+            self?.stopSpinnerIfNoNetwork()
         }.disposed(by: disposeBag)
     }
     
     func kidsBtnAction() {
         kids.rx.tap.throttle(RxTimeInterval.seconds(2), latest: false, scheduler: MainScheduler.instance).subscribe {[weak self] _ in
+            self?.spinner.startAnimating()
             self?.getCategory(target: .KidsCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 3)
+            self?.stopSpinnerIfNoNetwork()
         }.disposed(by: disposeBag)
+    }
+    
+    func stopSpinnerIfNoNetwork() {
+        DispatchQueue.main.asyncAfter(deadline: .now()+5){
+            if self.spinner.isAnimating{
+                self.spinner.stopAnimating()
+                self.spinner.isHidden = true
+                self.showSnackBar()
+            }
+        }
+        
     }
     
     func checkHilightedBtnInToolbar(index:Int) {
