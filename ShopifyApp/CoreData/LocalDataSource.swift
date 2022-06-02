@@ -101,19 +101,14 @@ final class LocalDataSource: LocalDataSourcable{
     
 }
 extension LocalDataSource{
-    func getCartFromCoreData() throws -> [CartModel] {
-        var selectedCart = [CartModel]()
+    func getCartFromCoreData() throws -> [CartProduct] {
+        var selectedCart = [CartProduct]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProduct")
+        
         do{
-            let cartList = try contextCart.fetch(fetchRequest)
-            for product in cartList {
-                selectedCart.append(CartModel(id: product.value(forKey: "id")as? String
-                                    ,title: product.value(forKey: "title")as? String
-                                    ,price: product.value(forKey: "price")as? String
-                                    ,image: product.value(forKey: "image")as? String
-                                    ,count: product.value(forKey: "count")as? Int
-                                 
-                ))
+            let cartList = try contextCart.fetch(CartProduct.fetchRequest())
+            cartList.forEach { list in
+                selectedCart.append(list)
             }
             return selectedCart
         }catch let error as NSError{
@@ -129,8 +124,6 @@ extension LocalDataSource{
         product.setValue(image, forKey: "image")
         product.setValue(price, forKey: "price")
         product.setValue(Int64(itemCount), forKey: "count")
-    //    product.setValue(newItem.options[0].values, forKey: "size")
-    //    let data = NSKeyedArchiver.archivedData(withRootObject: product.options[0].values)
         do{
             try contextCart.save()
 
@@ -170,19 +163,12 @@ extension LocalDataSource{
     func updateCount(productID :Int , count : Int) throws{
         do{
             let products = try self.getCartFromCoreData()
-            for var item in products{
-                item.count = count
-                try?self.contextCart.save()
+            for item in products{
+                if item.value(forKey:"id") as! String == "\(productID)"{
+                    item.count = Int64(count)
+                }
+                try self.contextCart.save()
                 }
             }
         }
-    func setPrice(price: Double)throws{
-        do{
-            let products = try self.getCartFromCoreData()
-            for var item in products{
-                item.price = "\(price)"
-                try?self.contextCart.save()
-                }
-            }
-    }
 }

@@ -25,17 +25,14 @@ protocol ProductDetailsViewModelType{
     func getAllProductsInCart(completion: @escaping (Bool)->Void) throws
     func removeProductFromCart(productID:String, completionHandler:@escaping (Bool) -> Void) throws
     func updateCount(productID : Int , count : Int,completionHandler:@escaping (Bool) -> Void) throws
-    
-    
-    
-    
+    func updatePrice(completion: @escaping (Double?)-> Void)throws
 }
 
 
 final class ProductDetailsViewModel: ProductDetailsViewModelType{
 
     var favoriteProducts: [FavoriteProducts]?
-    var productsInCart: [CartModel]?
+    var productsInCart: [CartProduct]?
     var isFav : Bool?
     var isProductInCart: Bool?
     private var listOfProduct : [Product] = []
@@ -207,23 +204,13 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             throw error
         }
     }
-    func calcTotalPrice(price: Double, completionHandler: @escaping (Bool) -> Void) throws{
-        //var totalPrice: Double = 0.0
-        do{
-            try localDataSource.setPrice(price:price)
-            completionHandler(true)
-        }catch let error{
-            completionHandler(false)
-            throw error
-        }
-    }
     func updatePrice(completion: @escaping (Double?)-> Void)throws{
             var totalPrice: Double = 0.0
             do{
                 try  productsInCart =  localDataSource.getCartFromCoreData()
                 for item in productsInCart!{
                     guard let priceStr = item.price, let price = Double(priceStr) else {return}
-                    totalPrice += Double(item.count ?? 1)*price
+                    totalPrice += Double(item.count)*price
                 }
                 Utilities.utilities.setTotalPrice(totalPrice: totalPrice)
                 completion(totalPrice)
@@ -232,21 +219,5 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                 throw error
             }
         }
-       func getCount(productId: Int64, completion: @escaping (CartModel?)-> Void)throws{
-           do{
-               try  productsInCart =  localDataSource.getCartFromCoreData()
-               for item in productsInCart!{
-                   if item.id == "\(productId)" {
-                       completion(item)
-                   }
-               }
-            
-           }catch let error{
-               completion(nil)
-               throw error
-           }
-           
-       }
 
-    
 }

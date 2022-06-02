@@ -36,24 +36,24 @@
                                     <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="17"/>
                                 </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="189 USD" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcq-aQ-fN3">
-                                <rect key="frame" x="133" y="61.5" width="88" height="19.5"/>
+                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5g-Ne-N4r">
+                                <rect key="frame" x="297" y="7" width="44" height="31"/>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
+                                <connections>
+                                    <action selector="deleteCart:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="e5h-K4-QUx"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="$189 per one" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcq-aQ-fN3">
+                                <rect key="frame" x="119" y="53.5" width="110" height="20"/>
                                 <color key="tintColor" red="0.094089172780513763" green="0.6210511326789856" blue="0.64091527462005615" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="88" id="EvW-ko-hOu"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="20"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="16"/>
                                 </variation>
                             </label>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5g-Ne-N4r">
-                                <rect key="frame" x="297" y="7" width="44" height="31"/>
-                                <color key="tintColor" systemColor="labelColor"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -64,8 +64,8 @@
                             <constraint firstItem="Cuv-JL-Em5" firstAttribute="leading" secondItem="Kcc-43-poD" secondAttribute="trailing" constant="2" id="W4C-Wl-f11"/>
                             <constraint firstItem="Cuv-JL-Em5" firstAttribute="top" secondItem="IxS-eb-hWk" secondAttribute="top" constant="25" id="eL5-3N-wb2"/>
                             <constraint firstAttribute="bottom" secondItem="H5g-Ne-N4r" secondAttribute="bottom" constant="96" id="jOo-Bn-dUU"/>
-                            <constraint firstItem="Cuv-JL-Em5" firstAttribute="leading" secondItem="Xcq-aQ-fN3" secondAttribute="leading" constant="-14" id="jbe-Fq-BJS"/>
-                            <constraint firstItem="Xcq-aQ-fN3" firstAttribute="top" secondItem="Cuv-JL-Em5" secondAttribute="bottom" constant="16" id="na3-U7-Z6Y"/>
+                            <constraint firstItem="Cuv-JL-Em5" firstAttribute="leading" secondItem="Xcq-aQ-fN3" secondAttribute="leading" id="jbe-Fq-BJS"/>
+                            <constraint firstItem="Xcq-aQ-fN3" firstAttribute="top" secondItem="Cuv-JL-Em5" secondAttribute="bottom" constant="8" id="na3-U7-Z6Y"/>
                             <constraint firstItem="H5g-Ne-N4r" firstAttribute="leading" secondItem="Cuv-JL-Em5" secondAttribute="trailing" constant="20" id="vPN-PG-2to"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -153,11 +153,16 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <constraints>
+                <constraint firstItem="Xcq-aQ-fN3" firstAttribute="width" secondItem="KGk-i7-Jjw" secondAttribute="width" multiplier="0.299728" id="7QM-Cd-8ZL"/>
+                <constraint firstItem="Xcq-aQ-fN3" firstAttribute="height" secondItem="KGk-i7-Jjw" secondAttribute="height" multiplier="0.133333" id="HmG-qX-EkZ"/>
+            </constraints>
             <connections>
                 <outlet property="productCount" destination="tdW-95-TMk" id="P37-v8-5qq"/>
                 <outlet property="productImage" destination="Kcc-43-poD" id="sbX-Cr-DCt"/>
                 <outlet property="productPrice" destination="Xcq-aQ-fN3" id="aVV-gb-HDr"/>
                 <outlet property="productTitle" destination="Cuv-JL-Em5" id="1EF-FI-PdZ"/>
+                <outlet property="subBtn" destination="bSv-xL-toY" id="rJI-r1-Bdk"/>
             </connections>
             <point key="canvasLocation" x="181.8840579710145" y="97.767857142857139"/>
         </tableViewCell>
