@@ -17,6 +17,7 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
 
     var brandId: Int?
     var isCommingFromHome :String?
+    @IBOutlet weak var filterBtn: UIToolbar!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchProductsCV: UICollectionView!
     var listOfProducts : [Product] = []
@@ -25,6 +26,7 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
     let disBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         self.title = "Products"
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
@@ -47,6 +49,7 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
 
         }
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -83,6 +86,11 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
             } .disposed(by: disBag)
 
        
+    }
+    
+    @IBAction func btnFilter(_ sender: Any) {
+        showAlertError(title: "Do you want filter products from", message: "")
+//        productViewModel?.filterbyPrice(order: 1)
     }
 }
 
@@ -129,7 +137,9 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let productDetailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
         productDetailsVC.productId = "\(listOfProducts[indexPath.row].id)"
+        print("your id is: \(listOfProducts[indexPath.row].id)")
         self.navigationController?.pushViewController(productDetailsVC, animated: true)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -149,7 +159,21 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
        
       }
     
-    
-    
+    func showAlertError(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "High to low", style: .default, handler: {[weak self](action)->() in
+            self?.productViewModel?.filterbyPrice(order: "high")
+        })
+        let action2 = UIAlertAction(title: "low to high", style: .default, handler: {[weak self](a)->() in
+            self?.productViewModel?.filterbyPrice(order: "low")
+        })
+        let action3 = UIAlertAction(title: "Cancel", style: .destructive, handler: {[weak self](a)->() in
+            self?.dismiss(animated: true)
+        })
+        alert.addAction(action2)
+        alert.addAction(action1)
+        alert.addAction(action3)
+        self.present(alert, animated: true, completion: nil)
+    }
   
 }

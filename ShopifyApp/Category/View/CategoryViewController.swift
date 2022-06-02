@@ -8,10 +8,12 @@
 import UIKit
 import Floaty
 import RxSwift
+
 class CategoryViewController: UIViewController {
 
     let disposeBag = DisposeBag()
     var showList:[ProductElement]?
+    var dbList:[Product]?
     let refreshController = UIRefreshControl()
     var viewModel:CategoryViewModelProtocol!
     let queue = OperationQueue()
@@ -63,6 +65,7 @@ class CategoryViewController: UIViewController {
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
         showList = []
+        dbList = []
         viewModel = CategoryViewModel(network: APIClient())
         setupCollectionView()
         

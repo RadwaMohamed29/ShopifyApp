@@ -76,6 +76,7 @@
             </constraints>
             <size key="customSize" width="314" height="250"/>
             <connections>
+                <outlet property="addToFav" destination="gwh-Fp-aGf" id="tUW-nr-l4F"/>
                 <outlet property="imgView" destination="tQ4-nb-qq6" id="o1b-VZ-oDc"/>
                 <outlet property="label" destination="JoO-Ca-4NB" id="Axh-nJ-FZP"/>
                 <outlet property="topView" destination="gtx-PK-ayI" id="2Iu-U7-xG0"/>
