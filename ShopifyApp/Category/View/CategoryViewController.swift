@@ -95,7 +95,7 @@ class CategoryViewController: UIViewController {
         refreshController.addTarget(self, action: #selector(getData), for: .valueChanged)
         categoryCollection.addSubview(refreshController)
         
-        checkNetworkAndGetData(target: .HomeCategoryProducts)
+        getCategory(target: .HomeCategoryProducts)
         
         womenBtnAction()
         menBtnAction()
@@ -110,17 +110,6 @@ class CategoryViewController: UIViewController {
         stopSpinnerIfNoNetwork()
         
     }
-    
-    func checkNetworkAndGetData(target:Endpoints) {
-        HandelConnection.handelConnection.checkNetworkConnection { [weak self] isconn in
-            if isconn{
-                self?.getCategory(target: target)
-            }else{
-                self?.showSnackBar()
-            }
-        }
-    }
-  
     
     @objc func getData(){
 //        categoryCollection.setContentOffset(CGPoint(x: 0, y: -150), animated: true)
