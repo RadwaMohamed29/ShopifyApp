@@ -60,15 +60,25 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         viewModel.getFilteredProducts(target: target)
         viewModel.categoryObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background)).observe(on: MainScheduler.instance)
             .subscribe { [weak self]result in
-                self?.showList = result
-                self?.categoryCollection.reloadData()
-                if CategoryViewController.subProduct == 1{
-                    self?.checkListSize(productName: "SHOES")
-                }else if CategoryViewController.subProduct == 2{
-                    self?.checkListSize(productName: "T_shirts")
-                }else{
-                    self?.checkListSize(productName: "accessories")
-                }
+                HandelConnection.handelConnection.checkNetworkConnection(complition: { isconn in
+                    if isconn{
+                        self?.showList = result
+                        self?.spinner.stopAnimating()
+                        self?.categoryCollection.reloadData()
+                        if CategoryViewController.subProduct == 1{
+                            self?.checkListSize(productName: "SHOES")
+                        }else if CategoryViewController.subProduct == 2{
+                            self?.checkListSize(productName: "T_shirts")
+                        }else if CategoryViewController.subProduct == 3{
+                            self?.checkListSize(productName: "accessories")
+                        }else{
+                            self?.checkListSize(productName: "Data")
+                        }
+                    }else{
+                        self?.showSnackBar()
+                    }
+                })
+               
                 
             } onError: { error in
                 //MARK: show Dialog
@@ -92,7 +102,7 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
     }
 
     func showNoDataMessage(ProductName:String, errorMsgHidden:Bool) {
-        
+        networkError.isHidden = true
         labelNoData.isHidden = errorMsgHidden //false showed
         noDataImg.isHidden = errorMsgHidden //false
         noDataImg.image = UIImage(named: ProductName)
