@@ -48,7 +48,7 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         refreshControl.tintColor = UIColor.darkGray
         refreshControl.addTarget(self, action:#selector(getProductsWithCheckingConnection), for: .valueChanged)
         searchProductsCV.addSubview(refreshControl)
-        networkView.isHidden = true
+//        networkView.isHidden = true
         getProductsWithCheckingConnection()
     }
     
@@ -96,11 +96,10 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
 
 
 extension AllProductsViewController : UICollectionViewDelegate ,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return listOfProducts.count
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
@@ -165,7 +164,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
          HandelConnection.handelConnection.checkNetworkConnection { [weak self] isConnected in
              if isConnected{
                  self?.searchProductsCV.isHidden = false
-                 self?.networkView.isHidden = true
+//                 self?.networkView.isHidden = true
                  self?.checkWichListThatWillPresenting()
                  self?.searchProductsCV.reloadData()
              }else{
@@ -192,6 +191,8 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         }else{
 
         }
+    }
+    
     func showAlertError(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let action1 = UIAlertAction(title: "High to low", style: .default, handler: {[weak self](action)->() in
@@ -208,5 +209,4 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         alert.addAction(action3)
         self.present(alert, animated: true, completion: nil)
     }
-  
 }
