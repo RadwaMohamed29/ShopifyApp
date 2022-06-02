@@ -76,13 +76,13 @@ class CategoryViewController: UIViewController {
         }
         
         fabBtn.addItem("T_shirts", icon: UIImage(named: "fabTshirt")) {[weak self] _ in
-            let index = self?.getSelectedIndexInToolBar(type: "T-SHIRTS")
+            let index = self?.getSelectedIndexInToolBar(type: "T_shirts")
             CategoryViewController.subProduct = 2
             self?.getCategory(target: .TshirtType(id: index!.ID))
         }
         
-        fabBtn.addItem("Accecories", icon: UIImage(named: "fabAcc")) {[weak self] _ in
-            let index = self?.getSelectedIndexInToolBar(type: "ACCESSORIES")
+        fabBtn.addItem("Accessories", icon: UIImage(named: "fabAcc")) {[weak self] _ in
+            let index = self?.getSelectedIndexInToolBar(type: "Accessories")
             CategoryViewController.subProduct = 3
             self?.getCategory(target: .AccecoriesType(id: index!.ID))
         }

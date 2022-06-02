@@ -65,9 +65,9 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
                 if CategoryViewController.subProduct == 1{
                     self?.checkListSize(productName: "SHOES")
                 }else if CategoryViewController.subProduct == 2{
-                    self?.checkListSize(productName: "T-SHIRTS")
+                    self?.checkListSize(productName: "T_shirts")
                 }else{
-                    self?.checkListSize(productName: "ACCESSORIES")
+                    self?.checkListSize(productName: "accessories")
                 }
                 
             } onError: { error in
