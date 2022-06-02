@@ -29,6 +29,8 @@
 		16873CDA283D86A000694061 /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16873CD8283D86A000694061 /* ProductDetailsViewController.swift */; };
 		16873CDB283D86A000694061 /* ProductDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16873CD9283D86A000694061 /* ProductDetailsViewController.xib */; };
 		169AD90D28481760000481B1 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169AD90C28481760000481B1 /* Customer.swift */; };
+		16A24342284993CC00A6154F /* ReviewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A24340284993CC00A6154F /* ReviewsCollectionViewCell.swift */; };
+		16A24343284993CC00A6154F /* ReviewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A24341284993CC00A6154F /* ReviewsCollectionViewCell.xib */; };
 		16B7CB50283EF5B1001E0342 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B7CB4F283EF5B1001E0342 /* Product.swift */; };
 		16B7CB53283F0F27001E0342 /* productDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B7CB52283F0F27001E0342 /* productDetailsViewModel.swift */; };
 		3E0865D6283EE3E500755C18 /* Brands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0865D5283EE3E500755C18 /* Brands.swift */; };
@@ -133,6 +135,8 @@
 		16873CD8283D86A000694061 /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		16873CD9283D86A000694061 /* ProductDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductDetailsViewController.xib; sourceTree = "<group>"; };
 		169AD90C28481760000481B1 /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		16A24340284993CC00A6154F /* ReviewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsCollectionViewCell.swift; sourceTree = "<group>"; };
+		16A24341284993CC00A6154F /* ReviewsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsCollectionViewCell.xib; sourceTree = "<group>"; };
 		16B7CB4F283EF5B1001E0342 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		16B7CB52283F0F27001E0342 /* productDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productDetailsViewModel.swift; sourceTree = "<group>"; };
 		16F7124AE54113161E6F75CE /* Pods_ShopifyAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShopifyAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -258,6 +262,8 @@
 				16873CD3283D868A00694061 /* ProductImagesCollectionViewCell.xib */,
 				16873CD1283D868900694061 /* SizeTableViewCell.swift */,
 				16873CD0283D868900694061 /* SizeTableViewCell.xib */,
+				16A24340284993CC00A6154F /* ReviewsCollectionViewCell.swift */,
+				16A24341284993CC00A6154F /* ReviewsCollectionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -804,6 +810,7 @@
 				3E75345E283ADFF70072EF9A /* AbsTableViewCell.xib in Resources */,
 				BED44803283E57EA00EA74BC /* CheckoutViewController.xib in Resources */,
 				16873CD7283D868A00694061 /* ProductImagesCollectionViewCell.xib in Resources */,
+				16A24343284993CC00A6154F /* ReviewsCollectionViewCell.xib in Resources */,
 				9C898C1A28381C3000A86758 /* HomeViewController.xib in Resources */,
 				3EC598F9283B0E6400050CE5 /* BrandsCollectionViewCell.xib in Resources */,
 				3E37B9AF283D9845000A0FD9 /* RegisterViewController.xib in Resources */,
@@ -944,6 +951,7 @@
 				162FEA46283D84F6007BD95B /* CategoryCollectionViewCell.swift in Sources */,
 				162FEA47283D84F6007BD95B /* Category+ex.swift in Sources */,
 				9C898C2528381CB500A86758 /* MeViewController.swift in Sources */,
+				16A24342284993CC00A6154F /* ReviewsCollectionViewCell.swift in Sources */,
 				9CB996D2283FC59100136ABC /* AllProductsViewController.swift in Sources */,
 				3E37B9B6283D9860000A0FD9 /* ShoppingCartVC.swift in Sources */,
 				BED4480B283E773400EA74BC /* NetworkServiceProtocol.swift in Sources */,

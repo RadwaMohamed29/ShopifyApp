@@ -17,7 +17,7 @@ struct Customer: Codable{
 }
 
 struct CustomerModel: Codable {
-    let firstName, lastName, email,phone: String?
+    let firstName, lastName, email,phone,id: String?
     let password : String
     let verifiedEmail: Bool
     let addresses: [Address]
@@ -25,10 +25,10 @@ struct CustomerModel: Codable {
     enum CodingKeys: String, CodingKey {
         case firstName = "first_name"
         case lastName = "last_name"
-        case email, phone
+        case email, phone, id
         case verifiedEmail = "verified_email"
         case addresses
-        case password = "id"
+        case password = "tags"
     }
 }
 
