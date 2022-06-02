@@ -19,6 +19,7 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
     var isCommingFromHome :String?
     
     @IBOutlet weak var networkView: UIView!
+    @IBOutlet weak var filterBtn: UIToolbar!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchProductsCV: UICollectionView!
     var listOfProducts : [Product] = []
@@ -29,6 +30,7 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         self.title = "Products"
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
@@ -46,7 +48,7 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         refreshControl.tintColor = UIColor.darkGray
         refreshControl.addTarget(self, action:#selector(getProductsWithCheckingConnection), for: .valueChanged)
         searchProductsCV.addSubview(refreshControl)
-        networkView.isHidden = true
+//        networkView.isHidden = true
         getProductsWithCheckingConnection()
     }
     
@@ -84,16 +86,20 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
                 self.productViewModel?.searchWithWord(word: result)
             } .disposed(by: disBag)
     }
+    
+    @IBAction func btnFilter(_ sender: Any) {
+        showAlertError(title: "Do you want filter products from", message: "")
+//        productViewModel?.filterbyPrice(order: 1)
+    }
 }
 
 
 
 extension AllProductsViewController : UICollectionViewDelegate ,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return listOfProducts.count
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
@@ -132,7 +138,9 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let productDetailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
         productDetailsVC.productId = "\(listOfProducts[indexPath.row].id)"
+        print("your id is: \(listOfProducts[indexPath.row].id)")
         self.navigationController?.pushViewController(productDetailsVC, animated: true)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -156,7 +164,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
          HandelConnection.handelConnection.checkNetworkConnection { [weak self] isConnected in
              if isConnected{
                  self?.searchProductsCV.isHidden = false
-                 self?.networkView.isHidden = true
+//                 self?.networkView.isHidden = true
                  self?.checkWichListThatWillPresenting()
                  self?.searchProductsCV.reloadData()
              }else{
@@ -184,5 +192,21 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
 
         }
     }
-  
+    
+    func showAlertError(title: String, message: String){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action1 = UIAlertAction(title: "High to low", style: .default, handler: {[weak self](action)->() in
+            self?.productViewModel?.filterbyPrice(order: "high")
+        })
+        let action2 = UIAlertAction(title: "low to high", style: .default, handler: {[weak self](a)->() in
+            self?.productViewModel?.filterbyPrice(order: "low")
+        })
+        let action3 = UIAlertAction(title: "Cancel", style: .destructive, handler: {[weak self](a)->() in
+            self?.dismiss(animated: true)
+        })
+        alert.addAction(action2)
+        alert.addAction(action1)
+        alert.addAction(action3)
+        self.present(alert, animated: true, completion: nil)
+    }
 }

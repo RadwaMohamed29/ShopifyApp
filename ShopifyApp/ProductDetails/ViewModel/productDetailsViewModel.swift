@@ -127,9 +127,22 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         allProductsSubject.onNext(filterProducts)
         
     }
+ 
+    func filterbyPrice(order:String) {
+        if order == "high"{
+            let filteredProducts = listOfProduct.sorted(by: {
+                Double($0.variant[0].price!)! > Double($1.variant[0].price!)!})
+            allProductsSubject.onNext(listOfProduct)
+            allProductsSubject.onNext(filteredProducts)
+        }else{
+            let filteredProducts = listOfProduct.sorted(by: {
+                Double($0.variant[0].price!)! < Double($1.variant[0].price!)!})
+            allProductsSubject.onNext(listOfProduct)
+            allProductsSubject.onNext(filteredProducts)
+        }
+    }
     
     func addFavouriteProductToCoreData(product:Product , completion: @escaping (Bool)->Void) throws{
-        
         do{
             try  localDataSource.saveProductToCoreData(newProduct: product)
             completion(true)
@@ -149,8 +162,8 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             completionHandler(false)
             throw error
         }
-        
     }
+    
     func checkFavorite(id : String){
         do{
             try isFav = localDataSource.isFavouriteProduct(productID: id)
@@ -250,4 +263,5 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
        }
 
     
+ 
 }
