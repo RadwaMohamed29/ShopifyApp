@@ -72,7 +72,7 @@ final class LocalDataSource: LocalDataSourcable{
                                                           , body_html: product.value(forKey: "body_html" )as! String
                                                           , price: product.value(forKey: "price" )as! String
                                                           , scr: product.value(forKey: "scr") as! String
-                                                          , title: product.value(forKey: "title") as!String
+                                                          , title: product.value(forKey: "title") as!String, isSelected: false
                                                          ))
             }
             
@@ -103,7 +103,7 @@ final class LocalDataSource: LocalDataSourcable{
 extension LocalDataSource{
     func getCartFromCoreData() throws -> [CartModel] {
         var selectedCart = [CartModel]()
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "entityCart")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProduct")
         do{
             let cartList = try contextCart.fetch(fetchRequest)
             for product in cartList {
@@ -111,7 +111,7 @@ extension LocalDataSource{
                                     ,title: product.value(forKey: "title")as? String
                                     ,price: product.value(forKey: "price")as? String
                                     ,image: product.value(forKey: "image")as? String
-                                    ,quantity: product.value(forKey: "quantity")as? Int
+                                    ,count: product.value(forKey: "count")as? Int
                                  
                 ))
             }
@@ -122,13 +122,13 @@ extension LocalDataSource{
     }
     
     
-    func saveProductToCartCoreData(newItem: Product, itemCount: Int = 1)throws{
+    func saveProductToCartCoreData(id: String,title:String,image:String,price:String, itemCount: Int )throws{
         let product = NSManagedObject(entity: entityCart, insertInto: contextCart)
-        product.setValue(newItem.id, forKey: "id")
-        product.setValue(newItem.title, forKey: "title")
-        product.setValue(newItem.image.src, forKey: "image")
-        product.setValue(newItem.variant[0].price, forKey: "price")
-        product.setValue(newItem.variant[0].inventoryQuantity, forKey: "quantity")
+        product.setValue(id, forKey: "id")
+        product.setValue(title, forKey: "title")
+        product.setValue(image, forKey: "image")
+        product.setValue(price, forKey: "price")
+        product.setValue(Int64(itemCount), forKey: "count")
     //    product.setValue(newItem.options[0].values, forKey: "size")
     //    let data = NSKeyedArchiver.archivedData(withRootObject: product.options[0].values)
         do{
@@ -141,7 +141,7 @@ extension LocalDataSource{
 
     }
     func removeFromCartCoreData(itemId: String)throws{
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "entityCart")
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProduct")
         let myPredicate = NSPredicate(format: "id == %@", itemId)
         fetchRequest.predicate = myPredicate
         do{
@@ -156,7 +156,7 @@ extension LocalDataSource{
     }
     func checkCartCoreData(itemId: String) throws -> Bool{
         do{
-            let products = try self.getProductFromCoreData()
+            let products = try self.getCartFromCoreData()
             for item in products{
                 if item.id == itemId {
                     return true
@@ -166,5 +166,23 @@ extension LocalDataSource{
             throw error
         }
         return false
+    }
+    func updateCount(productID :Int , count : Int) throws{
+        do{
+            let products = try self.getCartFromCoreData()
+            for var item in products{
+                item.count = count
+                try?self.contextCart.save()
+                }
+            }
+        }
+    func setPrice(price: Double)throws{
+        do{
+            let products = try self.getCartFromCoreData()
+            for var item in products{
+                item.price = "\(price)"
+                try?self.contextCart.save()
+                }
+            }
     }
 }

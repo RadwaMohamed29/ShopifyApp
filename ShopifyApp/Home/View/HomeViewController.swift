@@ -6,30 +6,23 @@
 //
 
 import UIKit
-
 class HomeViewController: UIViewController,brandIdProtocol {
-    
-    func transBrandName(brandId: Int) {
-        let productListVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
-        productListVC.brandId = brandId
-        productListVC.isCommingFromHome = "true"
-        print("iddddddddd\(brandId)")
-   //     goToAllProduct(isCommingFromBrand: "true", brnadId: brandId)
-        self.navigationController?.pushViewController(productListVC, animated: true)
-    }
-    
-
+    @IBOutlet weak var noImageView: UIView!
+   
     @IBOutlet weak var homeTV: UITableView!
- 
+    let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         BrandTableViewCell.setHome(deleget: self)
         setupTableView()
-        
-        // Do any additional setup after loading the view.
     }
-
+    override func viewWillAppear(_ animated: Bool) {
+        refreshControl.tintColor = UIColor.darkGray
+        refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
+        homeTV.addSubview(refreshControl)
+        checkConnection()
+    
+    }
     func setupTableView(){
         homeTV.register(AbsTableViewCell.Nib(), forCellReuseIdentifier: AbsTableViewCell.identifier)
         homeTV.register(BrandTableViewCell.Nib(), forCellReuseIdentifier: BrandTableViewCell.identifier)
@@ -37,8 +30,6 @@ class HomeViewController: UIViewController,brandIdProtocol {
         homeTV.dataSource = self
     }
     @IBAction func search(_ sender: Any) {
-        
-       // goToAllProduct(isCommingFromBrand: "true", brandId: nil)
         goToAllProduct(isCommingFromBrand: "true", brnadId: 0 )
 
     }
@@ -56,12 +47,32 @@ class HomeViewController: UIViewController,brandIdProtocol {
    
 }
 extension HomeViewController{
+    func transBrandName(brandId: Int) {
+        let productListVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
+        productListVC.brandId = brandId
+        productListVC.isCommingFromHome = "true"
+        self.navigationController?.pushViewController(productListVC, animated: true)
+    }
     func goToAllProduct(isCommingFromBrand: String,brnadId: Int){
     let productListVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
     productListVC.brandId = brnadId
     productListVC.isCommingFromHome = isCommingFromBrand
     self.navigationController?.pushViewController(productListVC, animated: true)
      }
+   @objc func checkConnection(){
+        HandelConnection.handelConnection.checkNetworkConnection { isConnected in
+            if isConnected{
+                self.homeTV.isHidden = false
+                self.noImageView.isHidden = true
+                self.homeTV.reloadData()
+            }else{
+                self.homeTV.isHidden = true
+                self.noImageView.isHidden = false
+              //  self.showAlertForInterNetConnection()
+                self.showSnackBar()
+            }
+        }
+    }
 }
 extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,7 +115,7 @@ extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
         var title = ""
         switch section{
         case 0:
-            title = "ADS"
+            title = ""
         default:
             title = "BRANDS"
         }

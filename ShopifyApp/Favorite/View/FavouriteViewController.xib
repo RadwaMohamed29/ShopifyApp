@@ -22,6 +22,10 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhY-v3-Mya">
                     <rect key="frame" x="83" y="804" width="248" height="58"/>
+                    <constraints>
+                        <constraint firstAttribute="height" secondItem="MhY-v3-Mya" secondAttribute="height" multiplier="1:1" id="MJo-9r-E0p"/>
+                        <constraint firstAttribute="width" secondItem="MhY-v3-Mya" secondAttribute="width" multiplier="1:1" id="MSf-sH-0bb"/>
+                    </constraints>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
                         <backgroundConfiguration key="background">
@@ -36,6 +40,9 @@
                         </attributedString>
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="addSelectedItemToCart:" destination="-1" eventType="touchUpInside" id="irW-Lz-326"/>
+                    </connections>
                 </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8c1-9l-lAL">
                     <rect key="frame" x="0.0" y="44" width="414" height="760"/>
