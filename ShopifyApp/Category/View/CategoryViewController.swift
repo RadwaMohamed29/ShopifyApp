@@ -11,6 +11,7 @@ import RxSwift
 
 class CategoryViewController: UIViewController {
 
+    var navigationBar:UINavigationBar?
     let disposeBag = DisposeBag()
     var showList:[ProductElement]?
     var dbList:[Product]?
@@ -18,6 +19,8 @@ class CategoryViewController: UIViewController {
     var viewModel:CategoryViewModelProtocol!
     let queue = OperationQueue()
     static var subProduct:Int = 0
+    @IBOutlet weak var toolbar: UIToolbar!
+    @IBOutlet weak var networkError: UIImageView!
     var productViewModel : ProductDetailsViewModel?
     @IBOutlet weak var noDataImg: UIImageView!
     @IBOutlet weak var labelNoData: UILabel!
@@ -30,38 +33,36 @@ class CategoryViewController: UIViewController {
     var collectionFlowLayout:UICollectionViewFlowLayout!
     
     override func viewWillAppear(_ animated: Bool) {
+//        getCategory(target: .HomeCategoryProducts)
         if let showList = showList {
             if !showList.isEmpty{
                 labelNoData.isHidden = true
                 noDataImg.isHidden = true
             }
         }
-        
     }
     
-    override func viewWillLayoutSubviews() {
-            addNavController()
+    @IBAction func cartBtn(){
+        let a = ShoppingCartVC(nibName:"ShoppingCartVC", bundle: nil)
+         self.navigationController?.pushViewController(a, animated: true)
     }
     
-    func addNavController() {
-        let width = self.view.frame.width
-        let navigationBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 35, width: width, height: 10));       self.view.addSubview(navigationBar)
-        let searchBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(self.cartBtn))
-        navigationItem.title = ""
-        let favoriteBtn = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .done, target: self, action: #selector(selectorX))
-        let cartBtn = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .done, target: self, action: #selector(cartBtn))
-        navigationItem.leftBarButtonItem = searchBtn
-        navigationItem.rightBarButtonItems = [favoriteBtn, cartBtn]
-        navigationBar.setItems([navigationItem], animated: false)
+    @IBAction func navigateToFavorite() {
+        let a = FavouriteViewController(nibName:"FavouriteViewController", bundle: nil)
+         self.navigationController?.pushViewController(a, animated: true)
     }
     
-    @objc func cartBtn(){
-        print("cart pressed")
+    @IBAction func searchBtn() {
+        let productListVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
+        productListVC.isCommingFromHome = "false"
+        self.navigationController?.pushViewController(productListVC, animated: true)
     }
     
-    @objc func selectorX() {print("cart pressed") }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        toolbar.topAnchor.constraint(equalTo: self.navigationBar!.topAnchor, constant: 20).isActive = true
+        
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
         showList = []
@@ -84,6 +85,7 @@ class CategoryViewController: UIViewController {
         fabBtn.addItem("Accessories", icon: UIImage(named: "fabAcc")) {[weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "Accessories")
             CategoryViewController.subProduct = 3
+            
             self?.getCategory(target: .AccecoriesType(id: index!.ID))
         }
         categoryCollection.backgroundView = refreshController
@@ -92,12 +94,25 @@ class CategoryViewController: UIViewController {
         refreshController.tintColor = UIColor.blue
         refreshController.addTarget(self, action: #selector(getData), for: .valueChanged)
         categoryCollection.addSubview(refreshController)
-        getCategory(target: .HomeCategoryProducts)
+        
+        checkNetworkAndGetData(target: .HomeCategoryProducts)
+        
         womenBtnAction()
         menBtnAction()
         kidsBtnAction()
         saleBtnAction()
     }
+    
+    func checkNetworkAndGetData(target:Endpoints) {
+        HandelConnection.handelConnection.checkNetworkConnection { [weak self] isconn in
+            if isconn{
+                self?.getCategory(target: target)
+            }else{
+                self?.showSnackBar()
+            }
+        }
+    }
+  
     
     @objc func getData(){
 //        categoryCollection.setContentOffset(CGPoint(x: 0, y: -150), animated: true)
@@ -127,7 +142,6 @@ class CategoryViewController: UIViewController {
         men.rx.tap.throttle(RxTimeInterval.seconds(2), latest: false, scheduler: MainScheduler.instance).subscribe {[weak self] _ in
             self?.getCategory(target: .MenCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 2)
-//            self?.categoryCollection.reloadData()
         }.disposed(by: disposeBag)
     }
     
@@ -135,7 +149,6 @@ class CategoryViewController: UIViewController {
         women.rx.tap.throttle(RxTimeInterval.seconds(2), latest: false, scheduler: MainScheduler.instance).subscribe {[weak self] _ in
             self?.getCategory(target: .WomenCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 1)
-//            self?.categoryCollection.reloadData()
         }.disposed(by: disposeBag)
     }
     
@@ -143,7 +156,6 @@ class CategoryViewController: UIViewController {
         sale.rx.tap.throttle(RxTimeInterval.seconds(2), latest: false, scheduler: MainScheduler.instance).subscribe {[weak self] _ in
             self?.getCategory(target: .SaleCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 4)
-//            self?.categoryCollection.reloadData()
         }.disposed(by: disposeBag)
     }
     
@@ -151,7 +163,6 @@ class CategoryViewController: UIViewController {
         kids.rx.tap.throttle(RxTimeInterval.seconds(2), latest: false, scheduler: MainScheduler.instance).subscribe {[weak self] _ in
             self?.getCategory(target: .KidsCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 3)
-//            self?.categoryCollection.reloadData()
         }.disposed(by: disposeBag)
     }
     
@@ -199,11 +210,18 @@ class CategoryViewController: UIViewController {
             return .Home(type: type)
         }
     }
-    
-  
 }
 
-//https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/products.json?collection_id=products.json?product_type=SHOES&product_type=shoes
 
 
-//https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/products.json?collection_id=395728126181&product_type=shoes
+//    func addNavController() {
+//        let width = self.view.frame.width
+//        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 30, width: width, height: 10));       self.view.addSubview(navigationBar!)
+//        let searchBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(self.cartBtn))
+//        navigationItem.title = ""
+//        let favoriteBtn = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .done, target: self, action: #selector(selectorX))
+//        let cartBtn = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .done, target: self, action: #selector(cartBtn))
+//        navigationItem.leftBarButtonItem = searchBtn
+//        navigationItem.rightBarButtonItems = [favoriteBtn, cartBtn]
+//        navigationBar?.setItems([navigationItem], animated: false)
+//    }
