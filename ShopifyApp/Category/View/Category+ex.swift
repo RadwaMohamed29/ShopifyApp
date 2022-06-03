@@ -36,6 +36,12 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         cell.layer.cornerRadius = 12
         cell.label.shadowColor = UIColor.gray
         cell.topView.layer.cornerRadius =  24
+        productViewModel?.checkFavorite(id: "\(showList![indexPath.row].id)")
+        if productViewModel?.isFav == true {
+            cell.addToFav.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+        }else{
+            cell.addToFav.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+        }
         cell.addToFav.tag = indexPath.row
         cell.addToFav.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
         return cell
