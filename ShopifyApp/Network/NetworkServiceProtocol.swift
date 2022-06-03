@@ -20,4 +20,6 @@ protocol NetworkServiceProtocol{
 
     
     func getFilteredCategory(target:Endpoints, completion: @escaping(Result<CategoryProducts, ErrorType>)->())
+    
+    func registerCustomerProtocol(newCustomer: Customer,completion: @escaping(Data?, URLResponse?, Error?)->())
 }

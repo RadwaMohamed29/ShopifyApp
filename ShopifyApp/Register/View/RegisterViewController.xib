@@ -10,6 +10,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RegisterViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
+                <outlet property="emailText" destination="juS-8o-92I" id="Mxh-Rw-8wc"/>
+                <outlet property="firstNameText" destination="DVU-Ey-kw1" id="88d-ky-Zlt"/>
+                <outlet property="passwordText" destination="opq-j3-IAI" id="MMa-rB-SRD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -152,6 +155,9 @@
                                             </fragment>
                                         </attributedString>
                                     </buttonConfiguration>
+                                    <connections>
+                                        <action selector="signUpBtn:" destination="-1" eventType="touchUpInside" id="mK0-9K-xJV"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cdk-We-ePu">
                                     <rect key="frame" x="252" y="710.5" width="86.5" height="37"/>

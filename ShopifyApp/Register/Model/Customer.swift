@@ -17,27 +17,26 @@ struct Customer: Codable{
 }
 
 struct CustomerModel: Codable {
-    let firstName, lastName, email,phone,id: String?
-    let password : String
-    let verifiedEmail: Bool
-    let addresses: [Address]
-
-    enum CodingKeys: String, CodingKey {
-        case firstName = "first_name"
-        case lastName = "last_name"
-        case email, phone, id
-        case verifiedEmail = "verified_email"
-        case addresses
-        case password = "tags"
-    }
+    let first_name, last_name, email, phone, tags: String?
+    let id: Int?
+    let verified_email: Bool?
+    let addresses: [Address]?
 }
 
 struct Address: Codable {
-    let title, city: String?
-    let zip, country: String?
+    var address1, city, province, phone: String?
+    var zip, last_name, first_name, country: String?
+    var id: Int!
     
-    enum CodingKeys: String, CodingKey {
-        case title = "address1"
-        case city,zip,country
+ 
+}
+
+extension Encodable {
+  func asDictionary() throws -> [String: Any] {
+    let data = try JSONEncoder().encode(self)
+    guard let dictionary = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any] else {
+      throw NSError()
     }
+    return dictionary
+  }
 }

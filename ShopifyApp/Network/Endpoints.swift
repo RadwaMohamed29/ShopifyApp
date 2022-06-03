@@ -19,7 +19,7 @@ enum Endpoints {
     case ProductDetails(id:String)
     case Smart_collections
     case CollectionID(id:String)
-
+    case Customers 
     case TshirtType(id:String)
     case ShoesType(id:String)
     case AccecoriesType(id:String)
@@ -38,10 +38,10 @@ enum Endpoints {
             return "collections/395728191717/products.json"
         case .ProductDetails(id: let productId):
             return "products/\(productId).json"
-
+        case .Customers:
+            return "customers.json"
         case .allProducts:
             return "products.json"
-
         case .Smart_collections:
             return "smart_collections.json"
         case .CollectionID(id: let collectionId):

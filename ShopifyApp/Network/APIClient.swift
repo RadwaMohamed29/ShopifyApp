@@ -10,6 +10,12 @@ import Alamofire
 private let BASE_URL = "https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/"
 
 class APIClient: NetworkServiceProtocol{
+    func registerCustomerProtocol(newCustomer: Customer, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        registerCustomer(endpoint: .Customers, newCustomer: newCustomer, completion: completion)
+    }
+    
+  
+    
     func productOfBrandsProvider(id: String, completion: @escaping (Result<AllProducts, ErrorType>) -> Void) {
         request(endpoint: .CollectionID(id: id), method: .GET, compeletion: completion)
     }
@@ -82,6 +88,27 @@ class APIClient: NetworkServiceProtocol{
                 }
         }.resume()
     }
+    
+    func registerCustomer(endpoint: Endpoints,newCustomer: Customer, completion: @escaping(Data?, URLResponse?, Error?)->()){
+        guard let url = URL(string: "\(BASE_URL)\(endpoint.path)") else {return}
+        var request = URLRequest(url: url)
+        request.httpMethod = "\(Methods.POST)"
+        let session = URLSession.shared
+        request.httpShouldHandleCookies = false
+        do{
+            request.httpBody = try JSONSerialization.data(withJSONObject: newCustomer.asDictionary(), options: .prettyPrinted)
+            
+        }catch let error{
+            print(error.localizedDescription)
+        }
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        session.dataTask(with: request) {(data, response, error)in
+            completion(data, response, error)
+        }.resume()
+    
 }
 
 //https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/products.json?collection_id=products.json?product_type=SHOES&product_type=shoes
+}
