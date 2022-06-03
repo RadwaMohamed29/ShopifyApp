@@ -69,6 +69,10 @@
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E1Y-6W-B7q">
                         <rect key="frame" x="0.0" y="0.0" width="436" height="336"/>
+                        <constraints>
+                            <constraint firstAttribute="height" secondItem="E1Y-6W-B7q" secondAttribute="height" multiplier="1:1" id="Sn4-Yw-KRS"/>
+                            <constraint firstAttribute="width" secondItem="E1Y-6W-B7q" secondAttribute="width" multiplier="1:1" id="uoo-f0-Iq2"/>
+                        </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ECw-3x-onP">
                         <rect key="frame" x="0.0" y="376" width="436" height="80"/>

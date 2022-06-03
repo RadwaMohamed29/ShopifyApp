@@ -44,6 +44,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>LPSnackbar.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>16</integer>
+		</dict>
 		<key>Pods-ShopifyApp-ShopifyAppUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
