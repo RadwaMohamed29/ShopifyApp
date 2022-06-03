@@ -8,27 +8,23 @@
 import UIKit
 class HomeViewController: UIViewController,brandIdProtocol {
     @IBOutlet weak var noImageView: UIView!
-
-    @IBOutlet weak var cartBtn: UIButton!
+    @IBOutlet weak var favBtn: UIBarButtonItem!
+    @IBOutlet weak var cartBtn: UIBarButtonItem!
     @IBOutlet weak var homeTV: UITableView!
+    var localDataSource = LocalDataSource(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     let refreshControl = UIRefreshControl()
-    let badgeSize: CGFloat = 18
-    let badgeTag = 5
-    var badgeCount = UILabel()
-    var bagProduct : CartProduct?
     override func viewDidLoad() {
         super.viewDidLoad()
         BrandTableViewCell.setHome(deleget: self)
         setupTableView()
-
-        //showBadge(withCount: 5)
     }
     override func viewWillAppear(_ animated: Bool) {
         refreshControl.tintColor = UIColor.darkGray
         refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
         homeTV.addSubview(refreshControl)
+        cartBtn.setBadge(text: String(describing:localDataSource.getCountOfProductInCart()))
+        favBtn.setBadge(text: String(describing: localDataSource.getCountOfProductInFav()))
         checkConnection()
-    
     }
     func setupTableView(){
         homeTV.register(AbsTableViewCell.Nib(), forCellReuseIdentifier: AbsTableViewCell.identifier)
@@ -80,30 +76,6 @@ extension HomeViewController{
                 self.showSnackBar()
             }
         }
-    }
-    func badgeLable(withCount count: Int)->UILabel{
-        badgeCount = UILabel(frame: CGRect(x: 0, y: 0, width: badgeSize, height: badgeSize))
-        badgeCount.tag = badgeTag
-        badgeCount.layer.cornerRadius = badgeCount.bounds.size.height/2
-        badgeCount.layer.masksToBounds = true
-        badgeCount.textColor = .red
-        badgeCount.font = badgeCount.font.withSize(12)
-        badgeCount.textAlignment = .center
-        badgeCount.backgroundColor = .white
-        badgeCount.text = String(count)
-        return badgeCount
-    }
-    func showBadge(withCount count:Int){
-        let badge = badgeLable(withCount: count)
-        cartBtn.addSubview(badge)
-        NSLayoutConstraint.activate([
-            badge.leftAnchor.constraint(equalTo: cartBtn.leftAnchor, constant: 14),
-            badge.topAnchor.constraint(equalTo: cartBtn.topAnchor, constant: -5),
-            badge.widthAnchor.constraint(equalToConstant: badgeSize),
-            badge.heightAnchor.constraint(equalToConstant: badgeSize),
-            
-        ])
-        
     }
 }
 extension HomeViewController :UITableViewDelegate, UITableViewDataSource{

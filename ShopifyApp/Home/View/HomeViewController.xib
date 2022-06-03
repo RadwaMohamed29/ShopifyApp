@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
                 <outlet property="cartBtn" destination="gy7-vo-qqt" id="F3E-3H-Npu"/>
+                <outlet property="favBtn" destination="Oba-0R-Ccr" id="JVV-Gc-6ck"/>
                 <outlet property="homeTV" destination="zhH-Ov-8dC" id="uRe-eB-ZWe"/>
                 <outlet property="noImageView" destination="uT6-mQ-GHK" id="pR4-0n-v9c"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

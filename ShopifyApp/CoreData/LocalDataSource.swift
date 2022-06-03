@@ -17,6 +17,7 @@ protocol LocalDataSourcable{
 }
 
 final class LocalDataSource: LocalDataSourcable{
+   
     private var context: NSManagedObjectContext!
     private var contextCart: NSManagedObjectContext!
     private var entity: NSEntityDescription!
@@ -97,10 +98,24 @@ final class LocalDataSource: LocalDataSourcable{
         }
         return false
     }
-    
+    func getCountOfProductInFav() ->Int {
+        var count: Int = 0
+        do{
+           let productsInCart = try self.getProductFromCoreData()
+            for item in productsInCart{
+                count = productsInCart.count
+            }
+        }catch let error{
+            print(error.localizedDescription)
+        }
+        
+        return count
+        
+    }
     
 }
 extension LocalDataSource{
+
     func getCartFromCoreData() throws -> [CartProduct] {
         var selectedCart = [CartProduct]()
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProduct")
@@ -171,4 +186,20 @@ extension LocalDataSource{
                 }
             }
         }
+    func getCountOfProductInCart() ->Int {
+        var count: Int = 0
+        do{
+           let productsInCart = try self.getCartFromCoreData()
+            for item in productsInCart{
+                count += Int(item.count)
+                print("count in VM \(count)")
+            }
+        }catch let error{
+            print(error.localizedDescription)
+        }
+        
+        return count
+        
+    }
+    
 }
