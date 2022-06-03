@@ -16,6 +16,15 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     }
     
     
+    @IBOutlet weak var reviewCollectionView: UICollectionView!{
+        didSet{
+            reviewCollectionView.dataSource = self
+            reviewCollectionView.delegate = self
+            reviewCollectionView.register(UINib(nibName: "ReviewsCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "ReviewsCollectionViewCell")
+            
+        }
+    }
+    @IBOutlet weak var reviewsView: UIView!
     @IBOutlet weak var viewContainer: UIView!
     @IBOutlet weak var favBtn: UIButton!
     var productId : String?
@@ -53,6 +62,9 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     var uiImageView = UIImageView()
     var productViewModel: ProductDetailsViewModel?
     let refreshControl = UIRefreshControl()
+    var reviewerImage = ["image2","image1","image2","image1"]
+    var reviwerName = ["Radwa Mohamed","Peter Samir","Menna Elsayed","Abdelrhman Sayed"]
+    var reviewerComment = ["perfect","good product","m4 btal","baaad"]
     
     
     override func viewDidLoad() {
@@ -61,6 +73,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         setUpScreen()
         setUpFavButton()
         uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
+        uiImageView.applyshadowWithCorner(containerView: reviewsView, cornerRadious: 0.0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,21 +175,46 @@ extension ProductDetailsViewController: UICollectionViewDataSource,UICollectionV
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
-        
+       if collectionView == reviewCollectionView{
+            return 4
+       }else{
+           return images.count
+       }
+    
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let productImagesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductImagesCollectionViewCell", for: indexPath) as! ProductImagesCollectionViewCell
-        let url = URL(string: self.images[indexPath.row].src)
-        productImagesCell.productImage.kf.setImage(with: url)
-        self.imageControl.numberOfPages = images.count
-        return productImagesCell
+        if collectionView == reviewCollectionView{
+        let reviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewsCollectionViewCell", for: indexPath) as! ReviewsCollectionViewCell
+            reviewCell.customerImage.image = UIImage(named: self.reviewerImage[indexPath.row])
+            reviewCell.customerName.text = self.reviwerName[indexPath.row]
+            reviewCell.customerReview.text = self.reviewerComment[indexPath.row]
+           return reviewCell
+        }else{
+            let productImagesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductImagesCollectionViewCell", for: indexPath) as! ProductImagesCollectionViewCell
+        
+            let url = URL(string: self.images[indexPath.row].src)
+            productImagesCell.productImage.kf.setImage(with: url)
+            self.imageControl.numberOfPages = images.count
+            
+            return productImagesCell
+        }
+        
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: productCollectionView.frame.width, height: productCollectionView.frame.height)
+        if collectionView == productCollectionView{
+            return CGSize(width: productCollectionView.frame.width, height: productCollectionView.frame.height)
+        }else{
+            return CGSize(width: reviewCollectionView.frame.width, height: reviewCollectionView.frame.height)
+        }
+      
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
@@ -196,5 +234,9 @@ extension ProductDetailsViewController: UITableViewDelegate,UITableViewDataSourc
     }
     
     
+    
+}
+
+extension ProductDetailsViewController{
     
 }
