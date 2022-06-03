@@ -15,34 +15,25 @@ class OrdersTVC : UITableViewCell {
     
     @IBOutlet weak var productCount: UILabel!
     
-    var countNumber = 1
+    @IBOutlet weak var subBtn: UIButton!
     static let identifier = "ordersTVC"
     static func nib() ->UINib{
         UINib(nibName: "OrdersTVC", bundle: nil)
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     var deleteFromBagProducts:()->() = {}
-    var updateSavedCount:(Int)->() = {_ in }
-    var addItemQuantity : (Int)->() = {_ in }
-    var subItemQuantity : (Int)->() = {_ in }
+    var addCount:()->() = {}
+    var subCount:()->() = {}
+    @IBAction func deleteCart(_ sender: Any) {
+        deleteFromBagProducts()
+    }
     @IBAction func subCount(_ sender: Any) {
-        if countNumber != 0 {
-            countNumber-=1
-            self.productCount.text = "\(countNumber)"
-            self.subItemQuantity(countNumber)
-            
-        }
-        else{
-            deleteFromBagProducts()
-        }
+        subCount()
     }
     @IBAction func addCount(_ sender: Any) {
-        countNumber+=1
-        self.productCount.text = "\(countNumber)"
-        self.addItemQuantity(countNumber)
-        
+        addCount()
+
   }
 }
