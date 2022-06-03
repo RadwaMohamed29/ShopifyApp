@@ -94,7 +94,7 @@ class ShoppingCartVC: UIViewController {
             print(error.localizedDescription)
         }
     }
-    func updateCount(productID : Int , count : Int) {
+   @objc func updateCount(productID : Int , count : Int) {
         do{
             try  productViewModel?.updateCount(productID: productID, count: count, completionHandler: { response in
                 //MARK: LSA M5LST4
@@ -118,6 +118,11 @@ class ShoppingCartVC: UIViewController {
             self.setTotalPrice()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    func alertWarning(indexPath:IndexPath){
+        let alert = UIAlertController(title: "warning", message: "You can't decrease count of item to zero if you want remove it you can it from trash icon", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .destructive))
         self.present(alert, animated: true, completion: nil)
     }
 
@@ -148,16 +153,28 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
         cell.deleteFromBagProducts = {[weak self] in
         self?.showDeleteAlert(indexPath: indexPath)
         }
-        cell.addItemQuantity = {[weak self] (count) in
-         let id = self?.CartProducts[indexPath.row].id
-         self?.updateCount(productID: Int(id!)!, count: count)
-         self?.setTotalPrice()
-
+        let id = self.CartProducts[indexPath.row].id!
+        var count = Int(self.CartProducts[indexPath.row].count)
+        cell.addCount={
+            count+=1
+            cell.productCount.text = "\(count)"
+            self.updateCount(productID: Int(id)!, count: Int(count))
+            self.setTotalPrice()
+            cell.subBtn.isEnabled = true
+            
         }
-        cell.subItemQuantity = {[weak self] (count) in
-            let id = self?.CartProducts[indexPath.row].id
-            self?.updateCount(productID: Int(id!)!, count: count)
-            self?.setTotalPrice()
+        cell.subCount={
+            if (count != 1) {
+                cell.subBtn.isEnabled = true
+                count-=1
+                cell.productCount.text = "\(count)"
+                self.updateCount(productID: Int(id)!, count: Int(count))
+                self.setTotalPrice()
+            }
+            else{
+                cell.subBtn.isEnabled = false
+                self.alertWarning(indexPath: indexPath)
+            }
         }
         return cell
     }
