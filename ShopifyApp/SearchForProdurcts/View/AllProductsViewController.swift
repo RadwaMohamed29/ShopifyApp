@@ -48,7 +48,7 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
         refreshControl.tintColor = UIColor.darkGray
         refreshControl.addTarget(self, action:#selector(getProductsWithCheckingConnection), for: .valueChanged)
         searchProductsCV.addSubview(refreshControl)
-//        networkView.isHidden = true
+        networkView.isHidden = true
         getProductsWithCheckingConnection()
     }
     
@@ -164,7 +164,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
          HandelConnection.handelConnection.checkNetworkConnection { [weak self] isConnected in
              if isConnected{
                  self?.searchProductsCV.isHidden = false
-//                 self?.networkView.isHidden = true
+                 self?.networkView.isHidden = true
                  self?.checkWichListThatWillPresenting()
                  self?.searchProductsCV.reloadData()
              }else{
