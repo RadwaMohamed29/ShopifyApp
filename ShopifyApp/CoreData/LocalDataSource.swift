@@ -102,9 +102,9 @@ final class LocalDataSource: LocalDataSourcable{
         var count: Int = 0
         do{
            let productsInCart = try self.getProductFromCoreData()
-            for item in productsInCart{
+         
                 count = productsInCart.count
-            }
+  
         }catch let error{
             print(error.localizedDescription)
         }
@@ -190,14 +190,10 @@ extension LocalDataSource{
         var count: Int = 0
         do{
            let productsInCart = try self.getCartFromCoreData()
-            for item in productsInCart{
-                count += Int(item.count)
-                print("count in VM \(count)")
-            }
+            count += productsInCart.count
         }catch let error{
             print(error.localizedDescription)
         }
-        
         return count
         
     }
