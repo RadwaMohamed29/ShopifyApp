@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 import RxSwift
 import RxCocoa
+import CoreData
 class AllProductsViewController: UIViewController ,SharedProtocol{
     func presentAlert(alert: UIAlertController) {
         self.present(alert, animated: true,completion: nil)
@@ -155,10 +156,36 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
      
        
     @objc private func longPress(recognizer: UIButton) {
-     
-        Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: listOfProducts[recognizer.tag], sharedProtocol: self)
-       
+        let context :NSManagedObjectContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+        let entity  = NSEntityDescription.entity(forEntityName: "FavouriteProduct", in: context)
+         productViewModel?.checkFavorite(id: "\(listOfProducts[recognizer.tag].id)")
+        var favProduct = FavouriteProduct(entity: entity!, insertInto: context)
+        if productViewModel?.isFav == false {
+            convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+            do{
+                try context.save()
+                
+            }catch let error as NSError{
+                 print(error)
+            }
+            recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+        }
+        else{
+            convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+            Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
+            
+           
+        }
       }
+    
+    func convertToFavouriteModel( favProduct: inout FavouriteProduct,recognizer:UIButton){
+        favProduct.id = "\(listOfProducts[recognizer.tag].id )"
+        favProduct.price = listOfProducts[recognizer.tag].variant[0].price
+        favProduct.title = listOfProducts[recognizer.tag].title
+        favProduct.body_html = listOfProducts[recognizer.tag].bodyHTML
+        favProduct.scr = listOfProducts[recognizer.tag].image.src
+        
+    }
     
     @objc func getProductsWithCheckingConnection(){
          HandelConnection.handelConnection.checkNetworkConnection { [weak self] isConnected in

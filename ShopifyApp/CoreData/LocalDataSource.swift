@@ -9,9 +9,9 @@ import Foundation
 import CoreData
 
 protocol LocalDataSourcable{
-    func saveProductToCoreData(newProduct: Product) throws
+    func saveProductToCoreData(newProduct: FavouriteProduct) throws
     func removeProductFromCoreData(productID: String) throws
-    func getProductFromCoreData() throws -> [FavoriteProducts]
+    func getProductFromCoreData() throws -> [FavouriteProduct]
     func isFavouriteProduct(productID: String) throws -> Bool
     
 }
@@ -30,13 +30,13 @@ final class LocalDataSource: LocalDataSourcable{
         
     }
     
-    func saveProductToCoreData(newProduct: Product) throws {
+    func saveProductToCoreData(newProduct: FavouriteProduct) throws {
         let product = NSManagedObject(entity: entity, insertInto: context)
-        product.setValue("\(newProduct.id)", forKey: "id")
-        product.setValue(newProduct.bodyHTML, forKey: "body_html")
-        product.setValue(newProduct.image.src, forKey: "scr")
+        product.setValue(newProduct.id, forKey: "id")
+        product.setValue(newProduct.body_html, forKey: "body_html")
+        product.setValue(newProduct.scr, forKey: "scr")
         product.setValue(newProduct.title, forKey: "title")
-        product.setValue(newProduct.variant[0].price, forKey: "price")
+        product.setValue(newProduct.price, forKey: "price")
         
         do{
             try context.save()
@@ -63,20 +63,13 @@ final class LocalDataSource: LocalDataSourcable{
     }
     
     
-    func getProductFromCoreData() throws -> [FavoriteProducts] {
-        var favouriteProducts = [FavoriteProducts]()
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavouriteProduct")
+    func getProductFromCoreData() throws -> [FavouriteProduct] {
+        var favouriteProducts : [FavouriteProduct] = []
         do{
-            let productList = try context.fetch(fetchRequest)
+            let productList = try context.fetch(FavouriteProduct.fetchRequest())
             for product in productList {
-                favouriteProducts.append(FavoriteProducts(id: product.value(forKey: "id" )as! String
-                                                          , body_html: product.value(forKey: "body_html" )as! String
-                                                          , price: product.value(forKey: "price" )as! String
-                                                          , scr: product.value(forKey: "scr") as! String
-                                                          , title: product.value(forKey: "title") as!String, isSelected: false
-                                                         ))
+                favouriteProducts.append(product)
             }
-            
             
             
             return favouriteProducts
@@ -98,6 +91,8 @@ final class LocalDataSource: LocalDataSourcable{
         }
         return false
     }
+    
+    
     func getCountOfProductInFav() ->Int {
         var count: Int = 0
         do{

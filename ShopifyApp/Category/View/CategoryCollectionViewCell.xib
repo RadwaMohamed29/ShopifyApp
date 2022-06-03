@@ -44,18 +44,28 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                 </variation>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="gwh-Fp-aGf">
-                                <rect key="frame" x="264" y="16" width="42" height="43.5"/>
-                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0LO-z7-9ti">
+                                <rect key="frame" x="245" y="9.5" width="56" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="0LO-z7-9ti" secondAttribute="height" multiplier="1:1" id="5Lt-Lc-luK"/>
+                                    <constraint firstAttribute="height" secondItem="0LO-z7-9ti" secondAttribute="height" multiplier="1:1" id="Cqw-P4-YwT"/>
+                                    <constraint firstAttribute="width" secondItem="0LO-z7-9ti" secondAttribute="width" multiplier="1:1" id="M1n-eb-Mxt"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="heart" cornerStyle="capsule">
+                                    <backgroundConfiguration key="background"/>
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.80403777435942958" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="JoO-Ca-4NB" firstAttribute="leading" secondItem="Zt2-Zd-bDZ" secondAttribute="leading" constant="20" symbolic="YES" id="HSl-g4-LKm"/>
+                            <constraint firstItem="0LO-z7-9ti" firstAttribute="width" secondItem="Zt2-Zd-bDZ" secondAttribute="width" multiplier="0.178344" id="KBA-U2-DZk"/>
                             <constraint firstItem="JoO-Ca-4NB" firstAttribute="centerY" secondItem="Zt2-Zd-bDZ" secondAttribute="centerY" id="MM5-II-tFJ"/>
-                            <constraint firstItem="gwh-Fp-aGf" firstAttribute="centerY" secondItem="JoO-Ca-4NB" secondAttribute="centerY" id="P6Z-4F-3MB"/>
-                            <constraint firstAttribute="trailing" secondItem="gwh-Fp-aGf" secondAttribute="trailing" constant="8" id="kyF-Ua-50C"/>
-                            <constraint firstItem="gwh-Fp-aGf" firstAttribute="height" secondItem="Zt2-Zd-bDZ" secondAttribute="height" multiplier="0.613333" id="vXa-K0-WpA"/>
-                            <constraint firstItem="gwh-Fp-aGf" firstAttribute="width" secondItem="Zt2-Zd-bDZ" secondAttribute="width" multiplier="0.133758" id="zTs-Yh-ESN"/>
+                            <constraint firstAttribute="trailing" secondItem="0LO-z7-9ti" secondAttribute="trailing" constant="13" id="a9y-4o-i1d"/>
+                            <constraint firstItem="0LO-z7-9ti" firstAttribute="height" secondItem="Zt2-Zd-bDZ" secondAttribute="height" multiplier="0.746667" id="haX-kq-dvz"/>
+                            <constraint firstItem="0LO-z7-9ti" firstAttribute="centerY" secondItem="JoO-Ca-4NB" secondAttribute="centerY" id="vf3-II-piR"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -76,7 +86,7 @@
             </constraints>
             <size key="customSize" width="314" height="250"/>
             <connections>
-                <outlet property="addToFav" destination="gwh-Fp-aGf" id="tUW-nr-l4F"/>
+                <outlet property="addToFav" destination="0LO-z7-9ti" id="J0f-R7-OVA"/>
                 <outlet property="imgView" destination="tQ4-nb-qq6" id="o1b-VZ-oDc"/>
                 <outlet property="label" destination="JoO-Ca-4NB" id="Axh-nJ-FZP"/>
                 <outlet property="topView" destination="gtx-PK-ayI" id="2Iu-U7-xG0"/>
@@ -85,7 +95,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="heart" catalog="system" width="128" height="109"/>
+        <image name="heart" width="32" height="32"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

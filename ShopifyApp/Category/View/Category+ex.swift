@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import Kingfisher
-
+import CoreData
 struct Items{
     var name:String
 }
@@ -36,8 +36,14 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         cell.layer.cornerRadius = 12
         cell.label.shadowColor = UIColor.gray
         cell.topView.layer.cornerRadius =  24
-//        cell.btnAddToFav.tag = indexPath.row
-//        cell.btnAddToFav.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
+        productViewModel?.checkFavorite(id: "\(showList![indexPath.row].id)")
+        if productViewModel?.isFav == true {
+            cell.addToFav.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+        }else{
+            cell.addToFav.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+        }
+        cell.addToFav.tag = indexPath.row
+        cell.addToFav.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
         return cell
     }
     
@@ -127,10 +133,36 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
-//    @objc private func longPress(recognizer: UIButton) {
-//
-//        Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: showList, sharedProtocol: self)
-//
-//      }
+    @objc private func longPress(recognizer: UIButton) {
+        
+        let context :NSManagedObjectContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+        let entity  = NSEntityDescription.entity(forEntityName: "FavouriteProduct", in: context)
+         productViewModel?.checkFavorite(id: "\(showList![recognizer.tag].id)")
+        var favProduct = FavouriteProduct(entity: entity!, insertInto: context)
+        if productViewModel?.isFav == false {
+            convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+            do{
+                try context.save()
+                
+            }catch let error as NSError{
+                 print(error)
+            }
+            recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+        }
+       else{
+           convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+           Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
+          
+       }
+      }
+    
+    func convertToFavouriteModel( favProduct: inout FavouriteProduct,recognizer:UIButton){
+        favProduct.id = "\(showList![recognizer.tag].id )"
+        favProduct.price =  "90" //showList![recognizer.tag].variant[0].price
+        favProduct.title = showList![recognizer.tag].title
+        favProduct.body_html = showList![recognizer.tag].bodyHTML
+        favProduct.scr = showList![recognizer.tag].image.src
+        
+    }
 }
 

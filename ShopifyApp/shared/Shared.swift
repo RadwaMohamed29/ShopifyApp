@@ -15,31 +15,22 @@ protocol SharedProtocol{
 class Shared{
     static var sharedProtocol : SharedProtocol?
     
-    static func setOrRemoveProductToFavoriteList(recognizer: UIButton,delegate: AppDelegate,listOfProducts:Product,sharedProtocol:SharedProtocol){
+    static func setOrRemoveProductToFavoriteList(recognizer: UIButton,delegate: AppDelegate,product:FavouriteProduct,sharedProtocol:SharedProtocol){
         self.sharedProtocol = sharedProtocol
         let viewModel = ProductDetailsViewModel(appDelegate: delegate)
         var alertMessage = ""
         var alertTitle = ""
-        viewModel.checkFavorite(id: "\(listOfProducts.id)")
+        viewModel.checkFavorite(id: product.id ?? "0")
         
-       
-           
-        if viewModel.isFav == false {
-                alertMessage = "Are you sure to add this product to your favourite list."
-               alertTitle = "Add favorite product"
-            showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: false,viewModel: viewModel,listOfProducts:listOfProducts)
-                
-            }else{
                 alertMessage = "Are you sure to remove this product from your favourite list."
                 alertTitle = "Remove favorite product"
-                showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: true,viewModel: viewModel,listOfProducts:listOfProducts)
-            }
+                showConformDialog(title: alertTitle,alertMessage: alertMessage, index: recognizer.tag,favBtn: recognizer,isFav: true,viewModel: viewModel,product: product)
     }
     
-   static func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool,viewModel: ProductDetailsViewModel,listOfProducts: Product){
+   static func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool,viewModel: ProductDetailsViewModel,product: FavouriteProduct){
       let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
       let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
-          self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav,viewModel: viewModel, listOfProducts: listOfProducts)
+          self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav,viewModel: viewModel, product: product)
   }
         let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
         
@@ -50,10 +41,10 @@ class Shared{
         
     }
     
-   static func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool,viewModel: ProductDetailsViewModel,listOfProducts: Product){
+   static func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool,viewModel: ProductDetailsViewModel,product: FavouriteProduct){
         if isFav == false{
             do{
-                try viewModel.addFavouriteProductToCoreData(product: listOfProducts, completion: { response in
+                try viewModel.addFavouriteProductToCoreData(product: product, completion: { response in
                     switch response{
                     case true:
                         print("add seuccessfully")
@@ -70,7 +61,7 @@ class Shared{
         }
        else if isFav == true{
             do{
-                try viewModel.removeProductFromFavorites(productID: "\(listOfProducts.id)", completionHandler: { response in
+                try viewModel.removeProductFromFavorites(productID: product.id ?? "", completionHandler: { response in
                     switch response{
                     case true:
                         print("removed seuccessfully")
