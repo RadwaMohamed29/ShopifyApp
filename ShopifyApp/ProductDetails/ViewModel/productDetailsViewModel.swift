@@ -12,7 +12,7 @@ import RxSwift
 protocol ProductDetailsViewModelType{
     func getProduct(id:String)
     func getAllProducts()
-    var  favoriteProducts : [FavoriteProducts]? {get set}
+    var  favoriteProducts : [FavouriteProduct]? {get set}
     var  productObservable: Observable<Product>{get set}
     var  allProductsObservable :Observable<[Product]>{get set}
     var  brandsObservable :Observable<[Product]>{get set}
@@ -31,7 +31,7 @@ protocol ProductDetailsViewModelType{
 
 final class ProductDetailsViewModel: ProductDetailsViewModelType{
 
-    var favoriteProducts: [FavoriteProducts]?
+    var favoriteProducts: [FavouriteProduct]?
     var productsInCart: [CartProduct]?
     var isFav : Bool?
     var isProductInCart: Bool?

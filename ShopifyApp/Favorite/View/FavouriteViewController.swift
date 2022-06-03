@@ -14,6 +14,8 @@ class FavouriteViewController: UIViewController {
     var countOfSelectedItem = 0
     var disBag = DisposeBag()
     var listOfSelectedProducts:[FavoriteProducts] = []
+    var favouriteProductsCD : [FavouriteProduct] = []
+    
     var productViewModel : ProductDetailsViewModel?
     @IBOutlet weak var noDataView: UIView!
     
@@ -68,7 +70,10 @@ class FavouriteViewController: UIViewController {
         catch let error{
             print(error.localizedDescription)
         }
-        favProducts = (productViewModel?.favoriteProducts)!
+        favouriteProductsCD = (productViewModel?.favoriteProducts)!
+        for product in favouriteProductsCD {
+            favProducts.append(FavoriteProducts(id: (product.id)!, body_html: product.body_html!, price: product.price!, scr: product.scr!, title: product.title!, isSelected: false))
+        }
         favouriteCollectionView.reloadData()
     }
     

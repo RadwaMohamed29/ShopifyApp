@@ -10,6 +10,7 @@ import UIKit
 class MeViewController: UIViewController {
 
     var favProducts:[FavoriteProducts] = []
+    var favouriteProductsCD:[FavouriteProduct] = []
     var productViewModel : ProductDetailsViewModel?
     
     @IBOutlet weak var userName: UILabel!
@@ -52,7 +53,10 @@ class MeViewController: UIViewController {
         catch let error{
             print(error.localizedDescription)
         }
-        favProducts = (productViewModel?.favoriteProducts)!
+        favouriteProductsCD = (productViewModel?.favoriteProducts)!
+        for product in favouriteProductsCD {
+            favProducts.append(FavoriteProducts(id: (product.id)!, body_html: product.body_html!, price: product.price!, scr: product.scr!, title: product.title!, isSelected: false))
+        }
         wishListCV.reloadData()
     }
     
