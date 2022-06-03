@@ -113,10 +113,11 @@ class CategoryViewController: UIViewController {
     
     @objc func getData(){
 //        categoryCollection.setContentOffset(CGPoint(x: 0, y: -150), animated: true)
-        //MARK: will check network and reload data from api
+        spinner.startAnimating()
         getCategory(target: .HomeCategoryProducts)
         refreshController.endRefreshing()
         categoryCollection.reloadData()
+        stopSpinnerIfNoNetwork()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
