@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 import RxSwift
 import RxCocoa
+import CoreData
 class AllProductsViewController: UIViewController ,SharedProtocol{
     func presentAlert(alert: UIAlertController) {
         self.present(alert, animated: true,completion: nil)
@@ -155,10 +156,18 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
      
        
     @objc private func longPress(recognizer: UIButton) {
+        let context :NSManagedObjectContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+        let entity  = NSEntityDescription.entity(forEntityName: "FavouriteProduct", in: context)
          productViewModel?.checkFavorite(id: "\(listOfProducts[recognizer.tag].id)")
-        var favProduct = FavouriteProduct(context: (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext)
+        var favProduct = FavouriteProduct(entity: entity!, insertInto: context)
         if productViewModel?.isFav == false {
             convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+            do{
+                try context.save()
+                
+            }catch let error as NSError{
+                 print(error)
+            }
             recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
         }
         else{

@@ -10,7 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import Kingfisher
-
+import CoreData
 struct Items{
     var name:String
 }
@@ -135,12 +135,20 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
     
     @objc private func longPress(recognizer: UIButton) {
         
-        productViewModel?.checkFavorite(id: "\(showList![recognizer.tag].id)")
-       var favProduct = FavouriteProduct(context: (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext)
-       if productViewModel?.isFav == false {
-           convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
-           recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
-       }
+        let context :NSManagedObjectContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+        let entity  = NSEntityDescription.entity(forEntityName: "FavouriteProduct", in: context)
+         productViewModel?.checkFavorite(id: "\(showList![recognizer.tag].id)")
+        var favProduct = FavouriteProduct(entity: entity!, insertInto: context)
+        if productViewModel?.isFav == false {
+            convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+            do{
+                try context.save()
+                
+            }catch let error as NSError{
+                 print(error)
+            }
+            recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+        }
        else{
            convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
            Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)

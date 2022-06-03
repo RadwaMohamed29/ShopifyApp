@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import CoreMedia
-
+import CoreData
 class ProductDetailsViewController: UIViewController,SharedProtocol{
     func presentAlert(alert: UIAlertController) {
         self.present(alert, animated: true, completion: nil)
@@ -133,12 +133,20 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     
     @objc private func longPress(recognizer: UIButton) {
         
+        let context :NSManagedObjectContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+        let entity  = NSEntityDescription.entity(forEntityName: "FavouriteProduct", in: context)
         productViewModel?.checkFavorite(id: productId!)
-       var favProduct = FavouriteProduct(context: (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext)
-       if productViewModel?.isFav == false {
-           convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
-           recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
-       }
+        var favProduct = FavouriteProduct(entity: entity!, insertInto: context)
+        if productViewModel?.isFav == false {
+            convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+            do{
+                try context.save()
+                
+            }catch let error as NSError{
+                 print(error)
+            }
+            recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+        }
        else{
            convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
            Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
