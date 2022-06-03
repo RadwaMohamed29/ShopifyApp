@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 protocol LocalDataSourcable{
-    func saveProductToCoreData(newProduct: Product) throws
+    func saveProductToCoreData(newProduct: FavouriteProduct) throws
     func removeProductFromCoreData(productID: String) throws
     func getProductFromCoreData() throws -> [FavouriteProduct]
     func isFavouriteProduct(productID: String) throws -> Bool
@@ -30,13 +30,13 @@ final class LocalDataSource: LocalDataSourcable{
         
     }
     
-    func saveProductToCoreData(newProduct: Product) throws {
+    func saveProductToCoreData(newProduct: FavouriteProduct) throws {
         let product = NSManagedObject(entity: entity, insertInto: context)
-        product.setValue("\(newProduct.id)", forKey: "id")
-        product.setValue(newProduct.bodyHTML, forKey: "body_html")
-        product.setValue(newProduct.image.src, forKey: "scr")
+        product.setValue(newProduct.id, forKey: "id")
+        product.setValue(newProduct.body_html, forKey: "body_html")
+        product.setValue(newProduct.scr, forKey: "scr")
         product.setValue(newProduct.title, forKey: "title")
-        product.setValue(newProduct.variant[0].price, forKey: "price")
+        product.setValue(newProduct.price, forKey: "price")
         
         do{
             try context.save()
@@ -91,6 +91,8 @@ final class LocalDataSource: LocalDataSourcable{
         }
         return false
     }
+    
+    
     func getCountOfProductInFav() ->Int {
         var count: Int = 0
         do{

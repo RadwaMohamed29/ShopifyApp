@@ -72,12 +72,13 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
     
     func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool){
         
-        if isFav == true{
+        
             do{
                 try self.productViewModel?.removeProductFromFavorites(productID: "\(favProducts[index].id)", completionHandler: { response in
                     switch response{
                     case true:
                         print("removed seuccessfully")
+                        
                         self.getFavoriteProductsFromCoreData()
                         self.favouriteCollectionView.reloadData()
                         if self.favProducts.count == 0 {
@@ -91,7 +92,7 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
             }catch let error{
                 print(error.localizedDescription)
             }
-        }
+        
     }
     
     

@@ -71,7 +71,9 @@ class FavouriteViewController: UIViewController {
             print(error.localizedDescription)
         }
         favouriteProductsCD = (productViewModel?.favoriteProducts)!
+        favProducts = []
         for product in favouriteProductsCD {
+            
             favProducts.append(FavoriteProducts(id: (product.id)!, body_html: product.body_html!, price: product.price!, scr: product.scr!, title: product.title!, isSelected: false))
         }
         favouriteCollectionView.reloadData()

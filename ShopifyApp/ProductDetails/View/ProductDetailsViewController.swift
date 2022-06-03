@@ -133,11 +133,28 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     
     @objc private func longPress(recognizer: UIButton) {
         
-        Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: product!, sharedProtocol: self)
+        productViewModel?.checkFavorite(id: productId!)
+       var favProduct = FavouriteProduct(context: (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext)
+       if productViewModel?.isFav == false {
+           convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+           recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+       }
+       else{
+           convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+           Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
+           
+       }
         
     }
     
-    
+    func convertToFavouriteModel( favProduct: inout FavouriteProduct,recognizer:UIButton){
+        favProduct.id = "\(product?.id ?? 0)"
+        favProduct.price = product?.variant[0].price
+        favProduct.title = product?.title
+        favProduct.body_html = product?.bodyHTML
+        favProduct.scr = product?.image.src
+        
+    }
     @IBAction func addToCartBtn(_ sender: Any) {
         productViewModel?.checkProductInCart(id: "\(productId ?? "")")
         guard let inCart = productViewModel?.isProductInCart else{return}

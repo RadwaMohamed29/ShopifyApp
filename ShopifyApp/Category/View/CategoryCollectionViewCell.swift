@@ -9,7 +9,7 @@ import UIKit
 
 class CategoryCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var addToFav: UIImageView!
+    @IBOutlet weak var addToFav: UIButton!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var imgView: UIImageView!

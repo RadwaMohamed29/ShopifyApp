@@ -16,7 +16,7 @@ protocol ProductDetailsViewModelType{
     var  productObservable: Observable<Product>{get set}
     var  allProductsObservable :Observable<[Product]>{get set}
     var  brandsObservable :Observable<[Product]>{get set}
-    func addFavouriteProductToCoreData(product:Product , completion: @escaping (Bool)->Void) throws
+    func addFavouriteProductToCoreData(product:FavouriteProduct , completion: @escaping (Bool)->Void) throws
     func getAllFavoriteProducts(completion: @escaping (Bool)->Void) throws
     func removeProductFromFavorites(productID:String, completionHandler:@escaping (Bool) -> Void) throws
     func getProductOfBrand(id:String)
@@ -139,7 +139,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         }
     }
     
-    func addFavouriteProductToCoreData(product:Product , completion: @escaping (Bool)->Void) throws{
+    func addFavouriteProductToCoreData(product:FavouriteProduct , completion: @escaping (Bool)->Void) throws{
         do{
             try  localDataSource.saveProductToCoreData(newProduct: product)
             completion(true)

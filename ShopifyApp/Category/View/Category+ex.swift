@@ -36,8 +36,8 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         cell.layer.cornerRadius = 12
         cell.label.shadowColor = UIColor.gray
         cell.topView.layer.cornerRadius =  24
-//        cell.btnAddToFav.tag = indexPath.row
-//        cell.btnAddToFav.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
+        cell.addToFav.tag = indexPath.row
+        cell.addToFav.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
         return cell
     }
     
@@ -127,10 +127,28 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
-//    @objc private func longPress(recognizer: UIButton) {
-//
-//        Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , listOfProducts: showList, sharedProtocol: self)
-//
-//      }
+    @objc private func longPress(recognizer: UIButton) {
+        
+        productViewModel?.checkFavorite(id: "\(showList![recognizer.tag].id)")
+       var favProduct = FavouriteProduct(context: (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext)
+       if productViewModel?.isFav == false {
+           convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+           recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+       }
+       else{
+           convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+           Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
+          
+       }
+      }
+    
+    func convertToFavouriteModel( favProduct: inout FavouriteProduct,recognizer:UIButton){
+        favProduct.id = "\(showList![recognizer.tag].id )"
+        favProduct.price =  "90" //showList![recognizer.tag].variant[0].price
+        favProduct.title = showList![recognizer.tag].title
+        favProduct.body_html = showList![recognizer.tag].bodyHTML
+        favProduct.scr = showList![recognizer.tag].image.src
+        
+    }
 }
 
