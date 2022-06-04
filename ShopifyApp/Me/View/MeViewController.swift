@@ -32,7 +32,7 @@ class MeViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-            noUserFound.isHidden = true
+            noUserFound.isHidden = false
         getFavoriteProductsFromCoreData()
         
     }
