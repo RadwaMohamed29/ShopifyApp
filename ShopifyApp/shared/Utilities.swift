@@ -11,8 +11,6 @@ class Utilities{
     func setTotalPrice(totalPrice:Double){
         UserDefaults.standard.set(totalPrice, forKey: "Total_Price")
     }
-    
-    
     func addCustomerId(id: Int){
         UserDefaults.standard.set(id, forKey: "id")
     }
@@ -35,5 +33,27 @@ class Utilities{
     
     func getCustomerEmail()-> String{
         return UserDefaults.standard.value(forKey: "email") as? String ?? ""
+    }
+    
+    func isLoggedIn() -> Bool {
+        return UserDefaults.standard.bool(forKey: "isLoggedIn")
+    }
+    
+    func login() {
+        UserDefaults.standard.set(true, forKey: "isLoggedIn")
+    }
+    
+    func addId(id: Int) {
+        UserDefaults.standard.set(id, forKey: "id")
+    }
+    func getId()->Int {
+        return UserDefaults.standard.value(forKey: "id") as? Int ?? 0
+    }
+    func isValidEmail(_ email: String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        print("\(email) \(emailPred.evaluate(with: email))")
+        return emailPred.evaluate(with: email)
     }
 }
