@@ -77,7 +77,8 @@ class MeViewController: UIViewController {
     }
     
     @IBAction func gotoOrdersScreens(_ sender: Any) {
-        
+        let OrdersVC = AllOrdersViewController(nibName: "AllOrdersViewController", bundle: nil)
+        self.navigationController?.pushViewController(OrdersVC, animated: true)
     }
     @IBAction func gotoFavoriteScreen(_ sender: Any) {
         let favScreen = FavouriteViewController(nibName: "FavouriteViewController", bundle: nil)

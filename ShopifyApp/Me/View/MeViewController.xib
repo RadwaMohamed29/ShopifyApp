@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,6 +22,107 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7nS-Ws-oux">
+                    <rect key="frame" x="0.0" y="44" width="414" height="950"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3Lq-zb-iAp">
+                            <rect key="frame" x="152" y="21.5" width="110" height="76"/>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oil-nQ-9q1">
+                            <rect key="frame" x="155.5" y="107" width="103" height="33.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to our store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V87-on-fhf">
+                            <rect key="frame" x="41.5" y="156.5" width="331" height="31.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCx-zo-jSM">
+                            <rect key="frame" x="41.5" y="220" width="331" height="233.5"/>
+                            <string key="text">Now you are a guest , if you want to continue shopping please sign up if you are new user if or sign in if you have an account .</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="highlightedColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <variation key="heightClass=regular-widthClass=compact">
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            </variation>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMh-Dq-ifu">
+                            <rect key="frame" x="124" y="485.5" width="166" height="57"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
+                                <backgroundConfiguration key="background">
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </backgroundConfiguration>
+                                <attributedString key="attributedTitle">
+                                    <fragment content="Sign In">
+                                        <attributes>
+                                            <font key="NSFont" size="20" name="Helvetica"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="gotoSignInScreen:" destination="-1" eventType="touchUpInside" id="IXk-7B-u7f"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATP-bH-z6g">
+                            <rect key="frame" x="124" y="558.5" width="166" height="57"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
+                                <backgroundConfiguration key="background">
+                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </backgroundConfiguration>
+                                <attributedString key="attributedTitle">
+                                    <fragment content="Sign Up">
+                                        <attributes>
+                                            <font key="NSFont" size="20" name="Helvetica"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="gotoSignUpScreen:" destination="-1" eventType="touchUpInside" id="xen-U0-a8X"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="zCx-zo-jSM" firstAttribute="centerX" secondItem="V87-on-fhf" secondAttribute="centerX" id="0Xz-tc-ZxO"/>
+                        <constraint firstItem="V87-on-fhf" firstAttribute="top" secondItem="Oil-nQ-9q1" secondAttribute="bottom" constant="16" id="7IX-i5-S5i"/>
+                        <constraint firstItem="zCx-zo-jSM" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.245672" id="HWu-Cg-viP"/>
+                        <constraint firstItem="ATP-bH-z6g" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="KfV-I3-YYs"/>
+                        <constraint firstAttribute="bottom" secondItem="ATP-bH-z6g" secondAttribute="bottom" constant="16" id="LwE-ye-h27"/>
+                        <constraint firstItem="zCx-zo-jSM" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.8" id="NUO-HY-bCq"/>
+                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.249758" id="NWF-fB-0hD"/>
+                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0831296" id="P1T-WA-Kby"/>
+                        <constraint firstItem="V87-on-fhf" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.8" id="SNk-Mv-60O"/>
+                        <constraint firstItem="zCx-zo-jSM" firstAttribute="top" secondItem="V87-on-fhf" secondAttribute="bottom" constant="32" id="ZUN-aY-Cxw"/>
+                        <constraint firstItem="ATP-bH-z6g" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.4" id="buM-kV-GY2"/>
+                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="top" secondItem="3Lq-zb-iAp" secondAttribute="bottom" constant="8" id="cH5-JV-naf"/>
+                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="d37-FQ-eZ6"/>
+                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.4" id="fhG-aE-YoA"/>
+                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.06" id="gXI-qJ-S9e"/>
+                        <constraint firstItem="ATP-bH-z6g" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.06" id="i7D-Bv-6Pa"/>
+                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="top" secondItem="zCx-zo-jSM" secondAttribute="bottom" constant="32" id="jaD-7I-G14"/>
+                        <constraint firstItem="ATP-bH-z6g" firstAttribute="top" secondItem="TMh-Dq-ifu" secondAttribute="bottom" constant="16" id="kmf-Cz-3Wd"/>
+                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="top" secondItem="7nS-Ws-oux" secondAttribute="top" constant="20" id="omz-1P-ArG"/>
+                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="p1i-bt-Yfa"/>
+                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0354523" id="pr4-ea-Ljv"/>
+                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="r7Z-og-eTC"/>
+                        <constraint firstItem="V87-on-fhf" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0330073" id="s5z-QS-0Ot"/>
+                        <constraint firstItem="V87-on-fhf" firstAttribute="centerX" secondItem="Oil-nQ-9q1" secondAttribute="centerX" id="tjF-r6-e2l"/>
+                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.2657" id="vlk-F9-abm"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dg0-GX-7hS">
                     <rect key="frame" x="0.0" y="44" width="414" height="950"/>
                     <subviews>
@@ -185,107 +286,6 @@
                         <constraint firstItem="93L-07-Xhw" firstAttribute="width" secondItem="dg0-GX-7hS" secondAttribute="width" multiplier="0.39469" id="sSr-9A-5uA"/>
                         <constraint firstItem="KLZ-oU-gWZ" firstAttribute="height" secondItem="dg0-GX-7hS" secondAttribute="height" multiplier="0.0831296" id="vdK-9Z-0jd"/>
                         <constraint firstItem="T0A-Ue-DII" firstAttribute="leading" secondItem="dg0-GX-7hS" secondAttribute="leading" id="xH1-zo-zVu"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7nS-Ws-oux">
-                    <rect key="frame" x="0.0" y="44" width="414" height="950"/>
-                    <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3Lq-zb-iAp">
-                            <rect key="frame" x="152" y="21.5" width="110" height="76"/>
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oil-nQ-9q1">
-                            <rect key="frame" x="155.5" y="107" width="103" height="33.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to our store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V87-on-fhf">
-                            <rect key="frame" x="41.5" y="156.5" width="331" height="31.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCx-zo-jSM">
-                            <rect key="frame" x="41.5" y="220" width="331" height="233.5"/>
-                            <string key="text">Now you are a guest , if you want to continue shopping please sign up if you are new user if or sign in if you have an account .</string>
-                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="highlightedColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <variation key="heightClass=regular-widthClass=compact">
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            </variation>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMh-Dq-ifu">
-                            <rect key="frame" x="124" y="485.5" width="166" height="57"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
-                                <backgroundConfiguration key="background">
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </backgroundConfiguration>
-                                <attributedString key="attributedTitle">
-                                    <fragment content="Sign In">
-                                        <attributes>
-                                            <font key="NSFont" size="20" name="Helvetica"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </buttonConfiguration>
-                            <connections>
-                                <action selector="gotoSignInScreen:" destination="-1" eventType="touchUpInside" id="IXk-7B-u7f"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATP-bH-z6g">
-                            <rect key="frame" x="124" y="558.5" width="166" height="57"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
-                                <backgroundConfiguration key="background">
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </backgroundConfiguration>
-                                <attributedString key="attributedTitle">
-                                    <fragment content="Sign Up">
-                                        <attributes>
-                                            <font key="NSFont" size="20" name="Helvetica"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </buttonConfiguration>
-                            <connections>
-                                <action selector="gotoSignUpScreen:" destination="-1" eventType="touchUpInside" id="xen-U0-a8X"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <constraints>
-                        <constraint firstItem="zCx-zo-jSM" firstAttribute="centerX" secondItem="V87-on-fhf" secondAttribute="centerX" id="0Xz-tc-ZxO"/>
-                        <constraint firstItem="V87-on-fhf" firstAttribute="top" secondItem="Oil-nQ-9q1" secondAttribute="bottom" constant="16" id="7IX-i5-S5i"/>
-                        <constraint firstItem="zCx-zo-jSM" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.245672" id="HWu-Cg-viP"/>
-                        <constraint firstItem="ATP-bH-z6g" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="KfV-I3-YYs"/>
-                        <constraint firstAttribute="bottom" secondItem="ATP-bH-z6g" secondAttribute="bottom" constant="16" id="LwE-ye-h27"/>
-                        <constraint firstItem="zCx-zo-jSM" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.8" id="NUO-HY-bCq"/>
-                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.249758" id="NWF-fB-0hD"/>
-                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0831296" id="P1T-WA-Kby"/>
-                        <constraint firstItem="V87-on-fhf" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.8" id="SNk-Mv-60O"/>
-                        <constraint firstItem="zCx-zo-jSM" firstAttribute="top" secondItem="V87-on-fhf" secondAttribute="bottom" constant="32" id="ZUN-aY-Cxw"/>
-                        <constraint firstItem="ATP-bH-z6g" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.4" id="buM-kV-GY2"/>
-                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="top" secondItem="3Lq-zb-iAp" secondAttribute="bottom" constant="8" id="cH5-JV-naf"/>
-                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="d37-FQ-eZ6"/>
-                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.4" id="fhG-aE-YoA"/>
-                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.06" id="gXI-qJ-S9e"/>
-                        <constraint firstItem="ATP-bH-z6g" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.06" id="i7D-Bv-6Pa"/>
-                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="top" secondItem="zCx-zo-jSM" secondAttribute="bottom" constant="32" id="jaD-7I-G14"/>
-                        <constraint firstItem="ATP-bH-z6g" firstAttribute="top" secondItem="TMh-Dq-ifu" secondAttribute="bottom" constant="16" id="kmf-Cz-3Wd"/>
-                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="top" secondItem="7nS-Ws-oux" secondAttribute="top" constant="20" id="omz-1P-ArG"/>
-                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="p1i-bt-Yfa"/>
-                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0354523" id="pr4-ea-Ljv"/>
-                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="r7Z-og-eTC"/>
-                        <constraint firstItem="V87-on-fhf" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0330073" id="s5z-QS-0Ot"/>
-                        <constraint firstItem="V87-on-fhf" firstAttribute="centerX" secondItem="Oil-nQ-9q1" secondAttribute="centerX" id="tjF-r6-e2l"/>
-                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.2657" id="vlk-F9-abm"/>
                     </constraints>
                 </view>
             </subviews>

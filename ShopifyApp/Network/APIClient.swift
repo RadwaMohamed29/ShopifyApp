@@ -10,6 +10,10 @@ import Alamofire
 private let BASE_URL = "https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/"
 
 class APIClient: NetworkServiceProtocol{
+    func getCustomerOrders(id: String,completion: @escaping (Result<Orders, ErrorType>) -> Void) {
+        request(endpoint: .CustomerOrders(id: id), method: .GET, compeletion: completion)
+    }
+    
     func registerCustomerProtocol(newCustomer: Customer, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         registerCustomer(endpoint: .Customers, newCustomer: newCustomer, completion: completion)
     }
@@ -41,6 +45,8 @@ class APIClient: NetworkServiceProtocol{
     func productDetailsProvider(id: String, completion: @escaping (Result<Products, ErrorType>) -> Void) {
         request(endpoint: .ProductDetails(id: id), method: .GET, compeletion: completion)
     }
+    
+    
     
 
     func request<T:Codable>(endpoint: Endpoints, method: Methods, compeletion: @escaping (Result<T, ErrorType>) -> Void) {
@@ -111,5 +117,9 @@ class APIClient: NetworkServiceProtocol{
 }
 
 //https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/products.json?collection_id=products.json?product_type=SHOES&product_type=shoes
+    
+// https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/collections/395728126181‬/products.json
+    
+//    https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/products.json?collection_id=395728126181&product_type=shoes
 }
 
