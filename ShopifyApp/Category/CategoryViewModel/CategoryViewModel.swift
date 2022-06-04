@@ -14,10 +14,13 @@ protocol CategoryViewModelProtocol {
     { get set }
     var categorySubject:PublishSubject<[ProductElement]>{get set}
     func getFilteredProducts(target:Endpoints)
-    
+    var searchedList : [ProductElement]{get set}
+    func searchWithWord(word:String)
 }
 
 class CategoryViewModel:CategoryViewModelProtocol{
+    var searchedList: [ProductElement] = []
+    
     var categoryObservable: Observable<[ProductElement]>
     
     var categorySubject: PublishSubject<[ProductElement]> = PublishSubject<[ProductElement]>()
@@ -35,12 +38,22 @@ class CategoryViewModel:CategoryViewModelProtocol{
             switch result{
             case .success(let response):
                 guard let res = response.products else {return}
-                self?.categorySubject.asObserver().onNext(res)
+                self?.searchedList = res
+                self?.categorySubject.asObserver().onNext(self!.searchedList)
             case .failure(let error):
                 self?.categorySubject.asObserver().onError(error)
             }
         }
     }
+    
+    func searchWithWord(word:String){
+        if word.isEmpty{
+            categorySubject.onNext(searchedList)
+            return
+        }
+        let filterProducts = searchedList.filter { Product in
+            return Product.title.lowercased().contains(word.lowercased())
+        }
+        categorySubject.onNext(filterProducts)
+    }
 }
-// guard let res = response.products else {return}
-//self?.categorySubject.asObserver().onNext(res)

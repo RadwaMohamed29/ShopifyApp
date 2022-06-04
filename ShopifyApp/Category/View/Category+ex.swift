@@ -62,6 +62,8 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         
     }
     
+    
+    
     func getCategory(target:Endpoints){
         viewModel.getFilteredProducts(target: target)
         viewModel.categoryObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background)).observe(on: MainScheduler.instance)
@@ -77,8 +79,6 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
                             self?.checkListSize(productName: "T_shirts")
                         }else if CategoryViewController.subProduct == 3{
                             self?.checkListSize(productName: "accessories")
-                        }else{
-                            self?.checkListSize(productName: "Data")
                         }
                     }else{
                         self?.showSnackBar()

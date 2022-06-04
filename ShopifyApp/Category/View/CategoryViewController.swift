@@ -19,6 +19,7 @@ class CategoryViewController: UIViewController {
     var viewModel:CategoryViewModelProtocol!
     let queue = OperationQueue()
     static var subProduct:Int = 0
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var networkError: UIImageView!
@@ -41,6 +42,7 @@ class CategoryViewController: UIViewController {
                 noDataImg.isHidden = true
             }
         }
+        categoryCollection.reloadData()
     }
     
     @IBAction func cartBtn(){
@@ -63,16 +65,11 @@ class CategoryViewController: UIViewController {
         super.viewDidLoad()
         self.spinner.hidesWhenStopped=true
         self.spinner.startAnimating()
-        stopSpinnerIfNoNetwork()
-//        toolbar.topAnchor.constraint(equalTo: self.navigationBar!.topAnchor, constant: 20).isActive = true
-        
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
-        
         showList = []
-        dbList = []
         viewModel = CategoryViewModel(network: APIClient())
         setupCollectionView()
-        
+        fabBtn.buttonImage = UIImage(named: "sort")
         fabBtn.addItem("Shoes", icon: UIImage(named: "fabShoe")) { [weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "SHOES")
             self?.fabActions(type: "Shoes", subProductIndex: 1, target: .ShoesType(id: index!.ID))
@@ -96,18 +93,28 @@ class CategoryViewController: UIViewController {
         categoryCollection.addSubview(refreshController)
         
         getCategory(target: .HomeCategoryProducts)
-        
+        stopSpinnerIfNoNetwork()
         womenBtnAction()
         menBtnAction()
         kidsBtnAction()
         saleBtnAction()
+        setubSearchBar()
     }
+    
+    func setubSearchBar(){
+        searchBar.rx.text.orEmpty.throttle(RxTimeInterval.microseconds(500), scheduler: MainScheduler.asyncInstance)
+            .distinctUntilChanged()
+            .subscribe { result in
+                self.viewModel?.searchWithWord(word: result)
+            } .disposed(by: disposeBag)
+    }
+
     
     func fabActions(type:String, subProductIndex:Int, target:Endpoints) {
         spinner.startAnimating()
         CategoryViewController.subProduct = subProductIndex
         getCategory(target: target)
-        stopSpinnerIfNoNetwork()
+//        stopSpinnerIfNoNetwork()
         
     }
     
@@ -177,7 +184,7 @@ class CategoryViewController: UIViewController {
             if self.spinner.isAnimating{
                 self.spinner.stopAnimating()
                 self.spinner.isHidden = true
-                self.showSnackBar()
+                self.categoryCollection.reloadData()
             }
         }
         
