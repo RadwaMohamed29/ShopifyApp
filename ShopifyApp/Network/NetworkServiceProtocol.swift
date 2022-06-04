@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 protocol NetworkServiceProtocol{
 
@@ -22,4 +23,5 @@ protocol NetworkServiceProtocol{
     func getFilteredCategory(target:Endpoints, completion: @escaping(Result<CategoryProducts, ErrorType>)->())
     
     func registerCustomerProtocol(newCustomer: Customer,completion: @escaping(Data?, URLResponse?, Error?)->())
+    func getAllCustomers(completion: @escaping (Result<LoginResponse,ErrorType>)->Void)
 }
