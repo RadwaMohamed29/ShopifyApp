@@ -32,7 +32,7 @@ struct Address: Codable {
 }
 
 
-struct LoginResponse: Codable {
+struct LoginCustomer: Codable {
     let customers: [CustomerModel]?
 }
 extension Encodable {
