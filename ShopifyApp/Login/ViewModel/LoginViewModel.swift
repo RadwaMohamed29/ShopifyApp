@@ -53,8 +53,6 @@ class LoginViewModel: LoginViewModelType{
                             let comingPassword = item.tags ?? ""
                             if comingMail == email && comingPassword == password {
                                 // address
-
-                                print("found")
                                 self?.userDefualt.login()
                                 self?.userDefualt.addId(id: item.id ?? 0)
                                 self?.navigate = true
@@ -63,7 +61,7 @@ class LoginViewModel: LoginViewModelType{
                         }
                         guard let _ = self?.navigate else{
                             self?.notFound = true
-                            self?.alertMessage = "Can't login, please check your info"
+                            self?.alertMessage = "Can't login, please check your information"
                             return
                         }
                     case .failure(let error):
@@ -77,7 +75,7 @@ class LoginViewModel: LoginViewModelType{
             }
         }
         else{
-            alertMessage = "Please enter a valid mail"
+            alertMessage = "Please enter a valid email"
         }
     }
     
