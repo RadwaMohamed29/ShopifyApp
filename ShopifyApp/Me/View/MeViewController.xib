@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MeViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
                 <outlet property="noUserFound" destination="7nS-Ws-oux" id="CD1-QE-5up"/>
+                <outlet property="orderLisCV" destination="TMM-1x-RxN" id="hOV-hS-MKz"/>
                 <outlet property="userFounView" destination="dg0-GX-7hS" id="PMO-nd-1G2"/>
                 <outlet property="userName" destination="wzV-h4-j9x" id="Hi7-Ic-qdC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

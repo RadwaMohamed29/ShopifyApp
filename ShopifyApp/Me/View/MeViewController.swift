@@ -6,16 +6,28 @@
 //
 
 import UIKit
+import RxSwift
 
 class MeViewController: UIViewController {
 
     var favProducts:[FavoriteProducts] = []
+    var orderList : [Order] = []
     var favouriteProductsCD:[FavouriteProduct] = []
     var productViewModel : ProductDetailsViewModel?
-    
+    var disBag = DisposeBag()
+    var orderViewModel : OrderViewModelProtocol = OrderViewModel()
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var noUserFound: UIView!
     @IBOutlet weak var userFounView: UIView!
+    @IBOutlet weak var orderLisCV: UICollectionView!{
+        didSet{
+            orderLisCV.delegate = self
+            orderLisCV.dataSource = self
+            
+            let orderCell = UINib(nibName: "OrderCollectionViewCell", bundle: nil)
+            orderLisCV.register(orderCell, forCellWithReuseIdentifier: "orderCell")
+        }
+    }
     @IBOutlet weak var wishListCV: UICollectionView!{
         didSet{
             wishListCV.delegate = self
@@ -25,6 +37,7 @@ class MeViewController: UIViewController {
             wishListCV.register(favProductCell, forCellWithReuseIdentifier: "FavouriteproductCell")
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Profile"
@@ -35,13 +48,29 @@ class MeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
             noUserFound.isHidden = false
         getFavoriteProductsFromCoreData()
-        
+        getAllOrders()
+    }
+    func getAllOrders(){
+        do{
+            try orderViewModel.getAllOrdersForSpecificCustomer(id: "6432303218917")
+            orderViewModel.ordersObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+                .observe(on: MainScheduler.asyncInstance)
+                .subscribe { orders in
+                    self.orderList = orders
+                    self.orderLisCV.reloadData()
+                } onError: { error in
+                    print(error.localizedDescription)
+                }.disposed(by: disBag)
+        }catch{
+            print("cant get orders")
+        }
+       
+
     }
     
     func getFavoriteProductsFromCoreData(){
         do{
             try  productViewModel?.getAllFavoriteProducts(completion: { response in
-                //MARK: LSA M5LST4
                 switch response{
                 case true:
                     print("data retrived successfuly")
@@ -54,6 +83,7 @@ class MeViewController: UIViewController {
             print(error.localizedDescription)
         }
         favouriteProductsCD = (productViewModel?.favoriteProducts)!
+        favProducts = []
         for product in favouriteProductsCD {
             favProducts.append(FavoriteProducts(id: (product.id)!, body_html: product.body_html!, price: product.price!, scr: product.scr!, title: product.title!, isSelected: false))
         }
@@ -77,7 +107,8 @@ class MeViewController: UIViewController {
     }
     
     @IBAction func gotoOrdersScreens(_ sender: Any) {
-        
+        let OrdersVC = AllOrdersViewController(nibName: "AllOrdersViewController", bundle: nil)
+        self.navigationController?.pushViewController(OrdersVC, animated: true)
     }
     @IBAction func gotoFavoriteScreen(_ sender: Any) {
         let favScreen = FavouriteViewController(nibName: "FavouriteViewController", bundle: nil)
