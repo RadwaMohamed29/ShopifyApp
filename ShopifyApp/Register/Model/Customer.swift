@@ -33,7 +33,7 @@ struct Address: Codable {
 
 
 struct LoginResponse: Codable {
-    let customers: [CustomerModel]
+    let customers: [CustomerModel]?
 }
 extension Encodable {
   func asDictionary() throws -> [String: Any] {
