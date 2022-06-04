@@ -13,7 +13,7 @@ class APIClient: NetworkServiceProtocol{
 
     func getCustomerOrders(id: String,completion: @escaping (Result<Orders, ErrorType>) -> Void) {
         request(endpoint: .CustomerOrders(id: id), method: .GET, compeletion: completion)
-
+    }
     func login(email: String, password: String,completion: @escaping (Result<LoginCustomer, ErrorType>) -> Void) {
         request(endpoint: .Customers, method: .GET, compeletion: completion)
 

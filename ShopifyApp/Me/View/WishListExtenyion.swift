@@ -12,30 +12,57 @@ import Kingfisher
 extension MeViewController : UICollectionViewDataSource ,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if favProducts.count > 2{
-            return 2
+        if collectionView == orderLisCV{
+            if orderList.count > 2{
+                return 2
+            }
+            return orderList.count
+        }else{
+            if favProducts.count > 2{
+                return 2
+            }
+            return favProducts.count
         }
-        return favProducts.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
-        setImage(image: cell.productImage, index: indexPath.row)
-        cell.priceOfTheProduct.text = favProducts[indexPath.row].price
-        cell.ProductName.text = favProducts[indexPath.row].title
-        cell.favouriteBtn.tag = indexPath.row
-          cell.favouriteBtn.addTarget(self, action: #selector(favPress(recognizer:)), for: .touchUpInside)
-          return cell
+        if collectionView == orderLisCV{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "orderCell", for: indexPath) as! OrderCollectionViewCell
+            cell.layer.borderWidth = 1
+            cell.layer.borderColor = UIColor.black.cgColor
+            cell.layer.cornerRadius = 20
+            cell.layer.shadowColor = UIColor.black.cgColor
+            cell.date.text = orderList[indexPath.row].createdAt
+            cell.price.text = orderList[indexPath.row].totalPrice
+            cell.countOfItems.text = "\(orderList[indexPath.row].lineItems.count)"
+            return cell
+        }else{
+            let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
+            setImage(image: cell.productImage, index: indexPath.row)
+            cell.priceOfTheProduct.text = favProducts[indexPath.row].price
+            cell.ProductName.text = favProducts[indexPath.row].title
+            cell.favouriteBtn.tag = indexPath.row
+              cell.favouriteBtn.addTarget(self, action: #selector(favPress(recognizer:)), for: .touchUpInside)
+              return cell
+        }
+     
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 15, bottom: 15, right: 15)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let availableWidth = view.frame.width / 2.5
-        
-        let availableHieght = view.frame.width/2.3
-        
+        let availableWidth : Double
+        let availableHieght :Double
+        if collectionView == orderLisCV{
+            availableWidth = orderLisCV.frame.width - 24
+            availableHieght = orderLisCV.frame.height - 24
+        }
+        else{
+            availableWidth = view.frame.width / 2.5
+            availableHieght = view.frame.width/2.3
+        }
+         
         return CGSize(width: availableWidth, height: availableHieght)
     }
   

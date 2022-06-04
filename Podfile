@@ -13,6 +13,8 @@ target 'ShopifyApp' do
   pod 'RxCocoa', '6.5.0'
   pod 'SwiftMessages'
  pod 'LPSnackbar'
+pod 'TextFieldEffects'
+pod 'NVActivityIndicatorView'
   target 'ShopifyAppTests' do
     inherit! :search_paths
   end
