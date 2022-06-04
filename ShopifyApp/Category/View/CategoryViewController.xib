@@ -18,6 +18,7 @@
                 <outlet property="networkError" destination="2DS-oi-eoN" id="bgW-fc-FKS"/>
                 <outlet property="noDataImg" destination="iKH-d5-X1p" id="Wjs-kX-wC0"/>
                 <outlet property="sale" destination="F8i-HZ-4M9" id="9Hf-6G-kUF"/>
+                <outlet property="searchBar" destination="ShP-ZL-FQf" id="FyC-E0-iS9"/>
                 <outlet property="spinner" destination="TAx-LR-zOW" id="Zme-my-Bfx"/>
                 <outlet property="toolbar" destination="QQf-c2-YEb" id="bi1-vd-tdg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -80,10 +81,12 @@
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHD-Zq-In2" userLabel="Toolbar  upper ">
                     <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                     <items>
-                        <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="X5C-LP-y2N">
-                            <connections>
-                                <action selector="searchBtn" destination="-1" id="sWh-kF-frl"/>
-                            </connections>
+                        <barButtonItem style="plain" id="gIh-xH-tIh">
+                            <searchBar key="customView" contentMode="redraw" placeholder="product name" id="ShP-ZL-FQf">
+                                <rect key="frame" x="20" y="0.0" width="216" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="lUz-Rv-3YX"/>
                         <barButtonItem title="Item" image="heart" catalog="system" id="V7W-Gv-DTf">
@@ -146,7 +149,6 @@
         <image name="T_shirts" width="284" height="177"/>
         <image name="cart" catalog="system" width="128" height="102"/>
         <image name="heart" catalog="system" width="128" height="109"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="network" width="225" height="225"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

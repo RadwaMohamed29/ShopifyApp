@@ -53,15 +53,6 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         self.navigationController?.pushViewController(productDetailsVC, animated: true)
     }
     
-    func setNavigationItem() {
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "heart"), style: .plain, target: self, action: #selector(heartTapped))
-    }
-    
-    @objc func heartTapped(){
-        
-    }
-    
     func getCategory(target:Endpoints){
         viewModel.getFilteredProducts(target: target)
         viewModel.categoryObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background)).observe(on: MainScheduler.instance)
@@ -77,8 +68,6 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
                             self?.checkListSize(productName: "T_shirts")
                         }else if CategoryViewController.subProduct == 3{
                             self?.checkListSize(productName: "accessories")
-                        }else{
-                            self?.checkListSize(productName: "Data")
                         }
                     }else{
                         self?.showSnackBar()
@@ -152,9 +141,8 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
        else{
            convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
            Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
-          
        }
-      }
+    }
     
     func convertToFavouriteModel( favProduct: inout FavouriteProduct,recognizer:UIButton){
         favProduct.id = "\(showList![recognizer.tag].id )"
