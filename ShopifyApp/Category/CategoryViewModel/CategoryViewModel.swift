@@ -12,7 +12,7 @@ import RxSwift
 protocol CategoryViewModelProtocol {
     var categoryObservable:Observable<[ProductElement]>
     { get set }
-    var categorySubject:PublishSubject<[ProductElement]>{get set}
+//    var categorySubject:PublishSubject<[ProductElement]>{get set}
     func getFilteredProducts(target:Endpoints)
     var searchedList : [ProductElement]{get set}
     func searchWithWord(word:String)
@@ -23,7 +23,7 @@ class CategoryViewModel:CategoryViewModelProtocol{
     
     var categoryObservable: Observable<[ProductElement]>
     
-    var categorySubject: PublishSubject<[ProductElement]> = PublishSubject<[ProductElement]>()
+    private var categorySubject: PublishSubject<[ProductElement]> = PublishSubject<[ProductElement]>()
     
     var network:NetworkServiceProtocol
     

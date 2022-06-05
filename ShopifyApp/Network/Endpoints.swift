@@ -23,6 +23,7 @@ enum Endpoints {
     case TshirtType(id:String)
     case ShoesType(id:String)
     case AccecoriesType(id:String)
+    case AddressByID(id:String)
     
     var path:String{
         switch self {
@@ -54,6 +55,9 @@ enum Endpoints {
             return "products.json?collection_id=\(categoryID)&product_type=ACCESSORIES"
         case .HomeWithProductType(id: let categoryID):
             return "products.json?product_type=\(categoryID)"
+
+        case .AddressByID(id: let id):
+            return "customers/\(id)/addresses.json"
         }
     }
 }
@@ -76,7 +80,7 @@ enum categoryID {
         case .SALE:
             return "395728224485"
         case .Home(type: let type):
-            return ""
+            return "customers/\(type).json"
         }
     }
 }
@@ -84,7 +88,7 @@ enum categoryID {
 
 //https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/products.json?collection_id=395728126181&product_type=shoes
 
-//https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/products.json?product_type=shoes
+//https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/customers/6463260754149/.json
 
 
 // print
