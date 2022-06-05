@@ -35,6 +35,7 @@ class CategoryViewController: UIViewController {
     var collectionFlowLayout:UICollectionViewFlowLayout!
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
 //        getCategory(target: .HomeCategoryProducts)
         if let showList = showList {
             if !showList.isEmpty{

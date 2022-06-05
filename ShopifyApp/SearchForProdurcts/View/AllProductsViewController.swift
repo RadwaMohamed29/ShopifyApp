@@ -45,6 +45,7 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         searchProductsCV.reloadData()
         refreshControl.tintColor = UIColor.darkGray
         refreshControl.addTarget(self, action:#selector(getProductsWithCheckingConnection), for: .valueChanged)

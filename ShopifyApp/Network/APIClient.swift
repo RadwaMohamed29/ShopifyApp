@@ -50,9 +50,10 @@ class APIClient: NetworkServiceProtocol{
     func productDetailsProvider(id: String, completion: @escaping (Result<Products, ErrorType>) -> Void) {
         request(endpoint: .ProductDetails(id: id), method: .GET, compeletion: completion)
     }
-    
-    
-    
+
+    func getCustomerAddresses(id:String, completion:@escaping (Result<CustomerAddress, ErrorType>)->()) {
+        request(endpoint: .AddressByID(id: id), method: .GET, compeletion: completion)
+    }
 
     func request<T:Codable>(endpoint: Endpoints, method: Methods, compeletion: @escaping (Result<T, ErrorType>) -> Void) {
         let path = "\(BASE_URL)\(endpoint.path)"

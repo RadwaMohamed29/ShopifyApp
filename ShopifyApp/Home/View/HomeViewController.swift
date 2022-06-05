@@ -17,8 +17,10 @@ class HomeViewController: UIViewController,brandIdProtocol {
         super.viewDidLoad()
         BrandTableViewCell.setHome(deleget: self)
         setupTableView()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         refreshControl.tintColor = UIColor.darkGray
         refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
         homeTV.addSubview(refreshControl)

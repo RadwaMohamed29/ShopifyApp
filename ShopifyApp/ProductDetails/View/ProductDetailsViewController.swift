@@ -39,6 +39,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
             productDescription.isEditable = false
         }
     }
+    
     @IBOutlet weak var sizeTableView: UITableView!{
         didSet{
             sizeTableView.dataSource = self
@@ -77,6 +78,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         super.viewWillAppear(animated)
         refreshControl.tintColor = UIColor.darkGray
         refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
