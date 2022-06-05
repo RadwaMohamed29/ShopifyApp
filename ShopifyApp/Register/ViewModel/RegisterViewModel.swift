@@ -9,13 +9,16 @@ import Foundation
 
 protocol RegisterViewModelType{
     func registerCustomer(firstName: String, lastName: String, email: String, password: String)
-    
+    func isEmailExist(email: String)-> Bool
 }
 
 class RegisterViewModel: RegisterViewModelType{
+
+    
+
     let network = APIClient()
     let userDefualt = Utilities()
-    
+    private var listOfCustomer : [CustomerModel] = []
     func registerCustomer(firstName: String, lastName: String, email: String, password: String) {
         if firstName != ""{
             let customer = CustomerModel(first_name: firstName, last_name: lastName, email: email, phone: nil , tags: password, id: nil , verified_email: true, addresses: nil )
@@ -26,10 +29,32 @@ class RegisterViewModel: RegisterViewModelType{
         }
     }
     
+    var isExist: Bool = false
+    func isEmailExist(email: String) -> Bool {
+        network.login(email: email, password: ""){ [weak self] result  in
+            switch result{
+            case .success(let response):
+                guard let checkedCustomer = response.customers else {return}
+                self?.listOfCustomer = checkedCustomer
+                for item in checkedCustomer {
+                    let comingMail = item.email ?? ""
+                    if comingMail == email{
+                        self?.isExist = true
+                    }
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
+        return isExist
+    }
+   
     func registerCustomer(customer: Customer){
         network.registerCustomerProtocol(newCustomer: customer) {[weak self] (data, response, error )in
             if error != nil{
-                print(error)
+                print(error!)
             }else{
                 if let data = data{
                     let json = try! JSONSerialization.jsonObject(with: data, options:
@@ -52,5 +77,6 @@ class RegisterViewModel: RegisterViewModelType{
             }
         }
     }
-    
+
+
 }
