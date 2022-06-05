@@ -23,6 +23,7 @@ enum Endpoints {
     case TshirtType(id:String)
     case ShoesType(id:String)
     case AccecoriesType(id:String)
+    case CustomerOrders(id:String)
     case AddressByID(id:String)
     
     var path:String{
@@ -55,6 +56,8 @@ enum Endpoints {
             return "products.json?collection_id=\(categoryID)&product_type=ACCESSORIES"
         case .HomeWithProductType(id: let categoryID):
             return "products.json?product_type=\(categoryID)"
+        case .CustomerOrders(id: let orderId):
+            return "orders.json?customer_id=\(orderId)"
 
         case .AddressByID(id: let id):
             return "customers/\(id)/addresses.json"

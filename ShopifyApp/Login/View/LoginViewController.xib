@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
+                <outlet property="emailLabel" destination="fWe-ht-BlO" id="iuV-AQ-JSZ"/>
+                <outlet property="passwordLabel" destination="EKE-Fq-ov6" id="CGV-3r-9mJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -77,28 +79,38 @@
                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                     </variation>
                 </label>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Please enter ypur email" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fWe-ht-BlO">
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fWe-ht-BlO" customClass="MadokaTextField" customModule="TextFieldEffects">
                     <rect key="frame" x="18" y="336" width="350" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="350" id="9cJ-Yv-KNx"/>
                         <constraint firstAttribute="height" constant="60" id="xSJ-0h-F14"/>
                     </constraints>
-                    <color key="textColor" red="0.070588235289999995" green="0.074509803920000006" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <textInputTraits key="textInputTraits"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" systemColor="systemMintColor"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <variation key="heightClass=regular-widthClass=compact">
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     </variation>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Please enter ypur password" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EKE-Fq-ov6">
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EKE-Fq-ov6" customClass="MadokaTextField" customModule="TextFieldEffects">
                     <rect key="frame" x="18" y="452" width="350" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="ZTh-rM-4ME"/>
                         <constraint firstAttribute="width" constant="350" id="jfe-68-to1"/>
                     </constraints>
-                    <color key="textColor" red="0.070588235289999995" green="0.074509803920000006" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                            <color key="value" systemColor="systemMintColor"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
                     <variation key="heightClass=regular-widthClass=compact">
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                     </variation>
@@ -120,6 +132,9 @@
                             </fragment>
                         </attributedString>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="loginBtn:" destination="-1" eventType="touchUpInside" id="4Rs-YM-RWt"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J14-uj-q4y">
                     <rect key="frame" x="256" y="662.5" width="100" height="37"/>
@@ -138,6 +153,9 @@
                             </fragment>
                         </attributedString>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="registerBtn:" destination="-1" eventType="touchUpInside" id="5WE-MN-z3s"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -178,10 +196,21 @@
             <point key="canvasLocation" x="137.68115942028987" y="69.642857142857139"/>
         </view>
     </objects>
+    <designables>
+        <designable name="EKE-Fq-ov6">
+            <size key="intrinsicContentSize" width="31" height="38.5"/>
+        </designable>
+        <designable name="fWe-ht-BlO">
+            <size key="intrinsicContentSize" width="31" height="39.5"/>
+        </designable>
+    </designables>
     <resources>
         <image name="login" width="800" height="566"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemMintColor">
+            <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

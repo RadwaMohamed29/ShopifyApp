@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 import SwiftMessages
+import NVActivityIndicatorView
+
 
 protocol SharedProtocol{
     func presentAlert(alert:UIAlertController)->Void
@@ -98,4 +100,27 @@ extension Shared{
             SwiftMessages.show(config: config, view: view)
         }
  
+}
+extension UIViewController{
+    func showActivityIndicator(indicator: NVActivityIndicatorView? ,startIndicator: Bool){
+        guard let indicator = indicator else {return}
+        DispatchQueue.main.async {
+            indicator.translatesAutoresizingMaskIntoConstraints = false
+            self.view.addSubview(indicator)
+            
+            NSLayoutConstraint.activate([
+                indicator.widthAnchor.constraint(equalToConstant: 40),
+                indicator.heightAnchor.constraint(equalToConstant: 40),
+                indicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+                indicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            ])
+        }
+        if startIndicator{
+            indicator.startAnimating()
+        }else{
+            indicator.stopAnimating()
+        }
+    }
+    
+
 }
