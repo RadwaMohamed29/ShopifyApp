@@ -24,7 +24,7 @@ private final class TableViewPrefetchDataSourceNotSet
     : NSObject
     , UITableViewDataSourcePrefetching {
 
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {}
+    func tableView(_ addressTableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {}
 
 }
 
@@ -34,17 +34,17 @@ open class RxTableViewDataSourcePrefetchingProxy
     , DelegateProxyType {
 
     /// Typed parent object.
-    public weak private(set) var tableView: UITableView?
+    public weak private(set) var addressTableView: UITableView?
 
     /// - parameter tableView: Parent object for delegate proxy.
-    public init(tableView: ParentObject) {
-        self.tableView = tableView
-        super.init(parentObject: tableView, delegateProxy: RxTableViewDataSourcePrefetchingProxy.self)
+    public init(addressTableView: ParentObject) {
+        self.addressTableView = addressTableView
+        super.init(parentObject: addressTableView, delegateProxy: RxTableViewDataSourcePrefetchingProxy.self)
     }
 
     // Register known implementations
     public static func registerKnownImplementations() {
-        self.register { RxTableViewDataSourcePrefetchingProxy(tableView: $0) }
+        self.register { RxTableViewDataSourcePrefetchingProxy(addressTableView: $0) }
     }
 
     private var _prefetchRowsPublishSubject: PublishSubject<[IndexPath]>?
@@ -80,12 +80,12 @@ open class RxTableViewDataSourcePrefetchingProxy
 @available(iOS 10.0, tvOS 10.0, *)
 extension RxTableViewDataSourcePrefetchingProxy: UITableViewDataSourcePrefetching {
     /// Required delegate method implementation.
-    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+    public func tableView(_ addressTableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         if let subject = _prefetchRowsPublishSubject {
             subject.on(.next(indexPaths))
         }
 
-        (_requiredMethodsPrefetchDataSource ?? tableViewPrefetchDataSourceNotSet).tableView(tableView, prefetchRowsAt: indexPaths)
+        (_requiredMethodsPrefetchDataSource ?? tableViewPrefetchDataSourceNotSet).tableView(addressTableView, prefetchRowsAt: indexPaths)
     }
 }
 

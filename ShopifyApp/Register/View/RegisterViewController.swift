@@ -19,6 +19,9 @@ class RegisterViewController: UIViewController {
  
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
 
     @IBAction func signUpBtn(_ sender: Any) {
         firstName = firstNameText.text ?? ""

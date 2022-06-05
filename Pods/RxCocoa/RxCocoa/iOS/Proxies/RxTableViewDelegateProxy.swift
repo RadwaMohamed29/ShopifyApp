@@ -16,12 +16,12 @@ open class RxTableViewDelegateProxy
     : RxScrollViewDelegateProxy {
 
     /// Typed parent object.
-    public weak private(set) var tableView: UITableView?
+    public weak private(set) var addressTableView: UITableView?
 
     /// - parameter tableView: Parent object for delegate proxy.
-    public init(tableView: UITableView) {
-        self.tableView = tableView
-        super.init(scrollView: tableView)
+    public init(addressTableView: UITableView) {
+        self.addressTableView = addressTableView
+        super.init(scrollView: addressTableView)
     }
 
 }

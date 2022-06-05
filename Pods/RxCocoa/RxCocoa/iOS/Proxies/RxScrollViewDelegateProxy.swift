@@ -32,7 +32,7 @@ open class RxScrollViewDelegateProxy
     // Register known implementations
     public static func registerKnownImplementations() {
         self.register { RxScrollViewDelegateProxy(scrollView: $0) }
-        self.register { RxTableViewDelegateProxy(tableView: $0) }
+        self.register { RxTableViewDelegateProxy(addressTableView: $0) }
         self.register { RxCollectionViewDelegateProxy(collectionView: $0) }
         self.register { RxTextViewDelegateProxy(textView: $0) }
     }
