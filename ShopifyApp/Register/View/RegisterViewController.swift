@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import TextFieldEffects
+import NVActivityIndicatorView
 
 class RegisterViewController: UIViewController {
 
