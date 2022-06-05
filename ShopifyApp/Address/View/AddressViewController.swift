@@ -12,6 +12,8 @@ import CoreMedia
 
 class AddressViewController: UIViewController {
 
+    @IBOutlet weak var noAddressView: UIView!
+    private var isConn:Bool = false
     private let disposeBag = DisposeBag()
     fileprivate var arr : [Address]!
     fileprivate var viewModel:AddressViewModelProtocol!
@@ -23,19 +25,47 @@ class AddressViewController: UIViewController {
         addressTableView.separatorStyle = .none
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAddress))
         arr = []
-        getAddresses(id: "6463260754149")
+        checkNetwork()
+        //6463260754149
+        getAddresses(id: "6463355584741")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
+        
+    func checkNetwork() {
+        viewModel.checkConnection()
+        viewModel.networkObservable.subscribe {[weak self] isConn in
+            self?.isConn = isConn
+            if isConn == false{
+                self?.showSnackBar()
+            }else{
+                self?.getAddresses(id: "6463355584741")
+            }
+        } onError: { error in
+            print("connection error network")
+        } onCompleted: {
+            print("onComplete network")
+        } onDisposed: {
+            print("ondispose network")
+        }.disposed(by: disposeBag)
+
+    }
     
     func getAddresses(id:String) {
         viewModel.getAddressesForCurrentUser(id: id)
         viewModel.addressObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background)).observe(on: MainScheduler.instance).subscribe { [weak self]result in
-            print("sdglkdangds'lgknad'lksdadsgsdgdafgdagdsgsdasdg")
-                    self?.arr = result
-                    self?.addressTableView.reloadData()
+            self?.arr = result
+            if self?.arr?.count == 0{
+                self?.addressTableView.isHidden = true
+                self?.noAddressView.isHidden = false
+            }else{
+                self?.noAddressView.isHidden = true
+                self?.addressTableView.isHidden = false
+                self?.addressTableView.reloadData()
+            }
         } onError: { error in
             //MARK: show Dialog
             print("\(error)")

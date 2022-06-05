@@ -10,13 +10,17 @@ import RxSwift
 
 protocol AddressViewModelProtocol{
     
+    var networkObservable:Observable<Bool> { get set }
     var addressObservable:Observable<[Address]> { get set }
 //    var addressSubject:PublishSubject<[Address]>{ get set }
     func getAddressesForCurrentUser(id:String)
+    func checkConnection()
 }
 
 class AddressViewModel:AddressViewModelProtocol{
     
+    var networkObservable: Observable<Bool>
+    var networkSubject = PublishSubject<Bool>()
     var addressObservable: Observable<[Address]>
     private var addressSubject: PublishSubject<[Address]> = PublishSubject<[Address]>()
     var network:NetworkServiceProtocol
@@ -24,6 +28,7 @@ class AddressViewModel:AddressViewModelProtocol{
     init(network:NetworkServiceProtocol) {
         self.network = network
         addressObservable = addressSubject.asObserver()
+        networkObservable = networkSubject.asObserver()
     }
     
     func getAddressesForCurrentUser(id:String) {
@@ -40,4 +45,14 @@ class AddressViewModel:AddressViewModelProtocol{
         }
     }
 
+    
+    func checkConnection() {
+        HandelConnection.handelConnection.checkNetworkConnection { [weak self] isconn in
+            if isconn{
+                self?.networkSubject.asObserver().onNext(true)
+            }else{
+                self?.networkSubject.asObserver().onNext(false)
+            }
+        }
+    }
 }
