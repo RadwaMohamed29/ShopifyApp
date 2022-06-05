@@ -9,7 +9,7 @@ import Foundation
 
 
 struct AllCustomers: Codable{
-    let customers: [CustomerModel]
+    let customers: [CustomerModel]?
 }
 
 struct Customer: Codable{

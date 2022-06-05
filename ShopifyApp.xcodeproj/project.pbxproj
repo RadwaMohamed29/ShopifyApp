@@ -592,8 +592,6 @@
 			children = (
 				9C06B424284BF2F500B64732 /* ViewModel */,
 				9C06B421284BF05500B64732 /* View */,
-				9C06B415284BEBA500B64732 /* AllOrdersViewController.swift */,
-				9C06B416284BEBA500B64732 /* AllOrdersViewController.xib */,
 				9C06B420284BF04B00B64732 /* Model */,
 			);
 			path = Order;
@@ -619,6 +617,8 @@
 		9C06B421284BF05500B64732 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9C06B416284BEBA500B64732 /* AllOrdersViewController.xib */,
+				9C06B415284BEBA500B64732 /* AllOrdersViewController.swift */,
 				9C06B419284BEBAB00B64732 /* OrderCell */,
 			);
 			path = View;

@@ -6,19 +6,28 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol RegisterViewModelType{
     func registerCustomer(firstName: String, lastName: String, email: String, password: String)
-    func isEmailExist(email: String)-> Bool
+    func isEmailExist(email: String)
+    var isExist: Bool {get set}
+    var isExistObservable : Observable<Bool> {get set}
 }
 
 class RegisterViewModel: RegisterViewModelType{
-
-    
-
-    let network = APIClient()
+    var isExist: Bool
+    var isExistObservable: Observable<Bool>
+    private var isExistSubject =  PublishSubject<Bool>()
+    let network : NetworkServiceProtocol
     let userDefualt = Utilities()
+    
     private var listOfCustomer : [CustomerModel] = []
+    init(){
+        network = APIClient()
+        isExistObservable = isExistSubject.asObserver()
+        isExist = false
+    }
     func registerCustomer(firstName: String, lastName: String, email: String, password: String) {
         if firstName != ""{
             let customer = CustomerModel(first_name: firstName, last_name: lastName, email: email, phone: nil , tags: password, id: nil , verified_email: true, addresses: nil )
@@ -29,8 +38,8 @@ class RegisterViewModel: RegisterViewModelType{
         }
     }
     
-    var isExist: Bool = false
-    func isEmailExist(email: String) -> Bool {
+    
+    func isEmailExist(email: String) {
         network.login(email: email, password: ""){ [weak self] result  in
             switch result{
             case .success(let response):
@@ -40,7 +49,16 @@ class RegisterViewModel: RegisterViewModelType{
                     let comingMail = item.email ?? ""
                     if comingMail == email{
                         self?.isExist = true
+                        return
                     }
+                    else{
+                        self?.isExist = false
+                    }
+                }
+                if self?.isExist == true{
+                    self?.isExistSubject.asObserver().onNext(true)
+                }else{
+                    self?.isExistSubject.asObserver().onNext(false)
                 }
                 
             case .failure(let error):
@@ -48,7 +66,6 @@ class RegisterViewModel: RegisterViewModelType{
             }
             
         }
-        return isExist
     }
    
     func registerCustomer(customer: Customer){
@@ -66,6 +83,7 @@ class RegisterViewModel: RegisterViewModelType{
                     
                     if id != 0 {
                         self?.userDefualt.addCustomerId(id: id)
+                        self?.userDefualt.login()
                         self?.userDefualt.addCustomerEmail(customerEmail: customerEmail)
                         self?.userDefualt.addCustomerName(customerName: customerName)
                         

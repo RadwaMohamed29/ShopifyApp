@@ -8,7 +8,7 @@
 import UIKit
 import TextFieldEffects
 import NVActivityIndicatorView
-
+import RxSwift
 class RegisterViewController: UIViewController {
 
     @IBOutlet weak var lblValidation: UILabel!
@@ -36,15 +36,30 @@ class RegisterViewController: UIViewController {
             if userDefualt.isValidEmail(email){
                 
                 if password.count >= 6{
-                    if registerViewModel.isEmailExist(email: email){
-                        registerViewModel.registerCustomer(firstName: firstName ?? "", lastName: lastName ?? "" , email: email ?? "", password: password ?? "")
-                        self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
-                        self.navigationController?.popViewController(animated: true)
-                        print("from view  \(String(describing: firstName ?? ""))")
-                    }else{
-                        lblValidation.isHidden = false
-                        lblValidation.text = "This user already exists"
+                    registerViewModel.isEmailExist(email: email)
+//                    registerViewModel.isExistObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+//                        .observe(on: MainScheduler.asyncInstance)
+//                        .subscribe { <#Bool#> in
+//                            <#code#>
+//                        } onError: { <#Error#> in
+//                            <#code#>
+//                        } onCompleted: {
+//                            <#code#>
+//                        } onDisposed: {
+//                            <#code#>
+//                        }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 10.0){ [self] in
+                        if  registerViewModel.isExist == false {
+                            registerViewModel.registerCustomer(firstName: firstName ?? "", lastName: lastName ?? "" , email: email ?? "", password: password ?? "")
+                            self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
+                            self.navigationController?.popViewController(animated: true)
+                            print("from view  \(String(describing: firstName ?? ""))")
+                        }else{
+                            lblValidation.isHidden = false
+                            lblValidation.text = "This user already exists"
+                        }
                     }
+                   
                   
                 }else{
                     lblValidation.isHidden = false

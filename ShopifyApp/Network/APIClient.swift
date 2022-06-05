@@ -14,7 +14,7 @@ class APIClient: NetworkServiceProtocol{
     func getCustomerOrders(id: String,completion: @escaping (Result<Orders, ErrorType>) -> Void) {
         request(endpoint: .CustomerOrders(id: id), method: .GET, compeletion: completion)
     }
-    func login(email: String, password: String,completion: @escaping (Result<LoginCustomer, ErrorType>) -> Void) {
+    func login(email: String, password: String,completion: @escaping (Result<AllCustomers, ErrorType>) -> Void) {
         request(endpoint: .Customers, method: .GET, compeletion: completion)
 
     }
@@ -92,10 +92,9 @@ class APIClient: NetworkServiceProtocol{
             do{
                 let object = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(object))
-            }    catch {
-
-                    completion(.failure(.parsingError))
-                print(fatalError(error.localizedDescription))
+            }catch{
+                print(error.localizedDescription)
+                completion(.failure(.parsingError))
 
                 }
         }.resume()
