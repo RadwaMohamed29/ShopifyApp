@@ -56,4 +56,11 @@ class Utilities{
         print("\(email) \(emailPred.evaluate(with: email))")
         return emailPred.evaluate(with: email)
     }
+    func checkUserIsLoggedIn(completion: @escaping (Bool) -> Void){
+        if isLoggedIn() {
+            completion(true)
+        }else{
+            completion(false)
+        }
+    }
 }
