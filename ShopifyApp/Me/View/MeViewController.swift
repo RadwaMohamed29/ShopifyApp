@@ -52,6 +52,7 @@ class MeViewController: UIViewController {
             if isLoggedIn {
                 self.noUserFound.isHidden = true
                 self.userFounView.isHidden = false
+                self.userName.text = "\(Utilities.utilities.getCustomerName())"
                 self.getFavoriteProductsFromCoreData()
                 self.getAllOrders()
             }
