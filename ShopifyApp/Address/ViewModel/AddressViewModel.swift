@@ -38,7 +38,5 @@ class AddressViewModel:AddressViewModelProtocol{
                 self?.addressSubject.asObserver().onError(error)
             }
         }
-    }
-    
-    
+    }   
 }
