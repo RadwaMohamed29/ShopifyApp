@@ -38,15 +38,28 @@ class HomeViewController: UIViewController,brandIdProtocol {
     }
 
     @IBAction func fav(_ sender: Any) {
-        let a = FavouriteViewController(nibName:"FavouriteViewController", bundle: nil)
-         self.navigationController?.pushViewController(a, animated: true)
-        
+        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
+            if isLoggedIn {
+                let favScreen = FavouriteViewController(nibName: "FavouriteViewController", bundle: nil)
+                self.navigationController?.pushViewController(favScreen, animated: true)
+            }
+            else{
+                let loginScreen = LoginViewController(nibName:"LoginViewController", bundle: nil)
+                 self.navigationController?.pushViewController(loginScreen, animated: true)
+            }
+        }
     }
     @IBAction func cart(_ sender: Any) {
-        let a = ShoppingCartVC(nibName:"ShoppingCartVC", bundle: nil)
-         self.navigationController?.pushViewController(a, animated: true)
-       // cartBtn.badgeColor
-        
+        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
+            if isLoggedIn {
+                let cartScreen = ShoppingCartVC(nibName:"ShoppingCartVC", bundle: nil)
+                 self.navigationController?.pushViewController(cartScreen, animated: true)
+            }
+            else {
+                let a = LoginViewController(nibName:"LoginViewController", bundle: nil)
+                 self.navigationController?.pushViewController(a, animated: true)
+            }
+        }
     }
    
 }

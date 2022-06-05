@@ -46,16 +46,35 @@ class CategoryViewController: UIViewController {
     }
     
     @IBAction func cartBtn(){
-        let a = ShoppingCartVC(nibName:"ShoppingCartVC", bundle: nil)
-         self.navigationController?.pushViewController(a, animated: true)
+        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
+            if isLoggedIn {
+                let cartScreen = ShoppingCartVC(nibName: "ShoppingCartVC", bundle: nil)
+                self.navigationController?.pushViewController(cartScreen, animated: true)
+            }
+            else{
+                let loginScreen = LoginViewController(nibName:"LoginViewController", bundle: nil)
+                 self.navigationController?.pushViewController(loginScreen, animated: true)
+            }
+        }
+
     }
     
     @IBAction func navigateToFavorite() {
-        let a = FavouriteViewController(nibName:"FavouriteViewController", bundle: nil)
-         self.navigationController?.pushViewController(a, animated: true)
+        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
+            if isLoggedIn {
+                let favScreen = FavouriteViewController(nibName: "FavouriteViewController", bundle: nil)
+                self.navigationController?.pushViewController(favScreen, animated: true)
+            }
+            else{
+                let loginScreen = LoginViewController(nibName:"LoginViewController", bundle: nil)
+                 self.navigationController?.pushViewController(loginScreen, animated: true)
+            }
+        }
+      
     }
     
     @IBAction func searchBtn() {
+        
         let productListVC = AllProductsViewController(nibName: "AllProductsViewController", bundle: nil)
         productListVC.isCommingFromHome = "false"
         self.navigationController?.pushViewController(productListVC, animated: true)

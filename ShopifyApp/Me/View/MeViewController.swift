@@ -16,6 +16,8 @@ class MeViewController: UIViewController {
     var productViewModel : ProductDetailsViewModel?
     var disBag = DisposeBag()
     var orderViewModel : OrderViewModelProtocol = OrderViewModel()
+    var isLoggedIn = false
+    var meViewModel = MeViewModel()
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var noUserFound: UIView!
     @IBOutlet weak var userFounView: UIView!
@@ -46,9 +48,19 @@ class MeViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-            noUserFound.isHidden = false
-        getFavoriteProductsFromCoreData()
-        getAllOrders()
+        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
+            if isLoggedIn {
+                self.noUserFound.isHidden = true
+                self.userFounView.isHidden = false
+                self.getFavoriteProductsFromCoreData()
+                self.getAllOrders()
+            }
+            else{
+                self.noUserFound.isHidden = false
+                self.userFounView.isHidden = true
+            }
+        }
+       
     }
     func getAllOrders(){
         do{
@@ -99,8 +111,16 @@ class MeViewController: UIViewController {
         self.navigationController?.pushViewController(signUpVC, animated: true)
     }
     @IBAction func gotoCartScreen(_ sender: Any) {
-        let cartScreen = ShoppingCartVC(nibName: "ShoppingCartVC", bundle: nil)
-        self.navigationController?.pushViewController(cartScreen, animated: true)
+        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
+            if isLoggedIn {
+                let cartScreen = ShoppingCartVC(nibName: "ShoppingCartVC", bundle: nil)
+                self.navigationController?.pushViewController(cartScreen, animated: true)
+            }
+            else{
+                self.userFounView.isHidden = true
+                self.noUserFound.isHidden = false
+            }
+        }
     }
     @IBAction func gotoSetting(_ sender: Any) {
         
@@ -111,8 +131,16 @@ class MeViewController: UIViewController {
         self.navigationController?.pushViewController(OrdersVC, animated: true)
     }
     @IBAction func gotoFavoriteScreen(_ sender: Any) {
-        let favScreen = FavouriteViewController(nibName: "FavouriteViewController", bundle: nil)
-        self.navigationController?.pushViewController(favScreen, animated: true)
+        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
+            if isLoggedIn {
+                let favScreen = FavouriteViewController(nibName: "FavouriteViewController", bundle: nil)
+                self.navigationController?.pushViewController(favScreen, animated: true)
+            }
+            else{
+                self.userFounView.isHidden = true
+                self.noUserFound.isHidden = false
+            }
+        }
 
     }
     

@@ -14,7 +14,6 @@ protocol LoginViewModelType{
     var bindNavigate:(()->()) {get set}
     var bindDontNavigate:(()->()) {get set}
     var alertMessage: String! {get}
-    
 }
 class LoginViewModel: LoginViewModelType{
     let network = APIClient()
