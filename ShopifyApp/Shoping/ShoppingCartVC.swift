@@ -31,7 +31,7 @@ class ShoppingCartVC: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         checkCartIsEmpty()
     }
     func checkCartIsEmpty(){
@@ -126,7 +126,11 @@ class ShoppingCartVC: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
 
-
+    @IBAction func goToAddress(_ sender: Any) {
+        let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
+        self.navigationController?.pushViewController(address, animated: true)
+    }
+    
 }
 extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -193,4 +197,6 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
             
         }
     }
+    
+    
 }
