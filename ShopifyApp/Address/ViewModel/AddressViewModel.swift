@@ -39,9 +39,5 @@ class AddressViewModel:AddressViewModelProtocol{
             }
         }
     }
-<<<<<<< Updated upstream
-    
-    
-=======
->>>>>>> Stashed changes
+
 }
