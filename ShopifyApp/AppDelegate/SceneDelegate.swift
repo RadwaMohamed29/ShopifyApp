@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        let startNavVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
+        let startNavVC = LaunchViewController(nibName: "LaunchViewController", bundle: nil)
         let navControler = UINavigationController(rootViewController: startNavVC)
         
         self.window = UIWindow(windowScene: windowScene)
