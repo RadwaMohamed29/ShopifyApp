@@ -10,6 +10,7 @@ import TextFieldEffects
 import NVActivityIndicatorView
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var emailLabel: MadokaTextField!
     @IBOutlet weak var passwordLabel: MadokaTextField!
     var viewModel: LoginViewModelType!
@@ -31,8 +32,11 @@ class LoginViewController: UIViewController {
             self?.navigate()
         }
         viewModel.bindDontNavigate = { [weak self] in
-            let message = self?.viewModel.alertMessage ?? "user not exist, please check your information"
-            self?.showAlret(message: message)
+            let message = self?.viewModel.errorMessage ?? "user not exist, please check your information"
+            DispatchQueue.main.async {
+                self?.showActivityIndicator(indicator: self?.indicator, startIndicator: false)
+            self?.errorLabel.text = message
+            }
         }
     }
    
@@ -42,18 +46,6 @@ class LoginViewController: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }
     }
-    func showAlret(message:String){
-        DispatchQueue.main.async {
-            self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
-            let alert = UIAlertController(title: "Warning", message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-            }
-            alert.addAction(okAction)
-            self.present(alert, animated: true, completion: nil)
-        }
-       
-    }
-
     @IBAction func loginBtn(_ sender: Any) {
         self.showActivityIndicator(indicator: self.indicator, startIndicator: true)
         email = emailLabel.text ?? ""
