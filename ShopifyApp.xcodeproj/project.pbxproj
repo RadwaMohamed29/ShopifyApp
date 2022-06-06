@@ -34,6 +34,9 @@
 		16A24343284993CC00A6154F /* ReviewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A24341284993CC00A6154F /* ReviewsCollectionViewCell.xib */; };
 		16B7CB50283EF5B1001E0342 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B7CB4F283EF5B1001E0342 /* Product.swift */; };
 		16B7CB53283F0F27001E0342 /* productDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B7CB52283F0F27001E0342 /* productDetailsViewModel.swift */; };
+		16F65513284DBC8D002F3BD3 /* LuanchAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 16F65512284DBC8D002F3BD3 /* LuanchAnimation.json */; };
+		16F65516284DBCE0002F3BD3 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F65514284DBCE0002F3BD3 /* LaunchViewController.swift */; };
+		16F65517284DBCE0002F3BD3 /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16F65515284DBCE0002F3BD3 /* LaunchViewController.xib */; };
 		3E0865D6283EE3E500755C18 /* Brands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0865D5283EE3E500755C18 /* Brands.swift */; };
 		3E0865D8283EE44800755C18 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0865D7283EE44800755C18 /* HomeViewModel.swift */; };
 		3E374BE228428EB30008CD46 /* CartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E374BE128428EB30008CD46 /* CartModel.swift */; };
@@ -158,6 +161,9 @@
 		16A24341284993CC00A6154F /* ReviewsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsCollectionViewCell.xib; sourceTree = "<group>"; };
 		16B7CB4F283EF5B1001E0342 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		16B7CB52283F0F27001E0342 /* productDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productDetailsViewModel.swift; sourceTree = "<group>"; };
+		16F65512284DBC8D002F3BD3 /* LuanchAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LuanchAnimation.json; sourceTree = "<group>"; };
+		16F65514284DBCE0002F3BD3 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		16F65515284DBCE0002F3BD3 /* LaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
 		16F7124AE54113161E6F75CE /* Pods_ShopifyAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShopifyAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		271D48579709076FBBF73075 /* Pods-ShopifyApp-ShopifyAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShopifyApp-ShopifyAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-ShopifyApp-ShopifyAppUITests/Pods-ShopifyApp-ShopifyAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		30F1A54E878749744C4B8CC8 /* Pods-ShopifyAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShopifyAppTests.debug.xcconfig"; path = "Target Support Files/Pods-ShopifyAppTests/Pods-ShopifyAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -402,6 +408,7 @@
 		1654EB9E2835F202000B78F1 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
+				16F65512284DBC8D002F3BD3 /* LuanchAnimation.json */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -412,6 +419,8 @@
 				1654EB6E2835EB2F000B78F1 /* ViewController.swift */,
 				9C898C1128381A6200A86758 /* TabBarViewController.swift */,
 				9C898C1228381A6200A86758 /* TabBarViewController.xib */,
+				16F65514284DBCE0002F3BD3 /* LaunchViewController.swift */,
+				16F65515284DBCE0002F3BD3 /* LaunchViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -961,6 +970,7 @@
 				1654EB7A2835EB30000B78F1 /* LaunchScreen.storyboard in Resources */,
 				BE9E373C284BF6970061DF86 /* AddressCellTableViewCell.xib in Resources */,
 				9CB996D9283FD8C500136ABC /* SearchCollectionViewCell.xib in Resources */,
+				16F65513284DBC8D002F3BD3 /* LuanchAnimation.json in Resources */,
 				9C06B41F284BEC1B00B64732 /* OrderCollectionViewCell.xib in Resources */,
 				9CB996D3283FC59100136ABC /* AllProductsViewController.xib in Resources */,
 				9CCBF3DF283BF81F00825219 /* FavouriteViewController.xib in Resources */,
@@ -975,6 +985,7 @@
 				16873CDB283D86A000694061 /* ProductDetailsViewController.xib in Resources */,
 				3E37B9B2283D9853000A0FD9 /* LoginViewController.xib in Resources */,
 				16873CD4283D868A00694061 /* SizeTableViewCell.xib in Resources */,
+				16F65517284DBCE0002F3BD3 /* LaunchViewController.xib in Resources */,
 				BED44807283E582500EA74BC /* PaymentMethodViewController.xib in Resources */,
 				9C898C2028381C9500A86758 /* CategoryViewController.xib in Resources */,
 				3E75345E283ADFF70072EF9A /* AbsTableViewCell.xib in Resources */,
@@ -1135,6 +1146,7 @@
 				3EA433862846F415001FB269 /* Utilities.swift in Sources */,
 				162D068F284046C800820D0B /* Extentions.swift in Sources */,
 				16B7CB53283F0F27001E0342 /* productDetailsViewModel.swift in Sources */,
+				16F65516284DBCE0002F3BD3 /* LaunchViewController.swift in Sources */,
 				1654EB6F2835EB2F000B78F1 /* ViewController.swift in Sources */,
 				BED44808283E582500EA74BC /* PaymentMethodViewController.swift in Sources */,
 				9CCBF3DE283BF81F00825219 /* FavouriteViewController.swift in Sources */,

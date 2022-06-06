@@ -8,8 +8,8 @@
 import Foundation
 
 protocol RegisterViewModelType{
-    func registerCustomer(firstName: String, lastName: String, email: String, password: String)
-    func isEmailExist(email: String)-> Bool
+    func registerCustomer(firstName: String, lastName: String, email: String, password: String, completion: @escaping (Bool)->Void)
+    //func isEmailExist(email: String)-> Bool
 }
 
 class RegisterViewModel: RegisterViewModelType{
@@ -19,36 +19,36 @@ class RegisterViewModel: RegisterViewModelType{
     let network = APIClient()
     let userDefualt = Utilities()
     private var listOfCustomer : [CustomerModel] = []
-    func registerCustomer(firstName: String, lastName: String, email: String, password: String) {
-        if firstName != ""{
-            let customer = CustomerModel(first_name: firstName, last_name: lastName, email: email, phone: nil , tags: password, id: nil , verified_email: true, addresses: nil )
-            let newCustomer = Customer(customer: customer)
-            registerCustomer(customer: newCustomer)
-        }else{
-            print("invalid data ")
-        }
-    }
+    var flag: Bool = false
     
-    var isExist: Bool = false
-    func isEmailExist(email: String) -> Bool {
-//        network.login(email: email, password: ""){ [weak self] result  in
-//            switch result{
-//            case .success(let response):
-//                guard let checkedCustomer = response.customers else {return}
-//                self?.listOfCustomer = checkedCustomer
-//                for item in checkedCustomer {
-//                    let comingMail = item.email ?? ""
-//                    if comingMail == email{
-//                        self?.isExist = true
-//                    }
-//                }
-//
-//            case .failure(let error):
-//                print(error)
-//            }
-//
-//        }
-       return isExist
+    func registerCustomer(firstName: String, lastName: String, email: String, password: String, completion: @escaping (Bool)->Void ) {
+        flag = false
+        network.login(email: email, password: password){ [weak self] result  in
+            switch result{
+            case .success(let response):
+                guard let checkedCustomer = response.customers else {return}
+                self?.listOfCustomer = checkedCustomer
+                for item in checkedCustomer {
+                    let comingMail = item.email ?? ""
+                    if comingMail == email{
+                        self?.flag=true
+                    }
+                }
+                if self?.flag == false{
+                    let customer = CustomerModel(first_name: firstName, last_name: lastName, email: email, phone: nil , tags: password, id: nil , verified_email: true, addresses: nil )
+                    let newCustomer = Customer(customer: customer)
+                    self?.registerCustomer(customer: newCustomer)
+                    completion(true)
+                }else{
+                    completion(false)
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+            
+        }
+          
     }
    
     func registerCustomer(customer: Customer){
@@ -65,9 +65,11 @@ class RegisterViewModel: RegisterViewModelType{
                     let customerEmail = savedCustomer?["email"] as? String ?? ""
                     
                     if id != 0 {
+                        self?.userDefualt.login()
                         self?.userDefualt.addCustomerId(id: id)
                         self?.userDefualt.addCustomerEmail(customerEmail: customerEmail)
                         self?.userDefualt.addCustomerName(customerName: customerName)
+                        self?.userDefualt.login()
                         
                         print("add to userDefualt successfully!!!")
                     }else{
