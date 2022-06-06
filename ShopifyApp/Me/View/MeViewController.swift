@@ -65,7 +65,7 @@ class MeViewController: UIViewController {
     }
     func getAllOrders(){
         do{
-            try orderViewModel.getAllOrdersForSpecificCustomer(id: "6432303218917")
+            try orderViewModel.getAllOrdersForSpecificCustomer(id: "\(Utilities.utilities.getCustomerId())")
             orderViewModel.ordersObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
                 .observe(on: MainScheduler.asyncInstance)
                 .subscribe { orders in
@@ -112,18 +112,12 @@ class MeViewController: UIViewController {
         self.navigationController?.pushViewController(signUpVC, animated: true)
     }
     @IBAction func gotoCartScreen(_ sender: Any) {
-        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
-            if isLoggedIn {
                 let cartScreen = ShoppingCartVC(nibName: "ShoppingCartVC", bundle: nil)
                 self.navigationController?.pushViewController(cartScreen, animated: true)
-            }
-            else{
-                self.userFounView.isHidden = true
-                self.noUserFound.isHidden = false
-            }
-        }
     }
     @IBAction func gotoSetting(_ sender: Any) {
+        let settingsScreen = SettingsVC(nibName: "SettingsVC", bundle: nil)
+        self.navigationController?.pushViewController(settingsScreen, animated: true)
         
     }
     
@@ -132,18 +126,9 @@ class MeViewController: UIViewController {
         self.navigationController?.pushViewController(OrdersVC, animated: true)
     }
     @IBAction func gotoFavoriteScreen(_ sender: Any) {
-        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
-            if isLoggedIn {
                 let favScreen = FavouriteViewController(nibName: "FavouriteViewController", bundle: nil)
                 self.navigationController?.pushViewController(favScreen, animated: true)
-            }
-            else{
-                self.userFounView.isHidden = true
-                self.noUserFound.isHidden = false
-            }
         }
-
-    }
     
 }
 

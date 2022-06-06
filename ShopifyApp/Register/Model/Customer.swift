@@ -9,7 +9,7 @@ import Foundation
 
 
 struct AllCustomers: Codable{
-    let customers: [CustomerModel]
+    let customers: [CustomerModel]?
 }
 
 struct Customer: Codable{
@@ -31,11 +31,6 @@ struct Address: Codable {
     
     
  
-}
-
-
-struct LoginCustomer: Codable {
-    let customers: [CustomerModel]?
 }
 extension Encodable {
   func asDictionary() throws -> [String: Any] {

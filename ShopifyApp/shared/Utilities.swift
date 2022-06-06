@@ -42,6 +42,9 @@ class Utilities{
     func login() {
         UserDefaults.standard.set(true, forKey: "isLoggedIn")
     }
+    func logout() {
+        UserDefaults.standard.set(false, forKey: "isLoggedIn")
+    }
     
     func addId(id: Int) {
         UserDefaults.standard.set(id, forKey: "id")

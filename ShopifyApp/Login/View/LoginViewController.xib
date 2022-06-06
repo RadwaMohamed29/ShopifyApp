@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
                 <outlet property="emailLabel" destination="fWe-ht-BlO" id="iuV-AQ-JSZ"/>
+                <outlet property="errorLabel" destination="V20-H2-JOB" id="axe-sk-dHP"/>
                 <outlet property="passwordLabel" destination="EKE-Fq-ov6" id="CGV-3r-9mJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -157,6 +158,12 @@
                         <action selector="registerBtn:" destination="-1" eventType="touchUpInside" id="5WE-MN-z3s"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V20-H2-JOB">
+                    <rect key="frame" x="42" y="256" width="330" height="34"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" systemColor="systemRedColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -166,13 +173,17 @@
                 <constraint firstItem="RNk-a9-sih" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="18" id="7gQ-Q8-ISk"/>
                 <constraint firstItem="Pbe-dl-wrp" firstAttribute="top" secondItem="EKE-Fq-ov6" secondAttribute="bottom" constant="76" id="AlX-C8-SJ7"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Pcf-ne-ER8" secondAttribute="trailing" constant="18" id="CN4-04-fdA"/>
+                <constraint firstItem="V20-H2-JOB" firstAttribute="height" secondItem="Pcf-ne-ER8" secondAttribute="height" multiplier="1.47826" id="E6a-uB-Nf0"/>
                 <constraint firstItem="Aba-NN-aVh" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.496377" id="FYI-O3-hla"/>
+                <constraint firstItem="V20-H2-JOB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="42" id="Hj5-zn-GPk"/>
                 <constraint firstItem="RNk-a9-sih" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="I2l-fV-4vP"/>
                 <constraint firstItem="Pcf-ne-ER8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="Ij9-NT-E0l"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="V20-H2-JOB" secondAttribute="trailing" constant="42" id="Jhq-rk-gNN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gk2-8j-Dnb" secondAttribute="trailing" constant="250" id="Jp5-tn-p2r"/>
                 <constraint firstItem="Pbe-dl-wrp" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.408213" id="KdD-zK-kh5"/>
                 <constraint firstItem="fWe-ht-BlO" firstAttribute="top" secondItem="gk2-8j-Dnb" secondAttribute="bottom" constant="8" id="Kpv-wi-H67"/>
                 <constraint firstItem="fWe-ht-BlO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="QSO-SA-WKv"/>
+                <constraint firstItem="V20-H2-JOB" firstAttribute="centerX" secondItem="Pcf-ne-ER8" secondAttribute="centerX" id="T4V-XN-i3b"/>
                 <constraint firstItem="EKE-Fq-ov6" firstAttribute="top" secondItem="Pk7-FK-2vf" secondAttribute="bottom" constant="8" id="WQ1-fq-T31"/>
                 <constraint firstItem="Pk7-FK-2vf" firstAttribute="top" secondItem="fWe-ht-BlO" secondAttribute="bottom" constant="18" id="Zew-Kj-lnV"/>
                 <constraint firstItem="Aba-NN-aVh" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0267857" id="aCC-iP-daV"/>
@@ -182,28 +193,24 @@
                 <constraint firstItem="Pk7-FK-2vf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="ejF-Qk-oRe"/>
                 <constraint firstItem="Pcf-ne-ER8" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="fcd-OF-0To"/>
                 <constraint firstItem="Aba-NN-aVh" firstAttribute="top" secondItem="Pbe-dl-wrp" secondAttribute="bottom" constant="24" id="g7D-PO-Eit"/>
+                <constraint firstItem="V20-H2-JOB" firstAttribute="top" secondItem="Pcf-ne-ER8" secondAttribute="bottom" constant="8" id="hgK-WI-QkY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Pk7-FK-2vf" secondAttribute="trailing" constant="250" id="i4c-4a-jWI"/>
                 <constraint firstItem="J14-uj-q4y" firstAttribute="centerY" secondItem="Aba-NN-aVh" secondAttribute="centerY" id="iqk-J0-dnV"/>
                 <constraint firstItem="Pbe-dl-wrp" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0636161" id="kB9-rn-Sac"/>
+                <constraint firstItem="V20-H2-JOB" firstAttribute="width" secondItem="Pcf-ne-ER8" secondAttribute="width" multiplier="0.873016" id="ljm-hM-5RW"/>
                 <constraint firstItem="Pcf-ne-ER8" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="mXn-ib-Fwy"/>
                 <constraint firstItem="gk2-8j-Dnb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="sDs-dB-h5s"/>
+                <constraint firstItem="V20-H2-JOB" firstAttribute="leading" secondItem="Pcf-ne-ER8" secondAttribute="trailing" constant="-354" id="u55-3G-562"/>
                 <constraint firstItem="Pbe-dl-wrp" firstAttribute="centerX" secondItem="EKE-Fq-ov6" secondAttribute="centerX" id="uVj-o6-o0g"/>
                 <constraint firstItem="RNk-a9-sih" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.408213" id="wNq-bG-jrb"/>
                 <constraint firstItem="gk2-8j-Dnb" firstAttribute="top" secondItem="Pcf-ne-ER8" secondAttribute="bottom" constant="50" id="wSO-Yk-nhb"/>
                 <constraint firstItem="RNk-a9-sih" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.159598" id="yE8-13-Tj3"/>
+                <constraint firstItem="gk2-8j-Dnb" firstAttribute="top" secondItem="V20-H2-JOB" secondAttribute="bottom" constant="8" id="yVN-x4-bEf"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="EKE-Fq-ov6" secondAttribute="trailing" constant="46" id="z4n-3L-XVg"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="69.642857142857139"/>
         </view>
     </objects>
-    <designables>
-        <designable name="EKE-Fq-ov6">
-            <size key="intrinsicContentSize" width="31" height="38.5"/>
-        </designable>
-        <designable name="fWe-ht-BlO">
-            <size key="intrinsicContentSize" width="31" height="39.5"/>
-        </designable>
-    </designables>
     <resources>
         <image name="login" width="800" height="566"/>
         <systemColor name="systemBackgroundColor">
@@ -211,6 +218,9 @@
         </systemColor>
         <systemColor name="systemMintColor">
             <color red="0.0" green="0.7803921568627451" blue="0.74509803921568629" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
