@@ -28,24 +28,33 @@ class RegisterViewController: UIViewController {
 
 
     @IBAction func signUpBtn(_ sender: Any) {
-        firstName = firstNameText.text ?? ""
-        lastName = lastNameText.text ?? ""
-        email = emailText.text ?? ""
-        password = passwordText.text ?? ""
+        self.lblValidation.isHidden = true
+        firstName = firstNameText.text
+        lastName = lastNameText.text
+        email = emailText.text
+        password = passwordText.text
+        
         if firstName != "" && lastName != ""{
             if userDefualt.isValidEmail(email){
                 
                 if password.count >= 6{
-                    if registerViewModel.isEmailExist(email: email){
-                        registerViewModel.registerCustomer(firstName: firstName ?? "", lastName: lastName ?? "" , email: email ?? "", password: password ?? "")
-                        self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
-                        self.navigationController?.popViewController(animated: true)
-                        print("from view  \(String(describing: firstName ?? ""))")
-                    }else{
-                        lblValidation.isHidden = false
-                        lblValidation.text = "This user already exists"
-                    }
-                  
+                        registerViewModel.registerCustomer(firstName: firstName , lastName: lastName , email: email, password: password){ result in
+                            switch result{
+                            case true:
+                                DispatchQueue.main.async {
+                                    let a = TabBarViewController(nibName:"TabBarViewController", bundle: nil)
+                                    self.navigationController?.pushViewController(a, animated: true)
+                                }
+                               
+                                print("from view  \(String(describing: self.firstName ?? ""))")
+                            case false:
+                                DispatchQueue.main.async {
+                                    self.lblValidation.isHidden = false
+                                    self.lblValidation.text = "This user already exists"
+                                }
+                               
+                            }
+                        }
                 }else{
                     lblValidation.isHidden = false
                     lblValidation.text = "Password must be more than 5 digit "
