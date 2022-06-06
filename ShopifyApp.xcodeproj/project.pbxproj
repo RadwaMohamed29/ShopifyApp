@@ -34,7 +34,6 @@
 		16A24343284993CC00A6154F /* ReviewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A24341284993CC00A6154F /* ReviewsCollectionViewCell.xib */; };
 		16B7CB50283EF5B1001E0342 /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B7CB4F283EF5B1001E0342 /* Product.swift */; };
 		16B7CB53283F0F27001E0342 /* productDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B7CB52283F0F27001E0342 /* productDetailsViewModel.swift */; };
-		16F65513284DBC8D002F3BD3 /* LuanchAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = 16F65512284DBC8D002F3BD3 /* LuanchAnimation.json */; };
 		16F65516284DBCE0002F3BD3 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F65514284DBCE0002F3BD3 /* LaunchViewController.swift */; };
 		16F65517284DBCE0002F3BD3 /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16F65515284DBCE0002F3BD3 /* LaunchViewController.xib */; };
 		3E0865D6283EE3E500755C18 /* Brands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0865D5283EE3E500755C18 /* Brands.swift */; };
@@ -161,7 +160,6 @@
 		16A24341284993CC00A6154F /* ReviewsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewsCollectionViewCell.xib; sourceTree = "<group>"; };
 		16B7CB4F283EF5B1001E0342 /* Product.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		16B7CB52283F0F27001E0342 /* productDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = productDetailsViewModel.swift; sourceTree = "<group>"; };
-		16F65512284DBC8D002F3BD3 /* LuanchAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LuanchAnimation.json; sourceTree = "<group>"; };
 		16F65514284DBCE0002F3BD3 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		16F65515284DBCE0002F3BD3 /* LaunchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LaunchViewController.xib; sourceTree = "<group>"; };
 		16F7124AE54113161E6F75CE /* Pods_ShopifyAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShopifyAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -408,7 +406,6 @@
 		1654EB9E2835F202000B78F1 /* Animation */ = {
 			isa = PBXGroup;
 			children = (
-				16F65512284DBC8D002F3BD3 /* LuanchAnimation.json */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -970,7 +967,6 @@
 				1654EB7A2835EB30000B78F1 /* LaunchScreen.storyboard in Resources */,
 				BE9E373C284BF6970061DF86 /* AddressCellTableViewCell.xib in Resources */,
 				9CB996D9283FD8C500136ABC /* SearchCollectionViewCell.xib in Resources */,
-				16F65513284DBC8D002F3BD3 /* LuanchAnimation.json in Resources */,
 				9C06B41F284BEC1B00B64732 /* OrderCollectionViewCell.xib in Resources */,
 				9CB996D3283FC59100136ABC /* AllProductsViewController.xib in Resources */,
 				9CCBF3DF283BF81F00825219 /* FavouriteViewController.xib in Resources */,

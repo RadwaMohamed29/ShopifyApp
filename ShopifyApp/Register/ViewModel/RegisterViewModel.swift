@@ -23,7 +23,7 @@ class RegisterViewModel: RegisterViewModelType{
     
     func registerCustomer(firstName: String, lastName: String, email: String, password: String, completion: @escaping (Bool)->Void ) {
         flag = false
-        network.login(email: email, password: password){ [weak self] result  in
+        network.getAllCustomers{ [weak self] result  in
             switch result{
             case .success(let response):
                 guard let checkedCustomer = response.customers else {return}
