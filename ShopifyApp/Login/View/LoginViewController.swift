@@ -39,8 +39,6 @@ class LoginViewController: UIViewController {
     func navigate(){
         DispatchQueue.main.async {
             self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
-//         let a = HomeViewController(nibName:"HomeViewController", bundle: nil)
-//         self.navigationController?.pushViewController(a, animated: true)
             self.navigationController?.popViewController(animated: true)
         }
     }

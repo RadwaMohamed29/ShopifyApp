@@ -11,6 +11,7 @@ class SettingsVC: UIViewController {
 
     @IBOutlet weak var currentAdd: UILabel!
     @IBOutlet weak var currencyChange: UISegmentedControl!
+    @IBOutlet weak var logut: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
@@ -20,15 +21,11 @@ class SettingsVC: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-
     }
     @IBAction func websiteBtn(_ sender: Any) {
     }
     
     @IBAction func faceBookBtn(_ sender: Any) {
-    }
-    @IBAction func contactUsBtn(_ sender: Any) {
-        
     }
     @IBAction func aboutBtn(_ sender: Any) {
         

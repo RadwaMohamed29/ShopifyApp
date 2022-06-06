@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="currencyChange" destination="4Dh-aw-nOP" id="xgE-e3-wwl"/>
                 <outlet property="currentAdd" destination="fFP-fG-u3g" id="958-8Y-wyf"/>
+                <outlet property="logut" destination="VgN-WK-ae7" id="HJZ-P8-C0d"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -86,9 +87,6 @@
                                     </fragment>
                                 </attributedString>
                             </buttonConfiguration>
-                            <connections>
-                                <action selector="contactUs:" destination="-1" eventType="touchUpInside" id="856-sp-y29"/>
-                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VgN-WK-ae7">
                             <rect key="frame" x="69" y="560" width="276" height="43"/>
