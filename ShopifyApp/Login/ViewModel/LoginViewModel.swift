@@ -13,7 +13,7 @@ protocol LoginViewModelType{
     var bindDontNavigate:(()->()) {get set}
     var navigate:Bool!{get set}
     var notFound:Bool!{get set}
-    var alertMessage: String! {get}
+    var errorMessage: String! {get}
 }
 class LoginViewModel: LoginViewModelType{
     let network = APIClient()
@@ -21,7 +21,7 @@ class LoginViewModel: LoginViewModelType{
     private var listOfCustomer : [CustomerModel] = []
     var bindNavigate:(()->()) = {}
     var bindDontNavigate:(()->()) = {}
-    var alertMessage: String!{
+    var errorMessage: String!{
         didSet{
             bindDontNavigate()
         }
@@ -57,21 +57,21 @@ class LoginViewModel: LoginViewModelType{
                         }
                         guard let _ = self?.navigate else{
                             self?.notFound = true
-                            self?.alertMessage = "user not exist, please check your information"
+                            self?.errorMessage = "user not exist, please check your information"
                             return
                         }
                     case .failure(let error):
-                        self?.alertMessage = "Error occured while logging-in, please try again later"
+                        self?.errorMessage = "Error occured while logging-in, please try again later"
                         print(error)
                     }
                 }
             }
             else{
-                alertMessage = "Password should be 6 characters at least"
+                errorMessage = "Password should be 6 characters at least"
             }
         }
         else{
-            alertMessage = "Please enter a valid email"
+            errorMessage = "Please enter a valid email"
         }
     }
     
