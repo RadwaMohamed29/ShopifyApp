@@ -124,6 +124,8 @@ class MeViewController: UIViewController {
         }
     }
     @IBAction func gotoSetting(_ sender: Any) {
+        let settingsScreen = SettingsVC(nibName: "SettingsVC", bundle: nil)
+        self.navigationController?.pushViewController(settingsScreen, animated: true)
         
     }
     
