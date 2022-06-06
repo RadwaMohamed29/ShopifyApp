@@ -31,24 +31,24 @@ class RegisterViewModel: RegisterViewModelType{
     
     var isExist: Bool = false
     func isEmailExist(email: String) -> Bool {
-        network.login(email: email, password: ""){ [weak self] result  in
-            switch result{
-            case .success(let response):
-                guard let checkedCustomer = response.customers else {return}
-                self?.listOfCustomer = checkedCustomer
-                for item in checkedCustomer {
-                    let comingMail = item.email ?? ""
-                    if comingMail == email{
-                        self?.isExist = true
-                    }
-                }
-                
-            case .failure(let error):
-                print(error)
-            }
-            
-        }
-        return isExist
+//        network.login(email: email, password: ""){ [weak self] result  in
+//            switch result{
+//            case .success(let response):
+//                guard let checkedCustomer = response.customers else {return}
+//                self?.listOfCustomer = checkedCustomer
+//                for item in checkedCustomer {
+//                    let comingMail = item.email ?? ""
+//                    if comingMail == email{
+//                        self?.isExist = true
+//                    }
+//                }
+//
+//            case .failure(let error):
+//                print(error)
+//            }
+//
+//        }
+       return isExist
     }
    
     func registerCustomer(customer: Customer){
