@@ -24,8 +24,12 @@ class HomeViewController: UIViewController,brandIdProtocol {
         refreshControl.tintColor = UIColor.darkGray
         refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
         homeTV.addSubview(refreshControl)
-        cartBtn.setBadge(text: String(describing:localDataSource.getCountOfProductInCart()))
-        favBtn.setBadge(text: String(describing: localDataSource.getCountOfProductInFav()))
+        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
+            if isLoggedIn{
+                self.cartBtn.setBadge(text: String(describing:self.localDataSource.getCountOfProductInCart()))
+                self.favBtn.setBadge(text: String(describing: self.localDataSource.getCountOfProductInFav()))
+            }
+        }
         checkConnection()
     }
     func setupTableView(){
