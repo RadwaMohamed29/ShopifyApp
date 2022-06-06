@@ -45,8 +45,9 @@ class RegisterViewController: UIViewController {
                             switch result{
                             case true:
                                 DispatchQueue.main.async {
-                                    let a = TabBarViewController(nibName:"TabBarViewController", bundle: nil)
-                                    self.navigationController?.pushViewController(a, animated: true)
+//                                    let a = TabBarViewController(nibName:"TabBarViewController", bundle: nil)
+//                                    self.navigationController?.pushViewController(a, animated: true)
+                                    self.navigationController?.popViewController(animated: true)
                                 }
                                
                                 print("from view  \(String(describing: self.firstName ?? ""))")
