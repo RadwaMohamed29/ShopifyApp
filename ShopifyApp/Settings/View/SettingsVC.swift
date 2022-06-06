@@ -15,7 +15,7 @@ class SettingsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
-
+        
 
         // Do any additional setup after loading the view.
     }
@@ -36,6 +36,8 @@ class SettingsVC: UIViewController {
     }
     
     @IBAction func logoutBtn(_ sender: Any) {
+        Utilities.utilities.logout()
+        self.navigationController?.popViewController(animated: true)
     }
     /*
     // MARK: - Navigation

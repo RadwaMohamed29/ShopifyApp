@@ -51,6 +51,7 @@ class LoginViewModel: LoginViewModelType{
                                 // address
                                 self?.userDefualt.login()
                                 self?.userDefualt.addId(id: item.id ?? 0)
+                                self?.userDefualt.addCustomerName(customerName: "\(item.first_name!) \(item.last_name!)")
                                 self?.navigate = true
                                 break
                             }
