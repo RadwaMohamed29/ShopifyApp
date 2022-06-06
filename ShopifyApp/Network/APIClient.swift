@@ -19,7 +19,8 @@ class APIClient: NetworkServiceProtocol{
         request(endpoint: .CustomerOrders(id: id), method: .GET, compeletion: completion)
     }    
     func registerCustomerProtocol(newCustomer: Customer, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        registerCustomer(endpoint: .Customers, newCustomer: newCustomer, completion: completion)
+//        registerCustomer(endpoint: .Customers, newCustomer: newCustomer, completion: completion)
+        apiPost(endPoint: .Customers, methods: .POST, modelType: newCustomer, completion: completion)
     }
     
   
@@ -76,28 +77,24 @@ class APIClient: NetworkServiceProtocol{
         
     }
     
-    func apiPost<T:Codable>(endPoint:Endpoints, methods:Methods, completion: @escaping (Result<T, ErrorType>)->()) {
-        let path = "\(BASE_URL)\(endPoint)"
-        let urlString = path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        guard let url = urlString else {
-            completion(.failure(.urlBadFormmated))
-            return
+    func apiPost<T:Codable>(endPoint:Endpoints, methods:Methods, modelType:T, completion: @escaping (Data?, URLResponse?, Error?)->()) {
+            guard let url = URL(string: "\(BASE_URL)\(endPoint.path)") else {return}
+            var request = URLRequest(url: url)
+            request.httpMethod = "\(Methods.POST)"
+            let session = URLSession.shared
+            request.httpShouldHandleCookies = false
+            do{
+                request.httpBody = try JSONSerialization.data(withJSONObject: modelType.asDictionary(), options: .prettyPrinted)
+            }catch let error{
+                print(error.localizedDescription)
+            }
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.addValue("application/json", forHTTPHeaderField: "Accept")
+            
+            session.dataTask(with: request) {(data, response, error)in
+                completion(data, response, error)
+            }.resume()
         }
-        guard let urlRequest = URL(string: url) else {
-            completion(.failure(.InternalError))
-            return
-        }
-        var request = URLRequest(url:urlRequest)
-        do{
-            request.httpBody = try JSONSerialization.data(withJSONObject: T.asDictionary((Decodable & Encodable).self as! T), options: .prettyPrinted)
-        }catch let error{
-            print(error.localizedDescription)
-        }
-        request.httpMethod = "\(methods)"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        callNetwork(urlRequest: request, completion: completion)
-    }
     
     func callNetwork<T:Codable>(urlRequest:URLRequest, completion: @escaping (Result<T, ErrorType>) -> Void) {
         
