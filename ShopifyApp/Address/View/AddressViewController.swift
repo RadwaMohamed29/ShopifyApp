@@ -76,6 +76,10 @@ class AddressViewController: UIViewController {
         }.disposed(by: disposeBag)
 
     }
+    override func addChild(_ childController: UIViewController) {
+        
+    }
+    
     
 }
 
@@ -103,6 +107,19 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
                 return cell
     }
     
+    func addChildViewController(addressVC:UIViewController){
+        
+        view.addSubview(addressVC.view)
+        addressVC.didMove(toParent: self)
+    }
+//
+    func displayVC(content:UIViewController) {
+        addChild(content)
+        self.view.addSubview(content.view)
+        content.didMove(toParent: self)
+    }
+    
+    
     
     
     func setupTable() {
@@ -114,6 +131,10 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
     
     @objc func addAddress() {
         print("add pressed")
+//        displayVC(content: PostAddressViewController())
+        let post = PostAddressViewController(nibName: "PostAddressViewController", bundle: nil)
+        self.navigationController?.pushViewController(post, animated: true)
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

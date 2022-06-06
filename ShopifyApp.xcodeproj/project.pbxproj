@@ -96,6 +96,8 @@
 		BE9E373B284BF6970061DF86 /* AddressCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9E3739284BF6970061DF86 /* AddressCellTableViewCell.swift */; };
 		BE9E373C284BF6970061DF86 /* AddressCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9E373A284BF6970061DF86 /* AddressCellTableViewCell.xib */; };
 		BE9E373F284BF6E00061DF86 /* AddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9E373E284BF6E00061DF86 /* AddressViewModel.swift */; };
+		BEA1A24D284D54D8004B7E69 /* PostAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1A24B284D54D8004B7E69 /* PostAddressViewController.swift */; };
+		BEA1A24E284D54D8004B7E69 /* PostAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA1A24C284D54D8004B7E69 /* PostAddressViewController.xib */; };
 		BED44803283E57EA00EA74BC /* CheckoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED44801283E57EA00EA74BC /* CheckoutViewController.xib */; };
 		BED44804283E57EA00EA74BC /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED44802283E57EA00EA74BC /* CheckoutViewController.swift */; };
 		BED44807283E582500EA74BC /* PaymentMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED44805283E582400EA74BC /* PaymentMethodViewController.xib */; };
@@ -222,6 +224,8 @@
 		BE9E3739284BF6970061DF86 /* AddressCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressCellTableViewCell.swift; sourceTree = "<group>"; };
 		BE9E373A284BF6970061DF86 /* AddressCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressCellTableViewCell.xib; sourceTree = "<group>"; };
 		BE9E373E284BF6E00061DF86 /* AddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewModel.swift; sourceTree = "<group>"; };
+		BEA1A24B284D54D8004B7E69 /* PostAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAddressViewController.swift; sourceTree = "<group>"; };
+		BEA1A24C284D54D8004B7E69 /* PostAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostAddressViewController.xib; sourceTree = "<group>"; };
 		BED44801283E57EA00EA74BC /* CheckoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckoutViewController.xib; sourceTree = "<group>"; };
 		BED44802283E57EA00EA74BC /* CheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		BED44805283E582400EA74BC /* PaymentMethodViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentMethodViewController.xib; sourceTree = "<group>"; };
@@ -804,6 +808,8 @@
 				BE9E3735284BF6270061DF86 /* AddressViewController.xib */,
 				BE9E3739284BF6970061DF86 /* AddressCellTableViewCell.swift */,
 				BE9E373A284BF6970061DF86 /* AddressCellTableViewCell.xib */,
+				BEA1A24B284D54D8004B7E69 /* PostAddressViewController.swift */,
+				BEA1A24C284D54D8004B7E69 /* PostAddressViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -953,6 +959,7 @@
 				3E37B9B2283D9853000A0FD9 /* LoginViewController.xib in Resources */,
 				16873CD4283D868A00694061 /* SizeTableViewCell.xib in Resources */,
 				BED44807283E582500EA74BC /* PaymentMethodViewController.xib in Resources */,
+				BEA1A24E284D54D8004B7E69 /* PostAddressViewController.xib in Resources */,
 				9C898C2028381C9500A86758 /* CategoryViewController.xib in Resources */,
 				3E75345E283ADFF70072EF9A /* AbsTableViewCell.xib in Resources */,
 				BED44803283E57EA00EA74BC /* CheckoutViewController.xib in Resources */,
@@ -1133,6 +1140,7 @@
 				3EA736682842B2FB002B32DA /* HandelConnection.swift in Sources */,
 				1654EBA32836091F000B78F1 /* APIClient.swift in Sources */,
 				9CA3FC9728426569005FF7CF /* Shared.swift in Sources */,
+				BEA1A24D284D54D8004B7E69 /* PostAddressViewController.swift in Sources */,
 				3E37B9AE283D9845000A0FD9 /* RegisterViewController.swift in Sources */,
 				3E374BE228428EB30008CD46 /* CartModel.swift in Sources */,
 				169AD90D28481760000481B1 /* Customer.swift in Sources */,
