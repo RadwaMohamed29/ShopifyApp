@@ -9,22 +9,23 @@ import Foundation
 import SwiftMessages
 protocol LoginViewModelType{
     func loginCustomer(email: String, password: String)
-    var navigate:Bool!{get set}
-    var notFound:Bool!{get set}
     var bindNavigate:(()->()) {get set}
     var bindDontNavigate:(()->()) {get set}
+    var navigate:Bool!{get set}
+    var notFound:Bool!{get set}
     var alertMessage: String! {get}
 }
 class LoginViewModel: LoginViewModelType{
     let network = APIClient()
     let userDefualt = Utilities()
-    
+    private var listOfCustomer : [CustomerModel] = []
+    var bindNavigate:(()->()) = {}
+    var bindDontNavigate:(()->()) = {}
     var alertMessage: String!{
         didSet{
             bindDontNavigate()
         }
     }
-    
     var navigate: Bool! {
         didSet{
             bindNavigate()
@@ -35,14 +36,10 @@ class LoginViewModel: LoginViewModelType{
             bindDontNavigate()
         }
     }
-
-    var bindNavigate:(()->()) = {}
-    var bindDontNavigate:(()->()) = {}
-    private var listOfCustomer : [CustomerModel] = []
     func loginCustomer(email: String, password: String) {
         if userDefualt.isValidEmail(email) {
             if password.count >= 6 {
-                network.login(email: email, password: password) { [weak self] result  in
+                network.getAllCustomers{ [weak self] result  in
                     switch result {
                     case .success(let response):
                         guard let customer = response.customers else {return}
@@ -60,11 +57,11 @@ class LoginViewModel: LoginViewModelType{
                         }
                         guard let _ = self?.navigate else{
                             self?.notFound = true
-                            self?.alertMessage = "Can't login, please check your information"
+                            self?.alertMessage = "user not exist, please check your information"
                             return
                         }
                     case .failure(let error):
-                        self?.alertMessage = "An error occured while logging-in, please try again later"
+                        self?.alertMessage = "Error occured while logging-in, please try again later"
                         print(error)
                     }
                 }

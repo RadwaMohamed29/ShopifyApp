@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
             self?.navigate()
         }
         viewModel.bindDontNavigate = { [weak self] in
-            let message = self?.viewModel.alertMessage ?? "Can't login, please check your information"
+            let message = self?.viewModel.alertMessage ?? "user not exist, please check your information"
             self?.showAlret(message: message)
         }
     }
@@ -39,8 +39,6 @@ class LoginViewController: UIViewController {
     func navigate(){
         DispatchQueue.main.async {
             self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
-//         let a = HomeViewController(nibName:"HomeViewController", bundle: nil)
-//         self.navigationController?.pushViewController(a, animated: true)
             self.navigationController?.popViewController(animated: true)
         }
     }

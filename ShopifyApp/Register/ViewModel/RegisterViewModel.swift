@@ -48,8 +48,7 @@ class RegisterViewModel: RegisterViewModelType{
             }
             
         }
-           
-    
+          
     }
    
     func registerCustomer(customer: Customer){
