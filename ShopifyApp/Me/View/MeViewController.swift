@@ -48,6 +48,7 @@ class MeViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
             if isLoggedIn {
                 self.noUserFound.isHidden = true

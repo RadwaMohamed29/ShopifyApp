@@ -76,6 +76,29 @@ class APIClient: NetworkServiceProtocol{
         
     }
     
+    func apiPost<T:Codable>(endPoint:Endpoints, methods:Methods, completion: @escaping (Result<T, ErrorType>)->()) {
+        let path = "\(BASE_URL)\(endPoint)"
+        let urlString = path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        guard let url = urlString else {
+            completion(.failure(.urlBadFormmated))
+            return
+        }
+        guard let urlRequest = URL(string: url) else {
+            completion(.failure(.InternalError))
+            return
+        }
+        var request = URLRequest(url:urlRequest)
+        do{
+            request.httpBody = try JSONSerialization.data(withJSONObject: T.asDictionary((Decodable & Encodable).self as! T), options: .prettyPrinted)
+        }catch let error{
+            print(error.localizedDescription)
+        }
+        request.httpMethod = "\(methods)"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        callNetwork(urlRequest: request, completion: completion)
+    }
+    
     func callNetwork<T:Codable>(urlRequest:URLRequest, completion: @escaping (Result<T, ErrorType>) -> Void) {
         
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
