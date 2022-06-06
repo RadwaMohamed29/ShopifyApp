@@ -45,6 +45,17 @@ class AddressViewModel:AddressViewModelProtocol{
         }
     }
 
+    func postNewAddress(id:String, customerAddress:Address) {
+//        network.postAddress(id: id) { response in
+//            switch response {
+//            case .success(let customerAddress):
+//                    print("succeded")
+//            case .failure(let error):
+//                print("\(error.localizedDescription)")
+//            }
+//        }
+    }
+    
     
     func checkConnection() {
         HandelConnection.handelConnection.checkNetworkConnection { [weak self] isconn in
