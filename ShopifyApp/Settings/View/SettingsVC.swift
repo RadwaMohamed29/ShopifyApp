@@ -12,7 +12,6 @@ class SettingsVC: UIViewController {
     @IBOutlet weak var currentAdd: UILabel!
     @IBOutlet weak var currencyChange: UISegmentedControl!
     @IBOutlet weak var logut: UIButton!
-    let userDefault = Utilities()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
@@ -37,7 +36,7 @@ class SettingsVC: UIViewController {
     }
     
     @IBAction func logoutBtn(_ sender: Any) {
-        userDefault.logout()
+        Utilities.utilities.logout()
         self.navigationController?.popViewController(animated: true)
     }
     /*

@@ -8,8 +8,7 @@
 import UIKit
 import RxSwift
 
-class AllOrdersViewController: UIViewController {
-
+class AllOrdersViewController: UIViewController {    
     var listOfOrders : [Order] = []
     let disBag = DisposeBag()
     @IBOutlet weak var orderCV: UICollectionView!
@@ -30,7 +29,7 @@ class AllOrdersViewController: UIViewController {
     }
     func getAllOrders(){
         do{
-            try orderViewModel.getAllOrdersForSpecificCustomer(id: "6432303218917")
+            try orderViewModel.getAllOrdersForSpecificCustomer(id: "\(Utilities.utilities.getCustomerId())")
             orderViewModel.ordersObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
                 .observe(on: MainScheduler.asyncInstance)
                 .subscribe { orders in
