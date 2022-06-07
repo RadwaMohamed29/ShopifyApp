@@ -50,7 +50,7 @@ final class LocalDataSource: LocalDataSourcable{
     
     func removeProductFromCoreData(productID: String) throws {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavouriteProduct")
-        let myPredicate = NSPredicate(format: "id == %@", productID)
+        let myPredicate = NSPredicate(format: "customer_id == \(Utilities.utilities.getCustomerId()) && id == %@", productID)
         fetchRequest.predicate = myPredicate
         do{
             let productList = try context.fetch(fetchRequest)
