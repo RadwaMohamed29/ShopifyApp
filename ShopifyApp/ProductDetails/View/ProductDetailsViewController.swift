@@ -163,6 +163,8 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         favProduct.title = product?.title
         favProduct.body_html = product?.bodyHTML
         favProduct.scr = product?.image.src
+        favProduct.customer_id = "\(Utilities.utilities.getCustomerId())"
+
         
     }
     @IBAction func addToCartBtn(_ sender: Any) {

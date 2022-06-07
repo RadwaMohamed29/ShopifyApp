@@ -174,8 +174,6 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         else{
             convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
             Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
-            
-           
         }
       }
     
@@ -185,6 +183,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         favProduct.title = listOfProducts[recognizer.tag].title
         favProduct.body_html = listOfProducts[recognizer.tag].bodyHTML
         favProduct.scr = listOfProducts[recognizer.tag].image.src
+        favProduct.customer_id = "\(Utilities.utilities.getCustomerId())"
         
     }
     
