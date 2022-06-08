@@ -6,23 +6,44 @@
 //
 
 import UIKit
-
+import RxSwift
 class AbsTableViewCell: UITableViewCell {
     @IBOutlet weak var adsCollectionView: UICollectionView!
     @IBOutlet weak var pageController: UIPageControl!
+
     static let identifier = "AbsTableViewCell"
     static func Nib()-> UINib{
         return UINib(nibName: "AbsTableViewCell", bundle: nil)
     }
-    var arrayOfAds: [String] = ["ads1", "ads2", "ads3", "ads4","ads5"]
+    var arrayOfAds: [String] = ["ads1","ads2","ads3","ads4"]
     var timer: Timer?
     var currentAdsIndex = 0
+    var arrDiscountCodes = [String]()
+    var homeViewModel: HomeViewModel?
+    let disBag = DisposeBag()
+    var myDiscount:String = "1173393834242"
+    var adds: [Discount_codes] = []
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCollectionView()
         setupTimer()
-        // Initialization code
+        homeViewModel = HomeViewModel()
+        getAllDiscountFromApi()
     }
+    func getAllDiscountFromApi(){
+        homeViewModel?.getDiscountCode(priceRule: myDiscount)
+        homeViewModel?.allDiscountObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { coupons in
+                self.adds = coupons
+                self.adsCollectionView.reloadData()
+            } onError: { error in
+                print(error)
+            }.disposed(by: disBag)
+    }
+
+
     func setupCollectionView(){
         adsCollectionView.register(AbsCollectionViewCell.Nib(), forCellWithReuseIdentifier: AbsCollectionViewCell.identifier)
         adsCollectionView.delegate = self
@@ -43,16 +64,12 @@ class AbsTableViewCell: UITableViewCell {
         adsCollectionView.scrollToItem(at: IndexPath(row: currentAdsIndex, section: 0), at: .centeredHorizontally, animated: true)
         pageController.currentPage = currentAdsIndex
     }
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
+    
     
 }
 extension AbsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return arrayOfAds.count
+     return arrayOfAds.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -67,5 +84,4 @@ extension AbsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.frame.width, height: 210)
     }
-    
 }

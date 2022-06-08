@@ -7,9 +7,13 @@
 
 import Foundation
 import Alamofire
-private let BASE_URL = "https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/"
+private let BASE_URL = "https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/"
 
 class APIClient: NetworkServiceProtocol{
+
+    func getDiscountCode(priceRule: String, completion: @escaping (Result<DiscountCode, ErrorType>) -> Void) {
+        request(endpoint: .getDiscountCode(priceRule: priceRule), method: .GET, compeletion: completion)
+    }
     func getAllCustomers(completion: @escaping (Result<AllCustomers, ErrorType>) -> Void) {
         request(endpoint: .Customers, method: .GET, compeletion: completion)
     }
@@ -19,12 +23,8 @@ class APIClient: NetworkServiceProtocol{
         request(endpoint: .CustomerOrders(id: id), method: .GET, compeletion: completion)
     }    
     func registerCustomerProtocol(newCustomer: Customer, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-//        registerCustomer(endpoint: .Customers, newCustomer: newCustomer, completion: completion)
         apiPost(endPoint: .Customers, methods: .POST, modelType: newCustomer, completion: completion)
     }
-    
-  
-    
     func productOfBrandsProvider(id: String, completion: @escaping (Result<AllProducts, ErrorType>) -> Void) {
         request(endpoint: .CollectionID(id: id), method: .GET, compeletion: completion)
     }
@@ -111,10 +111,11 @@ class APIClient: NetworkServiceProtocol{
             do{
                 let object = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(object))
+                print("object discount\(object)")
             }    catch {
 
                     completion(.failure(.parsingError))
-                print(fatalError(error.localizedDescription))
+              //  print(fatalError(error.localizedDescription))
 
                 }
         }.resume()
