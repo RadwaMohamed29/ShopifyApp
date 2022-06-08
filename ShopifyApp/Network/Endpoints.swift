@@ -25,6 +25,7 @@ enum Endpoints {
     case AccecoriesType(id:String)
     case CustomerOrders(id:String)
     case AddressByID(id:String)
+    case getDiscountCode(priceRule: String)
     
     var path:String{
         switch self {
@@ -58,9 +59,10 @@ enum Endpoints {
             return "products.json?product_type=\(categoryID)"
         case .CustomerOrders(id: let orderId):
             return "orders.json?customer_id=\(orderId)"
-
         case .AddressByID(id: let id):
             return "customers/\(id)/addresses.json"
+        case .getDiscountCode(priceRule: _): //1173393670402
+            return "price_rules/1173393670402/discount_codes.json"
         }
     }
 }
