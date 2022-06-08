@@ -25,14 +25,15 @@ class AddressViewController: UIViewController {
         addressTableView.separatorStyle = .none
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAddress))
         arr = []
-        checkNetwork()
+        
         //6463260754149
-        getAddresses(id: "6463355584741")
+//        getAddresses(id: "6466443772133")
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        checkNetwork()
     }
         
     func checkNetwork() {
@@ -42,7 +43,7 @@ class AddressViewController: UIViewController {
             if isConn == false{
                 self?.showSnackBar()
             }else{
-                self?.getAddresses(id: "6463355584741")
+                self?.getAddresses(id: "6466443772133")
             }
         } onError: { error in
             print("connection error network")
@@ -86,19 +87,17 @@ class AddressViewController: UIViewController {
 
 extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return arr.count
     }
-
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return arr.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCellTableViewCell", for: indexPath ) as! AddressCellTableViewCell
         let index = arr[indexPath.row]
-        cell.labelAddress.text = "\(index.country ?? ""), \(index.city ?? ""), \(index.address1 ?? "")"
+        cell.labelAddress.text = "\(index.address1 ?? "") \(index.address2 ?? "") st, \(index.city ?? ""), \(index.country ?? "")"
         cell.backgroundColor = UIColor.white
                 cell.layer.borderColor = UIColor.black.cgColor
                 cell.layer.borderWidth = 1
