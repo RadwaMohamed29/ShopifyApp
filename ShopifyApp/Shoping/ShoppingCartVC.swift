@@ -87,7 +87,7 @@ class ShoppingCartVC: UIViewController {
             try productViewModel?.updatePrice(completion: { totalPrice in
                 guard let totalPrice = totalPrice else { return }
                 Utilities.utilities.setTotalPrice(totalPrice:self.totalPrice ?? 0)
-                self.totalLable.text = String(totalPrice) + " $"
+                self.totalLable.text = Shared.formatePrice(priceStr: String(totalPrice))
                 print(totalPrice)
                 })
         }catch let error{
@@ -153,7 +153,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                         .cacheOriginalImage
                     ])
         cell.productCount.text = " \(CartProducts[indexPath.row].count)"
-        cell.productPrice.text = "$ \(CartProducts[indexPath.row].price!) per one"
+        cell.productPrice.text = Shared.formatePrice(priceStr: CartProducts[indexPath.row].price!) 
         cell.deleteFromBagProducts = {[weak self] in
         self?.showDeleteAlert(indexPath: indexPath)
         }
