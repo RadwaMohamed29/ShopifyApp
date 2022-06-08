@@ -15,6 +15,7 @@ protocol AddressViewModelProtocol{
 //    var addressSubject:PublishSubject<[Address]>{ get set }
     func getAddressesForCurrentUser(id:String)
     func checkConnection()
+    func getAddressDetails(customerID:String, buildNo:String, streetName:String, city:String, country:String)
 }
 
 class AddressViewModel:AddressViewModelProtocol{
@@ -44,18 +45,28 @@ class AddressViewModel:AddressViewModelProtocol{
             }
         }
     }
-
-    func postNewAddress(id:String, customerAddress:Address) {
-//        network.postAddress(id: id) { response in
-//            switch response {
-//            case .success(let customerAddress):
-//                    print("succeded")
-//            case .failure(let error):
-//                print("\(error.localizedDescription)")
-//            }
-//        }
-    }
     
+    func getAddressDetails(customerID:String, buildNo:String, streetName:String, city:String, country:String){
+        let address = Address(address1: buildNo, address2: streetName, city: city, country: country)
+        let newAddress = NewAddress(address: address)
+        postNewAddress(id: customerID, newAddress: newAddress)
+
+    }
+
+    func postNewAddress(id:String,newAddress:NewAddress) {
+        network.postAddressToCustomer(id: id, address: newAddress) { data, response, error in
+            if error != nil{
+                print(error!)
+            }else{
+                if let data = data{
+                    print(data)
+                    let d = try! JSONSerialization.jsonObject(with: data, options:
+                            .allowFragments) as! Dictionary<String, Any>
+                    print("\(d)")
+                }
+            }
+        }
+    }
     
     func checkConnection() {
         HandelConnection.handelConnection.checkNetworkConnection { [weak self] isconn in

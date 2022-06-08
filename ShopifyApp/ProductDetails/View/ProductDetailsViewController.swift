@@ -112,7 +112,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                 self.productDescription.text = result.element?.bodyHTML
                 self.images = result.element?.images ?? []
                 self.optionsValue = result.element?.options[0].values ?? []
-                self.productPrice.text = "$\(String(describing: result.element?.variant[0].price ?? ""))"
+                self.productPrice.text = Shared.formatePrice(priceStr: result.element?.variant[0].price)
                 
                 self.productCollectionView.reloadData()
                 self.sizeTableView.reloadData()
@@ -163,6 +163,8 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         favProduct.title = product?.title
         favProduct.body_html = product?.bodyHTML
         favProduct.scr = product?.image.src
+        favProduct.customer_id = "\(Utilities.utilities.getCustomerId())"
+
         
     }
     @IBAction func addToCartBtn(_ sender: Any) {

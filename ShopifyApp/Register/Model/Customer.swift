@@ -24,14 +24,16 @@ struct CustomerModel: Codable {
 }
 
 struct Address: Codable {
-    var address1, city, province, phone: String?
-    var zip, last_name, first_name, country: String?
+    var address1, address2, city: String?
+    var country: String?
 //    var id: Int!
 //    var country_name, country_code, name, province_code, address2, customer_id, company:String?
-    
-    
- 
 }
+
+struct NewAddress:Codable{
+    let address:Address
+}
+
 extension Encodable {
   func asDictionary() throws -> [String: Any] {
     let data = try JSONEncoder().encode(self)

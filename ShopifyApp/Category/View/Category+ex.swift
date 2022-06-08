@@ -150,6 +150,7 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         favProduct.title = showList![recognizer.tag].title
         favProduct.body_html = showList![recognizer.tag].bodyHTML
         favProduct.scr = showList![recognizer.tag].image.src
+        favProduct.customer_id = "\(Utilities.utilities.getCustomerId())"
         
     }
 }

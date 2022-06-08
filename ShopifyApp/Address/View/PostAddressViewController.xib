@@ -10,6 +10,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PostAddressViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
+                <outlet property="buildNoTxtV" destination="mdo-zM-WxZ" id="K29-bF-IHH"/>
+                <outlet property="cityTxtF" destination="21x-kl-TSe" id="Oli-3Q-S1m"/>
+                <outlet property="countryTxtF" destination="qSa-5m-BnG" id="Cd0-uw-bPf"/>
+                <outlet property="myView" destination="FjH-Xo-FAr" id="2ua-Xa-oJ6"/>
+                <outlet property="progressView" destination="yhm-wi-aku" id="nRx-HA-Fjs"/>
+                <outlet property="streetNameTxtF" destination="PDE-Qy-91P" id="aAU-Qm-qIr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -72,6 +78,10 @@
                                     <color key="textColor" red="0.1072500659" green="0.24786846579999999" blue="0.42147287700000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.29999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="yhm-wi-aku">
+                                    <rect key="frame" x="132" y="352.5" width="150" height="4"/>
+                                    <color key="tintColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </progressView>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
@@ -116,11 +126,15 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="FjH-Xo-FAr" firstAttribute="top" secondItem="ypI-pq-C0Z" secondAttribute="top" id="5zw-tC-hWj"/>
+                        <constraint firstItem="yhm-wi-aku" firstAttribute="centerY" secondItem="ypI-pq-C0Z" secondAttribute="centerY" id="Jyb-Y4-2z4"/>
+                        <constraint firstItem="yhm-wi-aku" firstAttribute="height" secondItem="ypI-pq-C0Z" secondAttribute="height" multiplier="0.00564175" id="TPR-JO-T9d"/>
                         <constraint firstAttribute="trailing" secondItem="FjH-Xo-FAr" secondAttribute="trailing" id="Td4-IP-x0v"/>
                         <constraint firstItem="FjH-Xo-FAr" firstAttribute="bottom" secondItem="CGu-6Y-qTY" secondAttribute="bottom" id="dyw-dk-W8J"/>
+                        <constraint firstItem="yhm-wi-aku" firstAttribute="width" secondItem="ypI-pq-C0Z" secondAttribute="width" multiplier="0.362319" id="fN1-vy-qmZ"/>
                         <constraint firstItem="FjH-Xo-FAr" firstAttribute="leading" secondItem="ypI-pq-C0Z" secondAttribute="leading" id="mNU-Uc-RiT"/>
                         <constraint firstAttribute="bottom" secondItem="FjH-Xo-FAr" secondAttribute="bottom" id="niK-Vv-LyD"/>
                         <constraint firstItem="FjH-Xo-FAr" firstAttribute="centerX" secondItem="ypI-pq-C0Z" secondAttribute="centerX" id="q4U-Vg-0Kv"/>
+                        <constraint firstItem="yhm-wi-aku" firstAttribute="centerX" secondItem="ypI-pq-C0Z" secondAttribute="centerX" id="wc7-Q7-cK0"/>
                     </constraints>
                     <viewLayoutGuide key="contentLayoutGuide" id="m4T-fv-oCw"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="CGu-6Y-qTY"/>
@@ -133,6 +147,9 @@
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="baseBackgroundColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="btnConfirm:" destination="-1" eventType="touchUpInside" id="4SJ-ua-HmZ"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

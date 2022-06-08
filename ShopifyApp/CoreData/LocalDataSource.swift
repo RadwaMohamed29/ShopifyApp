@@ -37,6 +37,7 @@ final class LocalDataSource: LocalDataSourcable{
         product.setValue(newProduct.scr, forKey: "scr")
         product.setValue(newProduct.title, forKey: "title")
         product.setValue(newProduct.price, forKey: "price")
+        product.setValue("\(String(describing: Utilities.utilities.getCustomerId))", forKey: "customer_id")
         
         do{
             try context.save()
@@ -49,7 +50,7 @@ final class LocalDataSource: LocalDataSourcable{
     
     func removeProductFromCoreData(productID: String) throws {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavouriteProduct")
-        let myPredicate = NSPredicate(format: "id == %@", productID)
+        let myPredicate = NSPredicate(format: "customer_id == \(Utilities.utilities.getCustomerId()) && id == %@", productID)
         fetchRequest.predicate = myPredicate
         do{
             let productList = try context.fetch(fetchRequest)
@@ -65,8 +66,11 @@ final class LocalDataSource: LocalDataSourcable{
     
     func getProductFromCoreData() throws -> [FavouriteProduct] {
         var favouriteProducts : [FavouriteProduct] = []
+        let fetchRequest = FavouriteProduct.fetchRequest()
+        let myPredicate = NSPredicate(format: "customer_id == %@", "\(Utilities.utilities.getCustomerId())")
+        fetchRequest.predicate = myPredicate
         do{
-            let productList = try context.fetch(FavouriteProduct.fetchRequest())
+            let productList = try context.fetch(fetchRequest)
             for product in productList {
                 favouriteProducts.append(product)
             }

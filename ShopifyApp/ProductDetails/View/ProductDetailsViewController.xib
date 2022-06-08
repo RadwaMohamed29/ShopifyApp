@@ -70,8 +70,8 @@
                                     </constraints>
                                 </view>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wb9-ca-uxf">
-                                    <rect key="frame" x="18" y="145.5" width="121.5" height="29"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                    <rect key="frame" x="12" y="145.5" width="122" height="24"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                     <color key="textColor" red="0.070588235289999995" green="0.074509803920000006" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -85,7 +85,7 @@
                                     </variation>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Sizes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7jT-UP-pvu">
-                                    <rect key="frame" x="18" y="192.5" width="51" height="26.5"/>
+                                    <rect key="frame" x="18" y="187.5" width="51" height="31.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                     <color key="textColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -220,11 +220,11 @@
                                 <constraint firstItem="ln0-v4-zqu" firstAttribute="leading" secondItem="vpM-Sg-1EV" secondAttribute="leading" constant="18" id="VV9-EI-0OZ"/>
                                 <constraint firstAttribute="trailing" secondItem="Meb-5w-PFX" secondAttribute="trailing" constant="18" id="WNh-if-GPy"/>
                                 <constraint firstItem="FUO-2V-ylW" firstAttribute="top" secondItem="8rF-d5-TtG" secondAttribute="bottom" constant="6" id="ZmS-ej-8gm"/>
-                                <constraint firstItem="wb9-ca-uxf" firstAttribute="width" secondItem="vpM-Sg-1EV" secondAttribute="width" multiplier="0.299754" id="azV-e8-kZX"/>
+                                <constraint firstItem="wb9-ca-uxf" firstAttribute="width" secondItem="vpM-Sg-1EV" secondAttribute="width" multiplier="0.3" id="azV-e8-kZX"/>
                                 <constraint firstItem="8rF-d5-TtG" firstAttribute="leading" secondItem="vpM-Sg-1EV" secondAttribute="leading" constant="18" id="bTf-13-ehQ"/>
                                 <constraint firstItem="8rF-d5-TtG" firstAttribute="top" secondItem="2FZ-wd-2Js" secondAttribute="bottom" constant="18" id="diU-uf-kLi"/>
                                 <constraint firstAttribute="bottom" secondItem="rrt-4d-b46" secondAttribute="bottom" constant="30" id="fqu-yD-aJM"/>
-                                <constraint firstItem="wb9-ca-uxf" firstAttribute="leading" secondItem="vpM-Sg-1EV" secondAttribute="leading" constant="18" id="hfr-sv-PKE"/>
+                                <constraint firstItem="wb9-ca-uxf" firstAttribute="leading" secondItem="vpM-Sg-1EV" secondAttribute="leading" constant="12" id="hfr-sv-PKE"/>
                                 <constraint firstItem="Sfo-qx-DnQ" firstAttribute="top" secondItem="Meb-5w-PFX" secondAttribute="bottom" constant="18" id="idE-RG-OZs"/>
                                 <constraint firstAttribute="trailing" secondItem="EYL-vn-RsG" secondAttribute="trailing" constant="18" id="jtJ-aa-9hM"/>
                                 <constraint firstItem="rrt-4d-b46" firstAttribute="height" secondItem="vpM-Sg-1EV" secondAttribute="height" multiplier="0.040625" id="ljt-wQ-2qs"/>

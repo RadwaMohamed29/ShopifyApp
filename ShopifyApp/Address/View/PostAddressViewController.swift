@@ -7,31 +7,76 @@
 
 import UIKit
 
+
 class PostAddressViewController: UIViewController {
 
+    var timer = Timer()
+    @IBOutlet weak var myView: UIView!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var buildNoTxtV: UITextField!
+    @IBOutlet weak var streetNameTxtF: UITextField!
+    @IBOutlet weak var cityTxtF: UITextField!
+    @IBOutlet weak var countryTxtF: UITextField!
+    private var viewModel:AddressViewModelProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        viewModel = AddressViewModel(network: APIClient())
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    @IBAction func btnback(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+    
+    @IBAction func btnConfirm(_ sender: Any) {
+        if validateAddressInput() {
+            viewModel?.getAddressDetails(customerID: "6466443772133", buildNo: buildNoTxtV.text!, streetName: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!)
+            HandelConnection.handelConnection.checkNetworkConnection {[weak self] isConn in
+                if isConn{
+                    self?.myView.layer.opacity = 0.5
+                    self?.showProgressBar()
+                    DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
+                        Shared.showMessage(message: "Address Added Successfully", error: false)
+                        self?.navigationController?.popViewController(animated: true)
+                    })
+                }else{
+                    self?.showSnackBar()
+                }
+            }
+        }else{
+            Shared.showMessage(message: "please fill all fields", error: true)
+        }
+        
     }
     
-}
-func hideContentController(content: UIViewController) {
-    content.willMove(toParent: nil)
-    content.view.removeFromSuperview()
-    content.removeFromParent()
+    func showProgressBar()  {
+        progressView.isHidden = false
+        var progress:Float = 0.0
+        progressView.progress = progress
+        timer = Timer.scheduledTimer(withTimeInterval: 0.08, repeats: true, block: { [weak self] timer in
+            progress += 0.05
+            self?.progressView.progress = progress
+            if self?.progressView.progress == 1{
+                self?.progressView.progress = 0
+                self?.progressView.isHidden = true
+            }
+        })
+    }
+    
+    func validateAddressInput() ->Bool {
+        
+        guard let _ = buildNoTxtV, let _ = streetNameTxtF, let _ = cityTxtF, let _ = countryTxtF else{
+            return false
+        }
+        let buildno = trimWhiteSpaces(str: buildNoTxtV.text ?? "")
+        let streetName = trimWhiteSpaces(str: streetNameTxtF.text ?? "")
+        let city = trimWhiteSpaces(str: cityTxtF.text ?? "")
+        let country = trimWhiteSpaces(str: countryTxtF.text ?? "")
+        if buildno != "" && streetName != "" && city != "" && country != "" {
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    func trimWhiteSpaces(str:String) -> String{
+        let trimmedStr = str.trimmingCharacters(in: NSCharacterSet.whitespaces)
+        return trimmedStr
+    }
 }

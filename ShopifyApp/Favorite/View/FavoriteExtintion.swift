@@ -18,7 +18,7 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
         let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
         setImage(image: cell.productImage, index: indexPath.row)
         cell.ProductName.text = favProducts[indexPath.row].title
-        cell.priceOfTheProduct.text = "$ \(favProducts[indexPath.row].price)"
+        cell.priceOfTheProduct.text = Shared.formatePrice(priceStr: favProducts[indexPath.row].price)
         cell.favouriteBtn.tag = indexPath.row
         cell.favouriteBtn.addTarget(self, action: #selector(favPress(recognizer:)), for: .touchUpInside)
         return cell
