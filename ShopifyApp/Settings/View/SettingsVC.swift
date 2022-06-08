@@ -9,14 +9,14 @@ import UIKit
 
 class SettingsVC: UIViewController {
 
+    @IBOutlet weak var currencySegmant: UISegmentedControl!
     @IBOutlet weak var currentAdd: UILabel!
     @IBOutlet weak var currencyChange: UISegmentedControl!
     @IBOutlet weak var logut: UIButton!
+    var settingViewModeel = SettingsViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
-        
-
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -39,14 +39,17 @@ class SettingsVC: UIViewController {
         Utilities.utilities.logout()
         self.navigationController?.popViewController(animated: true)
     }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func currencyBtn(_ sender: Any) {
+        switch currencySegmant.selectedSegmentIndex {
+        case 0:
+            self.settingViewModeel.seCurrency(key: "currency", value: "USD")
+        case 1:
+            self.settingViewModeel.seCurrency(key: "currency", value: "EGP")
+        default:
+            break
+        }
+        print(currencySegmant.titleForSegment(at:currencySegmant.selectedSegmentIndex )!)
+        
     }
-    */
-
 }

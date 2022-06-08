@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsVC" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
                 <outlet property="currencyChange" destination="4Dh-aw-nOP" id="xgE-e3-wwl"/>
+                <outlet property="currencySegmant" destination="4Dh-aw-nOP" id="2ci-nR-0uZ"/>
                 <outlet property="currentAdd" destination="fFP-fG-u3g" id="958-8Y-wyf"/>
                 <outlet property="logut" destination="VgN-WK-ae7" id="HJZ-P8-C0d"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -117,6 +118,9 @@
                                 <segment title="USD"/>
                                 <segment title="EGP"/>
                             </segments>
+                            <connections>
+                                <action selector="currencyBtn:" destination="-1" eventType="valueChanged" id="xp5-C1-3v0"/>
+                            </connections>
                         </segmentedControl>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9e-td-MqJ">
                             <rect key="frame" x="279" y="239" width="74" height="19"/>

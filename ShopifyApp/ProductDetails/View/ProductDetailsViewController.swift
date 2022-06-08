@@ -112,7 +112,8 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                 self.productDescription.text = result.element?.bodyHTML
                 self.images = result.element?.images ?? []
                 self.optionsValue = result.element?.options[0].values ?? []
-                self.productPrice.text = "$\(String(describing: result.element?.variant[0].price ?? ""))"
+                self.productPrice.text = Shared.formatePrice(priceStr: result.element?.variant[0].price)
+             //   "$\(String(describing: result.element?.variant[0].price ?? ""))"
                 
                 self.productCollectionView.reloadData()
                 self.sizeTableView.reloadData()
