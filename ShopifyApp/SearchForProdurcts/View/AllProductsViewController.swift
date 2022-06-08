@@ -122,7 +122,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
         cell.productImage.layer.cornerRadius = 20
         cell.ProductName.text = listOfProducts[indexPath.row].title
-        cell.priceOfTheProduct.text = "$ \(listOfProducts[indexPath.row].variant[0].price ?? "")"
+        cell.priceOfTheProduct.text = Shared.formatePrice(priceStr: listOfProducts[indexPath.row].variant[0].price)  
         productViewModel?.checkFavorite(id: "\(listOfProducts[indexPath.row].id)")
         if productViewModel?.isFav == true {
             cell.favouriteBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)

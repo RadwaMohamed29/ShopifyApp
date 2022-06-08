@@ -66,4 +66,17 @@ class Utilities{
             completion(false)
         }
     }
+    
+    func setCurrency(Key: String, value: String){
+        UserDefaults.standard.set(value, forKey: Key)
+        
+    }
+    func getCurrency(key: String = "currency")-> String{
+        let currency = UserDefaults.standard.string(forKey: key)
+        if currency == ""{
+            return "USD"
+        }
+        return currency ?? ""
+        
+    }
 }
