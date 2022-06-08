@@ -13,11 +13,12 @@ class SettingsVC: UIViewController {
     @IBOutlet weak var currentAdd: UILabel!
     @IBOutlet weak var currencyChange: UISegmentedControl!
     @IBOutlet weak var logut: UIButton!
-    var settingViewModeel = SettingsViewModel()
+    var settingViewModel : SettingsViewModelType = SettingsViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Settings"
-        // Do any additional setup after loading the view.
+        checkCurrencySegmantState()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -43,13 +44,23 @@ class SettingsVC: UIViewController {
     @IBAction func currencyBtn(_ sender: Any) {
         switch currencySegmant.selectedSegmentIndex {
         case 0:
-            self.settingViewModeel.seCurrency(key: "currency", value: "USD")
+            self.settingViewModel.setCurrency(key: "currency", value: "USD")
         case 1:
-            self.settingViewModeel.seCurrency(key: "currency", value: "EGP")
+            self.settingViewModel.setCurrency(key: "currency", value: "EGP")
+           
         default:
             break
         }
         print(currencySegmant.titleForSegment(at:currencySegmant.selectedSegmentIndex )!)
+        
+    }
+    func checkCurrencySegmantState(){
+        
+        if settingViewModel.getCurrency(key: "currency") == "USD"{
+            currencySegmant.selectedSegmentIndex = 0
+        }else {
+            currencySegmant.selectedSegmentIndex = 1
+        }
         
     }
 }

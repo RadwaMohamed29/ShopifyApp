@@ -9,7 +9,7 @@ import Foundation
 
 protocol SettingsViewModelType{
     func getCurrency(key:String)->String
-    func seCurrency(key:String, value: String)
+    func setCurrency(key:String, value: String)
     var currency: String? {get set }
     var bindSettingViewModel : (()->()){get set}
 }
@@ -23,19 +23,12 @@ class SettingsViewModel:NSObject, SettingsViewModelType{
         }
     }
     
-    override init(){
-        super.init()
-        currency = getCurrency(key: "currency")
-        
-    }
-    
-    
     func getCurrency(key: String) -> String {
         self.currency = userDefualts.getCurrency(key: key)
         return currency!
     }
     
-    func seCurrency(key: String, value: String) {
+    func setCurrency(key: String, value: String) {
         userDefualts.setCurrency(Key: key, value: value)
         currency = value
     }

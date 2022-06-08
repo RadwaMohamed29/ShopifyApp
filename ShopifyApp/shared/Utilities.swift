@@ -76,7 +76,7 @@ class Utilities{
         if currency == ""{
             return "USD"
         }
-        return currency ?? "USD"
+        return currency ?? ""
         
     }
 }
