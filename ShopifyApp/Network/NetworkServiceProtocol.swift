@@ -20,4 +20,5 @@ protocol NetworkServiceProtocol{
     func registerCustomerProtocol(newCustomer: Customer,completion: @escaping(Data?, URLResponse?, Error?)->())
     func getAllCustomers(completion: @escaping (Result<AllCustomers,ErrorType>)->Void)
     func getCustomerAddresses(id:String, completion:@escaping (Result<CustomerAddress, ErrorType>)->())
+    func postAddressToCustomer(id:String, address:NewAddress, completion: @escaping(Data?, URLResponse?, Error?)->())
 }
