@@ -123,10 +123,4 @@ extension UIViewController{
     }
     
 
-    func setTxtFieldStyle(txt:[UITextField]) {
-        for txtField in txt{
-            txtField.layer.cornerRadius = 15.0
-            txtField.layer.borderWidth = 0.5
-        }
-    }
 }
