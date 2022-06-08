@@ -9,7 +9,6 @@ import UIKit
 import RxSwift
 import SwiftMessages
 import CoreMedia
-import CoreMIDI
 
 class AddressViewController: UIViewController {
 
@@ -102,8 +101,8 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
         cell.backgroundColor = UIColor.white
                 cell.layer.borderColor = UIColor.black.cgColor
                 cell.layer.borderWidth = 1
-                cell.layer.cornerRadius = 8
-                cell.clipsToBounds = true
+//                cell.layer.cornerRadius = 8
+//                cell.clipsToBounds = true
                 return cell
     }
     
@@ -141,4 +140,21 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
 //        let height = self.view.frame.size.height
         return 100
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { action, _, handler in
+            print("deleting")
+        }
+        let edit = UIContextualAction(style: .normal, title: "Edit") { [weak self] action, _, handler in
+            let edit = PostAddressViewController(nibName: "PostAddressViewController", bundle: nil)
+            edit.isEdit = true
+            edit.buildNo = self?.arr[indexPath.row].address1
+            edit.streetName = self?.arr[indexPath.row].address2
+            edit.cityName = self?.arr[indexPath.row].city
+            edit.country = self?.arr[indexPath.row].country
+            self?.navigationController?.pushViewController(edit, animated: true)
+        }
+        return UISwipeActionsConfiguration(actions: [delete, edit])
+    }
+
 }
