@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import SwiftMessages
 import CoreMedia
+import CoreMIDI
 
 class AddressViewController: UIViewController {
 
