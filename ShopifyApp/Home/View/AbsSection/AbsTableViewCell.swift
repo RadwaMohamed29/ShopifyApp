@@ -21,7 +21,7 @@ class AbsTableViewCell: UITableViewCell {
     var arrDiscountCodes = [String]()
     var homeViewModel: HomeViewModel?
     let disBag = DisposeBag()
-    var myDiscount:String = "1173393834242"
+    var myDiscount:String = "1173393670402"
     var adds: [Discount_codes] = []
 
     override func awakeFromNib() {
@@ -64,7 +64,17 @@ class AbsTableViewCell: UITableViewCell {
         adsCollectionView.scrollToItem(at: IndexPath(row: currentAdsIndex, section: 0), at: .centeredHorizontally, animated: true)
         pageController.currentPage = currentAdsIndex
     }
-    
+    @objc func tap(_ sender: UITapGestureRecognizer) {
+
+           let location = sender.location(in: self.adsCollectionView)
+           let indexPath = self.adsCollectionView.indexPathForItem(at: location)
+
+           if let index = indexPath {
+               UIPasteboard.general.string = adds[0].code
+               Shared.showMessage(message: "CONGRATULATIONS, YOU'VE WON A 30% OFF COUPON,YOUR COUPON IS COPIED 🥳", error: false
+               )
+           }
+        }
     
 }
 extension AbsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
@@ -78,6 +88,7 @@ extension AbsTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource
         cell.adsImageView.layer.borderWidth = 0.5
         cell.adsImageView.layer.borderColor = UIColor.gray.cgColor
         cell.adsImageView.layer.cornerRadius = 25
+        cell.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap(_:))))
         return cell
     }
     
