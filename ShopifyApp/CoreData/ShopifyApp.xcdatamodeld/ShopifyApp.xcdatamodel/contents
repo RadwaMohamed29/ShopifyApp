@@ -6,6 +6,7 @@
         <attribute name="image" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="user_id" optional="YES" attributeType="String"/>
     </entity>
     <entity name="FavouriteProduct" representedClassName="FavouriteProduct" syncable="YES" codeGenerationType="class">
         <attribute name="body_html" optional="YES" attributeType="String"/>
@@ -16,7 +17,7 @@
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="CartProduct" positionX="-54" positionY="27" width="128" height="104"/>
+        <element name="CartProduct" positionX="-54" positionY="27" width="128" height="119"/>
         <element name="FavouriteProduct" positionX="-63" positionY="-18" width="128" height="119"/>
     </elements>
 </model>

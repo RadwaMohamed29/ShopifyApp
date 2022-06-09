@@ -185,11 +185,21 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                     case true:
                         Shared.showMessage(message: "Added To Bag Successfully!", error: false)
                         print("add to cart \(inCart)")
-                        
+                        print("cartDone\(result)")
                     case false :
                         print("faild to add to cart")
                     }
                 })
+//                try productViewModel?.addProductToCart(product: CartProduct, completion: { result in
+//                                        switch result{
+//                                        case true:
+//                                            Shared.showMessage(message: "Added To Bag Successfully!", error: false)
+//                                            print("add to cart \(inCart)")
+//                                            print("cartDone\(result)")
+//                                        case false :
+//                                            print("faild to add to cart")
+//                                        }
+//                })
                 
             }catch let error{
                 print(error.localizedDescription)
