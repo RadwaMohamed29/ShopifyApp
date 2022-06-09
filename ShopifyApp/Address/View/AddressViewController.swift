@@ -9,9 +9,11 @@ import UIKit
 import RxSwift
 import SwiftMessages
 import CoreMedia
+import CoreMIDI
 
 class AddressViewController: UIViewController {
 
+    let userDefault = Utilities()
     @IBOutlet weak var noAddressView: UIView!
     private var isConn:Bool = false
     private let disposeBag = DisposeBag()
@@ -43,7 +45,8 @@ class AddressViewController: UIViewController {
             if isConn == false{
                 self?.showSnackBar()
             }else{
-                self?.getAddresses(id: "6466443772133")
+                let id:String = String((self?.userDefault.getCustomerId())!)
+                self?.getAddresses(id: id)
             }
         } onError: { error in
             print("connection error network")
@@ -99,7 +102,7 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
         let index = arr[indexPath.row]
         cell.labelAddress.text = "\(index.address1 ?? "") \(index.address2 ?? "") st, \(index.city ?? ""), \(index.country ?? "")"
         cell.backgroundColor = UIColor.white
-                cell.layer.borderColor = UIColor.black.cgColor
+//                cell.layer.borderColor = UIColor.black.cgColor
                 cell.layer.borderWidth = 1
 //                cell.layer.cornerRadius = 8
 //                cell.clipsToBounds = true
@@ -156,5 +159,4 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
         }
         return UISwipeActionsConfiguration(actions: [delete, edit])
     }
-
 }

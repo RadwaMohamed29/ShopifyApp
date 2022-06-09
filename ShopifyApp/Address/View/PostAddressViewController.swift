@@ -10,6 +10,7 @@ import UIKit
 
 class PostAddressViewController: UIViewController {
 
+    let userDefault = Utilities()
     var buildNo, streetName, cityName, country:String?
     var isEdit = false
     var timer = Timer()
@@ -23,9 +24,11 @@ class PostAddressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = AddressViewModel(network: APIClient())
+        // in UIViewController Extension
+        setTxtFieldStyle(txt: [buildNoTxtV, streetNameTxtF, cityTxtF, countryTxtF])
         fillTextFields()
     }
-
+    
     func fillTextFields() {
         if isEdit{
             buildNoTxtV.text = (buildNo ?? "")
@@ -37,7 +40,8 @@ class PostAddressViewController: UIViewController {
     
     @IBAction func btnConfirm(_ sender: Any) {
         if validateAddressInput() {
-            viewModel?.getAddDetailsAndPostToCustomer(customerID: "6466443772133", buildNo: buildNoTxtV.text!, streetName: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!,completion: {[weak self] isSucceded in
+            let id:String = String((userDefault.getCustomerId()))
+            viewModel?.getAddDetailsAndPostToCustomer(customerID: id, buildNo: buildNoTxtV.text!, streetName: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!,completion: {[weak self] isSucceded in
                 HandelConnection.handelConnection.checkNetworkConnection {[weak self] isConn in
                     if isConn{
                         if isSucceded{
@@ -101,3 +105,5 @@ class PostAddressViewController: UIViewController {
         return trimmedStr
     }
 }
+//6256076292354
+//https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/customers/6256076292354/addresses.json

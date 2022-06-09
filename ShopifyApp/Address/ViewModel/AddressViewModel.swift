@@ -15,7 +15,7 @@ protocol AddressViewModelProtocol{
 //    var addressSubject:PublishSubject<[Address]>{ get set }
     func getAddressesForCurrentUser(id:String)
     func checkConnection()
-    func getAddDetailsAndPostToCustomer(customerID:String, buildNo:String, streetName:String, city:String, country:String, completion: @escaping (Bool)->())
+    func getAddDetailsAndPostToCustomer(customerID:String, buildNo:String, streetName:String, city:String, country:String, completion: @escaping(Bool)->())
 }
 
 class AddressViewModel:AddressViewModelProtocol{
