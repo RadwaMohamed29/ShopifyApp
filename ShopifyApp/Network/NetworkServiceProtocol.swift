@@ -16,7 +16,7 @@ protocol NetworkServiceProtocol{
     func productDetailsProvider(id:String ,completion :@escaping (Result<Products,ErrorType>)->Void)
     func getAllProduct(completion : @escaping (Result<AllProducts,ErrorType>)->Void)
     func productOfBrandsProvider(id:String ,completion :@escaping (Result<AllProducts,ErrorType>)->Void)
-    func getFilteredCategory(target:Endpoints, completion: @escaping(Result<CategoryProducts, ErrorType>)->())
+    func getFilteredCategory(target:Endpoints, completion: @escaping(Result<AllProducts, ErrorType>)->())
     func registerCustomerProtocol(newCustomer: Customer,completion: @escaping(Data?, URLResponse?, Error?)->())
     func getAllCustomers(completion: @escaping (Result<AllCustomers,ErrorType>)->Void)
     func getCustomerAddresses(id:String, completion:@escaping (Result<CustomerAddress, ErrorType>)->())

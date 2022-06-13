@@ -13,7 +13,7 @@ class CategoryViewController: UIViewController {
 
     var navigationBar:UINavigationBar?
     let disposeBag = DisposeBag()
-    var showList:[ProductElement]?
+    var showList:[Product]?
     var dbList:[Product]?
     let refreshController = UIRefreshControl()
     var viewModel:CategoryViewModelProtocol!

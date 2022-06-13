@@ -48,7 +48,7 @@ class APIClient: NetworkServiceProtocol{
         request(endpoint: .Smart_collections, method: .GET, compeletion: completion)
     }
     
-    func getFilteredCategory(target: Endpoints, completion: @escaping (Result<CategoryProducts, ErrorType>) -> ()) {
+    func getFilteredCategory(target: Endpoints, completion: @escaping (Result<AllProducts, ErrorType>) -> ()) {
         request(endpoint: target, method: .GET, compeletion: completion)
     }
 
