@@ -30,15 +30,15 @@ enum Endpoints {
     var path:String{
         switch self {
         case .SaleCategoryProduct:
-            return "collections/395728224485/products.json"
+            return "collections/395963695362/products.json"
         case .HomeCategoryProducts:
             return "products.json"
         case .MenCategoryProduct:
-            return "collections/395728126181‬/products.json"
+            return "collections/395963597058/products.json"
         case .WomenCategoryProduct:
-            return "collections/395728158949/products.json"
+            return "collections/395965432066/products.json"
         case .KidsCategoryProduct:
-            return "collections/395728191717/products.json"
+            return "collections/395964940546/products.json"
         case .ProductDetails(id: let productId):
             return "products/\(productId).json"
         case .Customers:
@@ -77,13 +77,13 @@ enum categoryID {
     var ID:String{
         switch self {
         case .MEN:
-            return "395728126181"
+            return "395963597058"
         case .WOMEN:
-            return "395728158949"
+            return "395965432066"
         case .KIDS:
-            return "395728191717"
+            return "395964940546"
         case .SALE:
-            return "395728224485"
+            return "395963695362"
         case .Home(type: let type):
             return "customers/\(type).json"
         }
@@ -101,3 +101,5 @@ enum categoryID {
 
 //sha8al
 //https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/products.json?collection_id=269278838836
+
+//https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/products.json?collection_id=395963597058
