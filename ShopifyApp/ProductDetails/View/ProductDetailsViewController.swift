@@ -65,7 +65,10 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     let refreshControl = UIRefreshControl()
     var reviewerImage = ["image2","image1","image2","image1"]
     var reviwerName = ["Radwa Mohamed","Peter Samir","Menna Elsayed","Abdelrhman Sayed"]
-    var reviewerComment = ["perfect","good product","m4 btal","baaad"]
+    var reviewerComment = ["Great! Very nice product! Comfortable in bonus! <3 Thank you to the seller!"
+                           ,"Came quite quickly, look great, soft to the touch, a decent such aroma of China is attached"
+                           ,"Arrived perfect product great quality I recommend arrived with 05 before"
+                           ,"For what I paid are perfect. The product has come a long time before so sincerely thank you seller"]
     
     
     override func viewDidLoad() {
@@ -301,7 +304,4 @@ extension ProductDetailsViewController: UITableViewDelegate,UITableViewDataSourc
         sizesCell.sixe.text = optionsValue[indexPath.row]
         return sizesCell
     }
-    
-    
-    
 }
