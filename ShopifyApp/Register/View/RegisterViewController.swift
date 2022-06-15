@@ -23,11 +23,31 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         lblValidation.isHidden = true
+        bindToViewModel()
  
     }
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    func bindToViewModel(){
+        registerViewModel.bindNavigate = { [weak self] in
+            self?.showActivityIndicator(indicator: self?.indicator, startIndicator: false)
+            self?.navigate()
+        }
+        registerViewModel.bindDontNavigate = { [weak self] in
+            DispatchQueue.main.async {
+                self?.showActivityIndicator(indicator: self?.indicator, startIndicator: false)
+            }
+        }
+    }
+   
+    func navigate(){
+        DispatchQueue.main.async {
+            self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
 
     @IBAction func signUpBtn(_ sender: Any) {
@@ -36,7 +56,7 @@ class RegisterViewController: UIViewController {
         lastName = lastNameText.text
         email = emailText.text
         password = passwordText.text
-        
+        self.showActivityIndicator(indicator: self.indicator, startIndicator: true)
         if firstName != "" && lastName != ""{
             if userDefualt.isValidEmail(email){
                 
@@ -44,12 +64,6 @@ class RegisterViewController: UIViewController {
                         registerViewModel.registerCustomer(firstName: firstName , lastName: lastName , email: email, password: password){ result in
                             switch result{
                             case true:
-                                DispatchQueue.main.async {
-//                                    let a = TabBarViewController(nibName:"TabBarViewController", bundle: nil)
-//                                    self.navigationController?.pushViewController(a, animated: true)
-                                    self.navigationController?.popViewController(animated: true)
-                                }
-                               
                                 print("from view  \(String(describing: self.firstName ?? ""))")
                             case false:
                                 DispatchQueue.main.async {

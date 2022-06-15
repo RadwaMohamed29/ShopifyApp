@@ -26,6 +26,7 @@ class LoginViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
+    
     func bindToViewModel(){
         viewModel.bindNavigate = { [weak self] in
             self?.showActivityIndicator(indicator: self?.indicator, startIndicator: false)
