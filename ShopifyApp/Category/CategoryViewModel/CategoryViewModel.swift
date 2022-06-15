@@ -10,20 +10,20 @@ import RxCocoa
 import RxSwift
 
 protocol CategoryViewModelProtocol {
-    var categoryObservable:Observable<[ProductElement]>
+    var categoryObservable:Observable<[Product]>
     { get set }
 //    var categorySubject:PublishSubject<[ProductElement]>{get set}
     func getFilteredProducts(target:Endpoints)
-    var searchedList : [ProductElement]{get set}
+    var searchedList : [Product]{get set}
     func searchWithWord(word:String)
 }
 
 class CategoryViewModel:CategoryViewModelProtocol{
-    var searchedList: [ProductElement] = []
+    var searchedList: [Product] = []
     
-    var categoryObservable: Observable<[ProductElement]>
+    var categoryObservable: Observable<[Product]>
     
-    private var categorySubject: PublishSubject<[ProductElement]> = PublishSubject<[ProductElement]>()
+    private var categorySubject: PublishSubject<[Product]> = PublishSubject<[Product]>()
     
     var network:NetworkServiceProtocol
     

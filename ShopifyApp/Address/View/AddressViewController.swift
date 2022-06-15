@@ -13,6 +13,7 @@ import CoreMIDI
 
 class AddressViewController: UIViewController {
 
+    let userDefault = Utilities()
     @IBOutlet weak var noAddressView: UIView!
     private var isConn:Bool = false
     private let disposeBag = DisposeBag()
@@ -44,7 +45,8 @@ class AddressViewController: UIViewController {
             if isConn == false{
                 self?.showSnackBar()
             }else{
-                self?.getAddresses(id: "6466443772133")
+                let id:String = String((self?.userDefault.getCustomerId())!)
+                self?.getAddresses(id: id)
             }
         } onError: { error in
             print("connection error network")
@@ -100,10 +102,10 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
         let index = arr[indexPath.row]
         cell.labelAddress.text = "\(index.address1 ?? "") \(index.address2 ?? "") st, \(index.city ?? ""), \(index.country ?? "")"
         cell.backgroundColor = UIColor.white
-                cell.layer.borderColor = UIColor.black.cgColor
+//                cell.layer.borderColor = UIColor.black.cgColor
                 cell.layer.borderWidth = 1
-                cell.layer.cornerRadius = 8
-                cell.clipsToBounds = true
+//                cell.layer.cornerRadius = 8
+//                cell.clipsToBounds = true
                 return cell
     }
     
@@ -140,5 +142,21 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //        let height = self.view.frame.size.height
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = UIContextualAction(style: .destructive, title: "Delete") { action, _, handler in
+            print("deleting")
+        }
+        let edit = UIContextualAction(style: .normal, title: "Edit") { [weak self] action, _, handler in
+            let edit = PostAddressViewController(nibName: "PostAddressViewController", bundle: nil)
+            edit.isEdit = true
+            edit.buildNo = self?.arr[indexPath.row].address1
+            edit.streetName = self?.arr[indexPath.row].address2
+            edit.cityName = self?.arr[indexPath.row].city
+            edit.country = self?.arr[indexPath.row].country
+            self?.navigationController?.pushViewController(edit, animated: true)
+        }
+        return UISwipeActionsConfiguration(actions: [delete, edit])
     }
 }

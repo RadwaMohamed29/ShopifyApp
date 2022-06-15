@@ -10,6 +10,9 @@ import UIKit
 
 class PostAddressViewController: UIViewController {
 
+    let userDefault = Utilities()
+    var buildNo, streetName, cityName, country:String?
+    var isEdit = false
     var timer = Timer()
     @IBOutlet weak var myView: UIView!
     @IBOutlet weak var progressView: UIProgressView!
@@ -21,24 +24,46 @@ class PostAddressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = AddressViewModel(network: APIClient())
+        // in UIViewController Extension
+        setTxtFieldStyle(txt: [buildNoTxtV, streetNameTxtF, cityTxtF, countryTxtF])
+        fillTextFields()
     }
-
+    
+    func fillTextFields() {
+        if isEdit{
+            buildNoTxtV.text = (buildNo ?? "")
+            streetNameTxtF.text = (streetName ?? "")
+            cityTxtF.text = (cityName ?? "")
+            countryTxtF.text = (country ?? "")
+        }
+    }
     
     @IBAction func btnConfirm(_ sender: Any) {
         if validateAddressInput() {
-            viewModel?.getAddressDetails(customerID: "6466443772133", buildNo: buildNoTxtV.text!, streetName: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!)
-            HandelConnection.handelConnection.checkNetworkConnection {[weak self] isConn in
-                if isConn{
-                    self?.myView.layer.opacity = 0.5
-                    self?.showProgressBar()
-                    DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
-                        Shared.showMessage(message: "Address Added Successfully", error: false)
-                        self?.navigationController?.popViewController(animated: true)
-                    })
-                }else{
-                    self?.showSnackBar()
+            let id:String = String((userDefault.getCustomerId()))
+            viewModel?.getAddDetailsAndPostToCustomer(customerID: id, buildNo: buildNoTxtV.text!, streetName: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!,completion: {[weak self] isSucceded in
+                HandelConnection.handelConnection.checkNetworkConnection {[weak self] isConn in
+                    if isConn{
+                        if isSucceded{
+                            self?.myView.layer.opacity = 0.5
+                            self?.showProgressBar()
+                            DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
+                                Shared.showMessage(message: "Address Added Successfully", error: false)
+                                self?.navigationController?.popViewController(animated: true)
+                            })
+                        }else{
+                            self?.showProgressBar()
+                            DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
+                                Shared.showMessage(message: "You may be Entered Wrong Country", error: true)
+                            })
+                        }
+                    }else{
+                        self?.showSnackBar()
+                    }
                 }
-            }
+                
+            })
+         
         }else{
             Shared.showMessage(message: "please fill all fields", error: true)
         }
@@ -80,3 +105,5 @@ class PostAddressViewController: UIViewController {
         return trimmedStr
     }
 }
+//6256076292354
+//https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/customers/6256076292354/addresses.json
