@@ -68,22 +68,27 @@ class RegisterViewController: UIViewController {
                             case false:
                                 DispatchQueue.main.async {
                                     self.lblValidation.isHidden = false
+                                    self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
                                     self.lblValidation.text = "This user already exists"
+
                                 }
                                
                             }
                         }
                 }else{
                     lblValidation.isHidden = false
+                    self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
                     lblValidation.text = "Password must be more than 5 digit "
                 }
               
             }else{
                 lblValidation.isHidden = false
+                self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
                 lblValidation.text = "Please, enter valid email"
             }
         }else{
             lblValidation.isHidden = false
+            self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
             lblValidation.text = "Required full name "
         }
        
