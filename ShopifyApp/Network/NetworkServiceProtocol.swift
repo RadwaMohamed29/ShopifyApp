@@ -22,5 +22,6 @@ protocol NetworkServiceProtocol{
     func getCustomerAddresses(id:String, completion:@escaping (Result<CustomerAddress, ErrorType>)->())
     func getDiscountCode(priceRule: String, completion: @escaping (Result<DiscountCode, ErrorType>) -> Void)
     func postAddressToCustomer(id:String, address:NewAddress, completion: @escaping(Data?, URLResponse?, Error?)->())
+    func deleteAddress(customerID: String, addressID: String, address:NewAddress, completion: @escaping(Data?, URLResponse?, Error?)->())
 
 }

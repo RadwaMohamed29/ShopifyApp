@@ -16,15 +16,19 @@ protocol AddressViewModelProtocol{
     func getAddressesForCurrentUser(id:String)
     func checkConnection()
     func getAddDetailsAndPostToCustomer(customerID:String, buildNo:String, streetName:String, city:String, country:String, completion: @escaping(Bool)->())
+    func deleteAddress(addressID: String, customerID: String)
 }
 
 class AddressViewModel:AddressViewModelProtocol{
+
+    
     
     var networkObservable: Observable<Bool>
     var networkSubject = PublishSubject<Bool>()
     var addressObservable: Observable<[Address]>
     private var addressSubject: PublishSubject<[Address]> = PublishSubject<[Address]>()
     var network:NetworkServiceProtocol
+    let address = NewAddress(address: Address())
     
     init(network:NetworkServiceProtocol) {
         self.network = network
@@ -32,6 +36,22 @@ class AddressViewModel:AddressViewModelProtocol{
         networkObservable = networkSubject.asObserver()
     }
     
+    func deleteAddress(addressID: String,customerID: String ) {
+        network.deleteAddress(customerID: customerID, addressID: addressID, address: address) { [weak self] (data, response, error) in
+            let json = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! Dictionary<String,Any>
+//            if json.isEmpty {
+//                print("deleted")
+//                //delete address from coreData
+//                self?.coreDataRepo.deleteAddress(id: addressId)
+//                self?.addresses = self?.coreDataRepo.getAddresses()
+//            }else{
+//                print("cant delete")
+//                self?.cantDeleteAddress()
+//            }
+            print(json)
+            
+        }
+    }
     func getAddressesForCurrentUser(id:String) {
         network.getCustomerAddresses(id:id) { [weak self] response in
             switch response{
