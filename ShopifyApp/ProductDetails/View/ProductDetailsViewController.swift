@@ -192,6 +192,30 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         
     }
     @IBAction func addToCartBtn(_ sender: Any) {
+
+        productViewModel?.checkProductInCart(id: "\(productId ?? "")")
+        guard let inCart = productViewModel?.isProductInCart else{return}
+        
+        if(inCart){
+            let alert = UIAlertController(title: "Already In Bag!", message: "if you need to increase the amount of product , you can from your bag ", preferredStyle: .alert)
+            let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(okBtn)
+            self.present(alert, animated: true, completion: nil)
+            
+            print("alert \(inCart)")
+        }else{
+            do{
+                try productViewModel?.addProductToCoreDataCart(id: "\(productId!)",title:(product?.title)!,image:(product?.image.src)!,price:(product?.variant[0].price)!, itemCount: 1, completion: { result in
+                    switch result{
+                    case true:
+                        Shared.showMessage(message: "Added To Bag Successfully!", error: false)
+                        print("add to cart \(inCart)")
+                        print("cartDone\(result)")
+                    case false :
+                        print("faild to add to cart")
+                    }
+                })
+
         Utilities.utilities.checkUserIsLoggedIn {[self] isLoggedIn in
             if isLoggedIn {
                 productViewModel?.checkProductInCart(id: "\(productId ?? "")")
@@ -229,6 +253,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                     
                 }
                 let cancleAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+
                 
                 cartAlert.addAction(loginAction)
                 cartAlert.addAction(cancleAction)

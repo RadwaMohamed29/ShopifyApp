@@ -189,6 +189,16 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             throw error
         }
     }
+    func addProductToCart(product:CartProduct , completion: @escaping (Bool)->Void) throws{
+        do{
+            try  localDataSource.saveInCart(newProduct: product)
+            completion(true)
+        }
+        catch let error{
+            completion(false)
+            throw error
+        }
+    }
     
     func getAllProductsInCart(completion: @escaping (Bool) -> Void) throws {
         do{
