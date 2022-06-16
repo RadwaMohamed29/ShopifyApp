@@ -65,10 +65,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     let refreshControl = UIRefreshControl()
     var reviewerImage = ["image2","image1","image2","image1"]
     var reviwerName = ["Radwa Mohamed","Peter Samir","Menna Elsayed","Abdelrhman Sayed"]
-    var reviewerComment = ["Great! Very nice product! Comfortable in bonus! <3 Thank you to the seller!"
-                           ,"Came quite quickly, look great, soft to the touch, a decent such aroma of China is attached"
-                           ,"Arrived perfect product great quality I recommend arrived with 05 before"
-                           ,"For what I paid are perfect. The product has come a long time before so sincerely thank you seller"]
+    var reviewerComment = ["perfect","good product","m4 btal","baaad"]
     
     
     override func viewDidLoad() {
@@ -125,59 +122,38 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     
     
     func setUpFavButton(){
-        self.productViewModel?.checkFavorite(id: "\(productId ?? "0")")
-        if self.productViewModel?.isFav == true {
-            self.favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+        productViewModel?.checkFavorite(id: "\(productId ?? "0")")
+        if productViewModel?.isFav == true {
+            favBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
         }else{
-            self.favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
+            favBtn.setImage(UIImage(systemName: "heart"), for : UIControl.State.normal)
         }
-        self.favBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
-        
-        
+        favBtn.addTarget(self, action: #selector(longPress(recognizer:)), for: .touchUpInside)
     }
+    
     
     
     @objc private func longPress(recognizer: UIButton) {
         
-        Utilities.utilities.checkUserIsLoggedIn{ [self] isLoggedIn in
-            if isLoggedIn {
-                let context :NSManagedObjectContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
-                let entity  = NSEntityDescription.entity(forEntityName: "FavouriteProduct", in: context)
-                productViewModel?.checkFavorite(id: productId!)
-                var favProduct = FavouriteProduct(entity: entity!, insertInto: context)
-                if productViewModel?.isFav == false {
-                    convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
-                    do{
-                        try context.save()
-                        
-                    }catch let error as NSError{
-                        print(error)
-                    }
-                    recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
-                }
-                else{
-                    convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
-                    Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
-                    
-                }
-            }else{
-                let cartAlert = UIAlertController(title: title, message: "Please logIn to add your product in favorite", preferredStyle: .alert)
-                let loginAction = UIAlertAction(title: "Login", style: .default) { (action) -> Void in
-                    let loginScreen = LoginViewController(nibName:"LoginViewController", bundle: nil)
-                    self.navigationController?.pushViewController(loginScreen, animated: true)
-                    
-                }
-                let cancleAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        let context :NSManagedObjectContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+        let entity  = NSEntityDescription.entity(forEntityName: "FavouriteProduct", in: context)
+        productViewModel?.checkFavorite(id: productId!)
+        var favProduct = FavouriteProduct(entity: entity!, insertInto: context)
+        if productViewModel?.isFav == false {
+            convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+            do{
+                try context.save()
                 
-                cartAlert.addAction(loginAction)
-                cartAlert.addAction(cancleAction)
-                
-                self.presentAlert(alert: cartAlert)
-                
+            }catch let error as NSError{
+                 print(error)
             }
-            
+            recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
         }
-        
+       else{
+           convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+           Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
+           
+       }
         
     }
     
@@ -188,11 +164,10 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         favProduct.body_html = product?.bodyHTML
         favProduct.scr = product?.image.src
         favProduct.customer_id = "\(Utilities.utilities.getCustomerId())"
-        
+
         
     }
     @IBAction func addToCartBtn(_ sender: Any) {
-
         productViewModel?.checkProductInCart(id: "\(productId ?? "")")
         guard let inCart = productViewModel?.isProductInCart else{return}
         
@@ -215,54 +190,11 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                         print("faild to add to cart")
                     }
                 })
-
-        Utilities.utilities.checkUserIsLoggedIn {[self] isLoggedIn in
-            if isLoggedIn {
-                productViewModel?.checkProductInCart(id: "\(productId ?? "")")
-                guard let inCart = productViewModel?.isProductInCart else{return}
                 
-                if(inCart){
-                    let alert = UIAlertController(title: "Already In Bag!", message: "if you need to increase the amount of product , you can from your bag ", preferredStyle: .alert)
-                    let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alert.addAction(okBtn)
-                    self.present(alert, animated: true, completion: nil)
-                    
-                    print("alert \(inCart)")
-                }else{
-                    do{
-                        try productViewModel?.addProductToCoreDataCart(id: "\(productId!)",title:(product?.title)!,image:(product?.image.src)!,price:(product?.variant[0].price)!, itemCount: 1, completion: { result in
-                            switch result{
-                            case true:
-                                Shared.showMessage(message: "Added To Bag Successfully!", error: false)
-                                print("add to cart \(inCart)")
-                                
-                            case false :
-                                print("faild to add to cart")
-                            }
-                        })
-                        
-                    }catch let error{
-                        print(error.localizedDescription)
-                    }
-                }
-            }else{
-                let cartAlert = UIAlertController(title: title, message: "Please logIn to add your product in cart", preferredStyle: .alert)
-                let loginAction = UIAlertAction(title: "Login", style: .default) { (action) -> Void in
-                    let loginScreen = LoginViewController(nibName:"LoginViewController", bundle: nil)
-                    self.navigationController?.pushViewController(loginScreen, animated: true)
-                    
-                }
-                let cancleAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
-
-                
-                cartAlert.addAction(loginAction)
-                cartAlert.addAction(cancleAction)
-                
-                self.presentAlert(alert: cartAlert)
+            }catch let error{
+                print(error.localizedDescription)
             }
-            
         }
-        
         
     }
     
@@ -272,25 +204,25 @@ extension ProductDetailsViewController: UICollectionViewDataSource,UICollectionV
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == reviewCollectionView{
+       if collectionView == reviewCollectionView{
             return 4
-        }else{
-            return images.count
-        }
-        
+       }else{
+           return images.count
+       }
+    
         
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == reviewCollectionView{
-            let reviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewsCollectionViewCell", for: indexPath) as! ReviewsCollectionViewCell
+        let reviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewsCollectionViewCell", for: indexPath) as! ReviewsCollectionViewCell
             reviewCell.customerImage.image = UIImage(named: self.reviewerImage[indexPath.row])
             reviewCell.customerName.text = self.reviwerName[indexPath.row]
             reviewCell.customerReview.text = self.reviewerComment[indexPath.row]
-            return reviewCell
+           return reviewCell
         }else{
             let productImagesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductImagesCollectionViewCell", for: indexPath) as! ProductImagesCollectionViewCell
-            
+        
             let url = URL(string: self.images[indexPath.row].src)
             productImagesCell.productImage.kf.setImage(with: url)
             self.imageControl.numberOfPages = images.count
@@ -307,7 +239,7 @@ extension ProductDetailsViewController: UICollectionViewDataSource,UICollectionV
         }else{
             return CGSize(width: reviewCollectionView.frame.width, height: reviewCollectionView.frame.height)
         }
-        
+      
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -329,4 +261,11 @@ extension ProductDetailsViewController: UITableViewDelegate,UITableViewDataSourc
         sizesCell.sixe.text = optionsValue[indexPath.row]
         return sizesCell
     }
+    
+    
+    
+}
+
+extension ProductDetailsViewController{
+    
 }
