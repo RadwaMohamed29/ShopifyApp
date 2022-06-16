@@ -11,9 +11,12 @@ import UIKit
 class PostAddressViewController: UIViewController {
 
     let userDefault = Utilities()
-    var buildNo, streetName, cityName, country:String?
+    var streetName, cityName, country:String?
     var isEdit = false
     var timer = Timer()
+    var editedAddress:Address!
+    var addressID: Int!
+    var phone: String!
     @IBOutlet weak var myView: UIView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var buildNoTxtV: UITextField!
@@ -31,24 +34,26 @@ class PostAddressViewController: UIViewController {
     
     func fillTextFields() {
         if isEdit{
-            buildNoTxtV.text = (buildNo ?? "")
+            buildNoTxtV.text = (phone ?? ""  )
             streetNameTxtF.text = (streetName ?? "")
             cityTxtF.text = (cityName ?? "")
             countryTxtF.text = (country ?? "")
         }
     }
     
-    @IBAction func btnConfirm(_ sender: Any) {
-        if validateAddressInput() {
-            let id:String = String((userDefault.getCustomerId()))
-            viewModel?.getAddDetailsAndPostToCustomer(customerID: id, buildNo: buildNoTxtV.text!, streetName: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!,completion: {[weak self] isSucceded in
+    func editAddress(){
+        print (buildNoTxtV.text!)
+
+        editedAddress = Address( address2: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!, phone: buildNoTxtV.text!)
+        if validateAddressInput(){
+            viewModel?.editAddress(address: editedAddress, addressID: String(addressID), customerID: String(userDefault.getCustomerId()),completion: {[weak self] isSucceded in
                 HandelConnection.handelConnection.checkNetworkConnection {[weak self] isConn in
                     if isConn{
                         if isSucceded{
                             self?.myView.layer.opacity = 0.5
                             self?.showProgressBar()
                             DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
-                                Shared.showMessage(message: "Address Added Successfully", error: false)
+                                Shared.showMessage(message: "Address Updated Successfully", error: false)
                                 self?.navigationController?.popViewController(animated: true)
                             })
                         }else{
@@ -63,10 +68,47 @@ class PostAddressViewController: UIViewController {
                 }
                 
             })
-         
-        }else{
+        }else {
             Shared.showMessage(message: "please fill all fields", error: true)
         }
+        
+    }
+    
+    @IBAction func btnConfirm(_ sender: Any) {
+        if isEdit{
+            editAddress()
+        }else{
+            if validateAddressInput() {
+                let id:String = String((userDefault.getCustomerId()))
+                viewModel?.getAddDetailsAndPostToCustomer(customerID: id, phone: buildNoTxtV.text!, streetName: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!,completion: {[weak self] isSucceded in
+                    HandelConnection.handelConnection.checkNetworkConnection {[weak self] isConn in
+                        if isConn{
+                            if isSucceded{
+                                self?.myView.layer.opacity = 0.5
+                                self?.showProgressBar()
+                                DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
+                                    Shared.showMessage(message: "Address Added Successfully", error: false)
+                                    self?.navigationController?.popViewController(animated: true)
+                                })
+                            }else{
+                                self?.showProgressBar()
+                                DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: {
+                                    Shared.showMessage(message: "You may be Entered Wrong Country", error: true)
+                                })
+                            }
+                        }else{
+                            self?.showSnackBar()
+                        }
+                    }
+                    
+                })
+             
+            }else{
+                Shared.showMessage(message: "please fill all fields", error: true)
+            }
+        }
+ 
+    
         
     }
     
