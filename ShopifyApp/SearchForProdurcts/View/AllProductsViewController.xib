@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,6 +23,7 @@
             <subviews>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XBF-iO-QVO">
                     <rect key="frame" x="0.0" y="44" width="338" height="44"/>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                     <items>
                         <barButtonItem style="plain" id="5eD-Nb-x1y">
                             <searchBar key="customView" contentMode="redraw" id="Pj6-g3-cX5">
@@ -33,10 +33,11 @@
                             </searchBar>
                         </barButtonItem>
                     </items>
+                    <color key="barTintColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                 </toolbar>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="JbU-VK-Tzp">
-                    <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <rect key="frame" x="0.0" y="88" width="414" height="1360.5"/>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="M2Y-ja-jHc">
                         <size key="itemSize" width="128" height="128"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -45,28 +46,31 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YOz-0A-5r3">
-                    <rect key="frame" x="327" y="35" width="72" height="44"/>
+                    <rect key="frame" x="327" y="6" width="72" height="73"/>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="GaA-P9-ec4"/>
                     </constraints>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" image="sortByPrice"/>
+                    <buttonConfiguration key="configuration" style="plain" image="sortByPrice">
+                        <color key="baseForegroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </buttonConfiguration>
                     <connections>
                         <action selector="btnFilter:" destination="-1" eventType="touchUpInside" id="STk-iu-SrA"/>
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T0q-Is-Pra">
-                    <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                    <rect key="frame" x="0.0" y="88" width="414" height="1360.5"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="images" translatesAutoresizingMaskIntoConstraints="NO" id="5w5-Iy-WCH">
-                            <rect key="frame" x="87" y="323" width="240" height="128"/>
+                            <rect key="frame" x="87" y="568" width="240" height="225"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="5w5-Iy-WCH" secondAttribute="width" multiplier="1:1" id="RBj-Fn-b8P"/>
                                 <constraint firstAttribute="width" secondItem="5w5-Iy-WCH" secondAttribute="width" multiplier="1:1" id="Rhh-3Y-rEE"/>
                             </constraints>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="5w5-Iy-WCH" firstAttribute="height" secondItem="T0q-Is-Pra" secondAttribute="height" multiplier="0.165375" id="Gta-vX-wbw"/>
                         <constraint firstItem="5w5-Iy-WCH" firstAttribute="width" secondItem="T0q-Is-Pra" secondAttribute="width" multiplier="0.57971" id="KXG-dR-hP4"/>
@@ -76,7 +80,7 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="XBF-iO-QVO" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.816425" id="0H6-0G-2Z8"/>
                 <constraint firstItem="T0q-Is-Pra" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="3vi-qR-C7F"/>
@@ -99,8 +103,5 @@
     <resources>
         <image name="images" width="225" height="225"/>
         <image name="sortByPrice" width="48" height="48"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

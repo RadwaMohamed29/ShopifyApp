@@ -21,6 +21,7 @@ class TabBarViewController: UITabBarController {
         categoryVC.title = "Category"
         meVC.title = "Me"
         
+        
         self.setViewControllers([homeVC,categoryVC,meVC], animated: false)
        // self.tabBar.backgroundColor = .red
         
@@ -30,7 +31,7 @@ class TabBarViewController: UITabBarController {
             items[i].image = UIImage(systemName: images[i])
             
         }
-        self.tabBar.backgroundColor = .white
+        self.tabBar.backgroundColor = UIColor(red: 0.953, green: 0.965, blue: 0.965, alpha: 1)
         
         self.tabBar.tintColor = .black
     }

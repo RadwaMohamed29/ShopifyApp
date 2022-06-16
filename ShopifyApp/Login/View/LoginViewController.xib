@@ -166,7 +166,7 @@
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="J14-uj-q4y" firstAttribute="leading" secondItem="Aba-NN-aVh" secondAttribute="trailing" id="4AF-yM-5eE"/>
                 <constraint firstItem="EKE-Fq-ov6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="4Yh-Lj-d7w"/>
@@ -177,13 +177,11 @@
                 <constraint firstItem="Aba-NN-aVh" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.496377" id="FYI-O3-hla"/>
                 <constraint firstItem="V20-H2-JOB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="42" id="Hj5-zn-GPk"/>
                 <constraint firstItem="RNk-a9-sih" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="I2l-fV-4vP"/>
-                <constraint firstItem="Pcf-ne-ER8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="Ij9-NT-E0l"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="V20-H2-JOB" secondAttribute="trailing" constant="42" id="Jhq-rk-gNN"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="gk2-8j-Dnb" secondAttribute="trailing" constant="250" id="Jp5-tn-p2r"/>
                 <constraint firstItem="Pbe-dl-wrp" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.408213" id="KdD-zK-kh5"/>
                 <constraint firstItem="fWe-ht-BlO" firstAttribute="top" secondItem="gk2-8j-Dnb" secondAttribute="bottom" constant="8" id="Kpv-wi-H67"/>
                 <constraint firstItem="fWe-ht-BlO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="QSO-SA-WKv"/>
-                <constraint firstItem="V20-H2-JOB" firstAttribute="centerX" secondItem="Pcf-ne-ER8" secondAttribute="centerX" id="T4V-XN-i3b"/>
                 <constraint firstItem="EKE-Fq-ov6" firstAttribute="top" secondItem="Pk7-FK-2vf" secondAttribute="bottom" constant="8" id="WQ1-fq-T31"/>
                 <constraint firstItem="Pk7-FK-2vf" firstAttribute="top" secondItem="fWe-ht-BlO" secondAttribute="bottom" constant="18" id="Zew-Kj-lnV"/>
                 <constraint firstItem="Aba-NN-aVh" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0267857" id="aCC-iP-daV"/>
@@ -191,13 +189,11 @@
                 <constraint firstItem="Aba-NN-aVh" firstAttribute="centerX" secondItem="Pbe-dl-wrp" secondAttribute="centerX" constant="-40" id="bM2-Hz-hig"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fWe-ht-BlO" secondAttribute="trailing" constant="46" id="cT9-Sm-5kp"/>
                 <constraint firstItem="Pk7-FK-2vf" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="ejF-Qk-oRe"/>
-                <constraint firstItem="Pcf-ne-ER8" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="fcd-OF-0To"/>
                 <constraint firstItem="Aba-NN-aVh" firstAttribute="top" secondItem="Pbe-dl-wrp" secondAttribute="bottom" constant="24" id="g7D-PO-Eit"/>
                 <constraint firstItem="V20-H2-JOB" firstAttribute="top" secondItem="Pcf-ne-ER8" secondAttribute="bottom" constant="8" id="hgK-WI-QkY"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Pk7-FK-2vf" secondAttribute="trailing" constant="250" id="i4c-4a-jWI"/>
                 <constraint firstItem="J14-uj-q4y" firstAttribute="centerY" secondItem="Aba-NN-aVh" secondAttribute="centerY" id="iqk-J0-dnV"/>
                 <constraint firstItem="Pbe-dl-wrp" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0636161" id="kB9-rn-Sac"/>
-                <constraint firstItem="V20-H2-JOB" firstAttribute="width" secondItem="Pcf-ne-ER8" secondAttribute="width" multiplier="0.873016" id="ljm-hM-5RW"/>
                 <constraint firstItem="Pcf-ne-ER8" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="mXn-ib-Fwy"/>
                 <constraint firstItem="gk2-8j-Dnb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="sDs-dB-h5s"/>
                 <constraint firstItem="V20-H2-JOB" firstAttribute="leading" secondItem="Pcf-ne-ER8" secondAttribute="trailing" constant="-354" id="u55-3G-562"/>
@@ -211,6 +207,14 @@
             <point key="canvasLocation" x="137.68115942028987" y="69.642857142857139"/>
         </view>
     </objects>
+    <designables>
+        <designable name="EKE-Fq-ov6">
+            <size key="intrinsicContentSize" width="31" height="38.5"/>
+        </designable>
+        <designable name="fWe-ht-BlO">
+            <size key="intrinsicContentSize" width="31" height="39.5"/>
+        </designable>
+    </designables>
     <resources>
         <image name="login" width="800" height="566"/>
         <systemColor name="systemBackgroundColor">
