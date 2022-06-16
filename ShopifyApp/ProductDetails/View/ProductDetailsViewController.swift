@@ -65,7 +65,10 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     let refreshControl = UIRefreshControl()
     var reviewerImage = ["image2","image1","image2","image1"]
     var reviwerName = ["Radwa Mohamed","Peter Samir","Menna Elsayed","Abdelrhman Sayed"]
-    var reviewerComment = ["perfect","good product","m4 btal","baaad"]
+    var reviewerComment = ["Great! Very nice product! Comfortable in bonus! <3 Thank you to the seller!"
+                           ,"Came quite quickly, look great, soft to the touch, a decent such aroma of China is attached"
+                           ,"Arrived perfect product great quality I recommend arrived with 05 before"
+                           ,"For what I paid are perfect. The product has come a long time before so sincerely thank you seller"]
     
     
     override func viewDidLoad() {
@@ -135,25 +138,45 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     
     @objc private func longPress(recognizer: UIButton) {
         
-        let context :NSManagedObjectContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
-        let entity  = NSEntityDescription.entity(forEntityName: "FavouriteProduct", in: context)
-        productViewModel?.checkFavorite(id: productId!)
-        var favProduct = FavouriteProduct(entity: entity!, insertInto: context)
-        if productViewModel?.isFav == false {
-            convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
-            do{
-                try context.save()
+        Utilities.utilities.checkUserIsLoggedIn{ [self] isLoggedIn in
+            if isLoggedIn {
+                let context :NSManagedObjectContext = (UIApplication.shared.delegate as? AppDelegate)!.persistentContainer.viewContext
+                let entity  = NSEntityDescription.entity(forEntityName: "FavouriteProduct", in: context)
+                productViewModel?.checkFavorite(id: productId!)
+                var favProduct = FavouriteProduct(entity: entity!, insertInto: context)
+                if productViewModel?.isFav == false {
+                    convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+                    do{
+                        try context.save()
+                        
+                    }catch let error as NSError{
+                        print(error)
+                    }
+                    recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+                }
+                else{
+                    convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+                    Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
+                    
+                }
+            }else{
+                let cartAlert = UIAlertController(title: title, message: "Please logIn to add your product in favorite", preferredStyle: .alert)
+                let loginAction = UIAlertAction(title: "Login", style: .default) { (action) -> Void in
+                    let loginScreen = LoginViewController(nibName:"LoginViewController", bundle: nil)
+                    self.navigationController?.pushViewController(loginScreen, animated: true)
+                    
+                }
+                let cancleAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
                 
-            }catch let error as NSError{
-                 print(error)
+                cartAlert.addAction(loginAction)
+                cartAlert.addAction(cancleAction)
+                
+                self.presentAlert(alert: cartAlert)
+                
             }
-            recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+            
         }
-       else{
-           convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
-           Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
-           
-       }
+        
         
     }
     
@@ -168,32 +191,51 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         
     }
     @IBAction func addToCartBtn(_ sender: Any) {
-        productViewModel?.checkProductInCart(id: "\(productId ?? "")")
-        guard let inCart = productViewModel?.isProductInCart else{return}
-        
-        if(inCart){
-            let alert = UIAlertController(title: "Already In Bag!", message: "if you need to increase the amount of product , you can from your bag ", preferredStyle: .alert)
-            let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(okBtn)
-            self.present(alert, animated: true, completion: nil)
-            
-            print("alert \(inCart)")
-        }else{
-            do{
-                try productViewModel?.addProductToCoreDataCart(id: "\(productId!)",title:(product?.title)!,image:(product?.image.src)!,price:(product?.variant[0].price)!, itemCount: 1, completion: { result in
-                    switch result{
-                    case true:
-                        Shared.showMessage(message: "Added To Bag Successfully!", error: false)
-                        print("add to cart \(inCart)")
-                        print("cartDone\(result)")
-                    case false :
-                        print("faild to add to cart")
-                    }
-                })
+        Utilities.utilities.checkUserIsLoggedIn {[self] isLoggedIn in
+            if isLoggedIn {
+                productViewModel?.checkProductInCart(id: "\(productId ?? "")")
+                guard let inCart = productViewModel?.isProductInCart else{return}
                 
-            }catch let error{
-                print(error.localizedDescription)
+                if(inCart){
+                    let alert = UIAlertController(title: "Already In Bag!", message: "if you need to increase the amount of product , you can from your bag ", preferredStyle: .alert)
+                    let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                    alert.addAction(okBtn)
+                    self.present(alert, animated: true, completion: nil)
+                    
+                    print("alert \(inCart)")
+                }else{
+                    do{
+                        try productViewModel?.addProductToCoreDataCart(id: "\(productId!)",title:(product?.title)!,image:(product?.image.src)!,price:(product?.variant[0].price)!, itemCount: 1, completion: { result in
+                            switch result{
+                            case true:
+                                Shared.showMessage(message: "Added To Bag Successfully!", error: false)
+                                print("add to cart \(inCart)")
+                                
+                            case false :
+                                print("faild to add to cart")
+                            }
+                        })
+                        
+                    }catch let error{
+                        print(error.localizedDescription)
+                    }
+                }
+            }else{
+                let cartAlert = UIAlertController(title: title, message: "Please logIn to add your product in cart", preferredStyle: .alert)
+                let loginAction = UIAlertAction(title: "Login", style: .default) { (action) -> Void in
+                    let loginScreen = LoginViewController(nibName:"LoginViewController", bundle: nil)
+                    self.navigationController?.pushViewController(loginScreen, animated: true)
+                    
+                }
+                let cancleAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+
+                
+                cartAlert.addAction(loginAction)
+                cartAlert.addAction(cancleAction)
+                
+                self.presentAlert(alert: cartAlert)
             }
+            
         }
         
     }
