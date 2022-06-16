@@ -10,8 +10,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CategoryViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
+                <outlet property="cartOutlet" destination="fe4-Fn-6pC" id="kfM-sX-heq"/>
                 <outlet property="categoryCollection" destination="nvr-ww-Pqi" id="T3j-gf-4ja"/>
                 <outlet property="fabBtn" destination="6de-Pc-Q7o" id="IDP-dr-bWV"/>
+                <outlet property="favOutlet" destination="V7W-Gv-DTf" id="peF-8L-6Gm"/>
                 <outlet property="kids" destination="PuE-Mg-ccB" id="sIc-BW-cgo"/>
                 <outlet property="labelNoData" destination="qah-G2-WRK" id="bWT-ig-8f6"/>
                 <outlet property="men" destination="hkk-V7-Kdv" id="pfW-Yr-Fld"/>
