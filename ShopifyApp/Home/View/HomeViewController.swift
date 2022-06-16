@@ -29,6 +29,10 @@ class HomeViewController: UIViewController,brandIdProtocol {
                 self.cartBtn.setBadge(text: String(describing:self.localDataSource.getCountOfProductInCart()))
                 self.favBtn.setBadge(text: String(describing: self.localDataSource.getCountOfProductInFav()))
             }
+            else{
+                self.cartBtn.setBadge(text: String("0"))
+                self.favBtn.setBadge(text: String("0"))
+            }
         }
         checkConnection()
     }

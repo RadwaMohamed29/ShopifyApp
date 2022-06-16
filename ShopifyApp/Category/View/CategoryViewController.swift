@@ -34,6 +34,9 @@ class CategoryViewController: UIViewController {
     @IBOutlet  weak var categoryCollection: UICollectionView!
     var collectionFlowLayout:UICollectionViewFlowLayout!
     
+    @IBOutlet weak var cartOutlet: UIBarButtonItem!
+    @IBOutlet weak var favOutlet: UIBarButtonItem!
+    var localDataSource = LocalDataSource(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
 //        getCategory(target: .HomeCategoryProducts)
@@ -41,6 +44,16 @@ class CategoryViewController: UIViewController {
             if !showList.isEmpty{
                 labelNoData.isHidden = true
                 noDataImg.isHidden = true
+            }
+        }
+        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
+            if isLoggedIn{
+                self.cartOutlet.setBadge(text: String(describing:self.localDataSource.getCountOfProductInCart()))
+                self.favOutlet.setBadge(text: String(describing: self.localDataSource.getCountOfProductInFav()))
+            }
+            else{
+                self.cartOutlet.setBadge(text: String("0"))
+                self.favOutlet.setBadge(text: String("0"))
             }
         }
         categoryCollection.reloadData()

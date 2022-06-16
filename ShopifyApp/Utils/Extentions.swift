@@ -63,8 +63,8 @@ extension UIBarButtonItem {
         // Initialize Badge
         let badge = CAShapeLayer()
         
-        let height = badgeSize.height;
-        var width = badgeSize.width + 2 /* padding */
+        let height = badgeSize.height ;
+        var width = badgeSize.width + 5 /* padding */
         
         //make sure we have at least a circle
         if (width < height) {
