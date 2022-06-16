@@ -307,7 +307,3 @@ extension ProductDetailsViewController: UITableViewDelegate,UITableViewDataSourc
     
     
 }
-
-extension ProductDetailsViewController{
-    
-}

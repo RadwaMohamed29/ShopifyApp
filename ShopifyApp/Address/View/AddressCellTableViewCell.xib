@@ -26,14 +26,14 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luG-uq-Yfx">
-                        <rect key="frame" x="12" y="35" width="245" height="49"/>
+                        <rect key="frame" x="12" y="35" width="245" height="61"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <color key="textColor" red="0.070588235289999995" green="0.074509803920000006" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="luG-uq-Yfx" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.4" id="3z1-x5-Llc"/>
+                    <constraint firstItem="luG-uq-Yfx" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.5" id="3z1-x5-Llc"/>
                     <constraint firstItem="luG-uq-Yfx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="35" id="EMj-jH-b5V"/>
                     <constraint firstItem="luG-uq-Yfx" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Gid-1Y-zeo"/>
                     <constraint firstItem="UnS-V1-dOY" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.254098" id="ZeF-R7-Y50"/>
