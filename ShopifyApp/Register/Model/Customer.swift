@@ -34,6 +34,9 @@ struct NewAddress:Codable{
     let address:Address
 }
 
+struct UpdateAddress: Codable {
+    var address: Address
+}
 extension Encodable {
   func asDictionary() throws -> [String: Any] {
     let data = try JSONEncoder().encode(self)
