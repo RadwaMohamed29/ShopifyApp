@@ -10,16 +10,19 @@ import RxSwift
 import SwiftMessages
 import CoreMedia
 import CoreMIDI
+import NVActivityIndicatorView
 
 class AddressViewController: UIViewController {
 
     let userDefault = Utilities()
+    let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     @IBOutlet weak var noAddressView: UIView!
     private var isConn:Bool = false
     private let disposeBag = DisposeBag()
     fileprivate var arr : [Address]!
     fileprivate var viewModel:AddressViewModelProtocol!
     @IBOutlet weak var addressTableView: UITableView!
+    var addrressID: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTable()
@@ -96,16 +99,15 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCellTableViewCell", for: indexPath ) as! AddressCellTableViewCell
         let index = arr[indexPath.row]
         cell.labelAddress.text = "\(index.address1 ?? "") \(index.address2 ?? "") st, \(index.city ?? ""), \(index.country ?? "")"
         cell.backgroundColor = UIColor.white
-//                cell.layer.borderColor = UIColor.black.cgColor
                 cell.layer.borderWidth = 1
-//                cell.layer.cornerRadius = 8
-//                cell.clipsToBounds = true
+        cell.deleteAddressByBottun = {[weak self] in
+            self?.deleteAddress(indexPath: indexPath)
+            }
                 return cell
     }
     
@@ -133,20 +135,33 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
     
     @objc func addAddress() {
         print("add pressed")
-//        displayVC(content: PostAddressViewController())
         let post = PostAddressViewController(nibName: "PostAddressViewController", bundle: nil)
         self.navigationController?.pushViewController(post, animated: true)
         
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let height = self.view.frame.size.height
         return 100
+    }
+    func deleteAddress(indexPath: IndexPath){
+        if indexPath.row == 0{
+            let alert = UIAlertController(title: title, message: "Sorry defualt address can not be deleted!", preferredStyle: .alert)
+            let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(okBtn)
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            self.viewModel.deleteAddress(addressID: String(self.arr[indexPath.row].id!) , customerID: String((self.userDefault.getCustomerId())))
+            print(String(self.arr[indexPath.row].id!))
+            self.checkNetwork()
+            print("deleting")
+        }
+      
+        
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { action, _, handler in
-            print("deleting")
+            self.deleteAddress(indexPath: indexPath)
         }
         let edit = UIContextualAction(style: .normal, title: "Edit") { [weak self] action, _, handler in
             let edit = PostAddressViewController(nibName: "PostAddressViewController", bundle: nil)

@@ -9,8 +9,10 @@ import Foundation
 import Alamofire
 private let BASE_URL = "https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/"
 class APIClient: NetworkServiceProtocol{
-
-
+    func deleteAddress(customerID: String, addressID: String, address: NewAddress, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        apiPost(endPoint: .deleteAddress(customerID: customerID, addressID: addressID), methods: .DELETE, modelType: address, completion: completion)
+    }
+    
     func getDiscountCode(priceRule: String, completion: @escaping (Result<DiscountCode, ErrorType>) -> Void) {
         request(endpoint: .getDiscountCode(priceRule: priceRule), method: .GET, compeletion: completion)
     }
@@ -86,14 +88,18 @@ class APIClient: NetworkServiceProtocol{
     func apiPost<T:Codable>(endPoint:Endpoints, methods:Methods, modelType:T, completion: @escaping (Data?, URLResponse?, Error?)->()) {
             guard let url = URL(string: "\(BASE_URL)\(endPoint.path)") else {return}
             var request = URLRequest(url: url)
-            request.httpMethod = "\(Methods.POST)"
+            request.httpMethod = "\(methods)"
             let session = URLSession.shared
             request.httpShouldHandleCookies = false
+            
+        if methods == .POST{
             do{
                 request.httpBody = try JSONSerialization.data(withJSONObject: modelType.asDictionary(), options: .prettyPrinted)
             }catch let error{
                 print(error.localizedDescription)
             }
+        }
+            
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
