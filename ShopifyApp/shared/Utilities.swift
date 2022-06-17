@@ -86,4 +86,10 @@ class Utilities{
         return currency ?? ""
         
     }
+    func setDraftOrder(id:Int){
+        UserDefaults.standard.set(id, forKey: "draft_order_id")
+    }
+    func getDraftOrder()->Int{
+        UserDefaults.standard.value(forKey: "draft_order_id") as! String
+    }
 }
