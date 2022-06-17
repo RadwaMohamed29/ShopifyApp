@@ -7,7 +7,7 @@
 
 import Foundation
 import Alamofire
-private let BASE_URL = "https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/"
+private let BASE_URL = "https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/"
 
 class APIClient: NetworkServiceProtocol{
     func getAllCustomers(completion: @escaping (Result<AllCustomers, ErrorType>) -> Void) {
@@ -112,9 +112,9 @@ class APIClient: NetworkServiceProtocol{
                 let object = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(object))
             }    catch {
-
+                print(error.localizedDescription)
                     completion(.failure(.parsingError))
-                print(fatalError(error.localizedDescription))
+                
 
                 }
         }.resume()

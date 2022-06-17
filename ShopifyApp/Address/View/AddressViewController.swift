@@ -16,6 +16,7 @@ class AddressViewController: UIViewController {
     private var isConn:Bool = false
     private let disposeBag = DisposeBag()
     fileprivate var arr : [Address]!
+    var cartProducts : [CartProduct] = []
     fileprivate var viewModel:AddressViewModelProtocol!
     @IBOutlet weak var addressTableView: UITableView!
     override func viewDidLoad() {
@@ -80,6 +81,11 @@ class AddressViewController: UIViewController {
         
     }
     
+    @IBAction func confirmAdress(_ sender: Any) {
+        let checkoutVC = CheckoutViewController(nibName: "CheckoutViewController", bundle: nil)
+        checkoutVC.cartProducts = cartProducts
+        self.navigationController?.pushViewController(checkoutVC, animated: true)
+    }
     
 }
 

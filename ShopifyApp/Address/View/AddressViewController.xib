@@ -26,6 +26,9 @@
                     <buttonConfiguration key="configuration" style="filled" title="Confirm Address" cornerStyle="capsule">
                         <color key="baseBackgroundColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="confirmAdress:" destination="-1" eventType="touchUpInside" id="U9X-he-asW"/>
+                    </connections>
                 </button>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VVh-p5-Oph">
                     <rect key="frame" x="0.0" y="44" width="414" height="730.5"/>
