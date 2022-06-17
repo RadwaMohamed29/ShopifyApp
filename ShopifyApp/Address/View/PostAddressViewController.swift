@@ -11,11 +11,12 @@ import UIKit
 class PostAddressViewController: UIViewController {
 
     let userDefault = Utilities()
-    var buildNo, streetName, cityName, country:String?
+    var streetName, cityName, country:String?
     var isEdit = false
     var timer = Timer()
     var editedAddress:Address!
     var addressID: Int!
+    var phone: String!
     @IBOutlet weak var myView: UIView!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var buildNoTxtV: UITextField!
@@ -33,7 +34,7 @@ class PostAddressViewController: UIViewController {
     
     func fillTextFields() {
         if isEdit{
-            buildNoTxtV.text = (buildNo ?? "")
+            buildNoTxtV.text = (phone ?? ""  )
             streetNameTxtF.text = (streetName ?? "")
             cityTxtF.text = (cityName ?? "")
             countryTxtF.text = (country ?? "")
@@ -42,13 +43,9 @@ class PostAddressViewController: UIViewController {
     
     func editAddress(){
         print (buildNoTxtV.text!)
-//         editedAddress.address1 = buildNoTxtV.text!
-//         editedAddress.address2 = streetNameTxtF.text!
-//        editedAddress.city = cityTxtF.text!
-//        editedAddress.country = countryTxtF.text!
-        editedAddress = Address(address1: buildNoTxtV.text!, address2: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!)
+
+        editedAddress = Address( address2: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!, phone: buildNoTxtV.text!)
         if validateAddressInput(){
-//            print(String(editedAddress.id!))
             viewModel?.editAddress(address: editedAddress, addressID: String(addressID), customerID: String(userDefault.getCustomerId()),completion: {[weak self] isSucceded in
                 HandelConnection.handelConnection.checkNetworkConnection {[weak self] isConn in
                     if isConn{
@@ -83,7 +80,7 @@ class PostAddressViewController: UIViewController {
         }else{
             if validateAddressInput() {
                 let id:String = String((userDefault.getCustomerId()))
-                viewModel?.getAddDetailsAndPostToCustomer(customerID: id, buildNo: buildNoTxtV.text!, streetName: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!,completion: {[weak self] isSucceded in
+                viewModel?.getAddDetailsAndPostToCustomer(customerID: id, phone: buildNoTxtV.text!, streetName: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!,completion: {[weak self] isSucceded in
                     HandelConnection.handelConnection.checkNetworkConnection {[weak self] isConn in
                         if isConn{
                             if isSucceded{

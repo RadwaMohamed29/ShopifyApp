@@ -31,9 +31,6 @@ class AddressViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAddress))
         arr = []
         
-        //6463260754149
-//        getAddresses(id: "6466443772133")
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,7 +99,7 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCellTableViewCell", for: indexPath ) as! AddressCellTableViewCell
         let index = arr[indexPath.row]
-        cell.labelAddress.text = "\(index.address1 ?? "") \(index.address2 ?? "") st, \(index.city ?? ""), \(index.country ?? "")"
+        cell.labelAddress.text = "\(index.address2 ?? "") st, \(index.city ?? ""), \(index.country ?? "")"
         cell.backgroundColor = UIColor.white
                 cell.layer.borderWidth = 1
         cell.deleteAddressByBottun = {[weak self] in
@@ -116,7 +113,7 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
         view.addSubview(addressVC.view)
         addressVC.didMove(toParent: self)
     }
-//
+
     func displayVC(content:UIViewController) {
         addChild(content)
         self.view.addSubview(content.view)
@@ -166,7 +163,7 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
         let edit = UIContextualAction(style: .normal, title: "Edit") { [weak self] action, _, handler in
             let edit = PostAddressViewController(nibName: "PostAddressViewController", bundle: nil)
             edit.isEdit = true
-            edit.buildNo = self?.arr[indexPath.row].address1
+            edit.phone = self?.arr[indexPath.row].phone
             edit.streetName = self?.arr[indexPath.row].address2
             edit.cityName = self?.arr[indexPath.row].city
             edit.country = self?.arr[indexPath.row].country

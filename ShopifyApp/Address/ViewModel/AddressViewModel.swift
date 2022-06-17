@@ -15,7 +15,7 @@ protocol AddressViewModelProtocol{
 //    var addressSubject:PublishSubject<[Address]>{ get set }
     func getAddressesForCurrentUser(id:String)
     func checkConnection()
-    func getAddDetailsAndPostToCustomer(customerID:String, buildNo:String, streetName:String, city:String, country:String, completion: @escaping(Bool)->())
+    func getAddDetailsAndPostToCustomer(customerID:String, phone: String, streetName:String, city:String, country:String, completion: @escaping(Bool)->())
     func deleteAddress(addressID: String, customerID: String)
     func editAddress(address: Address,addressID: String, customerID: String, completion: @escaping (Bool)->())
 }
@@ -93,8 +93,8 @@ class AddressViewModel:AddressViewModelProtocol{
         }
     }
     
-    func getAddDetailsAndPostToCustomer(customerID:String, buildNo:String, streetName:String, city:String, country:String, completion: @escaping (Bool)->()){
-        let address = Address(address1: buildNo, address2: streetName, city: city, country: country)
+    func getAddDetailsAndPostToCustomer(customerID:String, phone: String, streetName:String, city:String, country:String, completion: @escaping (Bool)->()){
+        let address = Address(address2: streetName, city: city, country: country, phone: phone)
         let newAddress = NewAddress(address: address)
         network.postAddressToCustomer(id: customerID, address: newAddress) { data, response, error in
             if error != nil{
