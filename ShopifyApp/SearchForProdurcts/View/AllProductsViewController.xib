@@ -51,9 +51,10 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="GaA-P9-ec4"/>
                     </constraints>
+                    <color key="tintColor" red="0.031" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" image="sortByPrice">
-                        <color key="baseForegroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <buttonConfiguration key="configuration" style="plain" image="sortByPrice" title="">
+                        <color key="baseForegroundColor" red="0.031" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </buttonConfiguration>
                     <connections>
                         <action selector="btnFilter:" destination="-1" eventType="touchUpInside" id="STk-iu-SrA"/>

@@ -24,7 +24,7 @@
                     <buttonConfiguration key="configuration" style="filled" title="Apply Method" cornerStyle="capsule">
                         <backgroundConfiguration key="background"/>
                         <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
-                        <color key="baseBackgroundColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="baseBackgroundColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </buttonConfiguration>
                 </button>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qj0-SA-kbW">
@@ -33,12 +33,12 @@
                         <segment title="CASH"/>
                         <segment title="GOOGLE PAY"/>
                     </segments>
-                    <color key="selectedSegmentTintColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="selectedSegmentTintColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </segmentedControl>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Payment Method" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19U-6Y-vmI">
                     <rect key="frame" x="53.5" y="85" width="307" height="57"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
-                    <color key="textColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <variation key="heightClass=regular-widthClass=compact">
                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="18"/>

@@ -45,19 +45,24 @@
                     <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                     <items>
                         <barButtonItem title="search" image="magnifyingglass" catalog="system" id="YnU-gd-J2B">
+                            <color key="tintColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="search:" destination="-1" id="WKj-xW-gzb"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="pWy-tA-rFX"/>
-                        <barButtonItem title="Home" id="MAg-EQ-b6y"/>
+                        <barButtonItem title="Home" id="MAg-EQ-b6y">
+                            <color key="tintColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="qMi-PW-p9j"/>
                         <barButtonItem title="Fav" image="heart" catalog="system" id="Oba-0R-Ccr">
+                            <color key="tintColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="fav:" destination="-1" id="2x7-t6-VZR"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem title="cart" image="cart" catalog="system" id="gy7-vo-qqt">
+                            <color key="tintColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="cart:" destination="-1" id="QCZ-O7-RgW"/>
                             </connections>

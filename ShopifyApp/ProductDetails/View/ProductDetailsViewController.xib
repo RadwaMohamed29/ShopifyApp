@@ -103,7 +103,7 @@
                                         <backgroundConfiguration key="background">
                                             <color key="strokeColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </backgroundConfiguration>
-                                        <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="baseForegroundColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </buttonConfiguration>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qdc-cH-AKW">
@@ -118,12 +118,12 @@
                                     <color key="sectionIndexBackgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0Q-QS-EDq">
-                                    <rect key="frame" x="201" y="87.5" width="56" height="56"/>
+                                    <rect key="frame" x="226" y="100" width="31" height="31"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
-                                        <imageReference key="image" image="star" symbolScale="large"/>
+                                        <imageReference key="image" image="star" catalog="system" symbolScale="large"/>
                                         <backgroundConfiguration key="background"/>
-                                        <color key="baseForegroundColor" red="0.070588235289999995" green="0.074509803920000006" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="baseForegroundColor" systemColor="systemYellowColor"/>
                                     </buttonConfiguration>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B2b-TG-fHc">
@@ -153,20 +153,22 @@
                                 </textView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rrt-4d-b46">
                                     <rect key="frame" x="81" y="1025.5" width="244" height="44.5"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain">
                                         <backgroundConfiguration key="background" cornerRadius="50">
                                             <color key="backgroundColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
                                         </backgroundConfiguration>
                                         <attributedString key="attributedTitle">
-                                            <fragment content="Add To Bag">
+                                            <fragment content="Add To Cart">
                                                 <attributes>
-                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="NSColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <font key="NSFont" size="16" name="Helvetica"/>
                                                     <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                 </attributes>
                                             </fragment>
                                         </attributedString>
+                                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </buttonConfiguration>
                                     <connections>
                                         <action selector="addToCartBtn:" destination="-1" eventType="touchUpInside" id="EpV-Ka-Nem"/>
@@ -269,9 +271,12 @@
     </objects>
     <resources>
         <image name="heart" width="32" height="32"/>
-        <image name="star" width="32" height="32"/>
+        <image name="star" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

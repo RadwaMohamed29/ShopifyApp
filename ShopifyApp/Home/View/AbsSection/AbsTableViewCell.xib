@@ -27,9 +27,9 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="uPE-iD-JMb">
-                        <rect key="frame" x="92" y="128" width="116" height="26"/>
+                        <rect key="frame" x="126" y="128" width="116" height="26"/>
                         <color key="pageIndicatorTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="currentPageIndicatorTintColor" red="0.093478955328464508" green="0.18572911620140076" blue="0.43774235248565674" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="currentPageIndicatorTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </pageControl>
                 </subviews>
                 <constraints>
@@ -38,7 +38,7 @@
                     <constraint firstItem="uPE-iD-JMb" firstAttribute="height" secondItem="6H0-Mi-afO" secondAttribute="height" multiplier="0.168831" id="Cku-Sz-tBs"/>
                     <constraint firstItem="6H0-Mi-afO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="N34-Rq-UAO"/>
                     <constraint firstItem="6H0-Mi-afO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="VHq-yF-FEZ"/>
-                    <constraint firstItem="uPE-iD-JMb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="92" id="Yxh-85-ouA"/>
+                    <constraint firstItem="uPE-iD-JMb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="126" id="Yxh-85-ouA"/>
                     <constraint firstAttribute="bottom" secondItem="6H0-Mi-afO" secondAttribute="bottom" id="ba3-a0-80Z"/>
                     <constraint firstItem="uPE-iD-JMb" firstAttribute="bottom" secondItem="6H0-Mi-afO" secondAttribute="bottom" id="t85-M4-Fvu"/>
                     <constraint firstAttribute="trailing" secondItem="6H0-Mi-afO" secondAttribute="trailing" id="xra-2e-HhH"/>

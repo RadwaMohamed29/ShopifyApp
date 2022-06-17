@@ -15,7 +15,7 @@ class AbsTableViewCell: UITableViewCell {
     static func Nib()-> UINib{
         return UINib(nibName: "AbsTableViewCell", bundle: nil)
     }
-    var arrayOfAds: [String] = ["ads1","ads2","ads3","ads4"]
+    var arrayOfAds: [String] = ["offer","ads1"]
     var timer: Timer?
     var currentAdsIndex = 0
     var arrDiscountCodes = [String]()

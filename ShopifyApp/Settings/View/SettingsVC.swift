@@ -18,6 +18,7 @@ class SettingsVC: UIViewController {
         super.viewDidLoad()
         self.title = "Settings"
         checkCurrencySegmantState()
+      //  [UIsegmentControl.subviews objectAtIndex:segment.selectedSegmentIndex] setTintColor:[UIColor redColor]
         
     }
     override func viewWillAppear(_ animated: Bool) {

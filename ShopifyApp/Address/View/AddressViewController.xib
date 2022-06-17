@@ -24,7 +24,7 @@
                     <rect key="frame" x="52" y="784.5" width="310.5" height="57.5"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" title="Confirm Address" cornerStyle="capsule">
-                        <color key="baseBackgroundColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="baseBackgroundColor" red="0.031372549019607843" green="0.49803921568627452" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </buttonConfiguration>
                 </button>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VVh-p5-Oph">

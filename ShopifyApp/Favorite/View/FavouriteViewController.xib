@@ -28,7 +28,7 @@
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
                         <backgroundConfiguration key="background">
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" red="0.031" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </backgroundConfiguration>
                         <attributedString key="attributedTitle">
                             <fragment content="Add To Cart">
