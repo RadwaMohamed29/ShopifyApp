@@ -9,9 +9,14 @@ import Foundation
 import Alamofire
 private let BASE_URL = "https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/"
 class APIClient: NetworkServiceProtocol{
+    func updateAddress(customerID: String, addressID: String, address: Address, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        apiPost(endPoint: .deleteAddress(customerID: customerID, addressID: addressID), methods: .PUT, modelType: UpdateAddress(address: address), completion: completion)
+    }
+    
     func deleteAddress(customerID: String, addressID: String, address: NewAddress, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         apiPost(endPoint: .deleteAddress(customerID: customerID, addressID: addressID), methods: .DELETE, modelType: address, completion: completion)
     }
+    
     
     func getDiscountCode(priceRule: String, completion: @escaping (Result<DiscountCode, ErrorType>) -> Void) {
         request(endpoint: .getDiscountCode(priceRule: priceRule), method: .GET, compeletion: completion)
@@ -92,7 +97,7 @@ class APIClient: NetworkServiceProtocol{
             let session = URLSession.shared
             request.httpShouldHandleCookies = false
             
-        if methods == .POST{
+        if methods != .DELETE {
             do{
                 request.httpBody = try JSONSerialization.data(withJSONObject: modelType.asDictionary(), options: .prettyPrinted)
             }catch let error{
