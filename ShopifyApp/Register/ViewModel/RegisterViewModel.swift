@@ -9,13 +9,21 @@ import Foundation
 
 protocol RegisterViewModelType{
     func registerCustomer(firstName: String, lastName: String, email: String, password: String, completion: @escaping (Bool)->Void)
+    var bindNavigate:(()->()) {get set}
+    var bindDontNavigate:(()->()) {get set}
+    var navigate:Bool!{get set}
     //func isEmailExist(email: String)-> Bool
 }
 
 class RegisterViewModel: RegisterViewModelType{
 
-    
-
+    var bindNavigate:(()->()) = {}
+    var bindDontNavigate:(()->()) = {}
+    var navigate: Bool! {
+        didSet{
+            bindNavigate()
+        }
+    }
     let network = APIClient()
     let userDefualt = Utilities()
     private var listOfCustomer : [CustomerModel] = []
@@ -70,9 +78,11 @@ class RegisterViewModel: RegisterViewModelType{
                         self?.userDefualt.addCustomerEmail(customerEmail: customerEmail)
                         self?.userDefualt.addCustomerName(customerName: customerName)
                         self?.userDefualt.login()
+                        self?.navigate = true
                         
                         print("add to userDefualt successfully!!!")
                     }else{
+                        self?.navigate = false
                         print("error to register")
                     }
                 }

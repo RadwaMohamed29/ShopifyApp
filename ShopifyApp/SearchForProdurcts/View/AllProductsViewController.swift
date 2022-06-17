@@ -122,7 +122,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
         cell.productImage.layer.cornerRadius = 20
         cell.ProductName.text = listOfProducts[indexPath.row].title
-        cell.priceOfTheProduct.text = "$ \(listOfProducts[indexPath.row].variant[0].price ?? "")"
+        cell.priceOfTheProduct.text = Shared.formatePrice(priceStr: listOfProducts[indexPath.row].variant[0].price)  
         productViewModel?.checkFavorite(id: "\(listOfProducts[indexPath.row].id)")
         if productViewModel?.isFav == true {
             cell.favouriteBtn.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
@@ -174,8 +174,6 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         else{
             convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
             Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
-            
-           
         }
       }
     
@@ -185,6 +183,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         favProduct.title = listOfProducts[recognizer.tag].title
         favProduct.body_html = listOfProducts[recognizer.tag].bodyHTML
         favProduct.scr = listOfProducts[recognizer.tag].image.src
+        favProduct.customer_id = "\(Utilities.utilities.getCustomerId())"
         
     }
     

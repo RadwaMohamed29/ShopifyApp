@@ -27,9 +27,9 @@ final class LocalDataSource: LocalDataSourcable{
         entity = NSEntityDescription.entity(forEntityName: "FavouriteProduct", in: context)
         contextCart = appDelegate.persistentContainer.viewContext
         entityCart = NSEntityDescription.entity(forEntityName: "CartProduct", in: context)
-        
+      
     }
-    
+
     func saveProductToCoreData(newProduct: FavouriteProduct) throws {
         let product = NSManagedObject(entity: entity, insertInto: context)
         product.setValue(newProduct.id, forKey: "id")
@@ -37,6 +37,8 @@ final class LocalDataSource: LocalDataSourcable{
         product.setValue(newProduct.scr, forKey: "scr")
         product.setValue(newProduct.title, forKey: "title")
         product.setValue(newProduct.price, forKey: "price")
+        product.setValue("\(String(describing: Utilities.utilities.getCustomerId))", forKey: "customer_id")
+        print("idCustomer\(Utilities.utilities.getCustomerId)")
         
         do{
             try context.save()
@@ -49,7 +51,7 @@ final class LocalDataSource: LocalDataSourcable{
     
     func removeProductFromCoreData(productID: String) throws {
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "FavouriteProduct")
-        let myPredicate = NSPredicate(format: "id == %@", productID)
+        let myPredicate = NSPredicate(format: "customer_id == \(Utilities.utilities.getCustomerId()) && id == %@", productID)
         fetchRequest.predicate = myPredicate
         do{
             let productList = try context.fetch(fetchRequest)
@@ -65,8 +67,11 @@ final class LocalDataSource: LocalDataSourcable{
     
     func getProductFromCoreData() throws -> [FavouriteProduct] {
         var favouriteProducts : [FavouriteProduct] = []
+        let fetchRequest = FavouriteProduct.fetchRequest()
+        let myPredicate = NSPredicate(format: "customer_id == %@", "\(Utilities.utilities.getCustomerId())")
+        fetchRequest.predicate = myPredicate
         do{
-            let productList = try context.fetch(FavouriteProduct.fetchRequest())
+            let productList = try context.fetch(fetchRequest)
             for product in productList {
                 favouriteProducts.append(product)
             }
@@ -113,10 +118,11 @@ extension LocalDataSource{
 
     func getCartFromCoreData() throws -> [CartProduct] {
         var selectedCart = [CartProduct]()
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProduct")
-        
+        let fetchRequest = CartProduct.fetchRequest()
+        let myPredicate = NSPredicate(format: "user_id == %@", "\(Utilities.utilities.getCustomerId())")
+        fetchRequest.predicate = myPredicate
         do{
-            let cartList = try contextCart.fetch(CartProduct.fetchRequest())
+            let cartList = try contextCart.fetch(fetchRequest)
             cartList.forEach { list in
                 selectedCart.append(list)
             }
@@ -126,16 +132,41 @@ extension LocalDataSource{
         }
     }
     
-    
-    func saveProductToCartCoreData(id: String,title:String,image:String,price:String, itemCount: Int )throws{
+    func saveInCart(newProduct: CartProduct)throws{
         let product = NSManagedObject(entity: entityCart, insertInto: contextCart)
-        product.setValue(id, forKey: "id")
-        product.setValue(title, forKey: "title")
-        product.setValue(image, forKey: "image")
-        product.setValue(price, forKey: "price")
-        product.setValue(Int64(itemCount), forKey: "count")
+        product.setValue(newProduct.id, forKey: "id")
+        product.setValue(newProduct.title, forKey: "title")
+        product.setValue(newProduct.image, forKey: "image")
+        product.setValue(newProduct.price, forKey: "price")
+        product.setValue(newProduct.count, forKey: "count")
+        product.setValue("\(String(describing: Utilities.utilities.getCustomerId))", forKey: "user_id")
         do{
             try contextCart.save()
+
+        }catch let error as NSError{
+            throw error
+        }
+        
+    }
+    func saveProductToCartCoreData(id: String,title:String,image:String,price:String, itemCount: Int )throws{
+        let cart = CartProduct(entity: entityCart, insertInto: context)
+    //    let product = NSManagedObject(entity: entityCart, insertInto: contextCart)
+        cart.id = id
+        cart.title = title
+        cart.image = image
+        cart.price = price
+        cart.count = Int64(itemCount)
+        cart.user_id = "\(Utilities.utilities.getCustomerId())"
+        print("idddddUser\(Utilities.utilities.getCustomerId)")
+        //        product.setValue(id, forKey: "id")
+//        product.setValue(title, forKey: "title")
+//        product.setValue(image, forKey: "image")
+//        product.setValue(price, forKey: "price")
+//        product.setValue(Int64(itemCount), forKey: "count")
+//        product.setValue("\(Utilities.utilities.getCustomerId)", forKey: "user_id")
+
+        do{
+            try context.save()
 
         }catch let error as NSError{
             throw error
@@ -145,7 +176,7 @@ extension LocalDataSource{
     }
     func removeFromCartCoreData(itemId: String)throws{
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProduct")
-        let myPredicate = NSPredicate(format: "id == %@", itemId)
+        let myPredicate = NSPredicate(format: "user_id == \(Utilities.utilities.getCustomerId()) && id == %@", itemId)
         fetchRequest.predicate = myPredicate
         do{
             let productList = try contextCart.fetch(fetchRequest)

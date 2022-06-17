@@ -13,7 +13,7 @@ class CategoryViewController: UIViewController {
 
     var navigationBar:UINavigationBar?
     let disposeBag = DisposeBag()
-    var showList:[ProductElement]?
+    var showList:[Product]?
     var dbList:[Product]?
     let refreshController = UIRefreshControl()
     var viewModel:CategoryViewModelProtocol!
@@ -34,6 +34,9 @@ class CategoryViewController: UIViewController {
     @IBOutlet  weak var categoryCollection: UICollectionView!
     var collectionFlowLayout:UICollectionViewFlowLayout!
     
+    @IBOutlet weak var cartOutlet: UIBarButtonItem!
+    @IBOutlet weak var favOutlet: UIBarButtonItem!
+    var localDataSource = LocalDataSource(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
 //        getCategory(target: .HomeCategoryProducts)
@@ -41,6 +44,16 @@ class CategoryViewController: UIViewController {
             if !showList.isEmpty{
                 labelNoData.isHidden = true
                 noDataImg.isHidden = true
+            }
+        }
+        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
+            if isLoggedIn{
+                self.cartOutlet.setBadge(text: String(describing:self.localDataSource.getCountOfProductInCart()))
+                self.favOutlet.setBadge(text: String(describing: self.localDataSource.getCountOfProductInFav()))
+            }
+            else{
+                self.cartOutlet.setBadge(text: String("0"))
+                self.favOutlet.setBadge(text: String("0"))
             }
         }
         categoryCollection.reloadData()
@@ -144,6 +157,7 @@ class CategoryViewController: UIViewController {
         getCategory(target: .HomeCategoryProducts)
         refreshController.endRefreshing()
         categoryCollection.reloadData()
+        unSelectToolbar()
         stopSpinnerIfNoNetwork()
     }
     
@@ -254,18 +268,18 @@ class CategoryViewController: UIViewController {
             return .Home(type: type)
         }
     }
+    
+    func unSelectToolbar() {
+        if women.isSelected {
+            women.isSelected = false
+        }else if men.isSelected{
+            men.isSelected = false
+        }else if kids.isSelected{
+            kids.isSelected = false
+        }else if sale.isSelected{
+            sale.isSelected = false
+        }
+    }
 }
 
 
-
-//    func addNavController() {
-//        let width = self.view.frame.width
-//        navigationBar = UINavigationBar(frame: CGRect(x: 0, y: 30, width: width, height: 10));       self.view.addSubview(navigationBar!)
-//        let searchBtn = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(self.cartBtn))
-//        navigationItem.title = ""
-//        let favoriteBtn = UIBarButtonItem(image: UIImage(systemName: "heart"), style: .done, target: self, action: #selector(selectorX))
-//        let cartBtn = UIBarButtonItem(image: UIImage(systemName: "cart"), style: .done, target: self, action: #selector(cartBtn))
-//        navigationItem.leftBarButtonItem = searchBtn
-//        navigationItem.rightBarButtonItems = [favoriteBtn, cartBtn]
-//        navigationBar?.setItems([navigationItem], animated: false)
-//    }

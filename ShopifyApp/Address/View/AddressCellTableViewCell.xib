@@ -17,26 +17,36 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UnS-V1-dOY">
-                        <rect key="frame" x="286" y="12" width="44" height="31"/>
+                        <rect key="frame" x="286" y="40" width="44" height="31"/>
+                        <color key="tintColor" red="0.070588235289999995" green="0.074509803920000006" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
+                        <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system">
+                            <color key="baseForegroundColor" red="1" green="0.47058823529411764" blue="0.47058823529411764" alpha="1" colorSpace="calibratedRGB"/>
+                        </buttonConfiguration>
+                        <connections>
+                            <action selector="deleteBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="4B6-br-OeR"/>
+                        </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luG-uq-Yfx">
-                        <rect key="frame" x="20" y="51" width="310" height="49"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luG-uq-Yfx">
+                        <rect key="frame" x="12" y="35" width="245" height="61"/>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <color key="textColor" red="0.070588235289999995" green="0.074509803920000006" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
+                        <color key="shadowColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                     </label>
                 </subviews>
+                <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstItem="luG-uq-Yfx" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.4" id="3z1-x5-Llc"/>
+                    <constraint firstItem="luG-uq-Yfx" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.5" id="3z1-x5-Llc"/>
+                    <constraint firstItem="luG-uq-Yfx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="35" id="EMj-jH-b5V"/>
                     <constraint firstItem="luG-uq-Yfx" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Gid-1Y-zeo"/>
                     <constraint firstItem="UnS-V1-dOY" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.254098" id="ZeF-R7-Y50"/>
                     <constraint firstAttribute="trailing" secondItem="UnS-V1-dOY" secondAttribute="trailing" constant="20" symbolic="YES" id="dta-jO-Hd0"/>
-                    <constraint firstItem="UnS-V1-dOY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="gUK-zF-Yd3"/>
+                    <constraint firstItem="UnS-V1-dOY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="40" id="gUK-zF-Yd3"/>
+                    <constraint firstItem="luG-uq-Yfx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="mzh-o9-4Yf"/>
                     <constraint firstItem="UnS-V1-dOY" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.125714" id="ncy-pb-Qib"/>
-                    <constraint firstItem="luG-uq-Yfx" firstAttribute="top" secondItem="UnS-V1-dOY" secondAttribute="bottom" constant="8" symbolic="YES" id="xOc-1Q-xct"/>
-                    <constraint firstItem="luG-uq-Yfx" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.885714" id="zsB-9Z-HZt"/>
+                    <constraint firstItem="luG-uq-Yfx" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.7" id="zsB-9Z-HZt"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

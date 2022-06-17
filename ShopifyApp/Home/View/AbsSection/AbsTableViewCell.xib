@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,7 +18,7 @@
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="6H0-Mi-afO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="154"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QMM-Sl-ErH">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -27,10 +26,10 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
-                    <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="uPE-iD-JMb">
-                        <rect key="frame" x="92" y="128" width="116" height="26"/>
+                    <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="5" translatesAutoresizingMaskIntoConstraints="NO" id="uPE-iD-JMb">
+                        <rect key="frame" x="126" y="128" width="116" height="26"/>
                         <color key="pageIndicatorTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <color key="currentPageIndicatorTintColor" red="0.093478955328464508" green="0.18572911620140076" blue="0.43774235248565674" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="currentPageIndicatorTintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </pageControl>
                 </subviews>
                 <constraints>
@@ -39,7 +38,7 @@
                     <constraint firstItem="uPE-iD-JMb" firstAttribute="height" secondItem="6H0-Mi-afO" secondAttribute="height" multiplier="0.168831" id="Cku-Sz-tBs"/>
                     <constraint firstItem="6H0-Mi-afO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="N34-Rq-UAO"/>
                     <constraint firstItem="6H0-Mi-afO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="VHq-yF-FEZ"/>
-                    <constraint firstItem="uPE-iD-JMb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="92" id="Yxh-85-ouA"/>
+                    <constraint firstItem="uPE-iD-JMb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="126" id="Yxh-85-ouA"/>
                     <constraint firstAttribute="bottom" secondItem="6H0-Mi-afO" secondAttribute="bottom" id="ba3-a0-80Z"/>
                     <constraint firstItem="uPE-iD-JMb" firstAttribute="bottom" secondItem="6H0-Mi-afO" secondAttribute="bottom" id="t85-M4-Fvu"/>
                     <constraint firstAttribute="trailing" secondItem="6H0-Mi-afO" secondAttribute="trailing" id="xra-2e-HhH"/>
@@ -53,9 +52,4 @@
             <point key="canvasLocation" x="131.8840579710145" y="55.915178571428569"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

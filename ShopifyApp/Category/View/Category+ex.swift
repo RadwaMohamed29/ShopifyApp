@@ -32,7 +32,7 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as! CategoryCollectionViewCell
         let url = URL(string: showList?[indexPath.row].image.src ?? "")
         cell.imgView.kf.setImage(with: url)
-        cell.label.text = showList?[indexPath.row].title
+        cell.label.text = "\(showList?[indexPath.row].variant[0].price ?? "0") EGP"
         cell.layer.cornerRadius = 12
         cell.label.shadowColor = UIColor.gray
         cell.topView.layer.cornerRadius =  24
@@ -146,10 +146,11 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
     
     func convertToFavouriteModel( favProduct: inout FavouriteProduct,recognizer:UIButton){
         favProduct.id = "\(showList![recognizer.tag].id )"
-        favProduct.price =  "90" //showList![recognizer.tag].variant[0].price
+        favProduct.price =  "\(showList![recognizer.tag].variant[0].price ?? "0.0")" //showList![recognizer.tag].variant[0].price
         favProduct.title = showList![recognizer.tag].title
         favProduct.body_html = showList![recognizer.tag].bodyHTML
         favProduct.scr = showList![recognizer.tag].image.src
+        favProduct.customer_id = "\(Utilities.utilities.getCustomerId())"
         
     }
 }

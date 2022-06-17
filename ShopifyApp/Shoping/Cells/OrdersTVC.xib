@@ -40,7 +40,9 @@
                                 <rect key="frame" x="297" y="7" width="44" height="31"/>
                                 <color key="tintColor" systemColor="labelColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system">
+                                    <color key="baseForegroundColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="deleteCart:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="e5h-K4-QUx"/>
                                 </connections>
@@ -55,7 +57,7 @@
                                 </variation>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Kcc-43-poD" firstAttribute="top" secondItem="IxS-eb-hWk" secondAttribute="top" constant="5" id="6eh-nQ-Li2"/>
                             <constraint firstItem="Kcc-43-poD" firstAttribute="leading" secondItem="IxS-eb-hWk" secondAttribute="leading" id="72k-LG-ZSF"/>
@@ -93,7 +95,7 @@
                         <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
                             <imageReference key="image" image="minus" catalog="system" symbolScale="medium"/>
                             <backgroundConfiguration key="background">
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </backgroundConfiguration>
                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </buttonConfiguration>
@@ -116,7 +118,7 @@
                         <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
                             <imageReference key="image" image="plus" catalog="system" symbolScale="medium"/>
                             <backgroundConfiguration key="background">
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </backgroundConfiguration>
                             <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </buttonConfiguration>
@@ -153,6 +155,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="Xcq-aQ-fN3" firstAttribute="width" secondItem="KGk-i7-Jjw" secondAttribute="width" multiplier="0.299728" id="7QM-Cd-8ZL"/>
                 <constraint firstItem="Xcq-aQ-fN3" firstAttribute="height" secondItem="KGk-i7-Jjw" secondAttribute="height" multiplier="0.133333" id="HmG-qX-EkZ"/>
@@ -174,9 +177,6 @@
         <image name="trash" catalog="system" width="121" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
     </resources>
 </document>

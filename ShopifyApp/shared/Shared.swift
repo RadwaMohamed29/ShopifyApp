@@ -122,5 +122,30 @@ extension UIViewController{
         }
     }
     
+    func setTxtFieldStyle(txt:[UITextField]) {
+        for txtField in txt{
+            txtField.layer.cornerRadius = 15.0
+            txtField.layer.borderWidth = 0.5
+        }
+    }
+}
 
+extension Shared{
+    static func formatePrice(priceStr:String?) -> String {
+           let settingViewModel = SettingsViewModel()
+           let currency  = settingViewModel.getCurrency(key: "currency")
+           if  currency == "EGP" {
+           return "\(toEGP(amount:Double(priceStr ?? "")! )) EGP"
+           }
+           else {
+               return "\(priceStr!) USD"
+               
+           }
+       }
+     static  func toEGP(amount:Double) -> Double {
+            
+           return Double(round(100*(amount * 15.669931))/100)
+       }
+    
+  
 }

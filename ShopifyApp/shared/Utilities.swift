@@ -55,6 +55,13 @@ class Utilities{
     func getId()->Int {
         return UserDefaults.standard.value(forKey: "id") as? Int ?? 0
     }
+    func setDiscountCode(code:String){
+        UserDefaults.standard.set(code ,forKey: "code")
+    }
+    func getDiscountCode() -> String {
+        return UserDefaults.standard.value(forKey: "code") as? String ?? ""
+
+    }
     func isValidEmail(_ email: String) -> Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         
@@ -68,5 +75,18 @@ class Utilities{
         }else{
             completion(false)
         }
+    }
+    
+    func setCurrency(Key: String, value: String){
+        UserDefaults.standard.set(value, forKey: Key)
+        
+    }
+    func getCurrency(key: String = "currency")-> String{
+        let currency = UserDefaults.standard.string(forKey: key)
+        if currency == ""{
+            return "USD"
+        }
+        return currency ?? ""
+        
     }
 }

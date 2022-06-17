@@ -10,6 +10,24 @@ import Alamofire
 private let BASE_URL = "https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/"
 
 class APIClient: NetworkServiceProtocol{
+    func updateAddress(customerID: String, addressID: String, address: Address, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        apiPost(endPoint: .deleteAddress(customerID: customerID, addressID: addressID), methods: .PUT, modelType: UpdateAddress(address: address), completion: completion)
+    }
+    
+    func deleteAddress(customerID: String, addressID: String, address: NewAddress, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        apiPost(endPoint: .deleteAddress(customerID: customerID, addressID: addressID), methods: .DELETE, modelType: address, completion: completion)
+    }
+    
+    
+    func getDiscountCode(priceRule: String, completion: @escaping (Result<DiscountCode, ErrorType>) -> Void) {
+        request(endpoint: .getDiscountCode(priceRule: priceRule), method: .GET, compeletion: completion)
+    }
+
+    func postAddressToCustomer(id: String, address: NewAddress, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        apiPost(endPoint: .AddressByID(id: id), methods: .POST, modelType: address, completion: completion)
+    }
+    
+
     func getAllCustomers(completion: @escaping (Result<AllCustomers, ErrorType>) -> Void) {
         request(endpoint: .Customers, method: .GET, compeletion: completion)
     }
@@ -19,12 +37,8 @@ class APIClient: NetworkServiceProtocol{
         request(endpoint: .CustomerOrders(id: id), method: .GET, compeletion: completion)
     }    
     func registerCustomerProtocol(newCustomer: Customer, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-//        registerCustomer(endpoint: .Customers, newCustomer: newCustomer, completion: completion)
         apiPost(endPoint: .Customers, methods: .POST, modelType: newCustomer, completion: completion)
     }
-    
-  
-    
     func productOfBrandsProvider(id: String, completion: @escaping (Result<AllProducts, ErrorType>) -> Void) {
         request(endpoint: .CollectionID(id: id), method: .GET, compeletion: completion)
     }
@@ -41,7 +55,7 @@ class APIClient: NetworkServiceProtocol{
         request(endpoint: .Smart_collections, method: .GET, compeletion: completion)
     }
     
-    func getFilteredCategory(target: Endpoints, completion: @escaping (Result<CategoryProducts, ErrorType>) -> ()) {
+    func getFilteredCategory(target: Endpoints, completion: @escaping (Result<AllProducts, ErrorType>) -> ()) {
         request(endpoint: target, method: .GET, compeletion: completion)
     }
 
@@ -80,14 +94,18 @@ class APIClient: NetworkServiceProtocol{
     func apiPost<T:Codable>(endPoint:Endpoints, methods:Methods, modelType:T, completion: @escaping (Data?, URLResponse?, Error?)->()) {
             guard let url = URL(string: "\(BASE_URL)\(endPoint.path)") else {return}
             var request = URLRequest(url: url)
-            request.httpMethod = "\(Methods.POST)"
+            request.httpMethod = "\(methods)"
             let session = URLSession.shared
             request.httpShouldHandleCookies = false
+            
+        if methods != .DELETE {
             do{
                 request.httpBody = try JSONSerialization.data(withJSONObject: modelType.asDictionary(), options: .prettyPrinted)
             }catch let error{
                 print(error.localizedDescription)
             }
+        }
+            
             request.addValue("application/json", forHTTPHeaderField: "Content-Type")
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
@@ -111,6 +129,7 @@ class APIClient: NetworkServiceProtocol{
             do{
                 let object = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(object))
+                print("object discount\(object)")
             }    catch {
                 print(error.localizedDescription)
                     completion(.failure(.parsingError))
@@ -148,3 +167,8 @@ class APIClient: NetworkServiceProtocol{
 //    https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/products.json?collection_id=395728126181&product_type=shoes
 }
 
+//395963597058
+
+//https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/smart_collections.json
+
+//https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/custom_collections.json
