@@ -170,6 +170,7 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
             edit.streetName = self?.arr[indexPath.row].address2
             edit.cityName = self?.arr[indexPath.row].city
             edit.country = self?.arr[indexPath.row].country
+            edit.addressID = self?.arr[indexPath.row].id
             self?.navigationController?.pushViewController(edit, animated: true)
         }
         return UISwipeActionsConfiguration(actions: [delete, edit])
