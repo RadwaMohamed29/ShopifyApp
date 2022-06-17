@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -23,18 +22,119 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7nS-Ws-oux">
+                    <rect key="frame" x="0.0" y="44" width="414" height="950"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3Lq-zb-iAp">
+                            <rect key="frame" x="152" y="21.5" width="110" height="76"/>
+                            <color key="tintColor" red="0.031" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oil-nQ-9q1">
+                            <rect key="frame" x="155.5" y="107" width="103" height="33.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to our store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V87-on-fhf">
+                            <rect key="frame" x="41.5" y="156.5" width="331" height="31.5"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCx-zo-jSM">
+                            <rect key="frame" x="41.5" y="220" width="331" height="233.5"/>
+                            <string key="text">Now you are a guest , if you want to continue shopping please sign up if you are new user if or sign in if you have an account .</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="highlightedColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <variation key="heightClass=regular-widthClass=compact">
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            </variation>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMh-Dq-ifu">
+                            <rect key="frame" x="124" y="485.5" width="166" height="57"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
+                                <backgroundConfiguration key="background">
+                                    <color key="backgroundColor" red="0.031" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </backgroundConfiguration>
+                                <attributedString key="attributedTitle">
+                                    <fragment content="Sign In">
+                                        <attributes>
+                                            <font key="NSFont" size="20" name="Helvetica"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="gotoSignInScreen:" destination="-1" eventType="touchUpInside" id="IXk-7B-u7f"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATP-bH-z6g">
+                            <rect key="frame" x="124" y="558.5" width="166" height="57"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
+                                <backgroundConfiguration key="background">
+                                    <color key="backgroundColor" red="0.031" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </backgroundConfiguration>
+                                <attributedString key="attributedTitle">
+                                    <fragment content="Sign Up">
+                                        <attributes>
+                                            <font key="NSFont" size="20" name="Helvetica"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="gotoSignUpScreen:" destination="-1" eventType="touchUpInside" id="xen-U0-a8X"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="zCx-zo-jSM" firstAttribute="centerX" secondItem="V87-on-fhf" secondAttribute="centerX" id="0Xz-tc-ZxO"/>
+                        <constraint firstItem="V87-on-fhf" firstAttribute="top" secondItem="Oil-nQ-9q1" secondAttribute="bottom" constant="16" id="7IX-i5-S5i"/>
+                        <constraint firstItem="zCx-zo-jSM" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.245672" id="HWu-Cg-viP"/>
+                        <constraint firstItem="ATP-bH-z6g" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="KfV-I3-YYs"/>
+                        <constraint firstAttribute="bottom" secondItem="ATP-bH-z6g" secondAttribute="bottom" constant="16" id="LwE-ye-h27"/>
+                        <constraint firstItem="zCx-zo-jSM" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.8" id="NUO-HY-bCq"/>
+                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.249758" id="NWF-fB-0hD"/>
+                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0831296" id="P1T-WA-Kby"/>
+                        <constraint firstItem="V87-on-fhf" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.8" id="SNk-Mv-60O"/>
+                        <constraint firstItem="zCx-zo-jSM" firstAttribute="top" secondItem="V87-on-fhf" secondAttribute="bottom" constant="32" id="ZUN-aY-Cxw"/>
+                        <constraint firstItem="ATP-bH-z6g" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.4" id="buM-kV-GY2"/>
+                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="top" secondItem="3Lq-zb-iAp" secondAttribute="bottom" constant="8" id="cH5-JV-naf"/>
+                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="d37-FQ-eZ6"/>
+                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.4" id="fhG-aE-YoA"/>
+                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.06" id="gXI-qJ-S9e"/>
+                        <constraint firstItem="ATP-bH-z6g" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.06" id="i7D-Bv-6Pa"/>
+                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="top" secondItem="zCx-zo-jSM" secondAttribute="bottom" constant="32" id="jaD-7I-G14"/>
+                        <constraint firstItem="ATP-bH-z6g" firstAttribute="top" secondItem="TMh-Dq-ifu" secondAttribute="bottom" constant="16" id="kmf-Cz-3Wd"/>
+                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="top" secondItem="7nS-Ws-oux" secondAttribute="top" constant="20" id="omz-1P-ArG"/>
+                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="p1i-bt-Yfa"/>
+                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0354523" id="pr4-ea-Ljv"/>
+                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="r7Z-og-eTC"/>
+                        <constraint firstItem="V87-on-fhf" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0330073" id="s5z-QS-0Ot"/>
+                        <constraint firstItem="V87-on-fhf" firstAttribute="centerX" secondItem="Oil-nQ-9q1" secondAttribute="centerX" id="tjF-r6-e2l"/>
+                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.2657" id="vlk-F9-abm"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dg0-GX-7hS">
                     <rect key="frame" x="0.0" y="44" width="414" height="950"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wzV-h4-j9x">
                             <rect key="frame" x="0.0" y="131" width="414" height="33.5"/>
                             <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="KLZ-oU-gWZ">
                             <rect key="frame" x="152" y="49.5" width="110" height="76"/>
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="tintColor" red="0.031" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to our store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gwH-Vf-JZD">
                             <rect key="frame" x="41.5" y="168.5" width="331" height="31.5"/>
@@ -47,28 +147,31 @@
                         </navigationBar>
                         <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hdr-TT-Odd">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                             <items>
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="KvX-lG-IVs"/>
                                 <barButtonItem title="Profile" id="OhW-in-r7X">
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </barButtonItem>
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="122-uq-uvk"/>
-                                <barButtonItem image="cart.fill" catalog="system" id="CmV-Ar-qKS">
-                                    <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <barButtonItem image="cart" catalog="system" id="CmV-Ar-qKS">
+                                    <color key="tintColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <connections>
                                         <action selector="gotoCartScreen:" destination="-1" id="4de-is-cyl"/>
                                     </connections>
                                 </barButtonItem>
-                                <barButtonItem image="seal.fill" catalog="system" id="J0L-63-K26">
-                                    <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <barButtonItem image="seal" catalog="system" id="J0L-63-K26">
+                                    <color key="tintColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <connections>
                                         <action selector="gotoSetting:" destination="-1" id="wfR-Lc-8SE"/>
                                     </connections>
                                 </barButtonItem>
                             </items>
+                            <color key="barTintColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                         </toolbar>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="93L-07-Xhw">
                             <rect key="frame" x="218.5" y="232" width="163.5" height="31.5"/>
+                            <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain">
                                 <attributedString key="attributedTitle">
@@ -79,7 +182,7 @@
                                         </attributes>
                                     </fragment>
                                 </attributedString>
-                                <color key="baseForegroundColor" systemColor="linkColor"/>
+                                <color key="baseForegroundColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </buttonConfiguration>
                             <connections>
                                 <action selector="gotoOrdersScreens:" destination="-1" eventType="touchUpInside" id="DqD-US-mcV"/>
@@ -87,7 +190,7 @@
                         </button>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="TMM-1x-RxN">
                             <rect key="frame" x="0.0" y="271.5" width="414" height="238"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="O1c-af-vVY">
                                 <size key="itemSize" width="128" height="128"/>
                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -97,8 +200,9 @@
                         </collectionView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Order List" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ycE-jk-59T">
                             <rect key="frame" x="8" y="232" width="207" height="24.5"/>
+                            <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" red="0.031" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                             <variation key="heightClass=regular-widthClass=compact">
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -106,8 +210,9 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wish list" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H0Z-eE-wf0">
                             <rect key="frame" x="8" y="525.5" width="207" height="24.5"/>
+                            <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" red="0.031" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                             <variation key="heightClass=regular-widthClass=compact">
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -115,7 +220,7 @@
                         </label>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dbX-v2-9ez">
                             <rect key="frame" x="0.0" y="565" width="414" height="244"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                             <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="w1D-A9-Qh0">
                                 <size key="itemSize" width="128" height="128"/>
                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -125,6 +230,7 @@
                         </collectionView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U89-Gu-Te9">
                             <rect key="frame" x="218.5" y="525.5" width="163.5" height="31.5"/>
+                            <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain">
                                 <attributedString key="attributedTitle">
@@ -135,14 +241,14 @@
                                         </attributes>
                                     </fragment>
                                 </attributedString>
-                                <color key="baseForegroundColor" systemColor="linkColor"/>
+                                <color key="baseForegroundColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </buttonConfiguration>
                             <connections>
                                 <action selector="gotoFavoriteScreen:" destination="-1" eventType="touchUpInside" id="a0C-8e-udM"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="KLZ-oU-gWZ" firstAttribute="width" secondItem="dg0-GX-7hS" secondAttribute="width" multiplier="0.2657" id="2GX-O0-Vqx"/>
                         <constraint firstAttribute="trailing" secondItem="Hdr-TT-Odd" secondAttribute="trailing" id="4OL-Rq-pxc"/>
@@ -188,110 +294,9 @@
                         <constraint firstItem="T0A-Ue-DII" firstAttribute="leading" secondItem="dg0-GX-7hS" secondAttribute="leading" id="xH1-zo-zVu"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7nS-Ws-oux">
-                    <rect key="frame" x="0.0" y="44" width="414" height="950"/>
-                    <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3Lq-zb-iAp">
-                            <rect key="frame" x="152" y="21.5" width="110" height="76"/>
-                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Guest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oil-nQ-9q1">
-                            <rect key="frame" x="155.5" y="107" width="103" height="33.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to our store" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V87-on-fhf">
-                            <rect key="frame" x="41.5" y="156.5" width="331" height="31.5"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zCx-zo-jSM">
-                            <rect key="frame" x="41.5" y="220" width="331" height="233.5"/>
-                            <string key="text">Now you are a guest , if you want to continue shopping please sign up if you are new user if or sign in if you have an account .</string>
-                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                            <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="highlightedColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <variation key="heightClass=regular-widthClass=compact">
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            </variation>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMh-Dq-ifu">
-                            <rect key="frame" x="124" y="485.5" width="166" height="57"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
-                                <backgroundConfiguration key="background">
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </backgroundConfiguration>
-                                <attributedString key="attributedTitle">
-                                    <fragment content="Sign In">
-                                        <attributes>
-                                            <font key="NSFont" size="20" name="Helvetica"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </buttonConfiguration>
-                            <connections>
-                                <action selector="gotoSignInScreen:" destination="-1" eventType="touchUpInside" id="IXk-7B-u7f"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATP-bH-z6g">
-                            <rect key="frame" x="124" y="558.5" width="166" height="57"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
-                                <backgroundConfiguration key="background">
-                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </backgroundConfiguration>
-                                <attributedString key="attributedTitle">
-                                    <fragment content="Sign Up">
-                                        <attributes>
-                                            <font key="NSFont" size="20" name="Helvetica"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </buttonConfiguration>
-                            <connections>
-                                <action selector="gotoSignUpScreen:" destination="-1" eventType="touchUpInside" id="xen-U0-a8X"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    <constraints>
-                        <constraint firstItem="zCx-zo-jSM" firstAttribute="centerX" secondItem="V87-on-fhf" secondAttribute="centerX" id="0Xz-tc-ZxO"/>
-                        <constraint firstItem="V87-on-fhf" firstAttribute="top" secondItem="Oil-nQ-9q1" secondAttribute="bottom" constant="16" id="7IX-i5-S5i"/>
-                        <constraint firstItem="zCx-zo-jSM" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.245672" id="HWu-Cg-viP"/>
-                        <constraint firstItem="ATP-bH-z6g" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="KfV-I3-YYs"/>
-                        <constraint firstAttribute="bottom" secondItem="ATP-bH-z6g" secondAttribute="bottom" constant="16" id="LwE-ye-h27"/>
-                        <constraint firstItem="zCx-zo-jSM" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.8" id="NUO-HY-bCq"/>
-                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.249758" id="NWF-fB-0hD"/>
-                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0831296" id="P1T-WA-Kby"/>
-                        <constraint firstItem="V87-on-fhf" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.8" id="SNk-Mv-60O"/>
-                        <constraint firstItem="zCx-zo-jSM" firstAttribute="top" secondItem="V87-on-fhf" secondAttribute="bottom" constant="32" id="ZUN-aY-Cxw"/>
-                        <constraint firstItem="ATP-bH-z6g" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.4" id="buM-kV-GY2"/>
-                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="top" secondItem="3Lq-zb-iAp" secondAttribute="bottom" constant="8" id="cH5-JV-naf"/>
-                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="d37-FQ-eZ6"/>
-                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.4" id="fhG-aE-YoA"/>
-                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.06" id="gXI-qJ-S9e"/>
-                        <constraint firstItem="ATP-bH-z6g" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.06" id="i7D-Bv-6Pa"/>
-                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="top" secondItem="zCx-zo-jSM" secondAttribute="bottom" constant="32" id="jaD-7I-G14"/>
-                        <constraint firstItem="ATP-bH-z6g" firstAttribute="top" secondItem="TMh-Dq-ifu" secondAttribute="bottom" constant="16" id="kmf-Cz-3Wd"/>
-                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="top" secondItem="7nS-Ws-oux" secondAttribute="top" constant="20" id="omz-1P-ArG"/>
-                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="p1i-bt-Yfa"/>
-                        <constraint firstItem="Oil-nQ-9q1" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0354523" id="pr4-ea-Ljv"/>
-                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="r7Z-og-eTC"/>
-                        <constraint firstItem="V87-on-fhf" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0330073" id="s5z-QS-0Ot"/>
-                        <constraint firstItem="V87-on-fhf" firstAttribute="centerX" secondItem="Oil-nQ-9q1" secondAttribute="centerX" id="tjF-r6-e2l"/>
-                        <constraint firstItem="3Lq-zb-iAp" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.2657" id="vlk-F9-abm"/>
-                    </constraints>
-                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="7nS-Ws-oux" secondAttribute="bottom" id="3yQ-UW-8eg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="dg0-GX-7hS" secondAttribute="trailing" id="Bvf-RY-su8"/>
@@ -306,14 +311,8 @@
         </view>
     </objects>
     <resources>
-        <image name="cart.fill" catalog="system" width="128" height="102"/>
+        <image name="cart" catalog="system" width="128" height="102"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
-        <image name="seal.fill" catalog="system" width="128" height="128"/>
-        <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="seal" catalog="system" width="128" height="128"/>
     </resources>
 </document>
