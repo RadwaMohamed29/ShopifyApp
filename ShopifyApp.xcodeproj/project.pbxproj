@@ -82,6 +82,8 @@
 		9C898C2028381C9500A86758 /* CategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C898C1E28381C9500A86758 /* CategoryViewController.xib */; };
 		9C898C2528381CB500A86758 /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C898C2328381CB500A86758 /* MeViewController.swift */; };
 		9C898C2628381CB500A86758 /* MeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C898C2428381CB500A86758 /* MeViewController.xib */; };
+		9C904481285CCBCA00D93FD6 /* ItemCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C90447F285CCBCA00D93FD6 /* ItemCollectionViewCell.swift */; };
+		9C904482285CCBCA00D93FD6 /* ItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9C904480285CCBCA00D93FD6 /* ItemCollectionViewCell.xib */; };
 		9C9DB7CE2847DB9500A886BA /* FavoriteExtintion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C9DB7CD2847DB9500A886BA /* FavoriteExtintion.swift */; };
 		9CA3FC9728426569005FF7CF /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3FC9628426569005FF7CF /* Shared.swift */; };
 		9CB996D2283FC59100136ABC /* AllProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB996D0283FC59100136ABC /* AllProductsViewController.swift */; };
@@ -216,6 +218,8 @@
 		9C898C1E28381C9500A86758 /* CategoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CategoryViewController.xib; sourceTree = "<group>"; };
 		9C898C2328381CB500A86758 /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		9C898C2428381CB500A86758 /* MeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MeViewController.xib; sourceTree = "<group>"; };
+		9C90447F285CCBCA00D93FD6 /* ItemCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCollectionViewCell.swift; sourceTree = "<group>"; };
+		9C904480285CCBCA00D93FD6 /* ItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		9C9DB7CD2847DB9500A886BA /* FavoriteExtintion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteExtintion.swift; sourceTree = "<group>"; };
 		9CA3FC9628426569005FF7CF /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		9CB996D0283FC59100136ABC /* AllProductsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllProductsViewController.swift; sourceTree = "<group>"; };
@@ -872,6 +876,8 @@
 			children = (
 				BED44802283E57EA00EA74BC /* CheckoutViewController.swift */,
 				BED44801283E57EA00EA74BC /* CheckoutViewController.xib */,
+				9C90447F285CCBCA00D93FD6 /* ItemCollectionViewCell.swift */,
+				9C904480285CCBCA00D93FD6 /* ItemCollectionViewCell.xib */,
 			);
 			path = Checkout;
 			sourceTree = "<group>";
@@ -1002,6 +1008,7 @@
 				1654EB772835EB30000B78F1 /* Assets.xcassets in Resources */,
 				BE9E3737284BF6270061DF86 /* AddressViewController.xib in Resources */,
 				16873CDB283D86A000694061 /* ProductDetailsViewController.xib in Resources */,
+				9C904482285CCBCA00D93FD6 /* ItemCollectionViewCell.xib in Resources */,
 				3E37B9B2283D9853000A0FD9 /* LoginViewController.xib in Resources */,
 				16873CD4283D868A00694061 /* SizeTableViewCell.xib in Resources */,
 				16F65517284DBCE0002F3BD3 /* LaunchViewController.xib in Resources */,
@@ -1170,6 +1177,7 @@
 				16F65516284DBCE0002F3BD3 /* LaunchViewController.swift in Sources */,
 				1654EB6F2835EB2F000B78F1 /* ViewController.swift in Sources */,
 				BED44808283E582500EA74BC /* PaymentMethodViewController.swift in Sources */,
+				9C904481285CCBCA00D93FD6 /* ItemCollectionViewCell.swift in Sources */,
 				9CCBF3DE283BF81F00825219 /* FavouriteViewController.swift in Sources */,
 				1654EB6B2835EB2F000B78F1 /* AppDelegate.swift in Sources */,
 				9C06B417284BEBA500B64732 /* AllOrdersViewController.swift in Sources */,
