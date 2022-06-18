@@ -24,6 +24,6 @@ protocol NetworkServiceProtocol{
     func postAddressToCustomer(id:String, address:NewAddress, completion: @escaping(Data?, URLResponse?, Error?)->())
     func deleteAddress(customerID: String, addressID: String, address:NewAddress, completion: @escaping(Data?, URLResponse?, Error?)->())
     func updateAddress(customerID: String, addressID: String, address:Address, completion: @escaping(Data?, URLResponse?, Error?)->())
-    func postDraftOrder(draftOrder: DraftOrders, completion: @escaping(Data?, URLResponse?, Error?)->())
+    func postDraftOrder(draftOrder: DraftOrdersRequest, completion: @escaping(Data?, URLResponse?, Error?)->())
 
 }

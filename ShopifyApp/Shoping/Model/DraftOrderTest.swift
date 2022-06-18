@@ -1,22 +1,23 @@
 //
-//  DraftOrders.swift
+//  DraftOrderTest.swift
 //  ShopifyApp
 //
-//  Created by Menna on 17/06/2022.
+//  Created by Menna on 18/06/2022.
 //
 
 import Foundation
-struct DraftOrders: Codable {
-    let draftOrder: DraftOrderItem
+struct DraftOrdersRequest: Codable {
+    let draftOrder: DraftOrderItemTest
 
     enum CodingKeys: String, CodingKey {
         case draftOrder = "draft_order"
     }
 }
 
-struct DraftOrderItem: Codable {
-    let lineItems: [LineItemDraft]
-    let customer: CustomerId
+// MARK: - DraftOrder
+struct DraftOrderItemTest: Codable {
+    let lineItems: [LineItemDraftTest]
+    let customer: CustomerIdTest
     let useCustomerDefaultAddress: Bool
 
     enum CodingKeys: String, CodingKey {
@@ -26,33 +27,34 @@ struct DraftOrderItem: Codable {
     }
 }
 
-struct CustomerId: Codable {
+// MARK: - Customer
+struct CustomerIdTest: Codable {
     let id: Int
 }
 
-struct LineItemDraft: Codable {
+// MARK: - LineItem
+struct LineItemDraftTest: Codable {
     let quantity, variantID: Int
-    let product_id:Int
-    let title:String
+
     enum CodingKeys: String, CodingKey {
         case quantity
         case variantID = "variant_id"
-        case product_id = "product_id"
-        case title = "title"
     }
 }
 
-struct PutOrderRequest: Codable {
-    let draftOrder: ModifyDraftOrderRequest
+
+//MARK: - PutOrderRequest
+struct PutOrderRequestTest: Codable {
+    let draftOrder: ModifyDraftOrderRequestTest
 
     enum CodingKeys: String, CodingKey {
         case draftOrder = "draft_order"
     }
 }
 
-struct ModifyDraftOrderRequest: Codable {
+struct ModifyDraftOrderRequestTest: Codable {
     let dratOrderId: Int
-    let lineItems: [LineItemDraft]
+    let lineItems: [LineItemDraftTest]
     
     enum CodingKeys: String, CodingKey {
         case lineItems = "line_items"

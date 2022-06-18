@@ -191,17 +191,29 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         
     }
     @IBAction func addToCartBtn(_ sender: Any) {
+        let quantity = product?.variant[0].inventoryQuantity
+        let variantID = product?.variant[0].id
+        let newItemDraft = LineItemDraftTest(quantity: quantity!, variantID: variantID!)
+        productViewModel?.postDraftOrder(lineItems: newItemDraft, customerID: Utilities.utilities.getCustomerId() ,completion: { result in
+            switch result {
+            case true:
+                print("add to api ")
+            case false:
+                print("error to add in api")
+            }
+            
+        })
         Utilities.utilities.checkUserIsLoggedIn {[self] isLoggedIn in
             if isLoggedIn {
                 productViewModel?.checkProductInCart(id: "\(productId ?? "")")
                 guard let inCart = productViewModel?.isProductInCart else{return}
-                
+
                 if(inCart){
                     let alert = UIAlertController(title: "Already In Bag!", message: "if you need to increase the amount of product , you can from your bag ", preferredStyle: .alert)
                     let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alert.addAction(okBtn)
                     self.present(alert, animated: true, completion: nil)
-                    
+
                     print("alert \(inCart)")
                 }else{
                     do{
@@ -210,12 +222,12 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                             case true:
                                 Shared.showMessage(message: "Added To Bag Successfully!", error: false)
                                 print("add to cart \(inCart)")
-                                
+
                             case false :
                                 print("faild to add to cart")
                             }
                         })
-                        
+
                     }catch let error{
                         print(error.localizedDescription)
                     }
@@ -225,21 +237,21 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                 let loginAction = UIAlertAction(title: "Login", style: .default) { (action) -> Void in
                     let loginScreen = LoginViewController(nibName:"LoginViewController", bundle: nil)
                     self.navigationController?.pushViewController(loginScreen, animated: true)
-                    
+
                 }
                 let cancleAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
 
-                
+
                 cartAlert.addAction(loginAction)
                 cartAlert.addAction(cancleAction)
-                
+
                 self.presentAlert(alert: cartAlert)
             }
-            
+
         }
-        
-    }
-    
+
+   }
+
 }
 
 extension ProductDetailsViewController: UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate {
