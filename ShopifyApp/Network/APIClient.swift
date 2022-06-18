@@ -137,8 +137,10 @@ class APIClient: NetworkServiceProtocol{
                 completion(.success(object))
                 print("object discount\(object)")
             }    catch {
-
+                print(error.localizedDescription)
                     completion(.failure(.parsingError))
+                
+
                 }
         }.resume()
     }
