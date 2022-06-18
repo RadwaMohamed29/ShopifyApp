@@ -20,6 +20,47 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Kka-bL-Oe2">
+                    <rect key="frame" x="0.0" y="44" width="463.5" height="584"/>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="separatorColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="sectionIndexBackgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUD-mx-jfF" userLabel="Total">
+                    <rect key="frame" x="32" y="676" width="46" height="21.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                    <color key="textColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    </variation>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIz-He-i1j">
+                    <rect key="frame" x="86" y="676" width="25.5" height="21.5"/>
+                    <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="22"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
+                    </variation>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSA-m1-r96">
+                    <rect key="frame" x="45" y="725.5" width="310.5" height="57.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="311" id="drL-sw-O2H"/>
+                    </constraints>
+                    <color key="tintColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Procced To Checkout" cornerStyle="capsule">
+                        <backgroundConfiguration key="background">
+                            <color key="backgroundColor" red="0.031" green="0.49803921568627452" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </backgroundConfiguration>
+                        <color key="baseForegroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="goToAddress:" destination="-1" eventType="touchUpInside" id="Fw5-OV-aLu"/>
+                    </connections>
+                </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mSe-P0-8Ib">
                     <rect key="frame" x="0.0" y="44" width="463.5" height="836.5"/>
                     <subviews>
@@ -52,48 +93,6 @@
                         <constraint firstItem="ibT-Ll-zkE" firstAttribute="top" secondItem="3Z9-cl-1aI" secondAttribute="bottom" constant="9" id="wkd-dR-Exo"/>
                     </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Kka-bL-Oe2">
-                    <rect key="frame" x="0.0" y="44" width="463.5" height="584"/>
-                    <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="separatorColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="sectionIndexBackgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                </tableView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUD-mx-jfF" userLabel="Total">
-                    <rect key="frame" x="32" y="676" width="46" height="21.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                    <color key="textColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                    <variation key="heightClass=regular-widthClass=compact">
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    </variation>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIz-He-i1j">
-                    <rect key="frame" x="86" y="676" width="25.5" height="21.5"/>
-                    <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="22"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                    <variation key="heightClass=regular-widthClass=compact">
-                        <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
-                    </variation>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSA-m1-r96">
-                    <rect key="frame" x="45" y="725.5" width="310.5" height="57.5"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="57.5" id="cis-ww-6cY"/>
-                        <constraint firstAttribute="width" constant="311" id="drL-sw-O2H"/>
-                    </constraints>
-                    <color key="tintColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Procced To Checkout" cornerStyle="capsule">
-                        <backgroundConfiguration key="background">
-                            <color key="backgroundColor" red="0.031" green="0.49803921568627452" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </backgroundConfiguration>
-                        <color key="baseForegroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                    </buttonConfiguration>
-                    <connections>
-                        <action selector="goToAddress:" destination="-1" eventType="touchUpInside" id="Fw5-OV-aLu"/>
-                    </connections>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
