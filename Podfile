@@ -15,6 +15,8 @@ target 'ShopifyApp' do
  pod 'LPSnackbar'
 pod 'TextFieldEffects'
 pod 'NVActivityIndicatorView'
+pod 'Braintree'
+pod 'BraintreeDropIn'
   target 'ShopifyAppTests' do
     inherit! :search_paths
   end

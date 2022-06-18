@@ -1,7 +1,38 @@
 PODS:
   - Alamofire (5.6.1)
+  - Braintree (5.10.0):
+    - Braintree/Card (= 5.10.0)
+    - Braintree/Core (= 5.10.0)
+    - Braintree/PayPal (= 5.10.0)
+  - Braintree/ApplePay (5.10.0):
+    - Braintree/Core
+  - Braintree/Card (5.10.0):
+    - Braintree/Core
+  - Braintree/Core (5.10.0)
+  - Braintree/PaymentFlow (5.10.0):
+    - Braintree/Core
+    - Braintree/PayPalDataCollector
+  - Braintree/PayPal (5.10.0):
+    - Braintree/Core
+    - Braintree/PayPalDataCollector
+  - Braintree/PayPalDataCollector (5.10.0)
+  - Braintree/ThreeDSecure (5.10.0):
+    - Braintree/Card
+    - Braintree/PaymentFlow
+  - Braintree/UnionPay (5.10.0):
+    - Braintree/Card
+  - Braintree/Venmo (5.10.0):
+    - Braintree/Core
+  - BraintreeDropIn (9.6.0):
+    - Braintree/ApplePay (~> 5.9)
+    - Braintree/Card (~> 5.9)
+    - Braintree/Core (~> 5.9)
+    - Braintree/PayPal (~> 5.9)
+    - Braintree/ThreeDSecure (~> 5.9)
+    - Braintree/UnionPay (~> 5.9)
+    - Braintree/Venmo (~> 5.9)
   - Floaty (4.2.0)
-  - Kingfisher (7.2.1)
+  - Kingfisher (7.2.4)
   - KRActivityIndicatorView (3.0.7)
   - KRProgressHUD (3.4.7):
     - KRActivityIndicatorView (= 3.0.7)
@@ -24,6 +55,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Braintree
+  - BraintreeDropIn
   - Floaty (~> 4.2.0)
   - Kingfisher (~> 7.0)
   - KRProgressHUD
@@ -39,6 +72,8 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Braintree
+    - BraintreeDropIn
     - Floaty
     - Kingfisher
     - KRActivityIndicatorView
@@ -55,8 +90,10 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
+  Braintree: a4df29b5453664ea01f89a04e0ae97397021c92f
+  BraintreeDropIn: 31882df3fd8d5cb627339c3ecc857e480d8ef7b8
   Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
-  Kingfisher: 7c084bebf7d548c623ad41bcf765fb200efed369
+  Kingfisher: 2457be2121734e69e54a2312ecc0150eb9ae70b3
   KRActivityIndicatorView: ad69e89c4ce40c986cf580595be4829dcad0e35a
   KRProgressHUD: a248f0bc6c9c2aed40a37b76e03ffecc7f85c887
   lottie-ios: 6ac74dcc09904798f59b18cb3075c089d76be9ae
@@ -69,6 +106,6 @@ SPEC CHECKSUMS:
   SwiftMessages: f0c7ef4705a570ad6c5e208b611f4333e660ed92
   TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: 60e3d8102ad2f71b219592e6c9cbaad35ee6109c
+PODFILE CHECKSUM: f8671ecbcf47319fbef0f176d8d4f259add460bb
 
 COCOAPODS: 1.11.3

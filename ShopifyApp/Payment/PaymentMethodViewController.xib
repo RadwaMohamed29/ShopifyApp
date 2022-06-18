@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PaymentMethodViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
+                <outlet property="btnPayMethod" destination="gdD-45-4eg" id="MWO-GD-MR2"/>
                 <outlet property="segmentedControl" destination="qj0-SA-kbW" id="2lW-AQ-Gdf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -21,12 +22,20 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gdD-45-4eg">
                     <rect key="frame" x="27" y="793" width="360" height="49"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="filled" title="Apply Method" cornerStyle="capsule">
+                    <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule">
                         <backgroundConfiguration key="background"/>
-                        <fontDescription key="titleFontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                        <attributedString key="attributedTitle">
+                            <fragment content="CASH">
+                                <attributes>
+                                    <font key="NSFont" size="17" name="Helvetica"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
                         <color key="baseBackgroundColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="btnpay:" destination="-1" eventType="touchUpInside" id="DtT-Kw-zH1"/>
+                    </connections>
                 </button>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qj0-SA-kbW">
                     <rect key="frame" x="27" y="408" width="360" height="91"/>
@@ -35,6 +44,9 @@
                         <segment title="GOOGLE PAY"/>
                     </segments>
                     <color key="selectedSegmentTintColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <action selector="segment:" destination="-1" eventType="valueChanged" id="gih-HR-WZ0"/>
+                    </connections>
                 </segmentedControl>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choose Payment Method" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="19U-6Y-vmI">
                     <rect key="frame" x="53.5" y="85" width="307" height="57"/>
