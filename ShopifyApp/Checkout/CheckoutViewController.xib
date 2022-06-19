@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="discountLB" destination="eR9-x0-iSQ" id="kp0-ct-5Vd"/>
                 <outlet property="itemsCV" destination="2aA-Df-TpY" id="0FA-oF-fK3"/>
+                <outlet property="lableAdress" destination="w4b-jP-V67" id="QNN-LF-EBV"/>
                 <outlet property="smallView" destination="Nxs-vE-B3b" id="UnO-Uc-6MH"/>
                 <outlet property="subTotalLB" destination="GGo-rU-iaw" id="jXX-zd-JhZ"/>
                 <outlet property="totalPrice" destination="PG0-ea-E3f" id="tEF-PR-ROV"/>

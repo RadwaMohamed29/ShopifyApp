@@ -174,6 +174,20 @@ extension LocalDataSource{
 
 
     }
+    func removeItemsFromCartToSpecificCustomer()throws{
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProduct")
+        let myPredicate = NSPredicate(format: "user_id == %@", "\(Utilities.utilities.getCustomerId())")
+        fetchRequest.predicate = myPredicate
+        do{
+            let productList = try contextCart.fetch(fetchRequest)
+            for product in productList{
+                contextCart.delete(product)
+            }
+            try self.contextCart.save()
+        }catch let error as NSError{
+            throw error
+        }
+    }
     func removeFromCartCoreData(itemId: String)throws{
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "CartProduct")
         let myPredicate = NSPredicate(format: "user_id == \(Utilities.utilities.getCustomerId()) && id == %@", itemId)
