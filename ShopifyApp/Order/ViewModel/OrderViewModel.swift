@@ -12,7 +12,7 @@ protocol OrderViewModelProtocol{
     var ordersObservable : Observable<[Order]> {get set}
     func getCurrentCustomer(id:String)throws
     var customerObservable : Observable<Customer> {get set}
-    func addOrder(order:AkbrOrder,completion:@escaping(Bool)->())
+    func addOrder(order:OrderObject,completion:@escaping(Bool)->())
 }
 
 class OrderViewModel:OrderViewModelProtocol{
@@ -53,7 +53,7 @@ class OrderViewModel:OrderViewModelProtocol{
         }
     }
     
-    func addOrder(order: AkbrOrder, completion: @escaping (Bool) -> ()) {
+    func addOrder(order: OrderObject, completion: @escaping (Bool) -> ()) {
         network.postOrder(order: order) { data, respinse, error in
             if error != nil{
                 print(error?.localizedDescription ?? "")

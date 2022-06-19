@@ -33,7 +33,7 @@ class CheckoutViewController: UIViewController {
     var subTotal :Double?
     var discount : Double = 40
     var total : Double?
-    var order : AkbrOrder?
+    var order : OrderObject?
     var customer : Customer?
     var orderViewModel :OrderViewModelProtocol?
     override func viewDidLoad() {
@@ -144,14 +144,14 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
         
     }
     
-    func prepareOrderObject(items:[LineItems],adress:Address)->AkbrOrder{
+    func prepareOrderObject(items:[LineItems],adress:Address)->OrderObject{
         let customer : CustomerOrder?
         customer = CustomerOrder(id: Utilities.utilities.getCustomerId())
         let order = PostOrder(id: nil
                               , lineItems: items
                               , billingAdress: adress
                               , customer: customer!)
-        let postOrder = AkbrOrder(order: order)
+        let postOrder = OrderObject(order: order)
         return postOrder
     }
     

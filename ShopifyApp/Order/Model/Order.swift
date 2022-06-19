@@ -9,7 +9,7 @@ import Foundation
 struct Orders: Codable {
     let orders: [Order]
 }
-struct AkbrOrder : Codable{
+struct OrderObject : Codable{
     var order : PostOrder
 }
 struct PostOrder : Codable{
