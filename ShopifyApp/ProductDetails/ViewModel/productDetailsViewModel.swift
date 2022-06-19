@@ -26,10 +26,13 @@ protocol ProductDetailsViewModelType{
     func removeProductFromCart(productID:String, completionHandler:@escaping (Bool) -> Void) throws
     func updateCount(productID : Int , count : Int,completionHandler:@escaping (Bool) -> Void) throws
     func updatePrice(completion: @escaping (Double?)-> Void)throws
+    func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void)
+
 }
 
 
 final class ProductDetailsViewModel: ProductDetailsViewModelType{
+
 
     var favoriteProducts: [FavouriteProduct]?
     var productsInCart: [CartProduct]?
@@ -38,7 +41,8 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     private var listOfProduct : [Product] = []
     var network = APIClient()
     var localDataSource :LocalDataSource
-    
+    let userDefult = Utilities()
+
     var productObservable: Observable<Product>
     var allProductsObservable :Observable<[Product]>
     var brandsObservable: Observable<[Product]>
@@ -243,5 +247,51 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                 throw error
             }
         }
+    func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void){
+        var lineItem = Array<LineItemDraftTest>()
+        lineItem.append(lineItems)
+       
+        if customerID != 0 {
+            let order = DraftOrderItemTest(lineItems: lineItem, customer: CustomerIdTest(id: customerID), useCustomerDefaultAddress: true)
+            let newOrder = DraftOrdersRequest(draftOrder: order)
+            postOrder(draftOrder: newOrder)
+            print("custmerID: \(customerID)")
+            completion(true)
+        }else{
+            completion(false)
+        }
+        
+        
+    }
+    func postOrder( draftOrder: DraftOrdersRequest) {
+        network.postDraftOrder(draftOrder: draftOrder ) { data, response, error in
+            if error != nil {
+                print(error!)
+            }else{
+                if let data = data{
+                    do{
+                        let json = try! JSONSerialization.jsonObject(with: data, options:
+                                .allowFragments) as! Dictionary<String, Any>
+                        
+                        let draftOrder = json["draft_order"] as? Dictionary <String,Any>
+                        let draftId = draftOrder?["id"] as? Int ?? 0
+                        print("json \(json )")
+                        print("draftId\(draftId)")
+                        if draftId != 0{
+                            self.userDefult.setDraftOrder(id: draftId)
+                            print("add to user defualt ")
+                        }
+                        else{
+                            print("can't save to user defualts")
+                        }
+                        
+                    }catch{
+                       print("error in viewModel")
+                    }
+              
+                }
+            }}
 
+    }
+    
 }

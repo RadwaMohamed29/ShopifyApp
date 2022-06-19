@@ -8,10 +8,21 @@
 import Foundation
 import Alamofire
 private let BASE_URL = "https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/"
+//https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/draft_orders.json
+//https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/customers.json
 class APIClient: NetworkServiceProtocol{
+    func postDraftOrder(draftOrder: DraftOrdersRequest, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        apiPost(endPoint: .draftOrder, methods: .POST, modelType: draftOrder, completion: completion)
+    }
+    
+    func updateAddress(customerID: String, addressID: String, address: Address, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        apiPost(endPoint: .deleteAddress(customerID: customerID, addressID: addressID), methods: .PUT, modelType: UpdateAddress(address: address), completion: completion)
+    }
+    
     func deleteAddress(customerID: String, addressID: String, address: NewAddress, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         apiPost(endPoint: .deleteAddress(customerID: customerID, addressID: addressID), methods: .DELETE, modelType: address, completion: completion)
     }
+    
     
     func getDiscountCode(priceRule: String, completion: @escaping (Result<DiscountCode, ErrorType>) -> Void) {
         request(endpoint: .getDiscountCode(priceRule: priceRule), method: .GET, compeletion: completion)
@@ -91,8 +102,8 @@ class APIClient: NetworkServiceProtocol{
             request.httpMethod = "\(methods)"
             let session = URLSession.shared
             request.httpShouldHandleCookies = false
-            
-        if methods == .POST{
+
+        if methods != .DELETE {
             do{
                 request.httpBody = try JSONSerialization.data(withJSONObject: modelType.asDictionary(), options: .prettyPrinted)
             }catch let error{
@@ -104,6 +115,7 @@ class APIClient: NetworkServiceProtocol{
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
             session.dataTask(with: request) {(data, response, error)in
+                print("request\(request)")
                 completion(data, response, error)
             }.resume()
         }
@@ -125,34 +137,14 @@ class APIClient: NetworkServiceProtocol{
                 completion(.success(object))
                 print("object discount\(object)")
             }    catch {
-
+                print(error.localizedDescription)
                     completion(.failure(.parsingError))
-              //  print(fatalError(error.localizedDescription))
+                
 
                 }
         }.resume()
     }
-    
-    func registerCustomer(endpoint: Endpoints,newCustomer: Customer, completion: @escaping(Data?, URLResponse?, Error?)->()){
-        guard let url = URL(string: "\(BASE_URL)\(endpoint.path)") else {return}
-        var request = URLRequest(url: url)
-        request.httpMethod = "\(Methods.POST)"
-        let session = URLSession.shared
-        request.httpShouldHandleCookies = false
-        do{
-            request.httpBody = try JSONSerialization.data(withJSONObject: newCustomer.asDictionary(), options: .prettyPrinted)
-            
-        }catch let error{
-            print(error.localizedDescription)
-        }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        session.dataTask(with: request) {(data, response, error)in
-            completion(data, response, error)
-        }.resume()
-    
-}
+
 
 //https://c48655414af1ada2cd256a6b5ee391be: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@mobile-ismailia.myshopify.com/admin/api/2022-04/products.json?collection_id=products.json?product_type=SHOES&product_type=shoes
     

@@ -11,6 +11,9 @@ class Utilities{
     func setTotalPrice(totalPrice:Double){
         UserDefaults.standard.set(totalPrice, forKey: "Total_Price")
     }
+    func getTotalPrice()->Double{
+        return UserDefaults.standard.value(forKey: "Total_Price") as? Double ?? 0
+    }
     func addCustomerId(id: Int){
         UserDefaults.standard.set(id, forKey: "id")
     }
@@ -85,5 +88,11 @@ class Utilities{
         }
         return currency ?? ""
         
+    }
+    func setDraftOrder(id:Int){
+        UserDefaults.standard.set(id, forKey: "draft_order_id")
+    }
+    func getDraftOrder()->Int{
+        UserDefaults.standard.value(forKey: "draft_order_id") as! Int
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -32,12 +32,13 @@
                                 <attributedString key="attributedTitle">
                                     <fragment content="Address">
                                         <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="25" name="Helvetica"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
+                                <color key="baseBackgroundColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </buttonConfiguration>
                             <connections>
                                 <action selector="addressBtn:" destination="-1" eventType="touchUpInside" id="1Op-cA-PE7"/>
@@ -50,12 +51,13 @@
                                 <attributedString key="attributedTitle">
                                     <fragment content="Currency">
                                         <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="25" name="Helvetica"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
+                                <color key="baseBackgroundColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </buttonConfiguration>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4OG-Y9-mQK">
@@ -64,12 +66,13 @@
                                 <attributedString key="attributedTitle">
                                     <fragment content="About">
                                         <attributes>
-                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="25" name="Helvetica"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
+                                <color key="baseBackgroundColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </buttonConfiguration>
                             <connections>
                                 <action selector="aboutBtn:" destination="-1" eventType="touchUpInside" id="dk7-Md-bXo"/>
@@ -81,19 +84,22 @@
                                 <attributedString key="attributedTitle">
                                     <fragment content="Contact Us">
                                         <attributes>
-                                            <color key="NSColor" red="7.8914141414143657e-05" green="7.8914141414143657e-05" blue="7.8914141414143657e-05" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="25" name="Helvetica"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
+                                <color key="baseBackgroundColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </buttonConfiguration>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VgN-WK-ae7">
-                            <rect key="frame" x="69" y="560" width="276" height="43"/>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <rect key="frame" x="52" y="560" width="310" height="57.5"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain">
+                            <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
+                                <backgroundConfiguration key="background">
+                                    <color key="backgroundColor" red="0.031372549019607843" green="0.49803921568627452" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </backgroundConfiguration>
                                 <attributedString key="attributedTitle">
                                     <fragment content="Logout">
                                         <attributes>
@@ -118,6 +124,8 @@
                                 <segment title="USD"/>
                                 <segment title="EGP"/>
                             </segments>
+                            <color key="tintColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="selectedSegmentTintColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="currencyBtn:" destination="-1" eventType="valueChanged" id="xp5-C1-3v0"/>
                             </connections>
@@ -125,7 +133,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9e-td-MqJ">
                             <rect key="frame" x="279" y="239" width="74" height="19"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" image="f">
+                            <buttonConfiguration key="configuration" style="plain" image="FaceBook">
                                 <attributedString key="attributedTitle"/>
                             </buttonConfiguration>
                             <connections>
@@ -135,7 +143,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLm-CL-eA5">
                             <rect key="frame" x="330" y="240" width="74" height="17"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" image="w" title=""/>
+                            <buttonConfiguration key="configuration" style="plain" image="Wesite" title=""/>
                             <connections>
                                 <action selector="websiteBtn:" destination="-1" eventType="touchUpInside" id="iJx-CP-ebP"/>
                             </connections>
@@ -145,6 +153,7 @@
                             <attributedString key="attributedText">
                                 <fragment content="Current Address">
                                     <attributes>
+                                        <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <font key="NSFont" metaFont="system" size="17"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                     </attributes>
@@ -155,6 +164,7 @@
                                 <attributedString key="attributedText">
                                     <fragment content="Current Address">
                                         <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" metaFont="system" size="17"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
@@ -163,7 +173,7 @@
                             </variation>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="s9w-CB-1Sx" firstAttribute="top" secondItem="KyU-Og-U4y" secondAttribute="bottom" constant="8" id="1Rb-a9-dN5"/>
                         <constraint firstItem="4OG-Y9-mQK" firstAttribute="top" secondItem="s9w-CB-1Sx" secondAttribute="bottom" constant="8" id="4cf-2h-wNM"/>
@@ -183,7 +193,6 @@
                         <constraint firstItem="s9w-CB-1Sx" firstAttribute="width" secondItem="KyU-Og-U4y" secondAttribute="width" id="Urs-5R-QVI"/>
                         <constraint firstItem="4OG-Y9-mQK" firstAttribute="leading" secondItem="s9w-CB-1Sx" secondAttribute="leading" id="Uvy-GZ-icS"/>
                         <constraint firstItem="s9w-CB-1Sx" firstAttribute="leading" secondItem="KyU-Og-U4y" secondAttribute="leading" id="XgC-an-btM"/>
-                        <constraint firstItem="fFP-fG-u3g" firstAttribute="top" secondItem="KyU-Og-U4y" secondAttribute="bottom" constant="-43" id="bOH-1h-spi"/>
                         <constraint firstItem="BLm-CL-eA5" firstAttribute="centerY" secondItem="J9e-td-MqJ" secondAttribute="centerY" id="bQ8-JI-yyS"/>
                         <constraint firstItem="4OG-Y9-mQK" firstAttribute="centerX" secondItem="s9w-CB-1Sx" secondAttribute="centerX" id="bk9-aK-I69"/>
                         <constraint firstItem="fFP-fG-u3g" firstAttribute="width" secondItem="KyU-Og-U4y" secondAttribute="width" multiplier="0.361809" id="ctv-9p-wd6"/>
@@ -207,26 +216,26 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="VgN-WK-ae7" secondAttribute="bottom" constant="244.5" id="4nI-99-7dL"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="KyU-Og-U4y" secondAttribute="trailing" constant="8" id="7FW-9h-bsZ"/>
                 <constraint firstItem="URp-Xy-rLU" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="8ty-NT-S3o"/>
                 <constraint firstItem="KyU-Og-U4y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="8" id="LF8-JD-hxf"/>
                 <constraint firstItem="KyU-Og-U4y" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="M9C-CR-F0B"/>
                 <constraint firstItem="KyU-Og-U4y" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.961353" id="OgB-jw-U2h"/>
                 <constraint firstItem="URp-Xy-rLU" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Pto-iD-cGi"/>
-                <constraint firstItem="VgN-WK-ae7" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.666667" id="SIP-RH-9zu"/>
+                <constraint firstItem="VgN-WK-ae7" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.666667" constant="34" id="SIP-RH-9zu"/>
                 <constraint firstAttribute="bottom" secondItem="URp-Xy-rLU" secondAttribute="bottom" id="TDn-4b-pg3"/>
                 <constraint firstItem="URp-Xy-rLU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="a38-rt-57R"/>
                 <constraint firstItem="KyU-Og-U4y" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="bhD-Da-67u"/>
                 <constraint firstItem="VgN-WK-ae7" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="foZ-9F-yli"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="VgN-WK-ae7" secondAttribute="bottom" constant="178" id="gf6-Nw-3Me"/>
-                <constraint firstItem="VgN-WK-ae7" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0479911" id="tqs-Qd-xj4"/>
+                <constraint firstItem="VgN-WK-ae7" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0479911" constant="14.5" id="tqs-Qd-xj4"/>
             </constraints>
             <point key="canvasLocation" x="131.8840579710145" y="82.366071428571431"/>
         </view>
     </objects>
     <resources>
-        <image name="f" width="50" height="50"/>
-        <image name="w" width="50" height="50"/>
+        <image name="FaceBook" width="50" height="50"/>
+        <image name="Wesite" width="50" height="50"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

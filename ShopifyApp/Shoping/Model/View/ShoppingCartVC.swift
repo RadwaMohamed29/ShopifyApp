@@ -86,6 +86,7 @@ class ShoppingCartVC: UIViewController {
         do{
             try productViewModel?.updatePrice(completion: { totalPrice in
                 guard let totalPrice = totalPrice else { return }
+                self.totalPrice = totalPrice
                 Utilities.utilities.setTotalPrice(totalPrice:self.totalPrice ?? 0)
                 self.totalLable.text = Shared.formatePrice(priceStr: String(totalPrice))
                 print(totalPrice)
@@ -128,6 +129,8 @@ class ShoppingCartVC: UIViewController {
 
     @IBAction func goToAddress(_ sender: Any) {
         let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
+        address.cartProducts = CartProducts
+        Utilities.utilities.setTotalPrice(totalPrice: totalPrice ?? 0)
         self.navigationController?.pushViewController(address, animated: true)
     }
     

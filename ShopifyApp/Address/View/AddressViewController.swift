@@ -20,6 +20,7 @@ class AddressViewController: UIViewController {
     private var isConn:Bool = false
     private let disposeBag = DisposeBag()
     fileprivate var arr : [Address]!
+    var cartProducts : [CartProduct] = []
     fileprivate var viewModel:AddressViewModelProtocol!
     @IBOutlet weak var addressTableView: UITableView!
     var addrressID: String = ""
@@ -30,9 +31,6 @@ class AddressViewController: UIViewController {
         addressTableView.separatorStyle = .none
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAddress))
         arr = []
-        
-        //6463260754149
-//        getAddresses(id: "6466443772133")
         
     }
     
@@ -87,6 +85,11 @@ class AddressViewController: UIViewController {
         
     }
     
+    @IBAction func confirmAdress(_ sender: Any) {
+        let checkoutVC = CheckoutViewController(nibName: "CheckoutViewController", bundle: nil)
+        checkoutVC.cartProducts = cartProducts
+        self.navigationController?.pushViewController(checkoutVC, animated: true)
+    }
     
 }
 
@@ -102,11 +105,11 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCellTableViewCell", for: indexPath ) as! AddressCellTableViewCell
         let index = arr[indexPath.row]
-        cell.labelAddress.text = "\(index.address1 ?? "") \(index.address2 ?? "") st, \(index.city ?? ""), \(index.country ?? "")"
+        cell.labelAddress.text = "\(index.address2 ?? "") st, \(index.city ?? ""), \(index.country ?? "")"
         cell.backgroundColor = UIColor.white
                 cell.layer.borderWidth = 1
         cell.deleteAddressByBottun = {[weak self] in
-            self?.deleteAddress(indexPath: indexPath)
+            self?.showAlert(indexPath: indexPath)
             }
                 return cell
     }
@@ -116,14 +119,30 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
         view.addSubview(addressVC.view)
         addressVC.didMove(toParent: self)
     }
-//
+
     func displayVC(content:UIViewController) {
         addChild(content)
         self.view.addSubview(content.view)
         content.didMove(toParent: self)
     }
     
-    
+    func showAlert(indexPath: IndexPath){
+        if indexPath.row == 0{
+            let alert = UIAlertController(title: title, message: "Sorry defualt address can not be deleted!", preferredStyle: .alert)
+            let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(okBtn)
+            self.present(alert, animated: true, completion: nil)
+        }else{
+            let alert = UIAlertController(title: "Are you sure?", message: "You will remove this address", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { [self] UIAlertAction in
+                deleteAddress(indexPath: indexPath)
+       
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+     
+    }
     
     
     func setupTable() {
@@ -144,32 +163,26 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
         return 100
     }
     func deleteAddress(indexPath: IndexPath){
-        if indexPath.row == 0{
-            let alert = UIAlertController(title: title, message: "Sorry defualt address can not be deleted!", preferredStyle: .alert)
-            let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(okBtn)
-            self.present(alert, animated: true, completion: nil)
-        }else{
             self.viewModel.deleteAddress(addressID: String(self.arr[indexPath.row].id!) , customerID: String((self.userDefault.getCustomerId())))
             print(String(self.arr[indexPath.row].id!))
             self.checkNetwork()
             print("deleting")
-        }
       
         
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = UIContextualAction(style: .destructive, title: "Delete") { action, _, handler in
-            self.deleteAddress(indexPath: indexPath)
+            self.showAlert(indexPath: indexPath)
         }
         let edit = UIContextualAction(style: .normal, title: "Edit") { [weak self] action, _, handler in
             let edit = PostAddressViewController(nibName: "PostAddressViewController", bundle: nil)
             edit.isEdit = true
-            edit.buildNo = self?.arr[indexPath.row].address1
+            edit.phone = self?.arr[indexPath.row].phone
             edit.streetName = self?.arr[indexPath.row].address2
             edit.cityName = self?.arr[indexPath.row].city
             edit.country = self?.arr[indexPath.row].country
+            edit.addressID = self?.arr[indexPath.row].id
             self?.navigationController?.pushViewController(edit, animated: true)
         }
         return UISwipeActionsConfiguration(actions: [delete, edit])
