@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import RxSwift
 class CheckoutViewController: UIViewController {
     
     
@@ -25,6 +26,7 @@ class CheckoutViewController: UIViewController {
         }
     }
     @IBOutlet weak var smallView: UIView!
+    var disBag = DisposeBag()
     var cartProducts : [CartProduct] = []
     var items :[LineItems] = []
     var adress : Address?
@@ -32,6 +34,8 @@ class CheckoutViewController: UIViewController {
     var discount : Double = 40
     var total : Double?
     var order : Order?
+    var customer : Customer?
+    var orderViewModel :OrderViewModelProtocol?
     override func viewDidLoad() {
         super.viewDidLoad()
         subTotal = Utilities.utilities.getTotalPrice()
@@ -42,14 +46,26 @@ class CheckoutViewController: UIViewController {
         smallView.layer.cornerRadius = 20
         discountLB.text = "\(discount)"
         lableAdress.text = "\(adress!.address2 ?? "") st, \(adress!.city ?? ""), \(adress!.country ?? "")"
-        
+        orderViewModel = OrderViewModel()
         
     }
     
     @IBAction func btnConfirmPayment(_ sender: Any) {
         items = convertFromListOfCartProdeuctTolistOfLineItems(products: cartProducts)
-        let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
-        self.present(payment, animated: true, completion: nil)
+        let order = prepareOrderObject(items: items, adress: adress!)
+        orderViewModel?.addOrder(order: order, completion: { result in
+            switch result{
+            case true:
+                DispatchQueue.main.async{
+                    let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
+                    self.present(payment, animated: true, completion: nil)
+                }
+               
+            case false:
+                print("can't post this order")
+            }
+        })
+        
     }
     
 }
@@ -114,24 +130,39 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
                                   , title: cartProduct.title ?? "")
         return lineItems
     }
+    func getCustomer(){
+        do{
+            try orderViewModel!.getCurrentCustomer(id:"\(Utilities.utilities.getCustomerId())")
+            orderViewModel!.customerObservable.subscribe { result in
+                self.customer = result
+            } onError: { error in
+                print(error.localizedDescription)
+            }.disposed(by: disBag)
+
+        }catch{}
+        
+    }
     
     func prepareOrderObject(items:[LineItems],adress:Address)->Order{
-        
         let order = Order(id: nil
-                          , createdAt: <#T##String#>
-                          , totalDiscounts: "\(discount)"
-                          , totalPrice: "\(total ?? 0)"
-                          , totalTax: "0"
-                          , totalPriceUsd: "\(total!/20)"
+                          , createdAt: nil
+                          , totalDiscounts: nil
+                          , totalPrice: nil
+                          , totalTax: nil
+                          , totalPriceUsd: nil
                           , discountCodes: nil
                           , email: Utilities.utilities.getCustomerEmail()
-                          , financialStatus: "cash"
-                          , name: "123", fulfillmentStatus: nil
+                          , financialStatus: nil
+                          , name: nil
+                          , fulfillmentStatus: nil
                           , orderNumber: nil
-                          , orderStatusURL: ""
+                          , orderStatusURL: nil
                           , lineItems: items
-                          , billingAdress: adress)
+                          , billingAdress: adress
+                          , customer: Utilities.utilities.getCustomerId()
+        )
         return order
     }
+    
     
 }
