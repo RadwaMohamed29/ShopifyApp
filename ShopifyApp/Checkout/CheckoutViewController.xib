@@ -39,6 +39,9 @@
                                 <backgroundConfiguration key="background"/>
                                 <color key="baseBackgroundColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </buttonConfiguration>
+                            <connections>
+                                <action selector="btnConfirmPayment:" destination="-1" eventType="touchUpInside" id="xoo-3u-Etx"/>
+                            </connections>
                         </button>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="2aA-Df-TpY">
                             <rect key="frame" x="0.0" y="52.5" width="414" height="215"/>
