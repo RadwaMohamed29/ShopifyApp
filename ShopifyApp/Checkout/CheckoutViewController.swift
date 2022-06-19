@@ -41,6 +41,10 @@ class CheckoutViewController: UIViewController {
         
     }
     
+    @IBAction func btnConfirmPayment(_ sender: Any) {
+        let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
+        self.present(payment, animated: true, completion: nil)
+    }
     
 }
 
