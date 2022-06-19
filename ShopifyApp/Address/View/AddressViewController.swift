@@ -87,10 +87,20 @@ class AddressViewController: UIViewController {
     }
     
     @IBAction func confirmAdress(_ sender: Any) {
-        let checkoutVC = CheckoutViewController(nibName: "CheckoutViewController", bundle: nil)
-        checkoutVC.cartProducts = cartProducts
-        checkoutVC.adress = adress
-        self.navigationController?.pushViewController(checkoutVC, animated: true)
+        if arr.count > 0{
+            let checkoutVC = CheckoutViewController(nibName: "CheckoutViewController", bundle: nil)
+            checkoutVC.cartProducts = cartProducts
+            checkoutVC.adress = adress
+            self.navigationController?.pushViewController(checkoutVC, animated: true)
+        }
+        else{
+            let alert = UIAlertController(title: "Address", message: "please add address to continue", preferredStyle: .alert)
+            let cancle = UIAlertAction(title: "Cancle", style: .cancel)
+            alert.addAction(cancle)
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+       
     }
     
 }

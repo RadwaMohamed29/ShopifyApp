@@ -131,18 +131,7 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
                                   , title: cartProduct.title ?? "")
         return lineItems
     }
-    func getCustomer(){
-        do{
-            try orderViewModel!.getCurrentCustomer(id:"\(Utilities.utilities.getCustomerId())")
-            orderViewModel!.customerObservable.subscribe { result in
-                self.customer = result
-            } onError: { error in
-                print(error.localizedDescription)
-            }.disposed(by: disBag)
 
-        }catch{}
-        
-    }
     
     func prepareOrderObject(items:[LineItems],adress:Address)->OrderObject{
         let customer : CustomerOrder?
