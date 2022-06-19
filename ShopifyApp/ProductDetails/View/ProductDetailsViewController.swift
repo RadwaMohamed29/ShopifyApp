@@ -212,9 +212,9 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         }
     }
     func postDraftOrder(){
-        let quantity = product?.variant[0].inventoryQuantity
+        let quantity = 1
         let variantID = product?.variant[0].id
-        let newItemDraft = LineItemDraftTest(quantity: quantity!, variantID: variantID!)
+        let newItemDraft = LineItemDraftTest(quantity: quantity, variantID: variantID!)
         productViewModel?.postDraftOrder(lineItems: newItemDraft, customerID: Utilities.utilities.getCustomerId() ,completion: { result in
             switch result {
             case true:
@@ -225,7 +225,21 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
             
         })
     }
-
+    func editDraftOrder(){
+        if userDefualt.isLoggedIn(){
+            if userDefualt.getUserNote() != ""{
+                let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(userDefualt.getDraftOrder()), lineItems: [LineItemDraftTest(quantity: 1, variantID: (product?.variant[0].id)!)]))
+                productViewModel?.editDraftOrder(draftOrder: updateDraftOrder, draftID: userDefualt.getDraftOrder(), completion: { result in
+                    switch result {
+                    case true:
+                        print("update order to api ")
+                    case false:
+                        print("error to update in api")
+                    }
+                })
+            }
+        }
+    }
     @IBAction func addToCartBtn(_ sender: Any) {
         
         Utilities.utilities.checkUserIsLoggedIn {[self] isLoggedIn in
@@ -242,7 +256,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                     print("alert \(inCart)")
                 }else{
                     if userDefualt.getUserNote() != ""{
-                    //    editDraftOrder()
+                        self.editDraftOrder()
                     }else{
                         self.postDraftOrder()
                     }

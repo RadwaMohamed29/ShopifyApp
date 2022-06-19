@@ -30,6 +30,7 @@ enum Endpoints {
     case draftOrder
     case modifyDraftOrder(id:Int)
     case editeCustomer(id:Int)
+    case getDraftOrder(id:Int)
     
     var path:String{
         switch self {
@@ -75,6 +76,8 @@ enum Endpoints {
             return "draft_orders/\(id).json"
         case .editeCustomer(id: let id):
             return "customers/\(id).json"
+        case .getDraftOrder(id: let id):
+            return "draft_orders/\(id).json"
         }
     }
 }

@@ -335,10 +335,10 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                     let json = try? JSONSerialization.jsonObject(with: data, options:
                             .allowFragments) as? Dictionary<String, Any>
                         if json?["errors"] != nil{
-                            completion(true)
+                            completion(false)
                             
                         }else{
-                            completion(false)
+                            completion(true)
                         }
                     }catch{
                         completion(false)
