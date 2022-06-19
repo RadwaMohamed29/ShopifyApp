@@ -24,6 +24,7 @@ class RegisterViewController: UIViewController {
         super.viewDidLoad()
         lblValidation.isHidden = true
         bindToViewModel()
+     //   updateCustomer()
  
     }
 
@@ -49,6 +50,23 @@ class RegisterViewController: UIViewController {
             self.navigationController?.popViewController(animated: true)
         }
     }
+    
+//    func updateCustomer(){
+//        if userDefualt.isLoggedIn(){
+//            if userDefualt.getDraftOrder() != 0{
+//                let editCustomer = EditCustomerRequest(id: userDefualt.getCustomerId(), email: userDefualt.getCustomerEmail(), firstName: userDefualt.getCustomerName(), password: "", note: String(userDefualt.getDraftOrder()))
+//                registerViewModel.editCustomer(customer: EditCustomer(customer: editCustomer), customerID: userDefualt.getCustomerId(), completion: { result in
+//                    switch result{
+//                    case true:
+//                        print("note added")
+//                    case false:
+//                        print("note can't add")
+//                    }
+//                    
+//                })
+//            }
+//        }
+//    }
 
     @IBAction func signUpBtn(_ sender: Any) {
         self.lblValidation.isHidden = true

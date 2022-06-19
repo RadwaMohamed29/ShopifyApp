@@ -29,7 +29,7 @@ enum Endpoints {
     case deleteAddress(customerID: String, addressID: String)
     case draftOrder
     case modifyDraftOrder(id:Int)
-    case editeCustomer(id:String)
+    case editeCustomer(id:Int)
     
     var path:String{
         switch self {
