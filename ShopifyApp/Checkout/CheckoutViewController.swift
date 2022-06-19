@@ -33,7 +33,7 @@ class CheckoutViewController: UIViewController {
     var subTotal :Double?
     var discount : Double = 40
     var total : Double?
-    var order : Order?
+    var order : AkbrOrder?
     var customer : Customer?
     var orderViewModel :OrderViewModelProtocol?
     override func viewDidLoad() {
@@ -52,8 +52,9 @@ class CheckoutViewController: UIViewController {
     
     @IBAction func btnConfirmPayment(_ sender: Any) {
         items = convertFromListOfCartProdeuctTolistOfLineItems(products: cartProducts)
-        let order = prepareOrderObject(items: items, adress: adress!)
-        orderViewModel?.addOrder(order: order, completion: { result in
+        order = prepareOrderObject(items: items, adress: adress!)
+        orderViewModel?.addOrder(order: order!, completion: { result in
+            
             switch result{
             case true:
                 DispatchQueue.main.async{
@@ -143,25 +144,15 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
         
     }
     
-    func prepareOrderObject(items:[LineItems],adress:Address)->Order{
-        let order = Order(id: nil
-                          , createdAt: nil
-                          , totalDiscounts: nil
-                          , totalPrice: nil
-                          , totalTax: nil
-                          , totalPriceUsd: nil
-                          , discountCodes: nil
-                          , email: Utilities.utilities.getCustomerEmail()
-                          , financialStatus: nil
-                          , name: nil
-                          , fulfillmentStatus: nil
-                          , orderNumber: nil
-                          , orderStatusURL: nil
-                          , lineItems: items
-                          , billingAdress: adress
-                          , customer: Utilities.utilities.getCustomerId()
-        )
-        return order
+    func prepareOrderObject(items:[LineItems],adress:Address)->AkbrOrder{
+        let customer : CustomerOrder?
+        customer = CustomerOrder(id: Utilities.utilities.getCustomerId())
+        let order = PostOrder(id: nil
+                              , lineItems: items
+                              , billingAdress: adress
+                              , customer: customer!)
+        let postOrder = AkbrOrder(order: order)
+        return postOrder
     }
     
     

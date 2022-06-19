@@ -9,6 +9,22 @@ import Foundation
 struct Orders: Codable {
     let orders: [Order]
 }
+struct AkbrOrder : Codable{
+    var order : PostOrder
+}
+struct PostOrder : Codable{
+    let id: Int?
+    let lineItems: [LineItems]
+    let billingAdress : Address
+    let customer : CustomerOrder
+    enum CodingKeys: String, CodingKey {
+        case id
+        case lineItems = "line_items"
+        case billingAdress = "billing_address"
+        case customer 
+        
+    }
+}
 struct Order: Codable {
     let id: Int?
     let createdAt: String?
@@ -21,7 +37,7 @@ struct Order: Codable {
     let orderStatusURL: String?
     let lineItems: [LineItems]
     let billingAdress : Address
-    let customer : Int?
+    let customer : CustomerOrder?
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -64,7 +80,9 @@ struct LineItems: Codable {
         case title
     }
 }
-
+struct CustomerOrder :Codable{
+   var id : Int?
+}
 struct OrderDiscountCode: Codable {
     let code, amount, type: String
 }
