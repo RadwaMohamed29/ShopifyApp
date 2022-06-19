@@ -21,6 +21,8 @@ struct CustomerModel: Codable {
     let id: Int?
     let verified_email: Bool?
     let addresses: [Address]?
+    //let note: String?
+
 }
 
 struct Address: Codable {
@@ -50,4 +52,20 @@ extension Encodable {
 }
 struct CustomerAddress: Codable {
     var addresses: [Address]?
+}
+struct EditCustomer: Codable {
+    let customer: EditCustomerRequest
+}
+
+struct EditCustomerRequest: Codable {
+    let id: Int
+    let email, firstName, password, note: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id, email
+        case firstName = "first_name"
+        case password = "tags"
+        case note = "note"
+        
+    }
 }

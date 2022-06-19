@@ -279,6 +279,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                         print("draftId\(draftId)")
                         if draftId != 0{
                             self.userDefult.setDraftOrder(id: draftId)
+                            print("idDraftOrder\(self.userDefult.getDraftOrder())")
                             print("add to user defualt ")
                         }
                         else{
