@@ -60,8 +60,8 @@ class CheckoutViewController: UIViewController {
                 do{
                     try self.orderViewModel?.removeItemsFromCartToSpecificCustomer()
                     DispatchQueue.main.async{
-                        let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
-                        self.present(payment, animated: true, completion: nil)
+                        let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
+                        self.navigationController?.pushViewController(homeVC, animated: true)
                     }
                 }catch let error{
                     let alert = UIAlertController(title: "Checkout", message: "\(error.localizedDescription)", preferredStyle: .alert)
