@@ -46,7 +46,7 @@ class CheckoutViewController: UIViewController {
         smallView.layer.cornerRadius = 20
         discountLB.text = "\(discount)"
         lableAdress.text = "\(adress!.address2 ?? "") st, \(adress!.city ?? ""), \(adress!.country ?? "")"
-        orderViewModel = OrderViewModel()
+        orderViewModel = OrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
     }
     
@@ -57,10 +57,19 @@ class CheckoutViewController: UIViewController {
             
             switch result{
             case true:
-                DispatchQueue.main.async{
-                    let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
-                    self.present(payment, animated: true, completion: nil)
+                do{
+                    try self.orderViewModel?.removeItemsFromCartToSpecificCustomer()
+                    DispatchQueue.main.async{
+                        let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
+                        self.present(payment, animated: true, completion: nil)
+                    }
+                }catch let error{
+                    let alert = UIAlertController(title: "Checkout", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                    let cancle = UIAlertAction(title: "Cancle", style: .cancel)
+                    alert.addAction(cancle)
+                    self.present(alert, animated: true, completion: nil)
                 }
+                
                
             case false:
                 print("can't post this order")

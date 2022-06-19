@@ -15,7 +15,7 @@ class MeViewController: UIViewController {
     var favouriteProductsCD:[FavouriteProduct] = []
     var productViewModel : ProductDetailsViewModel?
     var disBag = DisposeBag()
-    var orderViewModel : OrderViewModelProtocol = OrderViewModel()
+    var orderViewModel : OrderViewModelProtocol = OrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
     var isLoggedIn = false
     var meViewModel = MeViewModel()
     @IBOutlet weak var userName: UILabel!

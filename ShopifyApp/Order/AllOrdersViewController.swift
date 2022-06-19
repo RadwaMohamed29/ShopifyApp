@@ -12,7 +12,7 @@ class AllOrdersViewController: UIViewController {
     var listOfOrders : [Order] = []
     let disBag = DisposeBag()
     @IBOutlet weak var orderCV: UICollectionView!
-    var orderViewModel : OrderViewModelProtocol = OrderViewModel()
+    var orderViewModel : OrderViewModelProtocol = OrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
     override func viewDidLoad() {
         super.viewDidLoad()
         let orderCell  = UINib(nibName: "OrderCollectionViewCell", bundle: nil)
