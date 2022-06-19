@@ -10,13 +10,13 @@ struct Orders: Codable {
     let orders: [Order]
 }
 struct Order: Codable {
-    let id: Int
+    let id: Int?
     let createdAt: String
     let totalDiscounts, totalPrice, totalTax, totalPriceUsd: String
     let discountCodes: [OrderDiscountCode]?
     let email, financialStatus, name: String
     let fulfillmentStatus:String?
-    let orderNumber: Int
+    let orderNumber: Int?
     let orderStatusURL: String
     let lineItems: [LineItems]
     let billingAdress : Address
@@ -44,7 +44,7 @@ struct Order: Codable {
 
 // MARK: - currencyLineItem
 struct LineItems: Codable {
-    let id: Int
+    let id: Int?
     let giftCard: Bool
     let name, price: String
     let productExists: Bool
