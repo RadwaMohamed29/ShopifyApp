@@ -90,6 +90,9 @@ class AddressViewController: UIViewController {
         if arr.count > 0{
             let checkoutVC = CheckoutViewController(nibName: "CheckoutViewController", bundle: nil)
             checkoutVC.cartProducts = cartProducts
+            if adress == nil{
+                adress = arr[0]
+            }
             checkoutVC.adress = adress
             self.navigationController?.pushViewController(checkoutVC, animated: true)
         }
@@ -119,7 +122,10 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
         let index = arr[indexPath.row]
         cell.labelAddress.text = "\(index.address2 ?? "") st, \(index.city ?? ""), \(index.country ?? "")"
         cell.backgroundColor = UIColor.white
-                cell.layer.borderWidth = 1
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = UIColor.green
+        cell.selectedBackgroundView = backgroundView
+//                cell.layer.borderWidth = 1
         cell.deleteAddressByBottun = {[weak self] in
             self?.showAlert(indexPath: indexPath)
             }
@@ -128,6 +134,7 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         adress = arr[indexPath.row]
+        
     }
     func addChildViewController(addressVC:UIViewController){
         
@@ -178,9 +185,13 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
         return 100
     }
     func deleteAddress(indexPath: IndexPath){
+        if addressTableView.indexPathForSelectedRow == indexPath {
+            adress = arr[0]
+        }
             self.viewModel.deleteAddress(addressID: String(self.arr[indexPath.row].id!) , customerID: String((self.userDefault.getCustomerId())))
             print(String(self.arr[indexPath.row].id!))
             self.checkNetwork()
+            adress = nil
             print("deleting")
       
         
