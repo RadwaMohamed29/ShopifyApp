@@ -29,7 +29,7 @@ extension MeViewController : UICollectionViewDataSource ,UICollectionViewDelegat
         if collectionView == orderLisCV{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "orderCell", for: indexPath) as! OrderCollectionViewCell
             cell.layer.borderWidth = 1
-            cell.layer.borderColor = UIColor.black.cgColor
+            cell.layer.borderColor = UIColor(red: 0.031, green: 0.498, blue: 0.537, alpha: 1).cgColor
             cell.layer.cornerRadius = 20
             cell.layer.shadowColor = UIColor.black.cgColor
             cell.date.text = orderList[indexPath.row].createdAt
