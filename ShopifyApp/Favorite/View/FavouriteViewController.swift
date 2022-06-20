@@ -97,7 +97,7 @@ class FavouriteViewController: UIViewController {
                 print("alert \(inCart)")
             }else{
                 do{
-                    try productViewModel?.addProductToCoreDataCart(id: "\(product.id)",title:product.title,image:product.scr,price:product.price, itemCount: 1, completion: { result in
+                    try productViewModel?.addProductToCoreDataCart(id: "\(product.id)",title:product.title,image:product.scr,price:product.price, itemCount: 1, quantity:1, completion: { result in
                         switch result{
                         case true:
                             Shared.showMessage(message: "Added To Bag Successfully!", error: false)
