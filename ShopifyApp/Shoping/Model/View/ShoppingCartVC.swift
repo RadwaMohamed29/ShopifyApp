@@ -129,6 +129,7 @@ class ShoppingCartVC: UIViewController {
     @IBAction func goToAddress(_ sender: Any) {
         let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
         address.cartProducts = CartProducts
+        address.isComingWithOrder = true
         Utilities.utilities.setTotalPrice(totalPrice: totalPrice ?? 0)
         self.navigationController?.pushViewController(address, animated: true)
     }

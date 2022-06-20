@@ -14,9 +14,11 @@ import NVActivityIndicatorView
 
 class AddressViewController: UIViewController {
 
+    var isComingWithOrder = false
     let userDefault = Utilities()
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     @IBOutlet weak var noAddressView: UIView!
+    @IBOutlet weak var btnConfirmAddress: UIButton!
     private var isConn:Bool = false
     private let disposeBag = DisposeBag()
     fileprivate var arr : [Address]!
@@ -38,6 +40,11 @@ class AddressViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         checkNetwork()
+        if isComingWithOrder {
+            btnConfirmAddress.isHidden = false
+        }else{
+            btnConfirmAddress.isHidden = true
+        }
     }
         
     func checkNetwork() {

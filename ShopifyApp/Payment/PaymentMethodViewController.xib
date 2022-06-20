@@ -42,7 +42,7 @@
                     <rect key="frame" x="27" y="408" width="360" height="91"/>
                     <segments>
                         <segment title="CASH"/>
-                        <segment title="GOOGLE PAY"/>
+                        <segment title="PayPal"/>
                     </segments>
                     <color key="selectedSegmentTintColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
