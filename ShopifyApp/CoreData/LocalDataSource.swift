@@ -139,6 +139,7 @@ extension LocalDataSource{
         product.setValue(newProduct.image, forKey: "image")
         product.setValue(newProduct.price, forKey: "price")
         product.setValue(newProduct.count, forKey: "count")
+        product.setValue(newProduct, forKey: "quantity")
         product.setValue("\(String(describing: Utilities.utilities.getCustomerId))", forKey: "user_id")
         do{
             try contextCart.save()
@@ -148,7 +149,7 @@ extension LocalDataSource{
         }
         
     }
-    func saveProductToCartCoreData(id: String,title:String,image:String,price:String, itemCount: Int )throws{
+    func saveProductToCartCoreData(id: String,title:String,image:String,price:String, itemCount: Int, quantity:Int )throws{
         let cart = CartProduct(entity: entityCart, insertInto: context)
     //    let product = NSManagedObject(entity: entityCart, insertInto: contextCart)
         cart.id = id
@@ -156,6 +157,7 @@ extension LocalDataSource{
         cart.image = image
         cart.price = price
         cart.count = Int64(itemCount)
+        cart.quantity = Int64(quantity)
         cart.user_id = "\(Utilities.utilities.getCustomerId())"
         print("idddddUser\(Utilities.utilities.getCustomerId)")
         //        product.setValue(id, forKey: "id")

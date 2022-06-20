@@ -34,6 +34,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     @IBOutlet weak var productTitle: UILabel!
     @IBOutlet weak var collectionContainerView: UIView!
     @IBOutlet weak var imageControl: UIPageControl!
+    let userDefualt = Utilities()
     @IBOutlet weak var productDescription: UITextView!{
         didSet{
             productDescription.isEditable = false
@@ -78,6 +79,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         setUpFavButton()
         uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
         uiImageView.applyshadowWithCorner(containerView: reviewsView, cornerRadious: 0.0)
+      //  updateCustomer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -190,10 +192,29 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
 
         
     }
-    @IBAction func addToCartBtn(_ sender: Any) {
-        let quantity = product?.variant[0].inventoryQuantity
+    func updateCustomer(){
+        if userDefualt.isLoggedIn(){
+            if userDefualt.getDraftOrder() != 0{
+                let editCustomer = EditCustomerRequest(id: userDefualt.getCustomerId(), email: userDefualt.getCustomerEmail(), firstName: userDefualt.getCustomerName(), password: "\(userDefualt.getUserPassword())", note: "\(userDefualt.getDraftOrder())")
+                userDefualt.setUserNote(note: editCustomer.note)
+                print("iddddddddd\(userDefualt.getDraftOrder())")
+                print("passwordnooooote\(userDefualt.getUserNote())")
+                productViewModel?.editCustomer(customer: EditCustomer(customer: editCustomer), customerID: userDefualt.getCustomerId(), completion: { result in
+                    switch result{
+                    case true:
+                        print("note added\(editCustomer.note)")
+                    case false:
+                        print("note can't add")
+                    }
+
+                })
+            }
+        }
+    }
+    func postDraftOrder(){
+        let quantity = 1
         let variantID = product?.variant[0].id
-        let newItemDraft = LineItemDraftTest(quantity: quantity!, variantID: variantID!)
+        let newItemDraft = LineItemDraftTest(quantity: quantity, variantID: variantID!)
         productViewModel?.postDraftOrder(lineItems: newItemDraft, customerID: Utilities.utilities.getCustomerId() ,completion: { result in
             switch result {
             case true:
@@ -203,6 +224,24 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
             }
             
         })
+    }
+    func editDraftOrder(){
+        if userDefualt.isLoggedIn(){
+            if userDefualt.getUserNote() != ""{
+                let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(userDefualt.getDraftOrder()), lineItems: [LineItemDraftTest(quantity: 1, variantID: (product?.variant[0].id)!)]))
+                productViewModel?.editDraftOrder(draftOrder: updateDraftOrder, draftID: userDefualt.getDraftOrder(), completion: { result in
+                    switch result {
+                    case true:
+                        print("update order to api ")
+                    case false:
+                        print("error to update in api")
+                    }
+                })
+            }
+        }
+    }
+    @IBAction func addToCartBtn(_ sender: Any) {
+        
         Utilities.utilities.checkUserIsLoggedIn {[self] isLoggedIn in
             if isLoggedIn {
                 productViewModel?.checkProductInCart(id: "\(productId ?? "")")
@@ -216,8 +255,14 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
 
                     print("alert \(inCart)")
                 }else{
+//                    if userDefualt.getUserNote() != ""{
+//                        self.editDraftOrder()
+//                    }else{
+//                        self.postDraftOrder()
+//                    }
+                   
                     do{
-                        try productViewModel?.addProductToCoreDataCart(id: "\(productId!)",title:(product?.title)!,image:(product?.image.src)!,price:(product?.variant[0].price)!, itemCount: 1, completion: { result in
+                        try productViewModel?.addProductToCoreDataCart(id: "\(productId!)",title:(product?.title)!,image:(product?.image.src)!,price:(product?.variant[0].price)!, itemCount: 1, quantity:(product?.variant[0].inventoryQuantity)!, completion: { result in
                             switch result{
                             case true:
                                 Shared.showMessage(message: "Added To Bag Successfully!", error: false)

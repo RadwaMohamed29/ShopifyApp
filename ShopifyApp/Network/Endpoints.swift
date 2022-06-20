@@ -28,8 +28,14 @@ enum Endpoints {
     case getDiscountCode(priceRule: String)
     case deleteAddress(customerID: String, addressID: String)
     case draftOrder
+
+    case modifyDraftOrder(id:Int)
+    case editeCustomer(id:Int)
+    case getDraftOrder(id:Int)
+
     case Customer(id:String)
     case order
+
     var path:String{
         switch self {
         case .SaleCategoryProduct:
@@ -70,11 +76,18 @@ enum Endpoints {
             return "customers/\(customerID)/addresses/\(addressID).json"
         case .draftOrder:
             return "draft_orders.json"
-            
+        case .modifyDraftOrder(id: let id):
+            return "draft_orders/\(id).json"
+        case .editeCustomer(id: let id):
+            return "customers/\(id).json"
+        case .getDraftOrder(id: let id):
+            return "draft_orders/\(id).json"
+
         case .Customer(id: let id):
             return "customers/\(id).json"
         case .order:
             return "orders.json"
+
         }
     }
 }

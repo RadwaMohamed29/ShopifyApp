@@ -16,7 +16,7 @@ struct DraftOrdersRequest: Codable {
 
 // MARK: - DraftOrder
 struct DraftOrderItemTest: Codable {
-    let lineItems: [LineItemDraftTest]
+    var lineItems: [LineItemDraftTest]
     let customer: CustomerIdTest
     let useCustomerDefaultAddress: Bool
 

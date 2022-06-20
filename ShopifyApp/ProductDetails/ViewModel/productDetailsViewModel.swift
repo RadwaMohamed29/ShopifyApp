@@ -20,13 +20,17 @@ protocol ProductDetailsViewModelType{
     func getAllFavoriteProducts(completion: @escaping (Bool)->Void) throws
     func removeProductFromFavorites(productID:String, completionHandler:@escaping (Bool) -> Void) throws
     func getProductOfBrand(id:String)
-    func addProductToCoreDataCart(id: String,title:String,image:String,price:String, itemCount: Int,  completion: @escaping (Bool)->Void) throws
+    func addProductToCoreDataCart(id: String,title:String,image:String,price:String, itemCount: Int,quantity:Int,completion: @escaping (Bool)->Void) throws
     func checkProductInCart(id: String)
     func getAllProductsInCart(completion: @escaping (Bool)->Void) throws
     func removeProductFromCart(productID:String, completionHandler:@escaping (Bool) -> Void) throws
     func updateCount(productID : Int , count : Int,completionHandler:@escaping (Bool) -> Void) throws
     func updatePrice(completion: @escaping (Double?)-> Void)throws
     func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void)
+    func editCustomer(customer: EditCustomer, customerID: Int, completion: @escaping (Bool)->())
+    func editDraftOrder(draftOrder: PutOrderRequestTest, draftID: Int, completion: @escaping (Bool)->())
+
+
 
 }
 
@@ -183,9 +187,9 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         }
     }
     
-    func addProductToCoreDataCart(id: String,title:String,image:String,price:String, itemCount: Int, completion: @escaping (Bool) -> Void) throws {
+    func addProductToCoreDataCart(id: String,title:String,image:String,price:String, itemCount: Int, quantity:Int, completion: @escaping (Bool) -> Void) throws {
         do{
-            try localDataSource.saveProductToCartCoreData(id: id, title: title, image: image, price: price, itemCount: 1)
+            try localDataSource.saveProductToCartCoreData(id: id, title: title, image: image, price: price, itemCount: 1, quantity: quantity)
             completion(true)
             
         }catch let error {
@@ -279,6 +283,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                         print("draftId\(draftId)")
                         if draftId != 0{
                             self.userDefult.setDraftOrder(id: draftId)
+                            print("idDraftOrder\(self.userDefult.getDraftOrder())")
                             print("add to user defualt ")
                         }
                         else{
@@ -293,5 +298,53 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             }}
 
     }
-    
+    func editCustomer(customer: EditCustomer, customerID: Int, completion: @escaping (Bool)->()) {
+        network.editeCustomer(id: customerID, editeCustomer: customer, completion: { (data, response, error) in
+            if error != nil {
+                print ("can't edit customer")
+                return
+            }
+            else{
+                if let data = data{
+                    print(data)
+                    do{
+                    let json = try? JSONSerialization.jsonObject(with: data, options:
+                            .allowFragments) as? Dictionary<String, Any>
+                        if json?["errors"] != nil{
+                            completion(true)
+                            
+                        }else{
+                            completion(false)
+                        }
+                    }catch{
+                        completion(false)
+                    }
+                }
+            }
+        })}
+    func editDraftOrder(draftOrder: PutOrderRequestTest, draftID: Int, completion: @escaping (Bool)->()){
+        network.modifyDraftOrder(draftOrderId: draftID, putOrder: draftOrder) { (data, response, error) in
+            if error != nil {
+                print ("can't edit draft order")
+                return
+            }
+            else{
+                if let data = data{
+                    print(data)
+                    do{
+                    let json = try? JSONSerialization.jsonObject(with: data, options:
+                            .allowFragments) as? Dictionary<String, Any>
+                        if json?["errors"] != nil{
+                            completion(false)
+                            
+                        }else{
+                            completion(true)
+                        }
+                    }catch{
+                        completion(false)
+                    }
+                }
+            }
+        }
+    }
 }

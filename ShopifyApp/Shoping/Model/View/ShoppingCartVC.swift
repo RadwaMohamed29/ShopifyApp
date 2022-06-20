@@ -27,7 +27,6 @@ class ShoppingCartVC: UIViewController {
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         getCartProductsFromCoreData()
         setTotalPrice()
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -121,8 +120,8 @@ class ShoppingCartVC: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-    func alertWarning(indexPath:IndexPath){
-        let alert = UIAlertController(title: "warning", message: "You can't decrease count of item to zero if you want remove it you can it from trash icon", preferredStyle: .alert)
+    func alertWarning(indexPath:IndexPath,title:String,message:String){
+        let alert = UIAlertController(title:title , message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .destructive))
         self.present(alert, animated: true, completion: nil)
     }
@@ -163,11 +162,17 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
         let id = self.CartProducts[indexPath.row].id!
         var count = Int(self.CartProducts[indexPath.row].count)
         cell.addCount={
-            count+=1
-            cell.productCount.text = "\(count)"
-            self.updateCount(productID: Int(id)!, count: Int(count))
-            self.setTotalPrice()
-            cell.subBtn.isEnabled = true
+            if count == self.CartProducts[indexPath.row].quantity{
+              self.alertWarning(indexPath: indexPath, title: "warning", message: "this quantity not available")
+            }else{
+                count+=1
+                cell.productCount.text = "\(count)"
+                self.updateCount(productID: Int(id)!, count: Int(count))
+                self.setTotalPrice()
+                cell.subBtn.isEnabled = true
+                
+            }
+              
             
         }
         cell.subCount={
@@ -179,8 +184,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                 self.setTotalPrice()
             }
             else{
-                cell.subBtn.isEnabled = false
-                self.alertWarning(indexPath: indexPath)
+                self.alertWarning(indexPath: indexPath, title: "warning", message: "You can't decrease count of item to zero if you want remove it you can it from trash icon")
             }
         }
         return cell

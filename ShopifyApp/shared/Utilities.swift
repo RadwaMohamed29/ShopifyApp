@@ -95,4 +95,16 @@ class Utilities{
     func getDraftOrder()->Int{
         UserDefaults.standard.value(forKey: "draft_order_id") as! Int
     }
+    func setUserPassword(password:String){
+        UserDefaults.standard.set(password, forKey: "password")
+    }
+    func getUserPassword()->String{
+        UserDefaults.standard.value(forKey: "password") as! String
+    }
+    func setUserNote(note:String){
+        UserDefaults.standard.set(note, forKey: "note")
+    }
+    func getUserNote()->String{
+        UserDefaults.standard.value(forKey: "note") as! String
+    }
 }
