@@ -29,6 +29,8 @@ protocol ProductDetailsViewModelType{
     func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void)
     func editCustomer(customer: EditCustomer, customerID: Int, completion: @escaping (Bool)->())
     func editDraftOrder(draftOrder: PutOrderRequestTest, draftID: Int, completion: @escaping (Bool)->())
+    func getItemsDraftOrder(idDraftOrde: Int)
+    var itemDraftOrderObservable: Observable<DraftOrderTest>{get set}
 
 
 
@@ -36,8 +38,6 @@ protocol ProductDetailsViewModelType{
 
 
 final class ProductDetailsViewModel: ProductDetailsViewModelType{
-
-
     var favoriteProducts: [FavouriteProduct]?
     var productsInCart: [CartProduct]?
     var isFav : Bool?
@@ -50,9 +50,11 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     var productObservable: Observable<Product>
     var allProductsObservable :Observable<[Product]>
     var brandsObservable: Observable<[Product]>
+    var itemDraftOrderObservable: Observable<DraftOrderTest>
     private var productSubject: PublishSubject = PublishSubject<Product>()
     private var allProductsSubject : PublishSubject = PublishSubject<[Product]>()
     private var brandsSubject : PublishSubject = PublishSubject<[Product]>()
+    private var itemDraftOrderSubject: PublishSubject = PublishSubject<DraftOrderTest>()
     
     
     
@@ -61,6 +63,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         productObservable = productSubject.asObserver()
         allProductsObservable = allProductsSubject.asObserver()
         brandsObservable=brandsSubject.asObservable()
+        itemDraftOrderObservable=itemDraftOrderSubject.asObserver()
     }
     
     
@@ -347,4 +350,23 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             }
         }
     }
+    func getItemsDraftOrder(idDraftOrde: Int) {
+        var lineItem = Array<LineItem>()
+        network.getItemsDraftOrder(idDraftOrde: idDraftOrde) { result in
+            switch result {
+            case .success(let response):
+                guard let items = response.draftOrder else {return}
+                print("draftOrderItems\(items)")
+                for item in items.lineItems {
+                    lineItem.append(item)
+                }
+                print("itemsssssss\(lineItem)")
+                self.itemDraftOrderSubject.asObserver().onNext(items)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+          }
+        }
+    
+
 }

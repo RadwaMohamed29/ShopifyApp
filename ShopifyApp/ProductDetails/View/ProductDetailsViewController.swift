@@ -79,7 +79,10 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         setUpFavButton()
         uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
         uiImageView.applyshadowWithCorner(containerView: reviewsView, cornerRadious: 0.0)
-      //  updateCustomer()
+        updateCustomer()
+        getItemsDraft()
+        
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,6 +106,16 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                 self.refreshControl.endRefreshing()
             }
         }
+    }
+    func getItemsDraft(){
+        productViewModel?.getItemsDraftOrder(idDraftOrde: userDefualt.getDraftOrder())
+        productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+            .init(qos: .background))
+        .observe(on: MainScheduler.asyncInstance)
+        .subscribe{
+        //    guard let self = self else {return}
+            print("get items success")
+        }.disposed(by:disposeBag)
     }
     
     func setUpScreen(){
@@ -241,7 +254,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         }
     }
     @IBAction func addToCartBtn(_ sender: Any) {
-        
+    //    updateCustomer()
         Utilities.utilities.checkUserIsLoggedIn {[self] isLoggedIn in
             if isLoggedIn {
                 productViewModel?.checkProductInCart(id: "\(productId ?? "")")
@@ -255,12 +268,11 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
 
                     print("alert \(inCart)")
                 }else{
-//                    if userDefualt.getUserNote() != ""{
-//                        self.editDraftOrder()
-//                    }else{
-//                        self.postDraftOrder()
-//                    }
-                   
+                    if userDefualt.getUserNote() != ""{
+                        self.editDraftOrder()
+                    }else{
+                        self.postDraftOrder()
+                    }
                     do{
                         try productViewModel?.addProductToCoreDataCart(id: "\(productId!)",title:(product?.title)!,image:(product?.image.src)!,price:(product?.variant[0].price)!, itemCount: 1, quantity:(product?.variant[0].inventoryQuantity)!, completion: { result in
                             switch result{

@@ -82,9 +82,6 @@ class RegisterViewModel: RegisterViewModelType{
                         self?.userDefualt.addCustomerName(customerName: customerName)
                         self?.userDefualt.login()
                         self?.userDefualt.setUserPassword(password: customerPassword)
-                        print("passwordUserrrr\( self?.userDefualt.getUserPassword())")
-                      
-
                         self?.navigate = true
                         
                         print("add to userDefualt successfully!!!")
