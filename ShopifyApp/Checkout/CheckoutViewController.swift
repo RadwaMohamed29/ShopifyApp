@@ -40,11 +40,11 @@ class CheckoutViewController: UIViewController {
         super.viewDidLoad()
         subTotal = Utilities.utilities.getTotalPrice()
         total = subTotal!-discount
-        subTotalLB.text = "\(subTotal!)"
-        totalPrice.text = "Total: \(total ?? 0)"
+        subTotalLB.text = "\(Shared.formatePrice(priceStr: String(subTotal!)))"
+        totalPrice.text = "Total: \(Shared.formatePrice(priceStr: String(total ?? 0)))"
         smallView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         smallView.layer.cornerRadius = 20
-        discountLB.text = "\(discount)"
+        discountLB.text = "\(Shared.formatePrice(priceStr: String(discount)))"
         lableAdress.text = "\(adress!.address2 ?? "") st, \(adress!.city ?? ""), \(adress!.country ?? "")"
         orderViewModel = OrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
@@ -91,7 +91,7 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
         cell.layer.borderColor = UIColor(red: 0.031, green: 0.498, blue: 0.537, alpha: 1).cgColor
         cell.layer.cornerRadius = 20
         setImage(image: cell.image, index: indexPath.row)
-        cell.price.text = cartProducts[indexPath.row].price
+        cell.price.text = Shared.formatePrice(priceStr: cartProducts[indexPath.row].price)
         cell.amount.text = "\(cartProducts[indexPath.row].count)"
         
         

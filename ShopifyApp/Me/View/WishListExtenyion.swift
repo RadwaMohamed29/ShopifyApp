@@ -33,13 +33,13 @@ extension MeViewController : UICollectionViewDataSource ,UICollectionViewDelegat
             cell.layer.cornerRadius = 20
             cell.layer.shadowColor = UIColor.black.cgColor
             cell.date.text = orderList[indexPath.row].createdAt
-            cell.price.text = orderList[indexPath.row].totalPrice
+            cell.price.text = Shared.formatePrice(priceStr: orderList[indexPath.row].totalPrice)
             cell.countOfItems.text = "\(orderList[indexPath.row].lineItems.count)"
             return cell
         }else{
             let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
             setImage(image: cell.productImage, index: indexPath.row)
-            cell.priceOfTheProduct.text = favProducts[indexPath.row].price
+            cell.priceOfTheProduct.text = Shared.formatePrice(priceStr: favProducts[indexPath.row].price)
             cell.ProductName.text = favProducts[indexPath.row].title
             cell.favouriteBtn.tag = indexPath.row
               cell.favouriteBtn.addTarget(self, action: #selector(favPress(recognizer:)), for: .touchUpInside)
