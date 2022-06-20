@@ -10,6 +10,7 @@ import RxSwift
 
 class MeViewController: UIViewController {
 
+    @IBOutlet weak var settingsIcon: UIBarButtonItem!
     var favProducts:[FavoriteProducts] = []
     var orderList : [Order] = []
     var favouriteProductsCD:[FavouriteProduct] = []
@@ -44,6 +45,7 @@ class MeViewController: UIViewController {
         super.viewDidLoad()
         self.title = "Profile"
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
+        settingsIcon.tintColor = UIColor(red: 0.031, green: 0.498, blue: 0.537, alpha: 1.5)
        
     }
 

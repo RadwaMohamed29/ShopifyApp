@@ -29,17 +29,17 @@ extension MeViewController : UICollectionViewDataSource ,UICollectionViewDelegat
         if collectionView == orderLisCV{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "orderCell", for: indexPath) as! OrderCollectionViewCell
             cell.layer.borderWidth = 1
-            cell.layer.borderColor = UIColor.black.cgColor
+            cell.layer.borderColor = UIColor(red: 0.031, green: 0.498, blue: 0.537, alpha: 1).cgColor
             cell.layer.cornerRadius = 20
             cell.layer.shadowColor = UIColor.black.cgColor
             cell.date.text = orderList[indexPath.row].createdAt
-            cell.price.text = orderList[indexPath.row].totalPrice
+            cell.price.text = Shared.formatePrice(priceStr: orderList[indexPath.row].totalPrice)
             cell.countOfItems.text = "\(orderList[indexPath.row].lineItems.count)"
             return cell
         }else{
             let cell =  collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteproductCell", for: indexPath) as! FavouriteCollectionViewCell
             setImage(image: cell.productImage, index: indexPath.row)
-            cell.priceOfTheProduct.text = favProducts[indexPath.row].price
+            cell.priceOfTheProduct.text = Shared.formatePrice(priceStr: favProducts[indexPath.row].price)
             cell.ProductName.text = favProducts[indexPath.row].title
             cell.favouriteBtn.tag = indexPath.row
               cell.favouriteBtn.addTarget(self, action: #selector(favPress(recognizer:)), for: .touchUpInside)

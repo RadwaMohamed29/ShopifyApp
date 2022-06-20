@@ -32,7 +32,7 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as! CategoryCollectionViewCell
         let url = URL(string: showList?[indexPath.row].image.src ?? "")
         cell.imgView.kf.setImage(with: url)
-        cell.label.text = "\(showList?[indexPath.row].variant[0].price ?? "0") EGP"
+        cell.label.text = Shared.formatePrice(priceStr: showList?[indexPath.row].variant[0].price ?? "0")
         cell.layer.cornerRadius = 12
         cell.label.shadowColor = UIColor.gray
         cell.topView.layer.cornerRadius =  24

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="noUserFound" destination="7nS-Ws-oux" id="CD1-QE-5up"/>
                 <outlet property="orderLisCV" destination="TMM-1x-RxN" id="hOV-hS-MKz"/>
+                <outlet property="settingsIcon" destination="J0L-63-K26" id="fsn-pB-RVv"/>
                 <outlet property="userFounView" destination="dg0-GX-7hS" id="PMO-nd-1G2"/>
                 <outlet property="userName" destination="wzV-h4-j9x" id="Hi7-Ic-qdC"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -59,7 +60,7 @@
                                         <action selector="gotoCartScreen:" destination="-1" id="4de-is-cyl"/>
                                     </connections>
                                 </barButtonItem>
-                                <barButtonItem image="seal" catalog="system" id="J0L-63-K26">
+                                <barButtonItem image="settings" id="J0L-63-K26">
                                     <color key="tintColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <connections>
                                         <action selector="gotoSetting:" destination="-1" id="wfR-Lc-8SE"/>
@@ -313,6 +314,6 @@
     <resources>
         <image name="cart" catalog="system" width="128" height="102"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
-        <image name="seal" catalog="system" width="128" height="128"/>
+        <image name="settings" width="24" height="24"/>
     </resources>
 </document>
