@@ -42,6 +42,26 @@ class Utilities{
         return UserDefaults.standard.bool(forKey: "isFirst")
     }
     
+    func saveDiscountCode(code:String) {
+        UserDefaults.standard.set(code, forKey: "code")
+    }
+    
+    func isCodeUsed(code:String) ->Bool {
+        return UserDefaults.standard.bool(forKey: "\(code)")
+    }
+    
+    func setCodeUsed(code:String) {
+        UserDefaults.standard.set(true, forKey: "\(code)")
+    }
+    
+    func getCode() ->String {
+        return UserDefaults.standard.value(forKey: "coupon") as? String ?? ""
+    }
+    
+    func setCode(code:String) {
+        UserDefaults.standard.set(code, forKey: "coupon")
+    }
+    
     func setIsFirstTimeInApp(){
         UserDefaults.standard.set(true, forKey: "isFirst")
     }

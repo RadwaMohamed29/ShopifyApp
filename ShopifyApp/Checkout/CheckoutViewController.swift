@@ -8,11 +8,21 @@
 import UIKit
 import Kingfisher
 import RxSwift
-class CheckoutViewController: UIViewController {
+
+protocol PaymentCheckoutDelegation{
+    
+    func approvePayment()
+    func onPaymentFailed()
+}
+
+class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
+    
+    
     
     
     @IBOutlet weak var subTotalLB: UILabel!
     
+    @IBOutlet weak var couponTxtField: UITextField!
     @IBOutlet weak var lableAdress: UILabel!
     @IBOutlet weak var totalPrice: UILabel!
     @IBOutlet weak var discountLB: UILabel!
@@ -31,7 +41,7 @@ class CheckoutViewController: UIViewController {
     var items :[LineItems] = []
     var adress : Address?
     var subTotal :Double?
-    var discount : Double = 40
+    var discount : Double = 0
     var total : Double?
     var order : OrderObject?
     var customer : Customer?
@@ -50,34 +60,55 @@ class CheckoutViewController: UIViewController {
         
     }
     
-    @IBAction func btnConfirmPayment(_ sender: Any) {
-        items = convertFromListOfCartProdeuctTolistOfLineItems(products: cartProducts)
-        order = prepareOrderObject(items: items, adress: adress!)
+    func approvePayment() {
         orderViewModel?.addOrder(order: order!, completion: { result in
             
             switch result{
             case true:
                 do{
                     try self.orderViewModel?.removeItemsFromCartToSpecificCustomer()
-                    DispatchQueue.main.async{
-                        let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
-                        self.navigationController?.pushViewController(homeVC, animated: true)
-                    }
+                    
                 }catch let error{
                     let alert = UIAlertController(title: "Checkout", message: "\(error.localizedDescription)", preferredStyle: .alert)
-                    let cancle = UIAlertAction(title: "Cancle", style: .cancel)
+                    let cancle = UIAlertAction(title: "Cancel", style: .cancel)
                     alert.addAction(cancle)
                     self.present(alert, animated: true, completion: nil)
                 }
-                
-               
             case false:
                 print("can't post this order")
             }
         })
+    }
+    
+    func onPaymentFailed() {
         
     }
     
+    @IBAction func btnConfirmPayment(_ sender: Any) {
+        items = convertFromListOfCartProdeuctTolistOfLineItems(products: cartProducts)
+        order = prepareOrderObject(items: items, adress: adress!)
+        let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
+        
+        //coupon check
+        payment.checkoutDelegate = self
+        payment.totalPrice = total
+        self.navigationController?.pushViewController(payment, animated: true)
+    }
+    
+    @IBAction func btnCheckDiscount(_ sender: Any) {
+        if !couponTxtField.text!.isEmpty{
+            if Utilities.utilities.getCode() == couponTxtField.text {
+                //MARK: discount not applicable on currency with both (EGP and USD).. please check it boda❤️
+                discount = subTotal! * (30/100)
+                discountLB.text = "\(discount)"
+                total = subTotal! - discount
+                totalPrice.text = "\(total ?? 0)"
+                let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
+                payment.totalPrice = Double(total ?? 0)
+            }
+        }
+        
+    }
 }
 
 extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
