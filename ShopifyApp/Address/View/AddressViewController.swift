@@ -24,6 +24,7 @@ class AddressViewController: UIViewController {
     fileprivate var viewModel:AddressViewModelProtocol!
     @IBOutlet weak var addressTableView: UITableView!
     var addrressID: String = ""
+    var adress : Address?
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTable()
@@ -86,9 +87,20 @@ class AddressViewController: UIViewController {
     }
     
     @IBAction func confirmAdress(_ sender: Any) {
-        let checkoutVC = CheckoutViewController(nibName: "CheckoutViewController", bundle: nil)
-        checkoutVC.cartProducts = cartProducts
-        self.navigationController?.pushViewController(checkoutVC, animated: true)
+        if arr.count > 0{
+            let checkoutVC = CheckoutViewController(nibName: "CheckoutViewController", bundle: nil)
+            checkoutVC.cartProducts = cartProducts
+            checkoutVC.adress = adress
+            self.navigationController?.pushViewController(checkoutVC, animated: true)
+        }
+        else{
+            let alert = UIAlertController(title: "Address", message: "please add address to continue", preferredStyle: .alert)
+            let cancle = UIAlertAction(title: "Cancle", style: .cancel)
+            alert.addAction(cancle)
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+       
     }
     
 }
@@ -114,6 +126,9 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
                 return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        adress = arr[indexPath.row]
+    }
     func addChildViewController(addressVC:UIViewController){
         
         view.addSubview(addressVC.view)

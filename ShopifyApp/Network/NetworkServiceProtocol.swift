@@ -10,7 +10,7 @@ import Alamofire
 
 protocol NetworkServiceProtocol{
 
-
+    func getCustomer(id:String,completion:@escaping (Result<Customer,ErrorType>) -> Void)
     func getCustomerOrders(id: String,completion: @escaping (Result<Orders, ErrorType>) -> Void)
     func getBrandsFromAPI(completion: @escaping(Result<Brands,ErrorType>) -> Void)
     func productDetailsProvider(id:String ,completion :@escaping (Result<Products,ErrorType>)->Void)
@@ -28,5 +28,6 @@ protocol NetworkServiceProtocol{
     func modifyDraftOrder(draftOrderId:Int,putOrder:PutOrderRequestTest,completion: @escaping(Data?, URLResponse?, Error?)->())
     func editeCustomer(id:Int,editeCustomer:EditCustomer,completion: @escaping(Data?, URLResponse?, Error?)->())
     func getItemsDraftOrder(idDraftOrde:Int,completion:@escaping (Result<DraftOrdersRequest, ErrorType>)->())
+    func postOrder(order:OrderObject, completion: @escaping(Data?, URLResponse?, Error?)->())
 
 }
