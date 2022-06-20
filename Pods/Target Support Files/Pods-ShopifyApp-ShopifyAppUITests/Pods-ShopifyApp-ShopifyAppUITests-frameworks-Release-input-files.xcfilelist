@@ -1,5 +1,7 @@
 ${PODS_ROOT}/Target Support Files/Pods-ShopifyApp-ShopifyAppUITests/Pods-ShopifyApp-ShopifyAppUITests-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/Braintree/Braintree.framework
+${BUILT_PRODUCTS_DIR}/BraintreeDropIn/BraintreeDropIn.framework
 ${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework
 ${BUILT_PRODUCTS_DIR}/KRActivityIndicatorView/KRActivityIndicatorView.framework
 ${BUILT_PRODUCTS_DIR}/KRProgressHUD/KRProgressHUD.framework
@@ -13,3 +15,4 @@ ${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework
 ${BUILT_PRODUCTS_DIR}/SwiftMessages/SwiftMessages.framework
 ${BUILT_PRODUCTS_DIR}/TextFieldEffects/TextFieldEffects.framework
 ${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/Braintree/ThreeDSecure/CardinalMobile.framework/CardinalMobile
