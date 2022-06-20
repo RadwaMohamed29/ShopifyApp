@@ -100,6 +100,10 @@
 		BE14A598283FD87B001D8A9D /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE14A597283FD87B001D8A9D /* Products.swift */; };
 		BE14A59B283FE649001D8A9D /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE14A59A283FE649001D8A9D /* CategoryViewModel.swift */; };
 		BE235E7A284D390F0036A81C /* Address + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235E79284D390F0036A81C /* Address + extension.swift */; };
+		BE3415832860061200F69703 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3415812860061200F69703 /* OnBoardingViewController.swift */; };
+		BE3415842860061200F69703 /* OnBoardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE3415822860061200F69703 /* OnBoardingViewController.xib */; };
+		BE3415872860145F00F69703 /* FirstOnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3415852860145F00F69703 /* FirstOnBoardingViewController.swift */; };
+		BE3415882860145F00F69703 /* FirstOnBoardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE3415862860145F00F69703 /* FirstOnBoardingViewController.xib */; };
 		BE736AD0283FA19C00B61A98 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE736ACF283FA19C00B61A98 /* Filter.swift */; };
 		BE9E3736284BF6270061DF86 /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9E3734284BF6270061DF86 /* AddressViewController.swift */; };
 		BE9E3737284BF6270061DF86 /* AddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE9E3735284BF6270061DF86 /* AddressViewController.xib */; };
@@ -238,6 +242,10 @@
 		BE14A597283FD87B001D8A9D /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
 		BE14A59A283FE649001D8A9D /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		BE235E79284D390F0036A81C /* Address + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address + extension.swift"; sourceTree = "<group>"; };
+		BE3415812860061200F69703 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		BE3415822860061200F69703 /* OnBoardingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnBoardingViewController.xib; sourceTree = "<group>"; };
+		BE3415852860145F00F69703 /* FirstOnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnBoardingViewController.swift; sourceTree = "<group>"; };
+		BE3415862860145F00F69703 /* FirstOnBoardingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstOnBoardingViewController.xib; sourceTree = "<group>"; };
 		BE736ACF283FA19C00B61A98 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		BE9E3734284BF6270061DF86 /* AddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
 		BE9E3735284BF6270061DF86 /* AddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressViewController.xib; sourceTree = "<group>"; };
@@ -375,6 +383,7 @@
 		1654EB692835EB2F000B78F1 /* ShopifyApp */ = {
 			isa = PBXGroup;
 			children = (
+				BE34158928601F9900F69703 /* OnBoarding */,
 				3EC7D5A1284D51E3006854D9 /* Settings */,
 				9C06B414284BEB6100B64732 /* Order */,
 				BE9E3733284BF5FF0061DF86 /* Address */,
@@ -852,6 +861,17 @@
 			path = CategoryViewModel;
 			sourceTree = "<group>";
 		};
+		BE34158928601F9900F69703 /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				BE3415812860061200F69703 /* OnBoardingViewController.swift */,
+				BE3415822860061200F69703 /* OnBoardingViewController.xib */,
+				BE3415852860145F00F69703 /* FirstOnBoardingViewController.swift */,
+				BE3415862860145F00F69703 /* FirstOnBoardingViewController.xib */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
 		BE801FF6283D17BB0092F0DB /* Payment */ = {
 			isa = PBXGroup;
 			children = (
@@ -1033,8 +1053,10 @@
 				3E37B9B2283D9853000A0FD9 /* LoginViewController.xib in Resources */,
 				16873CD4283D868A00694061 /* SizeTableViewCell.xib in Resources */,
 				16F65517284DBCE0002F3BD3 /* LaunchViewController.xib in Resources */,
+				BE3415842860061200F69703 /* OnBoardingViewController.xib in Resources */,
 				BED44807283E582500EA74BC /* PaymentMethodViewController.xib in Resources */,
 				BEA1A24E284D54D8004B7E69 /* PostAddressViewController.xib in Resources */,
+				BE3415882860145F00F69703 /* FirstOnBoardingViewController.xib in Resources */,
 				9C898C2028381C9500A86758 /* CategoryViewController.xib in Resources */,
 				3E75345E283ADFF70072EF9A /* AbsTableViewCell.xib in Resources */,
 				16F65519284E0E9A002F3BD3 /* LuanchAnimation.json in Resources */,
@@ -1177,6 +1199,7 @@
 				BED4480D283E7CBE00EA74BC /* Endpoints.swift in Sources */,
 				16873CDA283D86A000694061 /* ProductDetailsViewController.swift in Sources */,
 				9CB996D8283FD8C500136ABC /* SearchCollectionViewCell.swift in Sources */,
+				BE3415872860145F00F69703 /* FirstOnBoardingViewController.swift in Sources */,
 				3E0865D6283EE3E500755C18 /* Brands.swift in Sources */,
 				162FEA45283D84F6007BD95B /* CategoryCollectionViewCell.xib in Sources */,
 				162FEA46283D84F6007BD95B /* CategoryCollectionViewCell.swift in Sources */,
@@ -1200,6 +1223,7 @@
 				BED44808283E582500EA74BC /* PaymentMethodViewController.swift in Sources */,
 				9C904481285CCBCA00D93FD6 /* ItemCollectionViewCell.swift in Sources */,
 				9CCBF3DE283BF81F00825219 /* FavouriteViewController.swift in Sources */,
+				BE3415832860061200F69703 /* OnBoardingViewController.swift in Sources */,
 				1654EB6B2835EB2F000B78F1 /* AppDelegate.swift in Sources */,
 				9C06B417284BEBA500B64732 /* AllOrdersViewController.swift in Sources */,
 				1654EB752835EB2F000B78F1 /* ShopifyApp.xcdatamodeld in Sources */,

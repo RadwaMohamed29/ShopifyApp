@@ -38,6 +38,14 @@ class Utilities{
         return UserDefaults.standard.value(forKey: "email") as? String ?? ""
     }
     
+    func isFirstTimeInApp() ->Bool {
+        return UserDefaults.standard.bool(forKey: "isFirst")
+    }
+    
+    func setIsFirstTimeInApp(){
+        UserDefaults.standard.set(true, forKey: "isFirst")
+    }
+    
     func isLoggedIn() -> Bool {
         return UserDefaults.standard.bool(forKey: "isLoggedIn")
     }
