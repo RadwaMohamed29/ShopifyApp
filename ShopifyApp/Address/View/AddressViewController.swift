@@ -14,9 +14,11 @@ import NVActivityIndicatorView
 
 class AddressViewController: UIViewController {
 
+    var isComingWithOrder = false
     let userDefault = Utilities()
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     @IBOutlet weak var noAddressView: UIView!
+    @IBOutlet weak var btnConfirmAddress: UIButton!
     private var isConn:Bool = false
     private let disposeBag = DisposeBag()
     fileprivate var arr : [Address]!
@@ -38,6 +40,11 @@ class AddressViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         checkNetwork()
+        if isComingWithOrder {
+            btnConfirmAddress.isHidden = false
+        }else{
+            btnConfirmAddress.isHidden = true
+        }
     }
         
     func checkNetwork() {
@@ -129,6 +136,10 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
         cell.deleteAddressByBottun = {[weak self] in
             self?.showAlert(indexPath: indexPath)
             }
+        cell.editAddressFromBtn = { [weak self] in
+            guard let self = self else {return}
+            self.editAddress(indexPath: indexPath)
+        }
                 return cell
     }
     
@@ -202,15 +213,20 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
             self.showAlert(indexPath: indexPath)
         }
         let edit = UIContextualAction(style: .normal, title: "Edit") { [weak self] action, _, handler in
-            let edit = PostAddressViewController(nibName: "PostAddressViewController", bundle: nil)
-            edit.isEdit = true
-            edit.phone = self?.arr[indexPath.row].phone
-            edit.streetName = self?.arr[indexPath.row].address2
-            edit.cityName = self?.arr[indexPath.row].city
-            edit.country = self?.arr[indexPath.row].country
-            edit.addressID = self?.arr[indexPath.row].id
-            self?.navigationController?.pushViewController(edit, animated: true)
+            guard let self = self else {return}
+            self.editAddress(indexPath: indexPath)
         }
         return UISwipeActionsConfiguration(actions: [delete, edit])
+    }
+    
+    func editAddress(indexPath:IndexPath) {
+        let edit = PostAddressViewController(nibName: "PostAddressViewController", bundle: nil)
+        edit.isEdit = true
+        edit.phone = arr[indexPath.row].phone
+        edit.streetName = arr[indexPath.row].address2
+        edit.cityName = arr[indexPath.row].city
+        edit.country = arr[indexPath.row].country
+        edit.addressID = arr[indexPath.row].id
+        navigationController?.pushViewController(edit, animated: true)
     }
 }
