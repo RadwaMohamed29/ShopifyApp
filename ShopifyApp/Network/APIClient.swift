@@ -22,7 +22,7 @@ class APIClient: NetworkServiceProtocol{
     
     func modifyDraftOrder(draftOrderId: Int, putOrder: PutOrderRequestTest, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         apiPost(endPoint: .modifyDraftOrder(id: draftOrderId), methods: .PUT, modelType: putOrder, completion: completion)
-
+    }
     func postOrder(order: OrderObject, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
         apiPost(endPoint: .order, methods: .POST, modelType: order, completion: completion)
     }
