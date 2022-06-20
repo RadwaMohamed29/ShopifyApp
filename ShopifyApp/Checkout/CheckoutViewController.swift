@@ -87,9 +87,13 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath) as! ItemCollectionViewCell
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = UIColor(red: 0.031, green: 0.498, blue: 0.537, alpha: 1).cgColor
+        cell.layer.cornerRadius = 20
         setImage(image: cell.image, index: indexPath.row)
         cell.price.text = cartProducts[indexPath.row].price
         cell.amount.text = "\(cartProducts[indexPath.row].count)"
+        
         
         return cell
     }
