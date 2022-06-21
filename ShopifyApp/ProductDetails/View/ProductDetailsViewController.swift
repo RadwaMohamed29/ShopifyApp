@@ -80,8 +80,8 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         setUpFavButton()
         uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
         uiImageView.applyshadowWithCorner(containerView: reviewsView, cornerRadious: 0.0)
-        updateCustomer()
-        getItemsDraft()
+//        updateCustomer()
+//        getItemsDraft()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -282,11 +282,11 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
 
                     print("alert \(inCart)")
                 }else{
-                    if userDefualt.getUserNote() != ""{
-                        self.editDraftOrder()
-                    }else{
-                        self.postDraftOrder()
-                    }
+//                    if userDefualt.getUserNote() != ""{
+//                        self.editDraftOrder()
+//                    }else{
+//                        self.postDraftOrder()
+//                    }
                     do{
                         try productViewModel?.addProductToCoreDataCart(id: "\(productId!)",title:(product?.title)!,image:(product?.image.src)!,price:(product?.variant[0].price)!, itemCount: 1, quantity:(product?.variant[0].inventoryQuantity)!, completion: { result in
                             switch result{
