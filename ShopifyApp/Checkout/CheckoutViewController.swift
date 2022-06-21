@@ -74,7 +74,6 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
                 do{
                     try self?.orderViewModel?.removeItemsFromCartToSpecificCustomer()
                     Utilities.utilities.setCodeUsed(code: self!.copon,isUsed: true)
-                    Utilities.utilities.setCode(code: "")
                     DispatchQueue.main.async {
                         let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
                         self?.navigationController?.pushViewController(homeVC, animated: true)

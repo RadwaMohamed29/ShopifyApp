@@ -51,7 +51,7 @@ class Utilities{
     }
     
     func setCodeUsed(code:String,isUsed:Bool) {
-        UserDefaults.standard.set(true, forKey: "\(code)")
+        UserDefaults.standard.set(isUsed, forKey: "\(code)")
     }
     
    
