@@ -164,7 +164,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
         var count = Int(self.CartProducts[indexPath.row].count)
         cell.addCount={
             if count == self.CartProducts[indexPath.row].quantity{
-              self.alertWarning(indexPath: indexPath, title: "warning", message: "this quantity not available")
+              self.alertWarning(indexPath: indexPath, title: "information", message: "this quantity not available")
             }else{
                 count+=1
                 cell.productCount.text = "\(count)"

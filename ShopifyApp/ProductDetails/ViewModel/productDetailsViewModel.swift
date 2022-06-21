@@ -29,15 +29,14 @@ protocol ProductDetailsViewModelType{
     func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void)
     func editCustomer(customer: EditCustomer, customerID: Int, completion: @escaping (Bool)->())
     func editDraftOrder(draftOrder: PutOrderRequestTest, draftID: Int, completion: @escaping (Bool)->())
-
-
+    func getItemsDraftOrder(idDraftOrde: Int)->[LineItem]
+    var itemDraftOrderObservable: Observable<DraftOrderTest>{get set}
+    var lineItem : Array<LineItem>{get set}
 
 }
 
 
 final class ProductDetailsViewModel: ProductDetailsViewModelType{
-
-
     var favoriteProducts: [FavouriteProduct]?
     var productsInCart: [CartProduct]?
     var isFav : Bool?
@@ -50,9 +49,11 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     var productObservable: Observable<Product>
     var allProductsObservable :Observable<[Product]>
     var brandsObservable: Observable<[Product]>
+    var itemDraftOrderObservable: Observable<DraftOrderTest>
     private var productSubject: PublishSubject = PublishSubject<Product>()
     private var allProductsSubject : PublishSubject = PublishSubject<[Product]>()
     private var brandsSubject : PublishSubject = PublishSubject<[Product]>()
+    private var itemDraftOrderSubject: PublishSubject = PublishSubject<DraftOrderTest>()
     
     
     
@@ -61,6 +62,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         productObservable = productSubject.asObserver()
         allProductsObservable = allProductsSubject.asObserver()
         brandsObservable=brandsSubject.asObservable()
+        itemDraftOrderObservable=itemDraftOrderSubject.asObserver()
     }
     
     
@@ -254,18 +256,14 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void){
         var lineItem = Array<LineItemDraftTest>()
         lineItem.append(lineItems)
-       
         if customerID != 0 {
             let order = DraftOrderItemTest(lineItems: lineItem, customer: CustomerIdTest(id: customerID), useCustomerDefaultAddress: true)
             let newOrder = DraftOrdersRequest(draftOrder: order)
             postOrder(draftOrder: newOrder)
-            print("custmerID: \(customerID)")
             completion(true)
         }else{
             completion(false)
         }
-        
-        
     }
     func postOrder( draftOrder: DraftOrdersRequest) {
         network.postDraftOrder(draftOrder: draftOrder ) { data, response, error in
@@ -276,22 +274,16 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                     do{
                         let json = try! JSONSerialization.jsonObject(with: data, options:
                                 .allowFragments) as! Dictionary<String, Any>
-                        
                         let draftOrder = json["draft_order"] as? Dictionary <String,Any>
                         let draftId = draftOrder?["id"] as? Int ?? 0
-                        print("json \(json )")
-                        print("draftId\(draftId)")
                         if draftId != 0{
                             self.userDefult.setDraftOrder(id: draftId)
-                            print("idDraftOrder\(self.userDefult.getDraftOrder())")
                             print("add to user defualt ")
                         }
                         else{
                             print("can't save to user defualts")
                         }
                         
-                    }catch{
-                       print("error in viewModel")
                     }
               
                 }
@@ -316,8 +308,6 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                         }else{
                             completion(false)
                         }
-                    }catch{
-                        completion(false)
                     }
                 }
             }
@@ -340,11 +330,28 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                         }else{
                             completion(true)
                         }
-                    }catch{
-                        completion(false)
                     }
                 }
             }
         }
     }
+    var lineItem = Array<LineItem>()
+    func getItemsDraftOrder(idDraftOrde: Int)->[LineItem] {
+        network.getItemsDraftOrder(idDraftOrde: idDraftOrde) { result in
+            switch result {
+            case .success(let response):
+                 let items = response.draftOrder
+                for item in items.lineItems {
+                    self.lineItem.append(item)
+                }
+                self.itemDraftOrderSubject.asObserver().onNext(items)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+          }
+        return lineItem
+        
+        }
+    
+
 }

@@ -35,6 +35,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     @IBOutlet weak var collectionContainerView: UIView!
     @IBOutlet weak var imageControl: UIPageControl!
     let userDefualt = Utilities()
+    var itemList: [LineItem] = []
     @IBOutlet weak var productDescription: UITextView!{
         didSet{
             productDescription.isEditable = false
@@ -79,7 +80,8 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         setUpFavButton()
         uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
         uiImageView.applyshadowWithCorner(containerView: reviewsView, cornerRadious: 0.0)
-      //  updateCustomer()
+        updateCustomer()
+        getItemsDraft()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,6 +105,18 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                 self.refreshControl.endRefreshing()
             }
         }
+    }
+    func getItemsDraft(){
+        productViewModel?.getItemsDraftOrder(idDraftOrde: userDefualt.getDraftOrder())
+        print("itemlistview\(itemList)")
+        productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+            .init(qos: .background))
+        .observe(on: MainScheduler.asyncInstance)
+        .subscribe{ result in
+            self.itemList = self.productViewModel!.lineItem
+           print("self.itemList\( self.itemList)")
+            print("get items success")
+        }.disposed(by: disposeBag)
     }
     
     func setUpScreen(){
@@ -211,10 +225,15 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
             }
         }
     }
+
     func postDraftOrder(){
         let quantity = 1
-        let variantID = product?.variant[0].id
-        let newItemDraft = LineItemDraftTest(quantity: quantity, variantID: variantID!)
+        let variantID = (product?.variant[0].id)!
+        let productID = (product?.id)!
+        let title = (product?.title)!
+        let vendor = (product?.vendor)!
+        let price = (product?.variant[0].price)!
+        let newItemDraft = LineItemDraftTest(quantity: quantity, variantID: variantID, productID: productID, title: title, vendor: vendor, price: price)
         productViewModel?.postDraftOrder(lineItems: newItemDraft, customerID: Utilities.utilities.getCustomerId() ,completion: { result in
             switch result {
             case true:
@@ -226,9 +245,18 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         })
     }
     func editDraftOrder(){
+        let quantity = 1
+        let variantID = (product?.variant[0].id)!
+        let productID = (product?.id)!
+        let title = (product?.title)!
         if userDefualt.isLoggedIn(){
             if userDefualt.getUserNote() != ""{
-                let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(userDefualt.getDraftOrder()), lineItems: [LineItemDraftTest(quantity: 1, variantID: (product?.variant[0].id)!)]))
+                itemList = productViewModel!.lineItem
+                
+                let newItem = LineItem(id: 0, variantID: variantID, productID: productID, title: title, variantTitle: "", vendor: "", quantity: quantity)
+                itemList.append(newItem)
+                print("itemlist\(itemList.count)")
+                let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(userDefualt.getDraftOrder()), lineItems: itemList ))
                 productViewModel?.editDraftOrder(draftOrder: updateDraftOrder, draftID: userDefualt.getDraftOrder(), completion: { result in
                     switch result {
                     case true:
@@ -241,7 +269,6 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         }
     }
     @IBAction func addToCartBtn(_ sender: Any) {
-        
         Utilities.utilities.checkUserIsLoggedIn {[self] isLoggedIn in
             if isLoggedIn {
                 productViewModel?.checkProductInCart(id: "\(productId ?? "")")
@@ -255,12 +282,11 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
 
                     print("alert \(inCart)")
                 }else{
-//                    if userDefualt.getUserNote() != ""{
-//                        self.editDraftOrder()
-//                    }else{
-//                        self.postDraftOrder()
-//                    }
-                   
+                    if userDefualt.getUserNote() != ""{
+                        self.editDraftOrder()
+                    }else{
+                        self.postDraftOrder()
+                    }
                     do{
                         try productViewModel?.addProductToCoreDataCart(id: "\(productId!)",title:(product?.title)!,image:(product?.image.src)!,price:(product?.variant[0].price)!, itemCount: 1, quantity:(product?.variant[0].inventoryQuantity)!, completion: { result in
                             switch result{

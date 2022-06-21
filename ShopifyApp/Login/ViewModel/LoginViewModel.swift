@@ -48,10 +48,12 @@ class LoginViewModel: LoginViewModelType{
                             let comingMail = item.email ?? ""
                             let comingPassword = item.tags ?? ""
                             if comingMail == email && comingPassword == password {
-                                // address
                                 self?.userDefualt.login()
                                 self?.userDefualt.addId(id: item.id ?? 0)
                                 self?.userDefualt.addCustomerName(customerName: "\(item.first_name!) \(item.last_name!)")
+                                self?.userDefualt.setUserPassword(password: item.tags ?? "")
+                                self?.userDefualt.addCustomerEmail(customerEmail: item.email ?? "")
+                                self?.userDefualt.addCustomerEmail(customerEmail: item.note ?? "")
                                 self?.navigate = true
                                 break
                             }

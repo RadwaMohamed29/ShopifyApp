@@ -27,7 +27,7 @@ protocol NetworkServiceProtocol{
     func postDraftOrder(draftOrder: DraftOrdersRequest, completion: @escaping(Data?, URLResponse?, Error?)->())
     func modifyDraftOrder(draftOrderId:Int,putOrder:PutOrderRequestTest,completion: @escaping(Data?, URLResponse?, Error?)->())
     func editeCustomer(id:Int,editeCustomer:EditCustomer,completion: @escaping(Data?, URLResponse?, Error?)->())
-    func getItemsDraftOrder(idDraftOrde:Int,completion:@escaping (Result<DraftOrdersRequest, ErrorType>)->())
+    func getItemsDraftOrder(idDraftOrde:Int,completion:@escaping (Result<DraftOrderResponseTest, ErrorType>)->())
     func postOrder(order:OrderObject, completion: @escaping(Data?, URLResponse?, Error?)->())
 
 }
