@@ -33,7 +33,7 @@ extension MeViewController : UICollectionViewDataSource ,UICollectionViewDelegat
             cell.layer.cornerRadius = 20
             cell.layer.shadowColor = UIColor.black.cgColor
             cell.date.text = orderList[indexPath.row].createdAt
-            cell.price.text = Shared.formatePrice(priceStr: orderList[indexPath.row].totalPrice)
+            cell.price.text = Shared.formatePrice(priceStr: orderList[indexPath.row].tags)
             cell.countOfItems.text = "\(orderList[indexPath.row].lineItems.count)"
             return cell
         }else{
