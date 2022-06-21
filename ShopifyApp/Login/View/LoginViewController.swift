@@ -57,6 +57,7 @@ class LoginViewController: UIViewController {
     @IBAction func registerBtn(_ sender: Any) {
         DispatchQueue.main.async {
          let a = RegisterViewController(nibName:"RegisterViewController", bundle: nil)
+            a.isFromLogin = true
          self.navigationController?.pushViewController(a, animated: true)
        
         }
