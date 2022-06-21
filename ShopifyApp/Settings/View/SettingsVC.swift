@@ -18,8 +18,6 @@ class SettingsVC: UIViewController {
         super.viewDidLoad()
         self.title = "Settings"
         checkCurrencySegmantState()
-      //  [UIsegmentControl.subviews objectAtIndex:segment.selectedSegmentIndex] setTintColor:[UIColor redColor]
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -39,6 +37,9 @@ class SettingsVC: UIViewController {
     }
     
     @IBAction func logoutBtn(_ sender: Any) {
+         //  Utilities.utilities.setDraftOrder(id: 0)
+           Utilities.utilities.setUserNote(note: "0")
+         //  print("Utilities.utilities.setDraftOrder\(Utilities.utilities.getUserNote())")
         Utilities.utilities.logout()
         let key = Utilities.utilities.getCode()
         Utilities.utilities.setCodeUsed(code: key,isUsed: false)

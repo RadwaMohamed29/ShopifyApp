@@ -45,7 +45,7 @@ class RegisterViewModel: RegisterViewModelType{
                     }
                 }
                 if self?.flag == false{
-                    let customer = CustomerModel(first_name: firstName, last_name: lastName, email: email, phone: nil , tags: password, id: nil , verified_email: true, addresses: nil , note: "" )
+                    let customer = CustomerModel(first_name: firstName, last_name: lastName, email: email, phone: nil , tags: password, id: nil , verified_email: true, addresses: nil , note: "0" )
                     let newCustomer = Customer(customer: customer)
                     self?.registerCustomer(customer: newCustomer){ result in
                         switch result{
@@ -83,7 +83,9 @@ class RegisterViewModel: RegisterViewModelType{
                     let customerName = savedCustomer?["first_name"] as? String ?? ""
                     let customerEmail = savedCustomer?["email"] as? String ?? ""
                     let customerPassword = savedCustomer?["tags"] as? String ?? ""
-                    
+
+                    let customerNote = savedCustomer?["note"] as? String ?? ""
+
                     
                     if id != 0 {
                         self?.userDefualt.login()
@@ -92,8 +94,12 @@ class RegisterViewModel: RegisterViewModelType{
                         self?.userDefualt.addCustomerName(customerName: customerName)
                         self?.userDefualt.login()
                         self?.userDefualt.setUserPassword(password: customerPassword)
+
+                        self?.userDefualt.setUserNote(note: customerNote)
+
                         print("passwordUserrrr\( String(describing: self?.userDefualt.getUserPassword()))")
                         completion(true)
+
                         self?.navigate = true
                         
                         print("add to userDefualt successfully!!!")

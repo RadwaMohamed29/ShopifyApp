@@ -53,7 +53,8 @@ class LoginViewModel: LoginViewModelType{
                                 self?.userDefualt.addCustomerName(customerName: "\(item.first_name!) \(item.last_name!)")
                                 self?.userDefualt.setUserPassword(password: item.tags ?? "")
                                 self?.userDefualt.addCustomerEmail(customerEmail: item.email ?? "")
-                                self?.userDefualt.addCustomerEmail(customerEmail: item.note ?? "")
+                                self?.userDefualt.setUserNote(note: item.note ?? "")
+                                print("Utilities.utilities.getUserNote()\(Utilities.utilities.getUserNote())")
                                 self?.navigate = true
                                 break
                             }
