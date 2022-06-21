@@ -155,10 +155,12 @@ class APIClient: NetworkServiceProtocol{
             
             do{
                 let object = try JSONDecoder().decode(T.self, from: data)
-                completion(.success(object))
                 print("object discount\(object)")
+                completion(.success(object))
+                
             }    catch {
-                print(error.localizedDescription)
+                print("error from network \(error.localizedDescription)")
+                print((response as! HTTPURLResponse).statusCode)
                     completion(.failure(.parsingError))
                 
 
