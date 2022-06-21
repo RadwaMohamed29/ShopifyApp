@@ -67,9 +67,10 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
             case true:
                 do{
                     try self.orderViewModel?.removeItemsFromCartToSpecificCustomer()
-                    let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
-                    
-                    self.navigationController?.pushViewController(homeVC, animated: true)
+                    DispatchQueue.main.async {
+                        let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
+                        self.navigationController?.pushViewController(homeVC, animated: true)
+                    }
                 }catch let error{
                     let alert = UIAlertController(title: "Checkout", message: "\(error.localizedDescription)", preferredStyle: .alert)
                     let cancle = UIAlertAction(title: "Cancel", style: .cancel)
@@ -88,7 +89,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     
     @IBAction func btnConfirmPayment(_ sender: Any) {
         items = convertFromListOfCartProdeuctTolistOfLineItems(products: cartProducts)
-        order = prepareOrderObject(items: items, adress: adress!)
+        order = prepareOrderObject(items: items, adress: adress!,price: "\(total ?? 0)")
         let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
         
         //coupon check
@@ -107,6 +108,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
                 totalPrice.text = "\(total ?? 0)"
                 let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
                 payment.totalPrice = Double(total ?? 0)
+                
             }
         }
         
@@ -179,13 +181,14 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
     }
 
     
-    func prepareOrderObject(items:[LineItems],adress:Address)->OrderObject{
+    func prepareOrderObject(items:[LineItems],adress:Address,price: String)->OrderObject{
         let customer : CustomerOrder?
         customer = CustomerOrder(id: Utilities.utilities.getCustomerId())
         let order = PostOrder(id: nil
                               , lineItems: items
                               , billingAdress: adress
-                              , customer: customer!)
+                              , customer: customer!
+                              ,tags: price)
         let postOrder = OrderObject(order: order)
         return postOrder
     }
