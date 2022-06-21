@@ -73,7 +73,7 @@ class AbsTableViewCell: UITableViewCell {
                    //MARK: swift messages To be changed later
                    Utilities.utilities.setCode(code: adds[0].code)
                    UIPasteboard.general.string = adds[0].code
-                   Shared.showMessage(message: "CONGRATULATIONS, YOU'VE WON A 30% OFF COUPON,YOUR COUPON IS COPIED 🥳", error: false
+                   Shared.showMessage(message: "CONGRATULATIONS, YOU'VE WON A 30% OFFER 🥳", error: false
                    )
                }
                else{
