@@ -34,30 +34,24 @@ struct CustomerIdTest: Codable {
 
 // MARK: - LineItem
 struct LineItemDraftTest: Codable {
-    let quantity, variantID: Int
+    let quantity, variantID,productID: Int
+    let title:String
+    let vendor:String
+    let price:String
+    
+    
 
     enum CodingKeys: String, CodingKey {
         case quantity
         case variantID = "variant_id"
+        case productID = "product_id"
+        case title
+        case vendor
+        case price
+        
     }
 }
+
 
 
 //MARK: - PutOrderRequest
-struct PutOrderRequestTest: Codable {
-    let draftOrder: ModifyDraftOrderRequestTest
-
-    enum CodingKeys: String, CodingKey {
-        case draftOrder = "draft_order"
-    }
-}
-
-struct ModifyDraftOrderRequestTest: Codable {
-    let dratOrderId: Int
-    let lineItems: [LineItemDraftTest]
-    
-    enum CodingKeys: String, CodingKey {
-        case lineItems = "line_items"
-        case dratOrderId = "id"
-    }
-}
