@@ -56,8 +56,6 @@ class PaymentMethodViewController: UIViewController {
             }
             if err == nil{
                 self?.checkoutDelegate?.approvePayment()
-                let home = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
-                self?.navigationController?.pushViewController(home, animated: true)
             }
         }
     }
