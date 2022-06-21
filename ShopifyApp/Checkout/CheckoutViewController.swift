@@ -67,7 +67,9 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
             case true:
                 do{
                     try self.orderViewModel?.removeItemsFromCartToSpecificCustomer()
+                    let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
                     
+                    self.navigationController?.pushViewController(homeVC, animated: true)
                 }catch let error{
                     let alert = UIAlertController(title: "Checkout", message: "\(error.localizedDescription)", preferredStyle: .alert)
                     let cancle = UIAlertAction(title: "Cancel", style: .cancel)

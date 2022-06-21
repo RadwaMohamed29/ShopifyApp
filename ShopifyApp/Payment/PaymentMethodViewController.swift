@@ -30,7 +30,7 @@ class PaymentMethodViewController: UIViewController {
         if segmentedControl.selectedSegmentIndex == 1{
             startCheckout(amount: String(totalPrice ?? 0))
         }else{
-            
+            checkoutDelegate?.approvePayment()
         }
     }
     
