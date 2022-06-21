@@ -57,7 +57,7 @@ extension AllOrdersViewController : UICollectionViewDelegate,UICollectionViewDat
         cell.layer.borderColor = UIColor(red: 0.031, green: 0.498, blue: 0.537, alpha: 1).cgColor
         cell.layer.cornerRadius = 20
         cell.date.text = listOfOrders[indexPath.row].createdAt
-        cell.price.text = Shared.formatePrice(priceStr: listOfOrders[indexPath.row].totalPrice)
+        cell.price.text = Shared.formatePrice(priceStr: listOfOrders[indexPath.row].tags)
         cell.countOfItems.text = "\(listOfOrders[indexPath.row].lineItems.count)"
         return cell
     }

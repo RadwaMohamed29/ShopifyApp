@@ -40,6 +40,7 @@ class SettingsVC: UIViewController {
     
     @IBAction func logoutBtn(_ sender: Any) {
         Utilities.utilities.logout()
+        Utilities.utilities.setCodeUsed(code: Utilities.utilities.getCode(),isUsed: false)
         self.navigationController?.popViewController(animated: true)
     }
 

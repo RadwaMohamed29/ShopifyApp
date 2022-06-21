@@ -80,8 +80,10 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         setUpFavButton()
         uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
         uiImageView.applyshadowWithCorner(containerView: reviewsView, cornerRadious: 0.0)
-//        updateCustomer()
-//        getItemsDraft()
+
+      //  updateCustomer()
+       // getItemsDraft()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

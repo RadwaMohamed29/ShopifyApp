@@ -8,6 +8,7 @@
 import UIKit
 import Kingfisher
 import RxSwift
+import SwiftMessages
 
 protocol PaymentCheckoutDelegation{
     
@@ -46,6 +47,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     var order : OrderObject?
     var customer : Customer?
     var orderViewModel :OrderViewModelProtocol?
+    var copon : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         subTotal = Utilities.utilities.getTotalPrice()
@@ -59,20 +61,30 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
         orderViewModel = OrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        couponTxtField.text = Utilities.utilities.getCode()
+    }
     
     func approvePayment() {
-        orderViewModel?.addOrder(order: order!, completion: { result in
+        orderViewModel?.addOrder(order: order!, completion: {[weak self] result in
             
             switch result{
             case true:
                 do{
-                    try self.orderViewModel?.removeItemsFromCartToSpecificCustomer()
-                    
+                    try self?.orderViewModel?.removeItemsFromCartToSpecificCustomer()
+                    Utilities.utilities.setCodeUsed(code: self!.copon,isUsed: true)
+                    Utilities.utilities.setCode(code: "")
+                    DispatchQueue.main.async {
+                        let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
+                        self?.navigationController?.pushViewController(homeVC, animated: true)
+                        Shared.showMessage(message: "Order will arrive soon", error: false)
+                    }
                 }catch let error{
                     let alert = UIAlertController(title: "Checkout", message: "\(error.localizedDescription)", preferredStyle: .alert)
                     let cancle = UIAlertAction(title: "Cancel", style: .cancel)
                     alert.addAction(cancle)
-                    self.present(alert, animated: true, completion: nil)
+                    self?.present(alert, animated: true, completion: nil)
                 }
             case false:
                 print("can't post this order")
@@ -86,7 +98,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     
     @IBAction func btnConfirmPayment(_ sender: Any) {
         items = convertFromListOfCartProdeuctTolistOfLineItems(products: cartProducts)
-        order = prepareOrderObject(items: items, adress: adress!)
+        order = prepareOrderObject(items: items, adress: adress!,price: "\(total ?? 0)")
         let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
         
         //coupon check
@@ -97,14 +109,19 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     
     @IBAction func btnCheckDiscount(_ sender: Any) {
         if !couponTxtField.text!.isEmpty{
+            copon = couponTxtField.text ?? ""
             if Utilities.utilities.getCode() == couponTxtField.text {
-                //MARK: discount not applicable on currency with both (EGP and USD).. please check it boda❤️
-                discount = subTotal! * (30/100)
-                discountLB.text = "\(discount)"
-                total = subTotal! - discount
-                totalPrice.text = "\(total ?? 0)"
-                let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
-                payment.totalPrice = Double(total ?? 0)
+                if Utilities.utilities.isCodeUsed(code: couponTxtField.text ?? "") != true{
+                    //MARK: discount not applicable on currency with both (EGP and USD).. please check it boda❤️
+                    discount = subTotal! * (30/100)
+                    discountLB.text = "\(discount)"
+                    total = subTotal! - discount
+                    totalPrice.text = "\(total ?? 0)"
+                    let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
+                    payment.totalPrice = Double(total ?? 0)
+                }else{
+                    Shared.showMessage(message: "This coupon is used", error: false)
+                }
             }
         }
         
@@ -135,7 +152,7 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth : Double
         let availableHieght :Double
-        availableWidth = itemsCV.frame.width - 24
+        availableWidth = itemsCV.frame.width - 64
         availableHieght = itemsCV.frame.height - 24
         return CGSize(width: availableWidth, height: availableHieght)
     }
@@ -177,13 +194,14 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
     }
 
     
-    func prepareOrderObject(items:[LineItems],adress:Address)->OrderObject{
+    func prepareOrderObject(items:[LineItems],adress:Address,price: String)->OrderObject{
         let customer : CustomerOrder?
         customer = CustomerOrder(id: Utilities.utilities.getCustomerId())
         let order = PostOrder(id: nil
                               , lineItems: items
                               , billingAdress: adress
-                              , customer: customer!)
+                              , customer: customer!
+                              ,tags: price)
         let postOrder = OrderObject(order: order)
         return postOrder
     }

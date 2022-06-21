@@ -33,7 +33,7 @@ extension MeViewController : UICollectionViewDataSource ,UICollectionViewDelegat
             cell.layer.cornerRadius = 20
             cell.layer.shadowColor = UIColor.black.cgColor
             cell.date.text = orderList[indexPath.row].createdAt
-            cell.price.text = Shared.formatePrice(priceStr: orderList[indexPath.row].totalPrice)
+            cell.price.text = Shared.formatePrice(priceStr: orderList[indexPath.row].tags)
             cell.countOfItems.text = "\(orderList[indexPath.row].lineItems.count)"
             return cell
         }else{
@@ -90,7 +90,7 @@ extension MeViewController : UICollectionViewDataSource ,UICollectionViewDelegat
         let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
             self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav)
         }
-        let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
+        let cancleAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         
         favouriteAlert.addAction(confirmAction)
         favouriteAlert.addAction(cancleAction)

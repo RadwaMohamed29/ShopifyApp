@@ -69,13 +69,15 @@ class AbsTableViewCell: UITableViewCell {
            let location = sender.location(in: self.adsCollectionView)
            let indexPath = self.adsCollectionView.indexPathForItem(at: location)
            if let index = indexPath {
-               if Utilities.utilities.isCodeUsed(code: "code"){
+               if Utilities.utilities.isCodeUsed(code: adds[0].code) != true {
                    //MARK: swift messages To be changed later
-//                   Utilities.utilities.setCodeUsed(code: "code")
                    Utilities.utilities.setCode(code: adds[0].code)
                    UIPasteboard.general.string = adds[0].code
-                   Shared.showMessage(message: "CONGRATULATIONS, YOU'VE WON A 30% OFF COUPON,YOUR COUPON IS COPIED 🥳", error: false
+                   Shared.showMessage(message: "CONGRATULATIONS, YOU'VE WON A 30% OFFER 🥳", error: false
                    )
+               }
+               else if Utilities.utilities.isCodeUsed(code: adds[0].code) == true{
+                   Shared.showMessage(message: "This coupon is used", error: false)
                }
            }
         }

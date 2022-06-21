@@ -50,10 +50,11 @@ class Utilities{
         return UserDefaults.standard.bool(forKey: "\(code)")
     }
     
-    func setCodeUsed(code:String) {
+    func setCodeUsed(code:String,isUsed:Bool) {
         UserDefaults.standard.set(true, forKey: "\(code)")
     }
     
+   
     func getCode() ->String {
         return UserDefaults.standard.value(forKey: "coupon") as? String ?? ""
     }

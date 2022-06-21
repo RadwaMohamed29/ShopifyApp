@@ -198,6 +198,9 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        let detalisVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
+        detalisVC.productId = CartProducts[indexPath.row].id
+        self.navigationController?.pushViewController(detalisVC, animated: true)
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
