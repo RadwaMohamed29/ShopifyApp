@@ -80,8 +80,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         setUpFavButton()
         uiImageView.applyshadowWithCorner(containerView: collectionContainerView, cornerRadious: 0.0)
         uiImageView.applyshadowWithCorner(containerView: reviewsView, cornerRadious: 0.0)
-        updateCustomer()
-        getItemsDraft()
+     //   getItemsDraft()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -237,6 +236,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         productViewModel?.postDraftOrder(lineItems: newItemDraft, customerID: Utilities.utilities.getCustomerId() ,completion: { result in
             switch result {
             case true:
+               // self.updateCustomer()
                 print("add to api ")
             case false:
                 print("error to add in api")
@@ -273,7 +273,6 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
             if isLoggedIn {
                 productViewModel?.checkProductInCart(id: "\(productId ?? "")")
                 guard let inCart = productViewModel?.isProductInCart else{return}
-
                 if(inCart){
                     let alert = UIAlertController(title: "Already In Bag!", message: "if you need to increase the amount of product , you can from your bag ", preferredStyle: .alert)
                     let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -282,10 +281,16 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
 
                     print("alert \(inCart)")
                 }else{
-                    if userDefualt.getUserNote() != ""{
-                        self.editDraftOrder()
-                    }else{
+                    if userDefualt.getUserNote() == "0"{
                         self.postDraftOrder()
+                        DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
+                            self.updateCustomer()
+                        }
+                    }else{
+                        self.getItemsDraft()
+                        DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
+                            self.editDraftOrder()
+                        }
                     }
                     do{
                         try productViewModel?.addProductToCoreDataCart(id: "\(productId!)",title:(product?.title)!,image:(product?.image.src)!,price:(product?.variant[0].price)!, itemCount: 1, quantity:(product?.variant[0].inventoryQuantity)!, completion: { result in
