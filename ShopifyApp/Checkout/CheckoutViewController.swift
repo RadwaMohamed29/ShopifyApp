@@ -73,7 +73,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
             case true:
                 do{
                     try self?.orderViewModel?.removeItemsFromCartToSpecificCustomer()
-                    Utilities.utilities.setCodeUsed(code: self!.copon)
+                    Utilities.utilities.setCodeUsed(code: self!.copon,isUsed: true)
                     Utilities.utilities.setCode(code: "")
                     DispatchQueue.main.async {
                         let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)

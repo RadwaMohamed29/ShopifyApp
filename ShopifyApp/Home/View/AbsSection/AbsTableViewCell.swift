@@ -76,7 +76,7 @@ class AbsTableViewCell: UITableViewCell {
                    Shared.showMessage(message: "CONGRATULATIONS, YOU'VE WON A 30% OFFER 🥳", error: false
                    )
                }
-               else{
+               else if Utilities.utilities.isCodeUsed(code: adds[0].code) == true{
                    Shared.showMessage(message: "This coupon is used", error: false)
                }
            }
