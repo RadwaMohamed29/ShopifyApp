@@ -33,8 +33,6 @@ protocol ProductDetailsViewModelType{
     var itemDraftOrderObservable: Observable<DraftOrderTest>{get set}
     var lineItem : Array<LineItem>{get set}
 
-
-
 }
 
 
@@ -258,18 +256,14 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void){
         var lineItem = Array<LineItemDraftTest>()
         lineItem.append(lineItems)
-       
         if customerID != 0 {
             let order = DraftOrderItemTest(lineItems: lineItem, customer: CustomerIdTest(id: customerID), useCustomerDefaultAddress: true)
             let newOrder = DraftOrdersRequest(draftOrder: order)
             postOrder(draftOrder: newOrder)
-            print("custmerID: \(customerID)")
             completion(true)
         }else{
             completion(false)
         }
-        
-        
     }
     func postOrder( draftOrder: DraftOrdersRequest) {
         network.postDraftOrder(draftOrder: draftOrder ) { data, response, error in
@@ -280,22 +274,16 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                     do{
                         let json = try! JSONSerialization.jsonObject(with: data, options:
                                 .allowFragments) as! Dictionary<String, Any>
-                        
                         let draftOrder = json["draft_order"] as? Dictionary <String,Any>
                         let draftId = draftOrder?["id"] as? Int ?? 0
-                        print("json \(json )")
-                        print("draftId\(draftId)")
                         if draftId != 0{
                             self.userDefult.setDraftOrder(id: draftId)
-                            print("idDraftOrder\(self.userDefult.getDraftOrder())")
                             print("add to user defualt ")
                         }
                         else{
                             print("can't save to user defualts")
                         }
                         
-                    }catch{
-                       print("error in viewModel")
                     }
               
                 }
@@ -320,8 +308,6 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                         }else{
                             completion(false)
                         }
-                    }catch{
-                        completion(false)
                     }
                 }
             }
@@ -344,8 +330,6 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                         }else{
                             completion(true)
                         }
-                    }catch{
-                        completion(false)
                     }
                 }
             }
@@ -357,11 +341,9 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             switch result {
             case .success(let response):
                  let items = response.draftOrder
-                print("draftOrderItems\(String(describing: items))")
                 for item in items.lineItems {
                     self.lineItem.append(item)
                 }
-                print("itemsssssss\(self.lineItem)")
                 self.itemDraftOrderSubject.asObserver().onNext(items)
             case .failure(let error):
                 print(error.localizedDescription)

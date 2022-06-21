@@ -20,19 +20,14 @@ struct DraftOrderTest: Codable {
     let id: Int
     let lineItems: [LineItem]
     
-
     enum CodingKeys: String, CodingKey {
         case id
         case lineItems = "line_items"
-        
-    
     }
 }
 // MARK: - EmailMarketingConsent
 struct EmailMarketingConsent: Codable {
     let state, optInLevel: String
-    //let consentUpdatedAt: JSONNull?
-
     enum CodingKeys: String, CodingKey {
         case state
         case optInLevel = "opt_in_level"
@@ -42,20 +37,16 @@ struct EmailMarketingConsent: Codable {
 
 // MARK: - LineItem
 struct LineItem: Codable {
-    
     let id, variantID, productID: Int
-    let title, variantTitle, sku, vendor: String
+    let title, variantTitle,vendor: String
     let quantity: Int
-    
-
-
     enum CodingKeys: String, CodingKey {
         case id
         case variantID = "variant_id"
         case productID = "product_id"
         case title
         case variantTitle = "variant_title"
-        case sku, vendor, quantity
+        case vendor, quantity
         
     }
 }
@@ -66,7 +57,6 @@ struct TaxLine: Codable {
     let rate: Double
     let title, price: String
 }
-
 struct EmptyObject: Codable {
     
 }
