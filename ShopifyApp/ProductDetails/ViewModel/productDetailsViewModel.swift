@@ -129,7 +129,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             return
         }
         let filterProducts = listOfProduct.filter { Product in
-            return Product.title.lowercased().contains(word.lowercased())
+            return Product.title.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).contains(word.lowercased().trimmingCharacters(in: .whitespacesAndNewlines))
         }
         allProductsSubject.onNext(filterProducts)
         
