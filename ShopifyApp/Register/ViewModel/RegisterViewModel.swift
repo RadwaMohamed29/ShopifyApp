@@ -12,12 +12,13 @@ protocol RegisterViewModelType{
     var bindNavigate:(()->()) {get set}
     var bindDontNavigate:(()->()) {get set}
     var navigate:Bool!{get set}
-  //  func editCustomer(customer: EditCustomer, customerID: Int, completion: @escaping (Bool)->())
+    var flag: Bool {get set}
+    //  func editCustomer(customer: EditCustomer, customerID: Int, completion: @escaping (Bool)->())
     //func isEmailExist(email: String)-> Bool
 }
 
 class RegisterViewModel: RegisterViewModelType{
-
+    
     var bindNavigate:(()->()) = {}
     var bindDontNavigate:(()->()) = {}
     var navigate: Bool! {
@@ -46,8 +47,16 @@ class RegisterViewModel: RegisterViewModelType{
                 if self?.flag == false{
                     let customer = CustomerModel(first_name: firstName, last_name: lastName, email: email, phone: nil , tags: password, id: nil , verified_email: true, addresses: nil , note: "" )
                     let newCustomer = Customer(customer: customer)
-                    self?.registerCustomer(customer: newCustomer)
-                    completion(true)
+                    self?.registerCustomer(customer: newCustomer){ result in
+                        switch result{
+                        case true:
+                            completion(true)
+                        case false:
+                            completion(false)
+                        }
+                        
+                    }
+                    
                 }else{
                     completion(false)
                 }
@@ -57,13 +66,14 @@ class RegisterViewModel: RegisterViewModelType{
             }
             
         }
-          
+        
     }
-   
-    func registerCustomer(customer: Customer){
+    
+    func registerCustomer(customer: Customer, completion: @escaping (Bool)->Void ){
         network.registerCustomerProtocol(newCustomer: customer) {[weak self] (data, response, error )in
             if error != nil{
                 print(error!)
+                completion(false)
             }else{
                 if let data = data{
                     let json = try! JSONSerialization.jsonObject(with: data, options:
@@ -73,7 +83,7 @@ class RegisterViewModel: RegisterViewModelType{
                     let customerName = savedCustomer?["first_name"] as? String ?? ""
                     let customerEmail = savedCustomer?["email"] as? String ?? ""
                     let customerPassword = savedCustomer?["tags"] as? String ?? ""
-
+                    
                     
                     if id != 0 {
                         self?.userDefualt.login()
@@ -82,10 +92,13 @@ class RegisterViewModel: RegisterViewModelType{
                         self?.userDefualt.addCustomerName(customerName: customerName)
                         self?.userDefualt.login()
                         self?.userDefualt.setUserPassword(password: customerPassword)
+                        print("passwordUserrrr\( String(describing: self?.userDefualt.getUserPassword()))")
+                        completion(true)
                         self?.navigate = true
                         
                         print("add to userDefualt successfully!!!")
                     }else{
+                        completion(false)
                         self?.navigate = false
                         print("error to register")
                     }
@@ -104,8 +117,8 @@ class RegisterViewModel: RegisterViewModelType{
                 if let data = data{
                     print(data)
                     do{
-                    let json = try? JSONSerialization.jsonObject(with: data, options:
-                            .allowFragments) as? Dictionary<String, Any>
+                        let json = try? JSONSerialization.jsonObject(with: data, options:
+                                                                            .allowFragments) as? Dictionary<String, Any>
                         if json?["errors"] != nil{
                             completion(false)
                         }else{
@@ -119,9 +132,9 @@ class RegisterViewModel: RegisterViewModelType{
             
         }
                               
-        
-    )
+                              
+        )
     }
-
-
+    
+    
 }

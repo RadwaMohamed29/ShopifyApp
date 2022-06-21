@@ -47,15 +47,18 @@ class PaymentMethodViewController: UIViewController {
         let payPalDriver = BTPayPalDriver(apiClient: braintreeAPIClient!)
         let request = BTPayPalCheckoutRequest(amount: amount)
         request.currencyCode = "USD"
+        var err:Error?
         payPalDriver.tokenizePayPalAccount(with: request) { [weak self] (tokenizedPayPalAccount, error) in
-            if let tokenizedPayPalAccount = tokenizedPayPalAccount {
+            if tokenizedPayPalAccount != nil {
             } else if let error = error {
-                print(error)
-            } else {
-                return
+                err = error
+                print("error is \(error)")
             }
-            self?.checkoutDelegate?.approvePayment()
-            self?.navigationController?.popViewController(animated: true)
+            if err == nil{
+                self?.checkoutDelegate?.approvePayment()
+                let home = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
+                self?.navigationController?.pushViewController(home, animated: true)
+            }
         }
     }
     
