@@ -61,6 +61,10 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
         orderViewModel = OrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        couponTxtField.text = Utilities.utilities.getCode()
+    }
     
     func approvePayment() {
         orderViewModel?.addOrder(order: order!, completion: {[weak self] result in
@@ -70,6 +74,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
                 do{
                     try self?.orderViewModel?.removeItemsFromCartToSpecificCustomer()
                     Utilities.utilities.setCodeUsed(code: self!.copon)
+                    Utilities.utilities.setCode(code: "")
                     DispatchQueue.main.async {
                         let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
                         self?.navigationController?.pushViewController(homeVC, animated: true)
