@@ -129,6 +129,7 @@ class ShoppingCartVC: UIViewController {
     @IBAction func goToAddress(_ sender: Any) {
         let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
         address.cartProducts = CartProducts
+        address.isComingWithOrder = true
         Utilities.utilities.setTotalPrice(totalPrice: totalPrice ?? 0)
         self.navigationController?.pushViewController(address, animated: true)
     }
@@ -197,6 +198,9 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        let detalisVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
+        detalisVC.productId = CartProducts[indexPath.row].id
+        self.navigationController?.pushViewController(detalisVC, animated: true)
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {

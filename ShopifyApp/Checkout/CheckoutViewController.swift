@@ -8,11 +8,22 @@
 import UIKit
 import Kingfisher
 import RxSwift
-class CheckoutViewController: UIViewController {
+import SwiftMessages
+
+protocol PaymentCheckoutDelegation{
+    
+    func approvePayment()
+    func onPaymentFailed()
+}
+
+class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
+    
+    
     
     
     @IBOutlet weak var subTotalLB: UILabel!
     
+    @IBOutlet weak var couponTxtField: UITextField!
     @IBOutlet weak var lableAdress: UILabel!
     @IBOutlet weak var totalPrice: UILabel!
     @IBOutlet weak var discountLB: UILabel!
@@ -31,53 +42,89 @@ class CheckoutViewController: UIViewController {
     var items :[LineItems] = []
     var adress : Address?
     var subTotal :Double?
-    var discount : Double = 40
+    var discount : Double = 0
     var total : Double?
     var order : OrderObject?
     var customer : Customer?
     var orderViewModel :OrderViewModelProtocol?
+    var copon : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         subTotal = Utilities.utilities.getTotalPrice()
         total = subTotal!-discount
-        subTotalLB.text = "\(subTotal!)"
-        totalPrice.text = "Total: \(total ?? 0)"
+        subTotalLB.text = "\(Shared.formatePrice(priceStr: String(subTotal!)))"
+        totalPrice.text = "Total: \(Shared.formatePrice(priceStr: String(total ?? 0)))"
         smallView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         smallView.layer.cornerRadius = 20
-        discountLB.text = "\(discount)"
+        discountLB.text = "\(Shared.formatePrice(priceStr: String(discount)))"
         lableAdress.text = "\(adress!.address2 ?? "") st, \(adress!.city ?? ""), \(adress!.country ?? "")"
         orderViewModel = OrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        couponTxtField.text = Utilities.utilities.getCode()
+    }
+    
+    func approvePayment() {
+        orderViewModel?.addOrder(order: order!, completion: {[weak self] result in
+            
+            switch result{
+            case true:
+                do{
+                    try self?.orderViewModel?.removeItemsFromCartToSpecificCustomer()
+                    Utilities.utilities.setCodeUsed(code: self!.copon,isUsed: true)
+                    DispatchQueue.main.async {
+                        let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
+                        self?.navigationController?.pushViewController(homeVC, animated: true)
+                        Shared.showMessage(message: "Order will arrive soon", error: false)
+                    }
+                }catch let error{
+                    let alert = UIAlertController(title: "Checkout", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                    let cancle = UIAlertAction(title: "Cancel", style: .cancel)
+                    alert.addAction(cancle)
+                    self?.present(alert, animated: true, completion: nil)
+                }
+            case false:
+                print("can't post this order")
+            }
+        })
+    }
+    
+    func onPaymentFailed() {
         
     }
     
     @IBAction func btnConfirmPayment(_ sender: Any) {
         items = convertFromListOfCartProdeuctTolistOfLineItems(products: cartProducts)
-        order = prepareOrderObject(items: items, adress: adress!)
-        orderViewModel?.addOrder(order: order!, completion: { result in
-            
-            switch result{
-            case true:
-                do{
-                    try self.orderViewModel?.removeItemsFromCartToSpecificCustomer()
-                    DispatchQueue.main.async{
-                        let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
-                        self.navigationController?.pushViewController(homeVC, animated: true)
-                    }
-                }catch let error{
-                    let alert = UIAlertController(title: "Checkout", message: "\(error.localizedDescription)", preferredStyle: .alert)
-                    let cancle = UIAlertAction(title: "Cancle", style: .cancel)
-                    alert.addAction(cancle)
-                    self.present(alert, animated: true, completion: nil)
-                }
-                
-               
-            case false:
-                print("can't post this order")
-            }
-        })
+        order = prepareOrderObject(items: items, adress: adress!,price: "\(total ?? 0)")
+        let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
         
+        //coupon check
+        payment.checkoutDelegate = self
+        payment.totalPrice = total
+        self.navigationController?.pushViewController(payment, animated: true)
     }
     
+    @IBAction func btnCheckDiscount(_ sender: Any) {
+        if !couponTxtField.text!.isEmpty{
+            copon = couponTxtField.text ?? ""
+            if Utilities.utilities.getCode() == couponTxtField.text {
+                if Utilities.utilities.isCodeUsed(code: couponTxtField.text ?? "") != true{
+                    //MARK: discount not applicable on currency with both (EGP and USD).. please check it boda❤️
+                    discount = subTotal! * (30/100)
+                    discountLB.text = "\(discount)"
+                    total = subTotal! - discount
+                    totalPrice.text = "\(total ?? 0)"
+                    let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
+                    payment.totalPrice = Double(total ?? 0)
+                }else{
+                    Shared.showMessage(message: "This coupon is used", error: false)
+                }
+            }
+        }
+        
+    }
 }
 
 extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
@@ -87,9 +134,13 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "itemCell", for: indexPath) as! ItemCollectionViewCell
+        cell.layer.borderWidth = 1
+        cell.layer.borderColor = UIColor(red: 0.031, green: 0.498, blue: 0.537, alpha: 1).cgColor
+        cell.layer.cornerRadius = 20
         setImage(image: cell.image, index: indexPath.row)
-        cell.price.text = cartProducts[indexPath.row].price
+        cell.price.text = Shared.formatePrice(priceStr: cartProducts[indexPath.row].price)
         cell.amount.text = "\(cartProducts[indexPath.row].count)"
+        
         
         return cell
     }
@@ -100,7 +151,7 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth : Double
         let availableHieght :Double
-        availableWidth = itemsCV.frame.width - 24
+        availableWidth = itemsCV.frame.width - 64
         availableHieght = itemsCV.frame.height - 24
         return CGSize(width: availableWidth, height: availableHieght)
     }
@@ -142,13 +193,14 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
     }
 
     
-    func prepareOrderObject(items:[LineItems],adress:Address)->OrderObject{
+    func prepareOrderObject(items:[LineItems],adress:Address,price: String)->OrderObject{
         let customer : CustomerOrder?
         customer = CustomerOrder(id: Utilities.utilities.getCustomerId())
         let order = PostOrder(id: nil
                               , lineItems: items
                               , billingAdress: adress
-                              , customer: customer!)
+                              , customer: customer!
+                              ,tags: price)
         let postOrder = OrderObject(order: order)
         return postOrder
     }

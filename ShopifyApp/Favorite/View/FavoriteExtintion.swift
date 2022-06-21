@@ -53,7 +53,7 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
         let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
             self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav)
         }
-        let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
+        let cancleAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         favouriteAlert.addAction(confirmAction)
         favouriteAlert.addAction(cancleAction)
         self.present(favouriteAlert, animated: true, completion: nil)

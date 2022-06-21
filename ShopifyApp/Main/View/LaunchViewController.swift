@@ -13,6 +13,7 @@ class LaunchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let animationView = AnimationView()
+        
         animationView.animation = Animation.named("LuanchAnimation")
         //animationView.contentMode = .scaleAspectFit
         animationView.frame = view.bounds
@@ -26,7 +27,14 @@ class LaunchViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 4) { [weak self] in
             guard let self = self else {return}
             let a = TabBarViewController(nibName:"TabBarViewController", bundle: nil)
-            self.navigationController?.pushViewController(a, animated: true)
+            if !Utilities.utilities.isFirstTimeInApp(){
+                Utilities.utilities.setIsFirstTimeInApp()
+                let onboarding = FirstOnBoardingViewController(nibName:"FirstOnBoardingViewController", bundle: nil)
+                self.navigationController?.pushViewController(onboarding, animated: true)
+            }else{
+                self.navigationController?.pushViewController(a, animated: true)
+            }
+            
         }
 
     }

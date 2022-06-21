@@ -32,7 +32,7 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as! CategoryCollectionViewCell
         let url = URL(string: showList?[indexPath.row].image.src ?? "")
         cell.imgView.kf.setImage(with: url)
-        cell.label.text = "\(showList?[indexPath.row].variant[0].price ?? "0") EGP"
+        cell.label.text = Shared.formatePrice(priceStr: showList?[indexPath.row].variant[0].price ?? "0")
         cell.layer.cornerRadius = 12
         cell.label.shadowColor = UIColor.gray
         cell.topView.layer.cornerRadius =  24
@@ -128,20 +128,26 @@ extension CategoryViewController:UICollectionViewDelegate, UICollectionViewDataS
         let entity  = NSEntityDescription.entity(forEntityName: "FavouriteProduct", in: context)
          productViewModel?.checkFavorite(id: "\(showList![recognizer.tag].id)")
         var favProduct = FavouriteProduct(entity: entity!, insertInto: context)
-        if productViewModel?.isFav == false {
-            convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
-            do{
-                try context.save()
-                
-            }catch let error as NSError{
-                 print(error)
+        if (Utilities.utilities.isLoggedIn() == false){
+            let signinVC = LoginViewController(nibName: "LoginViewController", bundle: nil)
+            self.navigationController?.pushViewController(signinVC, animated: true)
+        }else{
+            if productViewModel?.isFav == false {
+                convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+                do{
+                    try context.save()
+                    
+                }catch let error as NSError{
+                     print(error)
+                }
+                recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
             }
-            recognizer.setImage(UIImage(systemName: "heart.fill"), for : UIControl.State.normal)
+           else{
+               convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
+               Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
+           }
         }
-       else{
-           convertToFavouriteModel(favProduct: &favProduct, recognizer: recognizer)
-           Shared.setOrRemoveProductToFavoriteList(recognizer: recognizer, delegate: UIApplication.shared.delegate as! AppDelegate , product: favProduct , sharedProtocol: self)
-       }
+      
     }
     
     func convertToFavouriteModel( favProduct: inout FavouriteProduct,recognizer:UIButton){

@@ -105,17 +105,26 @@ class CategoryViewController: UIViewController {
         fabBtn.buttonImage = UIImage(named: "sort")
         fabBtn.addItem("Shoes", icon: UIImage(named: "fabShoe")) { [weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "SHOES")
-            self?.fabActions(type: "Shoes", subProductIndex: 1, target: .ShoesType(id: index!.ID))
+            if CategoryViewController.subProduct == 0{
+                self?.fabActions(type: "SHOES", subProductIndex: 3, target: .HomeWithProductType(id: "SHOES"))
+            }else{
+                self?.fabActions(type: "Shoes", subProductIndex: 1, target: .ShoesType(id: index!.ID))}
         }
         
         fabBtn.addItem("T_shirts", icon: UIImage(named: "fabTshirt")) {[weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "T_shirts")
-            self?.fabActions(type: "T_shirts", subProductIndex: 2, target: .TshirtType(id: index!.ID))
+            if CategoryViewController.subProduct == 0{
+                self?.fabActions(type: "T-SHIRTS", subProductIndex: 3, target: .HomeWithProductType(id: "T-SHIRTS"))
+            }else{
+                self?.fabActions(type: "T-SHIRTS", subProductIndex: 2, target: .TshirtType(id: index!.ID))}
         }
         
         fabBtn.addItem("Accessories", icon: UIImage(named: "fabAcc")) {[weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "Accessories")
-            self?.fabActions(type: "Accessories", subProductIndex: 3, target: .AccecoriesType(id: index!.ID))
+            if CategoryViewController.subProduct == 0{
+                self?.fabActions(type: "Accessories", subProductIndex: 3, target: .HomeWithProductType(id: "Accessories"))
+            }else{
+                self?.fabActions(type: "Accessories", subProductIndex: 3, target: .AccecoriesType(id: index!.ID))}
         }
         
         categoryCollection.backgroundView = refreshController

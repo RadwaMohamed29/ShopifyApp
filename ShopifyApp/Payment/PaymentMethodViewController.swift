@@ -8,25 +8,29 @@
 import UIKit
 import Braintree
 import BraintreeDropIn
+import SwiftMessages
 
 class PaymentMethodViewController: UIViewController {
     
+    var totalPrice:Double?
+    var checkoutDelegate:PaymentCheckoutDelegation?
     let authorization = "sandbox_rzprnvv6_z6cj5tnwx5cyps9m"
-    
+    @IBOutlet weak var labelTotalPrice: UILabel!
     @IBOutlet weak var btnPayMethod: UIButton!
     var braintreeAPIClient:BTAPIClient!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        labelTotalPrice.text = Shared.formatePrice(priceStr: String(totalPrice ?? 0))
     }
     
         
     @IBAction func btnpay(_ sender: Any) {
         if segmentedControl.selectedSegmentIndex == 1{
-            startCheckout(amount: "100")
+            startCheckout(amount: String(totalPrice ?? 0))
         }else{
-            
+            checkoutDelegate?.approvePayment()
         }
     }
     
@@ -43,12 +47,15 @@ class PaymentMethodViewController: UIViewController {
         let payPalDriver = BTPayPalDriver(apiClient: braintreeAPIClient!)
         let request = BTPayPalCheckoutRequest(amount: amount)
         request.currencyCode = "USD"
-        payPalDriver.tokenizePayPalAccount(with: request) { (tokenizedPayPalAccount, error) in
-            if let tokenizedPayPalAccount = tokenizedPayPalAccount {
+        var err:Error?
+        payPalDriver.tokenizePayPalAccount(with: request) { [weak self] (tokenizedPayPalAccount, error) in
+            if tokenizedPayPalAccount != nil {
             } else if let error = error {
-                print(error)
-            } else {
-                print("the user canceled")
+                err = error
+                print("error is \(error)")
+            }
+            if err == nil{
+                self?.checkoutDelegate?.approvePayment()
             }
         }
     }

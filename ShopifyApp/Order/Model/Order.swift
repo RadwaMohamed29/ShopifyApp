@@ -17,11 +17,13 @@ struct PostOrder : Codable{
     let lineItems: [LineItems]
     let billingAdress : Address
     let customer : CustomerOrder
+    let tags : String
     enum CodingKeys: String, CodingKey {
         case id
         case lineItems = "line_items"
         case billingAdress = "billing_address"
-        case customer 
+        case customer
+        case tags
         
     }
 }
@@ -35,6 +37,8 @@ struct Order: Codable {
     let orderNumber: Int
     let orderStatusURL: String
     let lineItems: [LineItems]
+    let tags : String
+
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -51,6 +55,8 @@ struct Order: Codable {
         case orderNumber = "order_number"
         case orderStatusURL = "order_status_url"
         case lineItems = "line_items"
+        case tags
+
         
     }
 }

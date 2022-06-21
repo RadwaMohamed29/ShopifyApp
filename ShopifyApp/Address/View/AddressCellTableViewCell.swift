@@ -9,9 +9,11 @@ import UIKit
 
 class AddressCellTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var btnEdit: UIButton!
     @IBOutlet weak var btnDelete: UIButton!
     @IBOutlet weak var labelAddress: UILabel!
     var deleteAddressByBottun:()->() = {}
+    var editAddressFromBtn:()->() = {}
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,5 +29,8 @@ class AddressCellTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func editBtn(_ sender: Any) {
+        editAddressFromBtn()
+    }
     
 }

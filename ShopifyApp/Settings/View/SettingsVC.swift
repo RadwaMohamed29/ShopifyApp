@@ -32,6 +32,7 @@ class SettingsVC: UIViewController {
     }
     @IBAction func addressBtn(_ sender: Any) {
         let addressVC = AddressViewController(nibName: "AddressViewController", bundle: nil)
+        addressVC.isComingWithOrder = false
         self.navigationController?.pushViewController(addressVC, animated: true)
     }
     
@@ -40,6 +41,8 @@ class SettingsVC: UIViewController {
            Utilities.utilities.setUserNote(note: "0")
          //  print("Utilities.utilities.setDraftOrder\(Utilities.utilities.getUserNote())")
         Utilities.utilities.logout()
+        let key = Utilities.utilities.getCode()
+        Utilities.utilities.setCodeUsed(code: key,isUsed: false)
         self.navigationController?.popViewController(animated: true)
     }
 

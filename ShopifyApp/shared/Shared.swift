@@ -30,15 +30,16 @@ class Shared{
     }
     
    static func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool,viewModel: ProductDetailsViewModel,product: FavouriteProduct){
-      let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
-      let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
-          self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav,viewModel: viewModel, product: product)
-  }
-        let cancleAction = UIAlertAction(title: "No", style: .default, handler: nil)
-        
-        favouriteAlert.addAction(confirmAction)
+       let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .actionSheet)
+  
+       let cancleAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+       let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
+           self.actionForConfirmationOfFavoriteButton(index: index,favBtn: favBtn,isFav: isFav,viewModel: viewModel, product: product)
+   }
+       favouriteAlert.addAction(confirmAction)
         favouriteAlert.addAction(cancleAction)
-       
+        
+        
        sharedProtocol!.presentAlert(alert: favouriteAlert)
         
     }
