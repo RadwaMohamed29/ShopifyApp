@@ -29,8 +29,9 @@ protocol ProductDetailsViewModelType{
     func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void)
     func editCustomer(customer: EditCustomer, customerID: Int, completion: @escaping (Bool)->())
     func editDraftOrder(draftOrder: PutOrderRequestTest, draftID: Int, completion: @escaping (Bool)->())
-    func getItemsDraftOrder(idDraftOrde: Int)
+    func getItemsDraftOrder(idDraftOrde: Int)->[LineItem]
     var itemDraftOrderObservable: Observable<DraftOrderTest>{get set}
+    var lineItem : Array<LineItem>{get set}
 
 
 
@@ -350,22 +351,24 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             }
         }
     }
-    func getItemsDraftOrder(idDraftOrde: Int) {
-        var lineItem = Array<LineItem>()
+    var lineItem = Array<LineItem>()
+    func getItemsDraftOrder(idDraftOrde: Int)->[LineItem] {
         network.getItemsDraftOrder(idDraftOrde: idDraftOrde) { result in
             switch result {
             case .success(let response):
-                guard let items = response.draftOrder else {return}
-                print("draftOrderItems\(items)")
+                 let items = response.draftOrder
+                print("draftOrderItems\(String(describing: items))")
                 for item in items.lineItems {
-                    lineItem.append(item)
+                    self.lineItem.append(item)
                 }
-                print("itemsssssss\(lineItem)")
+                print("itemsssssss\(self.lineItem)")
                 self.itemDraftOrderSubject.asObserver().onNext(items)
             case .failure(let error):
                 print(error.localizedDescription)
             }
           }
+        return lineItem
+        
         }
     
 
