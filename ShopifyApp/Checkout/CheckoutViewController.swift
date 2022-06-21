@@ -139,7 +139,7 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let availableWidth : Double
         let availableHieght :Double
-        availableWidth = itemsCV.frame.width - 24
+        availableWidth = itemsCV.frame.width - 64
         availableHieght = itemsCV.frame.height - 24
         return CGSize(width: availableWidth, height: availableHieght)
     }
