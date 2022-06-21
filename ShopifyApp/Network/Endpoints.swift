@@ -15,7 +15,7 @@ enum Endpoints {
     case WomenCategoryProduct
     case KidsCategoryProduct
     case SaleCategoryProduct
-    case HomeWithProductType(id:categoryID)
+    case HomeWithProductType(id:String)
     case ProductDetails(id:String)
     case Smart_collections
     case CollectionID(id:String)
@@ -64,8 +64,8 @@ enum Endpoints {
             return "products.json?collection_id=\(categoryID)&product_type=shoes"
         case .AccecoriesType(id: let categoryID):
             return "products.json?collection_id=\(categoryID)&product_type=ACCESSORIES"
-        case .HomeWithProductType(id: let categoryID):
-            return "products.json?product_type=\(categoryID)"
+        case .HomeWithProductType(id: let type):
+            return "products.json?product_type=\(type)"
         case .CustomerOrders(id: let orderId):
             return "orders.json?customer_id=\(orderId)"
         case .AddressByID(id: let id):
