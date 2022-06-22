@@ -12,6 +12,7 @@ protocol RegisterViewModelType{
     var bindNavigate:(()->()) {get set}
     var bindDontNavigate:(()->()) {get set}
     var navigate:Bool!{get set}
+    var flag: Bool {get set}
     //  func editCustomer(customer: EditCustomer, customerID: Int, completion: @escaping (Bool)->())
     //func isEmailExist(email: String)-> Bool
 }

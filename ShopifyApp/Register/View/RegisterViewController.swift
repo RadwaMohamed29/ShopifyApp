@@ -11,6 +11,7 @@ import NVActivityIndicatorView
 
 class RegisterViewController: UIViewController {
 
+    @IBOutlet weak var screenView: UIView!
     @IBOutlet weak var lblValidation: UILabel!
     @IBOutlet weak var lastNameText: MadokaTextField!
     @IBOutlet weak var passwordText: MadokaTextField!
@@ -74,7 +75,7 @@ class RegisterViewController: UIViewController {
 //            }
 //        }
 //    }
-
+//
     @IBAction func signUpBtn(_ sender: Any) {
         self.lblValidation.isHidden = true
         firstName = firstNameText.text
@@ -91,12 +92,17 @@ class RegisterViewController: UIViewController {
                             case true:
                                 print("from view  \(String(describing: self.firstName ?? ""))")
                             case false:
-                                DispatchQueue.main.async {
-                                    self.lblValidation.isHidden = false
-                                    self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
-                                    self.lblValidation.text = "This user already exists"
-
+                                if self.registerViewModel.flag == true{
+                                    DispatchQueue.main.async {
+                                        self.lblValidation.isHidden = false
+                                        self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
+                                        self.lblValidation.text = "This user already exists"
+                                    }
+                                    break
                                 }
+                                        self.showSnackBar()
+                                        self.indicator.isHidden = true
+                                        self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
                                
                             }
                         }
@@ -122,6 +128,7 @@ class RegisterViewController: UIViewController {
     
     @IBAction func signInBtn(_ sender: Any) {
         let a = LoginViewController(nibName:"LoginViewController", bundle: nil)
+        a.isFromRegister = true
         self.navigationController?.pushViewController(a, animated: true)
     }
 }

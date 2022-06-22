@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     var viewModel: LoginViewModelType!
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     var email, password: String!
+    var isFromRegister: Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
             self.viewModel = LoginViewModel()
@@ -44,7 +45,13 @@ class LoginViewController: UIViewController {
     func navigate(){
         DispatchQueue.main.async {
             self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
-            self.navigationController?.popViewController(animated: true)
+            if self.isFromRegister == true{
+                let home = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
+                self.navigationController?.pushViewController(home, animated: true)
+            }else{
+                self.navigationController?.popViewController(animated: true)
+            }
+            
         }
     }
     @IBAction func loginBtn(_ sender: Any) {
