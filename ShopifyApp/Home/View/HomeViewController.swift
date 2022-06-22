@@ -22,7 +22,7 @@ class HomeViewController: UIViewController,brandIdProtocol {
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         BrandTableViewCell.setHome(deleget: self)
         setupTableView()
-        getItemsDraft()
+    getItemsDraft()
 
     }
     override func viewWillAppear(_ animated: Bool) {

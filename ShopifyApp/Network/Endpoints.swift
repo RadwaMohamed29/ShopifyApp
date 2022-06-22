@@ -88,7 +88,7 @@ enum Endpoints {
             return "customers/\(id).json"
         case .order:
             return "orders.json"
-        case .getImage(id: let id):
+        case .getImage(id:let id):
             return "products/\(id)/images.json"
         }
     }
