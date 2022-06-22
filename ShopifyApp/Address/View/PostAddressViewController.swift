@@ -46,6 +46,10 @@ class PostAddressViewController: UIViewController {
 
         editedAddress = Address( address2: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!, phone: buildNoTxtV.text!)
         if validateAddressInput(){
+            if buildNoTxtV.text!.count != 11 || buildNoTxtV.text!.prefix(2) != "01"{
+                Shared.showMessage(message: "please enter a valid phone number", error: true)
+                return
+            }
             viewModel?.editAddress(address: editedAddress, addressID: String(addressID), customerID: String(userDefault.getCustomerId()),completion: {[weak self] isSucceded in
                 HandelConnection.handelConnection.checkNetworkConnection {[weak self] isConn in
                     if isConn{
@@ -78,6 +82,10 @@ class PostAddressViewController: UIViewController {
         if isEdit{
             editAddress()
         }else{
+            if buildNoTxtV.text!.count != 11 || buildNoTxtV.text!.prefix(2) != "01"{
+                Shared.showMessage(message: "please enter a valid phone number", error: true)
+                return
+            }
             if validateAddressInput() {
                 let id:String = String((userDefault.getCustomerId()))
                 viewModel?.getAddDetailsAndPostToCustomer(customerID: id, phone: buildNoTxtV.text!, streetName: streetNameTxtF.text!, city: cityTxtF.text!, country: countryTxtF.text!,completion: {[weak self] isSucceded in

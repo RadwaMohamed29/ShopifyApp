@@ -32,7 +32,7 @@
                                 </attributes>
                             </fragment>
                         </attributedString>
-                        <color key="baseBackgroundColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="baseBackgroundColor" red="0.22352941176470587" green="0.5725490196078431" blue="0.61176470588235299" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </buttonConfiguration>
                     <connections>
                         <action selector="btnpay:" destination="-1" eventType="touchUpInside" id="DtT-Kw-zH1"/>
