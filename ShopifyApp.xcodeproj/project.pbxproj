@@ -535,6 +535,7 @@
 		3E37B9AA283D981F000A0FD9 /* Shoping */ = {
 			isa = PBXGroup;
 			children = (
+				3EBE16B2285CC2AA001B1F60 /* View */,
 				3EBE16B3285CC2B0001B1F60 /* Model */,
 			);
 			path = Shoping;
@@ -608,8 +609,8 @@
 		3EBE16B2285CC2AA001B1F60 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3E37B9B4283D9860000A0FD9 /* ShoppingCartVC.swift */,
 				3E37B9B5283D9860000A0FD9 /* ShoppingCartVC.xib */,
+				3E37B9B4283D9860000A0FD9 /* ShoppingCartVC.swift */,
 				3E37B9AB283D982A000A0FD9 /* Cells */,
 			);
 			path = View;
@@ -620,7 +621,6 @@
 			children = (
 				3EA799C5285E2E93006B10DA /* DraftOrderTest.swift */,
 				3E3803622860108800D20EA8 /* DraftOrder.swift */,
-				3EBE16B2285CC2AA001B1F60 /* View */,
 			);
 			path = Model;
 			sourceTree = "<group>";

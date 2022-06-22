@@ -15,9 +15,9 @@ class ShoppingCartVC: UIViewController {
     @IBOutlet weak var emptyView: UIView!
     var productViewModel : ProductDetailsViewModel?
     var localDataSource : LocalDataSource?
-    var disBag = DisposeBag()
     var CartProducts : [CartProduct] = []
     var totalPrice:Double?
+    var itemList: [LineItem] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Cart"
@@ -25,16 +25,34 @@ class ShoppingCartVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
-        getCartProductsFromCoreData()
+//        productViewModel!.bindDraftOrderLineItems = {
+//            self.onSuccessUpdateView()
+//        }
+//        productViewModel!.bindDraftViewModelErrorToView = {
+//            self.onFailUpdateView()
+//        }
         setTotalPrice()
     }
-
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         checkCartIsEmpty()
     }
+    func onSuccessUpdateView() {
+        self.productViewModel!.getDraftOrderLineItems(id:Utilities.utilities.getDraftOrder())
+        self.itemList = self.productViewModel!.lineItems ?? []
+        self.tableView.reloadData()
+    }
+    
+    func onFailUpdateView() {
+        let alert = UIAlertController(title: "Error", message: productViewModel!.showError, preferredStyle: .alert)
+        let okAction  = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
+            
+        }
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
     func checkCartIsEmpty(){
-        if CartProducts.isEmpty {
+        if itemList.isEmpty {
             emptyView.isHidden=false
         }
         else{
@@ -61,6 +79,7 @@ class ShoppingCartVC: UIViewController {
         tableView.reloadData()
         
     }
+    
     func deleteItemFromCart(index:Int){
         do{
             try self.productViewModel?.removeProductFromCart(productID: "\(CartProducts[index].id ?? "1")", completionHandler: { response in
@@ -134,60 +153,19 @@ class ShoppingCartVC: UIViewController {
         self.navigationController?.pushViewController(address, animated: true)
     }
     
+    
 }
 extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return CartProducts.count
+        print("counnnnnt\(itemList.count)")
+        return itemList.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: OrdersTVC.identifier, for: indexPath) as! OrdersTVC
-        let url = URL(string: CartProducts[indexPath.row].image!)
-        let processor = DownsamplingImageProcessor(size: cell.productImage.bounds.size)
-        cell.productTitle.text=CartProducts[indexPath.row].title
-        cell.productImage.kf.indicatorType = .activity
-                cell.productImage.kf.setImage(
-                    with: url,
-                    placeholder: UIImage(named: "placeholderImage"),
-                    options: [
-                        .processor(processor),
-                        .scaleFactor(UIScreen.main.scale),
-                        .transition(.fade(1)),
-                        .cacheOriginalImage
-                    ])
-        cell.productCount.text = " \(CartProducts[indexPath.row].count)"
-        cell.productPrice.text = Shared.formatePrice(priceStr: CartProducts[indexPath.row].price!) 
-        cell.deleteFromBagProducts = {[weak self] in
-        self?.showDeleteAlert(indexPath: indexPath)
-        }
-        let id = self.CartProducts[indexPath.row].id!
-        var count = Int(self.CartProducts[indexPath.row].count)
-        cell.addCount={
-            if count == self.CartProducts[indexPath.row].quantity{
-              self.alertWarning(indexPath: indexPath, title: "information", message: "this quantity not available")
-            }else{
-                count+=1
-                cell.productCount.text = "\(count)"
-                self.updateCount(productID: Int(id)!, count: Int(count))
-                self.setTotalPrice()
-                cell.subBtn.isEnabled = true
-                
-            }
-              
-            
-        }
-        cell.subCount={
-            if (count != 1) {
-                cell.subBtn.isEnabled = true
-                count-=1
-                cell.productCount.text = "\(count)"
-                self.updateCount(productID: Int(id)!, count: Int(count))
-                self.setTotalPrice()
-            }
-            else{
-                self.alertWarning(indexPath: indexPath, title: "warning", message: "You can't decrease count of item to zero if you want remove it you can it from trash icon")
-            }
-        }
+        let item = itemList[indexPath.row]
+        cell.updateUI(item: item)
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -199,7 +177,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let detalisVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
-        detalisVC.productId = CartProducts[indexPath.row].id
+        detalisVC.productId = String(itemList[indexPath.row].productID)
         self.navigationController?.pushViewController(detalisVC, animated: true)
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

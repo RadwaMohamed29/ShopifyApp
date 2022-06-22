@@ -6,18 +6,24 @@
 //
 
 import UIKit
+import RxSwift
 class HomeViewController: UIViewController,brandIdProtocol {
     @IBOutlet weak var noImageView: UIView!
     @IBOutlet weak var favBtn: UIBarButtonItem!
     @IBOutlet weak var cartBtn: UIBarButtonItem!
     @IBOutlet weak var homeTV: UITableView!
+    var productViewModel : ProductDetailsViewModel?
+    var items:[LineItem] = []
+    var disposeBag = DisposeBag()
     var localDataSource = LocalDataSource(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
+        productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         BrandTableViewCell.setHome(deleget: self)
         setupTableView()
-        
+    getItemsDraft()
+
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -26,7 +32,7 @@ class HomeViewController: UIViewController,brandIdProtocol {
         homeTV.addSubview(refreshControl)
         Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
             if isLoggedIn{
-                self.cartBtn.setBadge(text: String(describing:self.localDataSource.getCountOfProductInCart()))
+                self.cartBtn.setBadge(text: String(describing:self.items.count))
                 self.favBtn.setBadge(text: String(describing: self.localDataSource.getCountOfProductInFav()))
             }
             else{
@@ -35,6 +41,7 @@ class HomeViewController: UIViewController,brandIdProtocol {
             }
         }
         checkConnection()
+
     }
     func setupTableView(){
         homeTV.register(AbsTableViewCell.Nib(), forCellReuseIdentifier: AbsTableViewCell.identifier)
@@ -63,6 +70,7 @@ class HomeViewController: UIViewController,brandIdProtocol {
         Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
             if isLoggedIn {
                 let cartScreen = ShoppingCartVC(nibName:"ShoppingCartVC", bundle: nil)
+                cartScreen.itemList = self.items
                  self.navigationController?.pushViewController(cartScreen, animated: true)
             }
             else {
@@ -99,6 +107,17 @@ extension HomeViewController{
                 self.showSnackBar()
             }
         }
+    }
+    func getItemsDraft(){
+        productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
+        productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+            .init(qos: .background))
+        .observe(on: MainScheduler.asyncInstance)
+        .subscribe{ result in
+            self.items = self.productViewModel!.lineItem
+           print("self.itemList\( self.items)")
+            print("get items success ")
+        }.disposed(by: disposeBag)
     }
 }
 extension HomeViewController :UITableViewDelegate, UITableViewDataSource{

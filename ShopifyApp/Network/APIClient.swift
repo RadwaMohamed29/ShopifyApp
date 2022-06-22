@@ -11,7 +11,12 @@ private let BASE_URL = "https://54e7ce1d28a9d3b395830ea17be70ae1:shpat_1207b06b9
 //https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/draft_orders.json
 //https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/customers.json
 class APIClient: NetworkServiceProtocol{
-
+    func getProductImage(id: String , completion: @escaping (Result<ImagesProduct, ErrorType>)->()) {
+        request(endpoint: .getImage(id: id), method: .GET, compeletion: completion )
+    }
+    func updateCustomerNote(id: String, customer: Customer, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        apiPost(endPoint: .Customer(id: id), methods: .POST, modelType: customer, completion: completion)
+    }
     func getItemsDraftOrder(idDraftOrde: Int, completion: @escaping (Result<DraftOrderResponseTest, ErrorType>) -> ()) {
         request(endpoint: .getDraftOrder(id: idDraftOrde), method: .GET, compeletion: completion)
     }
