@@ -24,12 +24,12 @@
 		<key>BraintreeDropIn-BraintreeDropIn-Localization.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>21</integer>
+			<integer>20</integer>
 		</dict>
 		<key>BraintreeDropIn.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>22</integer>
+			<integer>21</integer>
 		</dict>
 		<key>Floaty.xcscheme</key>
 		<dict>
@@ -117,7 +117,7 @@
 		<key>RxCocoa.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>17</integer>
+			<integer>16</integer>
 		</dict>
 		<key>RxRelay.xcscheme</key>
 		<dict>
@@ -141,7 +141,7 @@
 		<key>RxSwift.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>20</integer>
+			<integer>19</integer>
 		</dict>
 		<key>SwiftMessages-SwiftMessages.xcscheme</key>
 		<dict>
@@ -165,12 +165,12 @@
 		<key>SwiftMessages.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>18</integer>
+			<integer>17</integer>
 		</dict>
 		<key>TextFieldEffects.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>19</integer>
+			<integer>18</integer>
 		</dict>
 		<key>lottie-ios.xcscheme</key>
 		<dict>
