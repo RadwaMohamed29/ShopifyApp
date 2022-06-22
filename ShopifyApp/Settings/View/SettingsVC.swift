@@ -34,6 +34,7 @@ class SettingsVC: UIViewController {
     }
     @IBAction func addressBtn(_ sender: Any) {
         let addressVC = AddressViewController(nibName: "AddressViewController", bundle: nil)
+        addressVC.isComingWithOrder = false
         self.navigationController?.pushViewController(addressVC, animated: true)
     }
     

@@ -17,7 +17,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UnS-V1-dOY">
-                        <rect key="frame" x="286" y="40" width="44" height="31"/>
+                        <rect key="frame" x="300.5" y="40" width="44" height="31"/>
                         <color key="tintColor" red="0.070588235289999995" green="0.074509803920000006" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" image="trash" catalog="system">
@@ -28,36 +28,51 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="luG-uq-Yfx">
-                        <rect key="frame" x="12" y="35" width="245" height="61"/>
+                        <rect key="frame" x="12" y="35" width="237" height="61"/>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                         <color key="textColor" red="0.070588235289999995" green="0.074509803920000006" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                         <color key="shadowColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HNI-eP-rfU">
+                        <rect key="frame" x="255.5" y="40" width="42.5" height="31"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="plain" image="pencil" catalog="system" title="">
+                            <color key="baseForegroundColor" red="0.1908766627" green="0.50012248749999999" blue="0.53568977120000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </buttonConfiguration>
+                        <connections>
+                            <action selector="editBtn:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="4Ni-sp-Hac"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
+                    <constraint firstItem="HNI-eP-rfU" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.254098" id="0Nw-4O-Jum"/>
                     <constraint firstItem="luG-uq-Yfx" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.5" id="3z1-x5-Llc"/>
+                    <constraint firstItem="HNI-eP-rfU" firstAttribute="top" secondItem="UnS-V1-dOY" secondAttribute="top" id="6IQ-5U-hia"/>
                     <constraint firstItem="luG-uq-Yfx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="35" id="EMj-jH-b5V"/>
                     <constraint firstItem="luG-uq-Yfx" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="Gid-1Y-zeo"/>
+                    <constraint firstItem="UnS-V1-dOY" firstAttribute="leading" secondItem="HNI-eP-rfU" secondAttribute="trailing" constant="2.5" id="SAG-je-3Mn"/>
                     <constraint firstItem="UnS-V1-dOY" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.254098" id="ZeF-R7-Y50"/>
                     <constraint firstAttribute="trailing" secondItem="UnS-V1-dOY" secondAttribute="trailing" constant="20" symbolic="YES" id="dta-jO-Hd0"/>
                     <constraint firstItem="UnS-V1-dOY" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="40" id="gUK-zF-Yd3"/>
                     <constraint firstItem="luG-uq-Yfx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="mzh-o9-4Yf"/>
-                    <constraint firstItem="UnS-V1-dOY" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.125714" id="ncy-pb-Qib"/>
-                    <constraint firstItem="luG-uq-Yfx" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.7" id="zsB-9Z-HZt"/>
+                    <constraint firstItem="UnS-V1-dOY" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.120714" id="ncy-pb-Qib"/>
+                    <constraint firstItem="luG-uq-Yfx" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.65" id="zsB-9Z-HZt"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btnDelete" destination="UnS-V1-dOY" id="CBR-cr-Kql"/>
+                <outlet property="btnEdit" destination="HNI-eP-rfU" id="9L3-EJ-EQU"/>
                 <outlet property="labelAddress" destination="luG-uq-Yfx" id="Os9-eJ-Jqx"/>
             </connections>
             <point key="canvasLocation" x="159.42028985507247" y="-15.401785714285714"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="pencil" catalog="system" width="128" height="113"/>
         <image name="trash" catalog="system" width="121" height="128"/>
     </resources>
 </document>

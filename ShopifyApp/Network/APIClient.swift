@@ -12,8 +12,8 @@ private let BASE_URL = "https://54e7ce1d28a9d3b395830ea17be70ae1:shpat_1207b06b9
 //https://54e7ce1d28a9d3b395830ea17be70ae1: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@mad-ism2022.myshopify.com/admin/api/2022-04/customers.json
 class APIClient: NetworkServiceProtocol{
 
-    func getItemsDraftOrder(idDraftOrde: Int, completion: @escaping (Result<DraftOrdersRequest, ErrorType>) -> ()) {
-        
+    func getItemsDraftOrder(idDraftOrde: Int, completion: @escaping (Result<DraftOrderResponseTest, ErrorType>) -> ()) {
+        request(endpoint: .getDraftOrder(id: idDraftOrde), method: .GET, compeletion: completion)
     }
     
     func editeCustomer(id: Int, editeCustomer: EditCustomer, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
@@ -155,10 +155,12 @@ class APIClient: NetworkServiceProtocol{
             
             do{
                 let object = try JSONDecoder().decode(T.self, from: data)
-                completion(.success(object))
                 print("object discount\(object)")
+                completion(.success(object))
+                
             }    catch {
-                print(error.localizedDescription)
+                print("error from network \(error.localizedDescription)")
+                print((response as! HTTPURLResponse).statusCode)
                     completion(.failure(.parsingError))
                 
 

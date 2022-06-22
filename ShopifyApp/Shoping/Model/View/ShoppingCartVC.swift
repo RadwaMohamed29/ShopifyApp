@@ -129,6 +129,7 @@ class ShoppingCartVC: UIViewController {
     @IBAction func goToAddress(_ sender: Any) {
         let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
         address.cartProducts = CartProducts
+        address.isComingWithOrder = true
         Utilities.utilities.setTotalPrice(totalPrice: totalPrice ?? 0)
         self.navigationController?.pushViewController(address, animated: true)
     }
@@ -163,7 +164,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
         var count = Int(self.CartProducts[indexPath.row].count)
         cell.addCount={
             if count == self.CartProducts[indexPath.row].quantity{
-              self.alertWarning(indexPath: indexPath, title: "warning", message: "this quantity not available")
+              self.alertWarning(indexPath: indexPath, title: "information", message: "this quantity not available")
             }else{
                 count+=1
                 cell.productCount.text = "\(count)"
