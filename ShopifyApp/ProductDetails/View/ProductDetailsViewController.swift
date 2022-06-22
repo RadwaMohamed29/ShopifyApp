@@ -249,11 +249,11 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         let variantID = (product?.variant[0].id)!
         let productID = (product?.id)!
         let title = (product?.title)!
+        let price = (product?.variant[0].price)!
         if userDefualt.isLoggedIn(){
             if userDefualt.getUserNote() != ""{
                 itemList = productViewModel!.lineItem
-                
-                let newItem = LineItem(id: 0, variantID: variantID, productID: productID, title: title, variantTitle: "", vendor: "", quantity: quantity)
+                let newItem = LineItem(id: 0, variantID: variantID, productID: productID, title: title, variantTitle: "", vendor: "", quantity: quantity, price: price)
                 itemList.append(newItem)
                 print("itemlist\(itemList.count)")
                 let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(userDefualt.getDraftOrder()), lineItems: itemList ))

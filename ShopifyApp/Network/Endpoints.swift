@@ -35,6 +35,7 @@ enum Endpoints {
 
     case Customer(id:String)
     case order
+    case getImage(id:String)
 
     var path:String{
         switch self {
@@ -87,7 +88,8 @@ enum Endpoints {
             return "customers/\(id).json"
         case .order:
             return "orders.json"
-
+        case .getImage(id: let id):
+            return "products/\(id)/images.json"
         }
     }
 }

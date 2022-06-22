@@ -40,6 +40,7 @@ struct LineItem: Codable {
     let id, variantID, productID: Int
     let title, variantTitle,vendor: String
     let quantity: Int
+    let price:String
     enum CodingKeys: String, CodingKey {
         case id
         case variantID = "variant_id"
@@ -47,6 +48,7 @@ struct LineItem: Codable {
         case title
         case variantTitle = "variant_title"
         case vendor, quantity
+        case price
         
     }
 }
@@ -77,3 +79,11 @@ struct ModifyDraftOrderRequestTest: Codable {
         case dratOrderId = "id"
     }
 }
+struct ImagesProduct: Codable {
+    let images: [ImageSrc]
+}
+
+struct ImageSrc: Codable {
+    let src: String
+}
+

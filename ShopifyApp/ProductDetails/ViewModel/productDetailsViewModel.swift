@@ -32,11 +32,16 @@ protocol ProductDetailsViewModelType{
     func getItemsDraftOrder(idDraftOrde: Int)->[LineItem]
     var itemDraftOrderObservable: Observable<DraftOrderTest>{get set}
     var lineItem : Array<LineItem>{get set}
+    func getImages(id:String)
+    var imageProductObservable: Observable<ImageSrc>{get set}
+    var imgSrc: String{get set}
+
 
 }
 
 
 final class ProductDetailsViewModel: ProductDetailsViewModelType{
+    var imgSrc=""
     var favoriteProducts: [FavouriteProduct]?
     var productsInCart: [CartProduct]?
     var isFav : Bool?
@@ -50,10 +55,12 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     var allProductsObservable :Observable<[Product]>
     var brandsObservable: Observable<[Product]>
     var itemDraftOrderObservable: Observable<DraftOrderTest>
+    var imageProductObservable: Observable<ImageSrc>
     private var productSubject: PublishSubject = PublishSubject<Product>()
     private var allProductsSubject : PublishSubject = PublishSubject<[Product]>()
     private var brandsSubject : PublishSubject = PublishSubject<[Product]>()
     private var itemDraftOrderSubject: PublishSubject = PublishSubject<DraftOrderTest>()
+    private var imageProductSubjectt: PublishSubject = PublishSubject<ImageSrc>()
     
     
     
@@ -63,6 +70,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         allProductsObservable = allProductsSubject.asObserver()
         brandsObservable=brandsSubject.asObservable()
         itemDraftOrderObservable=itemDraftOrderSubject.asObserver()
+        imageProductObservable=imageProductSubjectt.asObserver()
     }
     
     
@@ -335,6 +343,26 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             }
         }
     }
+    var bindDraftOrderLineItems: (() -> ()) = {}
+    var lineItems: [LineItem]? {
+        didSet {
+            self.bindDraftOrderLineItems()
+        }
+    }
+    func getDraftOrderLineItems(id: Int){
+        network.getItemsDraftOrder(idDraftOrde: id) { result in
+            switch result{
+            case .success(let response):
+                let lineItem = response.draftOrder
+                self.lineItems=lineItem.lineItems
+            case .failure(let error):
+                let message = error.localizedDescription
+                self.showError = message
+            }
+        }
+    }
+
+    
     var lineItem = Array<LineItem>()
     func getItemsDraftOrder(idDraftOrde: Int)->[LineItem] {
         network.getItemsDraftOrder(idDraftOrde: idDraftOrde) { result in
@@ -352,6 +380,45 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         return lineItem
         
         }
-    
+    var bindImageURLToView: (() -> ()) = {}
+
+    var imageURL: String? {
+        didSet {
+            self.bindImageURLToView()
+        }
+    }
+    var bindDraftViewModelErrorToView: (() -> ()) = {}
+    var showError: String? {
+        didSet {
+            self.bindDraftViewModelErrorToView()
+        }
+    }
+    func getProductImage(id: String) {
+        network.getProductImage(id: id) {result in
+            switch result{
+            case .success(let response):
+                let image = response.images[0].src
+                self.imageURL = image
+            case .failure(let error):
+                let message = error.localizedDescription
+                self.showError = message
+            }
+        }
+    }
+    func getImages(id: String) {
+        network.getProductImage(id: id) { result in
+            switch result{
+            case .success(let response):
+                let image = response.images[0]
+                self.imageProductSubjectt.asObserver().onNext(image)
+                self.imgSrc = image.src
+                print("image.src\(self.imgSrc)")
+            case .failure(let error):
+                self.imageProductSubjectt.asObserver().onError(error)
+                print(error.localizedDescription)
+
+            }
+        }
+    }
 
 }
