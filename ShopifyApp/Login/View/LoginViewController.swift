@@ -30,8 +30,10 @@ class LoginViewController: UIViewController {
     
     func bindToViewModel(){
         viewModel.bindNavigate = { [weak self] in
-            self?.showActivityIndicator(indicator: self?.indicator, startIndicator: false)
-            self?.navigate()
+            DispatchQueue.main.async {
+                self?.showActivityIndicator(indicator: self?.indicator, startIndicator: false)
+                self?.navigate()
+            }
         }
         viewModel.bindDontNavigate = { [weak self] in
             let message = self?.viewModel.errorMessage ?? "user not exist, please check your information"

@@ -115,12 +115,13 @@ extension UIViewController{
                 indicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
                 indicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
             ])
+            if startIndicator{
+                indicator.startAnimating()
+            }else{
+                indicator.stopAnimating()
+            }
         }
-        if startIndicator{
-            indicator.startAnimating()
-        }else{
-            indicator.stopAnimating()
-        }
+      
     }
     
     func setTxtFieldStyle(txt:[UITextField]) {
