@@ -30,7 +30,7 @@ class ShoppingCartVC: UIViewController {
         tableView.dataSource = self
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         getItemsDraft()
-        setTotalPrice()
+        UpdateTotalPrice()
     }
      func getItemsDraft(){
             productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
@@ -59,34 +59,14 @@ class ShoppingCartVC: UIViewController {
         }
     
     }
-    func getCartProductsFromCoreData(){
-        do{
-            try  productViewModel?.getAllProductsInCart(completion: { response in
-                //MARK: LSA M5LST4
-                switch response{
-                case true:
-                    print("data retrived successfuly")
-                case false:
-                    print("data cant't retrieved")
-                }
-            })
-            
-        }
-        catch let error{
-            print(error.localizedDescription)
-        }
-        CartProducts = (productViewModel?.productsInCart)!
-        tableView.reloadData()
-        
-    }
-    
+
     func deleteItemFromCart(index:Int){
         do{
             try self.productViewModel?.removeProductFromCart(productID: "\(CartProducts[index].id ?? "1")", completionHandler: { response in
                 switch response{
                 case true:
                     print("remove from cart")
-                    self.getCartProductsFromCoreData()
+                   //self.getCartProductsFromCoreData()
                     self.tableView.reloadData()
                     if self.CartProducts.count == 0 {
                         self.emptyView.isHidden=false
@@ -100,41 +80,39 @@ class ShoppingCartVC: UIViewController {
             print(error.localizedDescription)
         }
     }
-    func setTotalPrice(){
-        do{
-            try productViewModel?.updatePrice(completion: { totalPrice in
-                guard let totalPrice = totalPrice else { return }
-                self.totalPrice = totalPrice
-                Utilities.utilities.setTotalPrice(totalPrice:self.totalPrice ?? 0)
-                self.totalLable.text = Shared.formatePrice(priceStr: String(totalPrice))
-                print(totalPrice)
-                })
-        }catch let error{
-            print(error.localizedDescription)
+    func UpdateTotalPrice(){
+        var total = 0.0
+        self.itemList = self.productViewModel!.lineItem
+        print("lineItemPriceee\(itemList)")
+        for item in itemList{
+            total += Double(item.quantity) * (Double(item.price) ?? 0.0)
+            print("totalPrice\(total)")
+            Utilities.utilities.setTotalPrice(totalPrice: total)
         }
+        totalLable.text = "\(Double(total))"
     }
-   @objc func updateCount(productID : Int , count : Int) {
-        do{
-            try  productViewModel?.updateCount(productID: productID, count: count, completionHandler: { response in
-                //MARK: LSA M5LST4
-                switch response{
-                case true:
-                    print("data updated successfuly")
-                case false:
-                    print("data cant't update")
-                }
-            })
-        }
-        catch let error{
-            print(error.localizedDescription)
-        }
+    func modifyCountOfItem(count:Int){
+        let variantID = itemList[0].variantID
+        let productID = itemList[0].productID
+        let title = itemList[0].title
+        let price = itemList[0].price
+        let newItem = LineItem(id: 0, variantID: variantID, productID: productID, title: title, variantTitle: String(variantID), vendor: "", quantity:count, price: price)
+        let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(Utilities.utilities.getDraftOrder()), lineItems: [newItem] ))
+        productViewModel?.editDraftOrder(draftOrder: updateDraftOrder, draftID: Utilities.utilities.getDraftOrder(), completion: { result in
+            switch result {
+            case true:
+                print("update order to api ")
+            case false:
+                print("error to update in api")
+            }
+        })
+        
     }
-    
     func showDeleteAlert(indexPath:IndexPath){
         let alert = UIAlertController(title: "Are you sure?", message: "You will remove this item from the cart", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { [self] UIAlertAction in
             self.deleteItemFromCart(index: indexPath.row)
-            self.setTotalPrice()
+          //  self.setTotalPrice()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -157,7 +135,6 @@ class ShoppingCartVC: UIViewController {
 }
 extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("counnnnnt\(itemList.count)")
         return itemList.count
         
     }
@@ -169,8 +146,36 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
             self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
             let item = self.itemList[indexPath.row]
             cell.updateUI(item: item)
+                  
+           
         }
-     
+        var count = Int(self.itemList[indexPath.row].quantity)
+        cell.addCount={
+//                    if count == self.itemList[indexPath.row].quantity{
+//                      self.alertWarning(indexPath: indexPath, title: "information", message: "this quantity not available")
+//                    }else{
+                        count+=1
+                        cell.productCount.text = "\(count)"
+                        self.modifyCountOfItem(count: count)
+                        self.UpdateTotalPrice()
+                        cell.subBtn.isEnabled = true
+        
+                  //  }
+        
+        
+                }
+                cell.subCount={
+                    if (count != 1) {
+                        cell.subBtn.isEnabled = true
+                        count-=1
+                        cell.productCount.text = "\(count)"
+                        self.modifyCountOfItem(count: count)
+                        self.UpdateTotalPrice()
+                    }
+                    else{
+                        self.alertWarning(indexPath: indexPath, title: "warning", message: "can't decrease count of item to zero")
+                    }
+                }
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
