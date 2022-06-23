@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 import RxSwift
 import Lottie
+import NVActivityIndicatorView
 class ShoppingCartVC: UIViewController {
     @IBOutlet weak var totalLable: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -16,77 +17,56 @@ class ShoppingCartVC: UIViewController {
     var productViewModel : ProductDetailsViewModel?
     var localDataSource : LocalDataSource?
     var CartProducts : [CartProduct] = []
-    var totalPrice:Double?
+    var totalPrice=0.0
     var itemList: [LineItem] = []
+    var disposeBag = DisposeBag()
+    let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.title = "Cart"
         tableView.register(OrdersTVC.nib(), forCellReuseIdentifier: OrdersTVC.identifier)
         tableView.delegate = self
         tableView.dataSource = self
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
-//        productViewModel!.bindDraftOrderLineItems = {
-//            self.onSuccessUpdateView()
-//        }
-//        productViewModel!.bindDraftViewModelErrorToView = {
-//            self.onFailUpdateView()
-//        }
-        setTotalPrice()
+        getItemsDraft()
+        UpdateTotalPrice()
     }
+     func getItemsDraft(){
+            productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
+            productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+                .init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe{ result in
+                self.itemList = self.productViewModel!.lineItem
+                self.tableView.reloadData()
+                print("get items success ")
+            }.disposed(by: disposeBag)
+        }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         checkCartIsEmpty()
     }
-//    func onSuccessUpdateView() {
-//        self.productViewModel!.getDraftOrderLineItems(id:Utilities.utilities.getDraftOrder())
-//        self.itemList = self.productViewModel!.lineItems ?? []
-//        self.tableView.reloadData()
-//    }
-    
-    func onFailUpdateView() {
-        let alert = UIAlertController(title: "Error", message: productViewModel!.showError, preferredStyle: .alert)
-        let okAction  = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
-            
-        }
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
-    }
     func checkCartIsEmpty(){
-        if itemList.isEmpty {
-            emptyView.isHidden=false
+        DispatchQueue.main.asyncAfter(deadline: .now()+1.0)
+        {
+            if self.itemList.isEmpty {
+                self.emptyView.isHidden=false
+            }
+            else{
+                self.emptyView.isHidden=true
+            }
         }
-        else{
-            emptyView.isHidden=true
-        }
-    }
-    func getCartProductsFromCoreData(){
-        do{
-            try  productViewModel?.getAllProductsInCart(completion: { response in
-                //MARK: LSA M5LST4
-                switch response{
-                case true:
-                    print("data retrived successfuly")
-                case false:
-                    print("data cant't retrieved")
-                }
-            })
-            
-        }
-        catch let error{
-            print(error.localizedDescription)
-        }
-        CartProducts = (productViewModel?.productsInCart)!
-        tableView.reloadData()
-        
-    }
     
+    }
+
     func deleteItemFromCart(index:Int){
         do{
             try self.productViewModel?.removeProductFromCart(productID: "\(CartProducts[index].id ?? "1")", completionHandler: { response in
                 switch response{
                 case true:
                     print("remove from cart")
-                    self.getCartProductsFromCoreData()
+                   //self.getCartProductsFromCoreData()
                     self.tableView.reloadData()
                     if self.CartProducts.count == 0 {
                         self.emptyView.isHidden=false
@@ -100,41 +80,41 @@ class ShoppingCartVC: UIViewController {
             print(error.localizedDescription)
         }
     }
-    func setTotalPrice(){
-        do{
-            try productViewModel?.updatePrice(completion: { totalPrice in
-                guard let totalPrice = totalPrice else { return }
-                self.totalPrice = totalPrice
-                Utilities.utilities.setTotalPrice(totalPrice:self.totalPrice ?? 0)
-                self.totalLable.text = Shared.formatePrice(priceStr: String(totalPrice))
-                print(totalPrice)
-                })
-        }catch let error{
-            print(error.localizedDescription)
+    func UpdateTotalPrice(){
+   //     var total = 0.0
+        print("lineItemPriceee\(itemList)")
+        for item in itemList{
+            DispatchQueue.main.async {
+                self.totalPrice += Double(item.quantity) * (Double(item.price) ?? 0.0)
+            }
+            print("totalPrice\(totalPrice)")
         }
+        Utilities.utilities.setTotalPrice(totalPrice: totalPrice)
+        print("utilities.getTotalPric\(Utilities.utilities.getTotalPrice())")
+        totalLable.text = "\(Double(totalPrice))"
     }
-   @objc func updateCount(productID : Int , count : Int) {
-        do{
-            try  productViewModel?.updateCount(productID: productID, count: count, completionHandler: { response in
-                //MARK: LSA M5LST4
-                switch response{
-                case true:
-                    print("data updated successfuly")
-                case false:
-                    print("data cant't update")
-                }
-            })
-        }
-        catch let error{
-            print(error.localizedDescription)
-        }
+    func modifyCountOfItem(count:Int){
+        let variantID = itemList[0].variantID
+        let productID = itemList[0].productID
+        let title = itemList[0].title
+        let price = itemList[0].price
+        let newItem = LineItem(id: 0, variantID: variantID, productID: productID, title: title, variantTitle: String(variantID), vendor: "", quantity:count, price: price)
+        let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(Utilities.utilities.getDraftOrder()), lineItems: [newItem] ))
+        productViewModel?.editDraftOrder(draftOrder: updateDraftOrder, draftID: Utilities.utilities.getDraftOrder(), completion: { result in
+            switch result {
+            case true:
+                print("update order to api ")
+            case false:
+                print("error to update in api")
+            }
+        })
+        
     }
-    
     func showDeleteAlert(indexPath:IndexPath){
         let alert = UIAlertController(title: "Are you sure?", message: "You will remove this item from the cart", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { [self] UIAlertAction in
             self.deleteItemFromCart(index: indexPath.row)
-            self.setTotalPrice()
+          //  self.setTotalPrice()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -149,7 +129,7 @@ class ShoppingCartVC: UIViewController {
         let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
         address.cartProducts = CartProducts
         address.isComingWithOrder = true
-        Utilities.utilities.setTotalPrice(totalPrice: totalPrice ?? 0)
+        Utilities.utilities.setTotalPrice(totalPrice: totalPrice )
         self.navigationController?.pushViewController(address, animated: true)
     }
     
@@ -157,15 +137,47 @@ class ShoppingCartVC: UIViewController {
 }
 extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("counnnnnt\(itemList.count)")
         return itemList.count
         
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: OrdersTVC.identifier, for: indexPath) as! OrdersTVC
-        let item = itemList[indexPath.row]
-        cell.updateUI(item: item)
+        DispatchQueue.main.asyncAfter(deadline: .now()+1.15)
+        {
+            self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
+            let item = self.itemList[indexPath.row]
+            cell.updateUI(item: item)
+                  
+           
+        }
+        var count = Int(self.itemList[indexPath.row].quantity)
+        cell.addCount={
+//                    if count == self.itemList[indexPath.row].quantity{
+//                      self.alertWarning(indexPath: indexPath, title: "information", message: "this quantity not available")
+//                    }else{
+                        count+=1
+                        cell.productCount.text = "\(count)"
+                        self.modifyCountOfItem(count: count)
+                        self.UpdateTotalPrice()
+                        cell.subBtn.isEnabled = true
+        
+                  //  }
+        
+        
+                }
+                cell.subCount={
+                    if (count != 1) {
+                        cell.subBtn.isEnabled = true
+                        count-=1
+                        cell.productCount.text = "\(count)"
+                        self.modifyCountOfItem(count: count)
+                        self.UpdateTotalPrice()
+                    }
+                    else{
+                        self.alertWarning(indexPath: indexPath, title: "warning", message: "can't decrease count of item to zero")
+                    }
+                }
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {

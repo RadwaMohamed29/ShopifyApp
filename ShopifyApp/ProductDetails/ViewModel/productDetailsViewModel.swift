@@ -29,7 +29,7 @@ protocol ProductDetailsViewModelType{
     func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void)
     func editCustomer(customer: EditCustomer, customerID: Int, completion: @escaping (Bool)->())
     func editDraftOrder(draftOrder: PutOrderRequestTest, draftID: Int, completion: @escaping (Bool)->())
-    func getItemsDraftOrder(idDraftOrde: Int)->[LineItem]
+    func getItemsDraftOrder(idDraftOrde: Int)
     var itemDraftOrderObservable: Observable<DraftOrderTest>{get set}
     var lineItem : Array<LineItem>{get set}
 
@@ -67,7 +67,6 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     }
     var bindImageURLToView: (() -> ()) = {}
     var bindDraftViewModelErrorToView: (() -> ()) = {}
-    var bindDraftOrderLineItems: (() -> ()) = {}
     var imageURL: String? {
         didSet {
             self.bindImageURLToView()
@@ -76,11 +75,6 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     var showError: String? {
         didSet {
             self.bindDraftViewModelErrorToView()
-        }
-    }
-    var lineItems: [LineItem]? {
-        didSet {
-            self.bindDraftOrderLineItems()
         }
     }
     func getProduct(id:String) {
@@ -269,6 +263,16 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                 throw error
             }
         }
+    func setTotalPrice(completion: @escaping (Double?)-> Void){
+        var totalPrice: Double = 0.0
+        print("lineItemPriceee\(lineItem)")
+        for item in lineItem {
+            let price = Double(item.price)
+            totalPrice += Double(item.quantity)*price!
+        }
+        Utilities.utilities.setTotalPrice(totalPrice: totalPrice)
+        completion(totalPrice)
+    }
     func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void){
         var lineItem = Array<LineItemDraftTest>()
         lineItem.append(lineItems)
@@ -351,19 +355,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             }
         }
     }
-//    func getDraftOrderLineItems(id: Int){
-//        network.getItemsDraftOrder(idDraftOrde: id) { result in
-//            switch result{
-//            case .success(let response):
-//                let lineItem = response.draftOrder
-//                self.lineItems=lineItem.lineItems
-//            case .failure(let error):
-//                let message = error.localizedDescription
-//                self.showError = message
-//            }
-//        }
-//    }
-    func getItemsDraftOrder(idDraftOrde: Int)->[LineItem] {
+    func getItemsDraftOrder(idDraftOrde: Int) {
         network.getItemsDraftOrder(idDraftOrde: idDraftOrde) { result in
             switch result {
             case .success(let response):
@@ -376,8 +368,6 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                 print(error.localizedDescription)
             }
           }
-        return lineItem
-        
         }
     func getProductImage(id: String) {
         network.getProductImage(id: id) {result in

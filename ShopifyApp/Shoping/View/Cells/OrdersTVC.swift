@@ -34,7 +34,6 @@ class OrdersTVC : UITableViewCell {
         self.item = item
         productTitle.text = item.title
         productCount.text = String(describing: item.quantity)
-        //productCount.text = String(describing: count)
         let id = String(describing: item.productID)
         productViewModel!.getProductImage(id: id)
         productViewModel!.bindImageURLToView = { self.onSuccessUpdateView() }
@@ -63,6 +62,7 @@ class OrdersTVC : UITableViewCell {
         deleteFromBagProducts()
     }
     @IBAction func subCount(_ sender: Any) {
+        
         subCount()
     }
     @IBAction func addCount(_ sender: Any) {
