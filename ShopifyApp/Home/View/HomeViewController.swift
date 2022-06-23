@@ -22,7 +22,7 @@ class HomeViewController: UIViewController,brandIdProtocol {
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         BrandTableViewCell.setHome(deleget: self)
         setupTableView()
-    getItemsDraft()
+    //getItemsDraft()
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -70,7 +70,7 @@ class HomeViewController: UIViewController,brandIdProtocol {
         Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
             if isLoggedIn {
                 let cartScreen = ShoppingCartVC(nibName:"ShoppingCartVC", bundle: nil)
-                cartScreen.itemList = self.items
+               // cartScreen.itemList = self.items
                  self.navigationController?.pushViewController(cartScreen, animated: true)
             }
             else {
@@ -108,17 +108,17 @@ extension HomeViewController{
             }
         }
     }
-    func getItemsDraft(){
-        productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
-        productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
-            .init(qos: .background))
-        .observe(on: MainScheduler.asyncInstance)
-        .subscribe{ result in
-            self.items = self.productViewModel!.lineItem
-           print("self.itemList\( self.items)")
-            print("get items success ")
-        }.disposed(by: disposeBag)
-    }
+//    func getItemsDraft(){
+//        productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
+//        productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+//            .init(qos: .background))
+//        .observe(on: MainScheduler.asyncInstance)
+//        .subscribe{ result in
+//            self.items = self.productViewModel!.lineItem
+//           print("self.itemList\( self.items)")
+//            print("get items success ")
+//        }.disposed(by: disposeBag)
+//    }
 }
 extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
