@@ -40,7 +40,6 @@ class ShoppingCartVC: UIViewController {
             .subscribe{ result in
                 self.itemList = self.productViewModel!.lineItem
                 self.tableView.reloadData()
-               print("self.itemList\( self.itemList)")
                 print("get items success ")
             }.disposed(by: disposeBag)
         }

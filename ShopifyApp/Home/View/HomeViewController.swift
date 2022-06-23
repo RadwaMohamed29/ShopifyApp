@@ -13,8 +13,6 @@ class HomeViewController: UIViewController,brandIdProtocol {
     @IBOutlet weak var cartBtn: UIBarButtonItem!
     @IBOutlet weak var homeTV: UITableView!
     var productViewModel : ProductDetailsViewModel?
-    var items:[LineItem] = []
-    var disposeBag = DisposeBag()
     var localDataSource = LocalDataSource(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
@@ -22,7 +20,6 @@ class HomeViewController: UIViewController,brandIdProtocol {
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         BrandTableViewCell.setHome(deleget: self)
         setupTableView()
-    //getItemsDraft()
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -32,7 +29,7 @@ class HomeViewController: UIViewController,brandIdProtocol {
         homeTV.addSubview(refreshControl)
         Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
             if isLoggedIn{
-                self.cartBtn.setBadge(text: String(describing:self.items.count))
+                self.cartBtn.setBadge(text:String( self.localDataSource.getCountOfProductInCart()))
                 self.favBtn.setBadge(text: String(describing: self.localDataSource.getCountOfProductInFav()))
             }
             else{
@@ -103,22 +100,10 @@ extension HomeViewController{
             }else{
                 self.homeTV.isHidden = true
                 self.noImageView.isHidden = false
-              //  self.showAlertForInterNetConnection()
                 self.showSnackBar()
             }
         }
     }
-//    func getItemsDraft(){
-//        productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
-//        productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
-//            .init(qos: .background))
-//        .observe(on: MainScheduler.asyncInstance)
-//        .subscribe{ result in
-//            self.items = self.productViewModel!.lineItem
-//           print("self.itemList\( self.items)")
-//            print("get items success ")
-//        }.disposed(by: disposeBag)
-//    }
 }
 extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
