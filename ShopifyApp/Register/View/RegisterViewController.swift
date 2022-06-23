@@ -36,8 +36,11 @@ class RegisterViewController: UIViewController {
     
     func bindToViewModel(){
         registerViewModel.bindNavigate = { [weak self] in
-            self?.showActivityIndicator(indicator: self?.indicator, startIndicator: false)
-            self?.navigate()
+            DispatchQueue.main.async {
+                self?.showActivityIndicator(indicator: self?.indicator, startIndicator: false)
+                self?.navigate()
+            }
+          
         }
         registerViewModel.bindDontNavigate = { [weak self] in
             DispatchQueue.main.async {
@@ -47,16 +50,15 @@ class RegisterViewController: UIViewController {
     }
    
     func navigate(){
-        DispatchQueue.main.async {
             self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
-            if self.isFromLogin == true{
-                let home = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
-                self.navigationController?.pushViewController(home, animated: true)
-            }else{
-                self.navigationController?.popViewController(animated: true)
+            if self.registerViewModel.navigate == true{
+                if self.isFromLogin == true{
+                    let home = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
+                    self.navigationController?.pushViewController(home, animated: true)
+                }else{
+                    self.navigationController?.popViewController(animated: true)
+                }
             }
-           
-        }
     }
     
 //    func updateCustomer(){
@@ -94,16 +96,20 @@ class RegisterViewController: UIViewController {
                             case false:
                                 if self.registerViewModel.flag == true{
                                     DispatchQueue.main.async {
-                                        self.lblValidation.isHidden = false
                                         self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
+                                        self.lblValidation.isHidden = false
                                         self.lblValidation.text = "This user already exists"
                                     }
-                                    break
+                                    
                                 }
+                                else{
+                                    DispatchQueue.main.async {
+                                        self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
                                         self.showSnackBar()
                                         self.indicator.isHidden = true
-                                        self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
-                               
+                                        
+                                    }
+                                }
                             }
                         }
                 }else{

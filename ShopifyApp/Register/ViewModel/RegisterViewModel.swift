@@ -51,13 +51,16 @@ class RegisterViewModel: RegisterViewModelType{
                         switch result{
                         case true:
                             completion(true)
+                            self?.navigate = true
                         case false:
                             completion(false)
+                            self?.navigate = false
                         }
                         
                     }
                     
                 }else{
+                    self?.navigate = false
                     completion(false)
                 }
                 
@@ -100,12 +103,12 @@ class RegisterViewModel: RegisterViewModelType{
                         print("passwordUserrrr\( String(describing: self?.userDefualt.getUserPassword()))")
                         completion(true)
 
-                        self?.navigate = true
+                        //self?.navigate = true
                         
                         print("add to userDefualt successfully!!!")
                     }else{
                         completion(false)
-                        self?.navigate = false
+                        //self?.navigate = false
                         print("error to register")
                     }
                 }
