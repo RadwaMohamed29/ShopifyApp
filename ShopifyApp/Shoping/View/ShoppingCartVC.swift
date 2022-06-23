@@ -17,7 +17,7 @@ class ShoppingCartVC: UIViewController {
     var productViewModel : ProductDetailsViewModel?
     var localDataSource : LocalDataSource?
     var CartProducts : [CartProduct] = []
-    var totalPrice:Double?
+    var totalPrice=0.0
     var itemList: [LineItem] = []
     var disposeBag = DisposeBag()
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
@@ -81,15 +81,17 @@ class ShoppingCartVC: UIViewController {
         }
     }
     func UpdateTotalPrice(){
-        var total = 0.0
-        self.itemList = self.productViewModel!.lineItem
+   //     var total = 0.0
         print("lineItemPriceee\(itemList)")
         for item in itemList{
-            total += Double(item.quantity) * (Double(item.price) ?? 0.0)
-            print("totalPrice\(total)")
-            Utilities.utilities.setTotalPrice(totalPrice: total)
+            DispatchQueue.main.async {
+                self.totalPrice += Double(item.quantity) * (Double(item.price) ?? 0.0)
+            }
+            print("totalPrice\(totalPrice)")
         }
-        totalLable.text = "\(Double(total))"
+        Utilities.utilities.setTotalPrice(totalPrice: totalPrice)
+        print("utilities.getTotalPric\(Utilities.utilities.getTotalPrice())")
+        totalLable.text = "\(Double(totalPrice))"
     }
     func modifyCountOfItem(count:Int){
         let variantID = itemList[0].variantID
@@ -127,7 +129,7 @@ class ShoppingCartVC: UIViewController {
         let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
         address.cartProducts = CartProducts
         address.isComingWithOrder = true
-        Utilities.utilities.setTotalPrice(totalPrice: totalPrice ?? 0)
+        Utilities.utilities.setTotalPrice(totalPrice: totalPrice )
         self.navigationController?.pushViewController(address, animated: true)
     }
     
