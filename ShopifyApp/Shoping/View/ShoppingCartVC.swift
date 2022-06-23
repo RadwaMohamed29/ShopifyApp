@@ -37,11 +37,11 @@ class ShoppingCartVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         checkCartIsEmpty()
     }
-    func onSuccessUpdateView() {
-        self.productViewModel!.getDraftOrderLineItems(id:Utilities.utilities.getDraftOrder())
-        self.itemList = self.productViewModel!.lineItems ?? []
-        self.tableView.reloadData()
-    }
+//    func onSuccessUpdateView() {
+//        self.productViewModel!.getDraftOrderLineItems(id:Utilities.utilities.getDraftOrder())
+//        self.itemList = self.productViewModel!.lineItems ?? []
+//        self.tableView.reloadData()
+//    }
     
     func onFailUpdateView() {
         let alert = UIAlertController(title: "Error", message: productViewModel!.showError, preferredStyle: .alert)
