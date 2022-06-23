@@ -9,6 +9,7 @@ import UIKit
 import Kingfisher
 import RxSwift
 import Lottie
+import NVActivityIndicatorView
 class ShoppingCartVC: UIViewController {
     @IBOutlet weak var totalLable: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -18,46 +19,46 @@ class ShoppingCartVC: UIViewController {
     var CartProducts : [CartProduct] = []
     var totalPrice:Double?
     var itemList: [LineItem] = []
+    var disposeBag = DisposeBag()
+    let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.title = "Cart"
         tableView.register(OrdersTVC.nib(), forCellReuseIdentifier: OrdersTVC.identifier)
         tableView.delegate = self
         tableView.dataSource = self
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
-//        productViewModel!.bindDraftOrderLineItems = {
-//            self.onSuccessUpdateView()
-//        }
-//        productViewModel!.bindDraftViewModelErrorToView = {
-//            self.onFailUpdateView()
-//        }
+        getItemsDraft()
         setTotalPrice()
     }
+     func getItemsDraft(){
+            productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
+            productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+                .init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe{ result in
+                self.itemList = self.productViewModel!.lineItem
+                self.tableView.reloadData()
+               print("self.itemList\( self.itemList)")
+                print("get items success ")
+            }.disposed(by: disposeBag)
+        }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         checkCartIsEmpty()
     }
-//    func onSuccessUpdateView() {
-//        self.productViewModel!.getDraftOrderLineItems(id:Utilities.utilities.getDraftOrder())
-//        self.itemList = self.productViewModel!.lineItems ?? []
-//        self.tableView.reloadData()
-//    }
-    
-    func onFailUpdateView() {
-        let alert = UIAlertController(title: "Error", message: productViewModel!.showError, preferredStyle: .alert)
-        let okAction  = UIAlertAction(title: "Ok", style: .default) { (UIAlertAction) in
-            
-        }
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
-    }
     func checkCartIsEmpty(){
-        if itemList.isEmpty {
-            emptyView.isHidden=false
+        DispatchQueue.main.asyncAfter(deadline: .now()+1.0)
+        {
+            if self.itemList.isEmpty {
+                self.emptyView.isHidden=false
+            }
+            else{
+                self.emptyView.isHidden=true
+            }
         }
-        else{
-            emptyView.isHidden=true
-        }
+    
     }
     func getCartProductsFromCoreData(){
         do{
@@ -164,8 +165,13 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: OrdersTVC.identifier, for: indexPath) as! OrdersTVC
-        let item = itemList[indexPath.row]
-        cell.updateUI(item: item)
+        DispatchQueue.main.asyncAfter(deadline: .now()+1.15)
+        {
+            self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
+            let item = self.itemList[indexPath.row]
+            cell.updateUI(item: item)
+        }
+     
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
