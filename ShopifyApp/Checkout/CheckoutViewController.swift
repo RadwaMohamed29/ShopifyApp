@@ -38,7 +38,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     }
     @IBOutlet weak var smallView: UIView!
     var disBag = DisposeBag()
-    var cartProducts : [CartProduct] = []
+    var itemList : [LineItem] = []
     var items :[LineItems] = []
     var adress : Address?
     var subTotal :Double?
@@ -96,7 +96,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     }
     
     @IBAction func btnConfirmPayment(_ sender: Any) {
-        items = convertFromListOfCartProdeuctTolistOfLineItems(products: cartProducts)
+        items = convertFromListOfCartProdeuctTolistOfLineItems(products: itemList)
         order = prepareOrderObject(items: items, adress: adress!,price: "\(total ?? 0)")
         let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
         
@@ -129,7 +129,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
 
 extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        cartProducts.count
+        itemList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -137,9 +137,9 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor(red: 0.031, green: 0.498, blue: 0.537, alpha: 1).cgColor
         cell.layer.cornerRadius = 20
-        setImage(image: cell.image, index: indexPath.row)
-        cell.price.text = Shared.formatePrice(priceStr: cartProducts[indexPath.row].price)
-        cell.amount.text = "\(cartProducts[indexPath.row].count)"
+        cell.updateUI(item: itemList[indexPath.row])
+        cell.price.text = Shared.formatePrice(priceStr: itemList[indexPath.row].price)
+        cell.amount.text = "\(itemList[indexPath.row].quantity)"
         
         
         return cell
@@ -156,39 +156,40 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
         return CGSize(width: availableWidth, height: availableHieght)
     }
     
-    func setImage(image: UIImageView,index : Int)  {
-        let url = URL(string: cartProducts[index].image ?? "")
-          let processor = DownsamplingImageProcessor(size: image.bounds.size)
-                       |> RoundCornerImageProcessor(cornerRadius: 20)
-          image.kf.indicatorType = .activity
-        image.kf.setImage(
-              with: url,
-              options: [
-                  .processor(processor),
-                  .scaleFactor(UIScreen.main.scale),
-                  .transition(.fade(1)),
-                  .cacheOriginalImage
-              ])
-        image.layer.borderWidth = 1
-        image.layer.borderColor = UIColor.lightGray.cgColor
-        image.layer.cornerRadius = 20
-    }
-    func convertFromListOfCartProdeuctTolistOfLineItems(products:[CartProduct]) -> [LineItems]{
+    
+//    func setImage(image: UIImageView,index : Int)  {
+//        let url = URL(string: itemList[index].image ?? "")
+//          let processor = DownsamplingImageProcessor(size: image.bounds.size)
+//                       |> RoundCornerImageProcessor(cornerRadius: 20)
+//          image.kf.indicatorType = .activity
+//        image.kf.setImage(
+//              with: url,
+//              options: [
+//                  .processor(processor),
+//                  .scaleFactor(UIScreen.main.scale),
+//                  .transition(.fade(1)),
+//                  .cacheOriginalImage
+//              ])
+//        image.layer.borderWidth = 1
+//        image.layer.borderColor = UIColor.lightGray.cgColor
+//        image.layer.cornerRadius = 20
+//    }
+    func convertFromListOfCartProdeuctTolistOfLineItems(products:[LineItem]) -> [LineItems]{
         var items : [LineItems] = []
         for item in products{
             items.append(convertFromCartProdeuctToLineItems(cartProduct: item))
         }
         return items
     }
-    func convertFromCartProdeuctToLineItems(cartProduct : CartProduct)->LineItems{
+    func convertFromCartProdeuctToLineItems(cartProduct : LineItem)->LineItems{
         let lineItems = LineItems(id: nil
                                   , giftCard: false
-                                  , name: cartProduct.title ?? ""
-                                  , price: "\(cartProduct.price ?? "0")"
+                                  , name: cartProduct.title
+                                  , price: "\(cartProduct.price )"
                                   , productExists: true
-                                  , productID: Int(cartProduct.id ?? "0")
-                                  , quantity: Int(cartProduct.count)
-                                  , title: cartProduct.title ?? "")
+                                  , productID: Int(cartProduct.id )
+                                  , quantity: Int(cartProduct.quantity)
+                                  , title: cartProduct.title )
         return lineItems
     }
 

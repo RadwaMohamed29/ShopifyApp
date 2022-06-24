@@ -108,7 +108,6 @@ class FavouriteViewController: UIViewController {
                             DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
                                 self.updateCustomer()
                                 Shared.showMessage(message: "Added To Bag Successfully!", error: false)
-
                             }
                         }else{
                             self.getItemsDraft()
@@ -120,7 +119,6 @@ class FavouriteViewController: UIViewController {
                         }
                     }
                 }
-                
                 do{
                     try productViewModel?.addProductToCoreDataCart(id: "\(product.id)",title:product.title,image:product.scr,price:product.price, itemCount: 1, quantity:1, completion: { result in
                         switch result{
