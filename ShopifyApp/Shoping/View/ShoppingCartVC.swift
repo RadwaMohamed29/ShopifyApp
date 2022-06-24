@@ -19,6 +19,7 @@ class ShoppingCartVC: UIViewController {
     var CartProducts : [CartProduct] = []
     var totalPrice=0.0
     var itemList: [LineItem] = []
+    var allItems: [LineItem] = []
     var disposeBag = DisposeBag()
     let userDefualt = Utilities()
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
@@ -77,15 +78,61 @@ class ShoppingCartVC: UIViewController {
                         
                     })
         }    }
-
+    //func getSelectedProduct(id: Int)
     func deleteItemFromCart(index:Int){
         ///product details check product in cart a'3mleha 3la api
+        print("draftId\(userDefualt.getDraftOrder())")
         if itemList.count == 1{
-            productViewModel?.deleteDraftOrder(draftOrderID: Utilities.utilities.getDraftOrder())
+            productViewModel?.deleteDraftOrder(draftOrderID: userDefualt.getDraftOrder())
             self.emptyView.isHidden=false
             Utilities.utilities.setDraftOrder(id: 0)
             updateCustomerNote()
+        }else{
+            if userDefualt.isLoggedIn(){
+                if userDefualt.getUserNote() != "0"{
+                    allItems = productViewModel!.lineItem
+                    allItems.remove(at: index)
+                    let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(userDefualt.getDraftOrder()), lineItems: allItems ))
+                    productViewModel?.editDraftOrder(draftOrder: updateDraftOrder, draftID: userDefualt.getDraftOrder(), completion: { result in
+                        switch result{
+                        case true:
+                            print("update order to api ")
+                            
+                           // self.tableView.reloadData()
+                        case false:
+                            print("error to update in api")
+                        }
+                        
+                    })
+                }
+            }
         }
+        
+        /*    func editDraftOrder(){
+         let quantity = 1
+         let variantID = (product?.variant[0].id)!
+         let productID = (product?.id)!
+         let title = (product?.title)!
+         let price = (product?.variant[0].price)!
+         if userDefualt.isLoggedIn(){
+             if userDefualt.getUserNote() != ""{
+                 itemList = productViewModel!.lineItem
+                 let newItem = LineItem(id: 0, variantID: variantID, productID: productID, title: title, variantTitle: "", vendor: "", quantity: quantity, price: price)
+                 itemList.append(newItem)
+                 print("itemlist\(itemList.count)")
+                 let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(userDefualt.getDraftOrder()), lineItems: itemList ))
+                 productViewModel?.editDraftOrder(draftOrder: updateDraftOrder, draftID: userDefualt.getDraftOrder(), completion: { result in
+                     switch result {
+                     case true:
+                         print("update order to api ")
+                     case false:
+                         print("error to update in api")
+                     }
+                 })
+             }
+         }
+     }*/
+        //********************
 //        do{
 //            try self.productViewModel?.removeProductFromCart(productID: "\(CartProducts[index].id ?? "1")", completionHandler: { response in
 //                switch response{

@@ -245,7 +245,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         })
     }
     func editDraftOrder(){
-        let quantity = (product?.variant[0].price)!
+        let quantity = 1
         let variantID = (product?.variant[0].id)!
         let productID = (product?.id)!
         let title = (product?.title)!
@@ -253,7 +253,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         if userDefualt.isLoggedIn(){
             if userDefualt.getUserNote() != ""{
                 itemList = productViewModel!.lineItem
-                let newItem = LineItem(id: 0, variantID: variantID, productID: productID, title: title, variantTitle: "", vendor: "", quantity: Int(quantity)!, price: price)
+                let newItem = LineItem(id: 0, variantID: variantID, productID: productID, title: title, variantTitle: "", vendor: "", quantity: quantity, price: price)
                 itemList.append(newItem)
                 print("itemlist\(itemList.count)")
                 let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(userDefualt.getDraftOrder()), lineItems: itemList ))
