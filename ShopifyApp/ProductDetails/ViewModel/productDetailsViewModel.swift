@@ -32,12 +32,16 @@ protocol ProductDetailsViewModelType{
     func getItemsDraftOrder(idDraftOrde: Int)
     var itemDraftOrderObservable: Observable<DraftOrderTest>{get set}
     var lineItem : Array<LineItem>{get set}
+    var totalPrice: Double{get set}
+
 
 
 }
 
 
 final class ProductDetailsViewModel: ProductDetailsViewModelType{
+    var totalPrice=0.0
+    
     var favoriteProducts: [FavouriteProduct]?
     var productsInCart: [CartProduct]?
     var isFav : Bool?
@@ -47,6 +51,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     var localDataSource :LocalDataSource
     let userDefult = Utilities()
     var lineItem = Array<LineItem>()
+    
 
 
     var productObservable: Observable<Product>
@@ -263,15 +268,24 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                 throw error
             }
         }
-    func setTotalPrice(completion: @escaping (Double?)-> Void){
-        var totalPrice: Double = 0.0
-        print("lineItemPriceee\(lineItem)")
-        for item in lineItem {
-            let price = Double(item.price)
-            totalPrice += Double(item.quantity)*price!
+    func setTotalPriceFromApi(completion: @escaping (Double?)-> Void){
+        network.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder()) {  result in
+            switch result {
+            case .success(let response):
+                 let items = response.draftOrder
+                print("lineItemPriceee\(self.lineItem)")
+                for item in self.lineItem {
+                    let price = Double(item.price)
+                    self.totalPrice += Double(item.quantity)*price!
+                }
+                self.itemDraftOrderSubject.asObserver().onNext(items)
+                Utilities.utilities.setTotalPrice(totalPrice: self.totalPrice)
+                completion(self.totalPrice)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
         }
-        Utilities.utilities.setTotalPrice(totalPrice: totalPrice)
-        completion(totalPrice)
+    
     }
     func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void){
         var lineItem = Array<LineItemDraftTest>()
@@ -369,18 +383,8 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             }
           }
         }
-    func getProductImage(id: String) {
-        network.getProductImage(id: id) {result in
-            switch result{
-            case .success(let response):
-                let image = response.images[0].src
-                self.imageURL = image
-            case .failure(let error):
-                let message = error.localizedDescription
-                self.showError = message
-            }
-        }
-    }
+
+
 
 
 }
