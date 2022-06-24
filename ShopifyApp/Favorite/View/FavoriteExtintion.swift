@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Kingfisher
+import RxSwift
 extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return favProducts.count
@@ -112,5 +113,95 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
         image.layer.borderWidth = 1
         image.layer.borderColor = UIColor.lightGray.cgColor
         image.layer.cornerRadius = 20
+    }
+    
+    
+    func updateCustomer(){
+        if Utilities.utilities.isLoggedIn(){
+            if Utilities.utilities.getDraftOrder() != 0{
+                let editCustomer = EditCustomerRequest(id: Utilities.utilities.getCustomerId()
+                                                       ,email: Utilities.utilities.getCustomerEmail()
+                                                       ,firstName:Utilities.utilities.getCustomerName()
+                                                       ,password:"\(Utilities.utilities.getUserPassword())"
+                                                       ,note: "\(Utilities.utilities.getDraftOrder())")
+                Utilities.utilities.setUserNote(note: editCustomer.note)
+                print("iddddddddd\(Utilities.utilities.getDraftOrder())")
+                print("passwordnooooote\(Utilities.utilities.getUserNote())")
+                productViewModel?.editCustomer(customer: EditCustomer(customer: editCustomer), customerID: Utilities.utilities.getCustomerId(), completion: { result in
+                    switch result{
+                    case true:
+                        print("note added\(editCustomer.note)")
+                    case false:
+                        print("note can't add")
+                    }
+                    
+                })
+            }
+        }
+    }
+
+    func postDraftOrder(){
+        let variantID = (productDetails?.variant[0].id)!
+        let productID = (productDetails?.id)!
+        let title = (productDetails?.title)!
+        let vendor = (productDetails?.vendor)!
+        let price = (productDetails?.variant[0].price)!
+        let newItemDraft = LineItemDraftTest(quantity:1, variantID: variantID, productID: productID, title: title, vendor: vendor, price: price)
+        productViewModel?.postDraftOrder(lineItems: newItemDraft, customerID: Utilities.utilities.getCustomerId() ,completion: { result in
+            switch result {
+            case true:
+                print("add to api ")
+            case false:
+                print("error to add in api")
+            }
+            
+        })
+    }
+    func editDraftOrder(){
+        let variantID = (productDetails?.variant[0].id)!
+        let productID = (productDetails?.id)!
+        let title = (productDetails?.title)!
+        let price = (productDetails?.variant[0].price)!
+        if Utilities.utilities.isLoggedIn(){
+            if Utilities.utilities.getUserNote() != ""{
+                itemList = productViewModel!.lineItem
+                let newItem = LineItem(id: 0, variantID: variantID, productID: productID, title: title, vendor: "", quantity: 1, price: price)
+                itemList.append(newItem)
+                print("itemlist\(itemList.count)")
+                let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(Utilities.utilities.getDraftOrder()), lineItems: itemList ))
+                productViewModel?.editDraftOrder(draftOrder: updateDraftOrder, draftID: Utilities.utilities.getDraftOrder(), completion: { result in
+                    switch result {
+                    case true:
+                        print("update order to api ")
+                    case false:
+                        print("error to update in api")
+                    }
+                })
+            }
+        }
+    }
+    func getItemsDraft(){
+        productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
+        print("itemlistview\(itemList)")
+        productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+            .init(qos: .background))
+        .observe(on: MainScheduler.asyncInstance)
+        .subscribe{ result in
+            self.itemList = self.productViewModel!.lineItem
+           print("self.itemList\( self.itemList)")
+            print("get items success")
+        }.disposed(by: disBag)
+    }
+    
+    func getProduct(productId: String,compeletion: @escaping (Bool)-> Void ){
+        productViewModel?.getProduct(id: "\(productId)")
+        productViewModel?.productObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+                                                        .init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe{ [weak self] result in
+                guard let self = self else {return}
+                self.productDetails = result.element
+                compeletion(true)
+            }.disposed(by: disBag)
     }
 }
