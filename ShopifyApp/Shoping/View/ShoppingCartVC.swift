@@ -97,8 +97,9 @@ class ShoppingCartVC: UIViewController {
                         switch result{
                         case true:
                             print("update order to api ")
-                            
-                           // self.tableView.reloadData()
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
                         case false:
                             print("error to update in api")
                         }
@@ -107,32 +108,6 @@ class ShoppingCartVC: UIViewController {
                 }
             }
         }
-        
-        /*    func editDraftOrder(){
-         let quantity = 1
-         let variantID = (product?.variant[0].id)!
-         let productID = (product?.id)!
-         let title = (product?.title)!
-         let price = (product?.variant[0].price)!
-         if userDefualt.isLoggedIn(){
-             if userDefualt.getUserNote() != ""{
-                 itemList = productViewModel!.lineItem
-                 let newItem = LineItem(id: 0, variantID: variantID, productID: productID, title: title, variantTitle: "", vendor: "", quantity: quantity, price: price)
-                 itemList.append(newItem)
-                 print("itemlist\(itemList.count)")
-                 let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(userDefualt.getDraftOrder()), lineItems: itemList ))
-                 productViewModel?.editDraftOrder(draftOrder: updateDraftOrder, draftID: userDefualt.getDraftOrder(), completion: { result in
-                     switch result {
-                     case true:
-                         print("update order to api ")
-                     case false:
-                         print("error to update in api")
-                     }
-                 })
-             }
-         }
-     }*/
-        //********************
 //        do{
 //            try self.productViewModel?.removeProductFromCart(productID: "\(CartProducts[index].id ?? "1")", completionHandler: { response in
 //                switch response{
@@ -215,13 +190,14 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: OrdersTVC.identifier, for: indexPath) as! OrdersTVC
+        cell.deleteFromBagProducts = {
+            self.showDeleteAlert(indexPath: indexPath)
+        }
         DispatchQueue.main.asyncAfter(deadline: .now()+1.15)
         {
             self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
             let item = self.itemList[indexPath.row]
             cell.updateUI(item: item)
-                  
-           
         }
         var count = Int(self.itemList[indexPath.row].quantity)
         cell.addCount={
