@@ -30,7 +30,7 @@ class Shared{
     }
     
    static func showConformDialog(title:String,alertMessage:String,index:Int,favBtn :UIButton,isFav:Bool,viewModel: ProductDetailsViewModel,product: FavouriteProduct){
-       let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .actionSheet)
+       let favouriteAlert = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
   
        let cancleAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
        let confirmAction = UIAlertAction(title: "Yes", style: .default) { (action) -> Void in
@@ -77,6 +77,9 @@ class Shared{
             }catch let error{
                 print(error.localizedDescription)
             }
+           do{
+               try viewModel.removeProductFromFavorites(productID: product.id ?? "", completionHandler: { _ in})
+           }catch {}
         }
       
     }
