@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 class OrdersTVC : UITableViewCell {
-    var draftViewModel : DraftOrderViewModel?
+    var productVM : ProductDetailsViewModel?
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productTitle: UILabel!
     
@@ -28,7 +28,7 @@ class OrdersTVC : UITableViewCell {
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        draftViewModel = DraftOrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
+        productVM = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
 
     }
     func updateUI(item: LineItem) {
@@ -36,12 +36,12 @@ class OrdersTVC : UITableViewCell {
         productTitle.text = item.title
         productCount.text = String(describing: item.quantity)
         let id = String(describing: item.productID)
-        draftViewModel!.getProductImage(id: id)
-        draftViewModel!.bindImageURLToView = { self.onSuccessUpdateView() }
+        productVM!.getProductImage(id: id)
+        productVM!.bindImageURLToView = { self.onSuccessUpdateView() }
         productPrice.text = String(describing: item.price)
     }
     func onSuccessUpdateView() {
-        itemsImages = draftViewModel!.imageURL!
+        itemsImages = productVM!.imageURL!
         DispatchQueue.main.async {
             let processor = DownsamplingImageProcessor(size: self.productImage.bounds.size)
             self.productImage.kf.indicatorType = .activity

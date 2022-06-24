@@ -32,7 +32,6 @@ protocol ProductDetailsViewModelType{
     func getItemsDraftOrder(idDraftOrde: Int)
     var itemDraftOrderObservable: Observable<DraftOrderTest>{get set}
     var lineItem : Array<LineItem>{get set}
-    //var totalPrice: Double{get set}
 
 
 
@@ -40,7 +39,6 @@ protocol ProductDetailsViewModelType{
 
 
 final class ProductDetailsViewModel: ProductDetailsViewModelType{
-  //  var totalPrice=0.0
     
     var favoriteProducts: [FavouriteProduct]?
     var productsInCart: [CartProduct]?
@@ -52,7 +50,6 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     let userDefult = Utilities()
     var lineItem = Array<LineItem>()
     
-
 
     var productObservable: Observable<Product>
     var allProductsObservable :Observable<[Product]>
@@ -268,25 +265,6 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                 throw error
             }
         }
-//    func setTotalPriceFromApi(completion: @escaping (Double?)-> Void){
-//        network.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder()) {  result in
-//            switch result {
-//            case .success(let response):
-//                 let items = response.draftOrder
-//                print("lineItemPriceee\(self.lineItem)")
-//                for item in self.lineItem {
-//                    let price = Double(item.price)
-//                    self.totalPrice += Double(item.quantity)*price!
-//                }
-//                self.itemDraftOrderSubject.asObserver().onNext(items)
-//                Utilities.utilities.setTotalPrice(totalPrice: self.totalPrice)
-//                completion(self.totalPrice)
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-//
-//    }
     func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void){
         var lineItem = Array<LineItemDraftTest>()
         lineItem.append(lineItems)
@@ -384,6 +362,18 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
           }
         }
 
+    func getProductImage(id: String) {
+        network.getProductImage(id: id) {result in
+            switch result{
+            case .success(let response):
+                let image = response.images[0].src
+                self.imageURL = image
+            case .failure(let error):
+                let message = error.localizedDescription
+                self.showError = message
+            }
+        }
+    }
 
 
 
