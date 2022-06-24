@@ -18,12 +18,11 @@ class ShoppingCartVC: UIViewController {
     var draftOrderViewModel : DraftOrderViewModel?
     var localDataSource : LocalDataSource?
     var CartProducts : [CartProduct] = []
-    var totalPrice=0.0
     var itemList: [LineItem] = []
     var disposeBag = DisposeBag()
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
+    var totalPrice=0.0
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         self.title = "Cart"
         tableView.register(OrdersTVC.nib(), forCellReuseIdentifier: OrdersTVC.identifier)
@@ -36,10 +35,13 @@ class ShoppingCartVC: UIViewController {
         }
         else{
             getItemsDraft()
+            UpdateTotalPrice()
             self.emptyView.isHidden=true
         }
-        UpdateTotalPrice()
         
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        modifyCountOfItem()
     }
      func getItemsDraft(){
          if Utilities.utilities.getUserNote() != "0" {
@@ -81,41 +83,16 @@ class ShoppingCartVC: UIViewController {
         }
     }
     func UpdateTotalPrice(){
-//        DispatchQueue.main.asyncAfter(deadline: .now()+1.0)
-//        {
-//            self.productViewModel?.setTotalPriceFromApi(completion: { result in
-//            self.totalPrice = self.productViewModel!.totalPrice
-//            print("priceVM\(self.totalPrice )")
-//            Utilities.utilities.setTotalPrice(totalPrice: self.totalPrice)
-//            print("utilities.getTotalPric\(Utilities.utilities.getTotalPrice())")
-//            DispatchQueue.main.async {
-//            self.totalLable.text = "\(Double(self.totalPrice))"
-//
-//             }
-//          })
-//        }
-              //  print("lineItemPriceee\(itemList)")
         DispatchQueue.main.asyncAfter(deadline: .now()+1.0)
-        {
-            print("countItem\(self.itemList[0].quantity)")
-            for item in self.itemList{
-                    self.totalPrice += Double(item.quantity) * (Double(item.price) ?? 0.0)
-                print("totalPrice\(self.totalPrice)")
-            }
-            Utilities.utilities.setTotalPrice(totalPrice: self.totalPrice)
-            print("utilities.getTotalPric\(Utilities.utilities.getTotalPrice())")
-            DispatchQueue.main.async {
-                self.totalLable.text = "\(Double(self.totalPrice))"
-            }
+        { [self] in
+            for item in itemList {
+                totalPrice += Double(item.quantity)*(Double(item.price) ?? 0.0)
+                totalLable.text = String(totalPrice)
         }
+       }
     }
-    func modifyCountOfItem(count:Int){
-        let variantID = itemList[0].variantID
-        let productID = itemList[0].productID
-        let title = itemList[0].title
-        let price = itemList[0].price
-        let newItem = LineItem(id: 0, variantID: variantID, productID: productID, title: title, vendor: "", quantity:count, price: price)
-        let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(Utilities.utilities.getDraftOrder()), lineItems: [newItem] ))
+    func modifyCountOfItem(){
+        let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(Utilities.utilities.getDraftOrder()), lineItems: itemList ))
         productViewModel?.editDraftOrder(draftOrder: updateDraftOrder, draftID: Utilities.utilities.getDraftOrder(), completion: { result in
             switch result {
             case true:
@@ -159,26 +136,26 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: OrdersTVC.identifier, for: indexPath) as! OrdersTVC
-       
-            self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
             let item = self.itemList[indexPath.row]
             cell.updateUI(item: item)
-            var count = self.itemList[0].quantity
-            cell.addCount={
+            var count = self.itemList[indexPath.row].quantity
+        
+        cell.addCount={ [self] in
                 count+=1
                 cell.productCount.text = "\(count)"
-                self.modifyCountOfItem(count: count)
-//                self.totalPrice = Double(cell.productCount.text!)! * Double(cell.productPrice.text!)!
-//                self.totalLable.text = String(self.totalPrice)
-            }
+                self.itemList[indexPath.row].quantity = count
+            self.totalPrice += Double(itemList[indexPath.row].price)!
+            self.totalLable.text = String(self.totalPrice)
+             
+                    }
                 cell.subCount={
                     if (count != 1) {
                         cell.subBtn.isEnabled = true
                         count-=1
                         cell.productCount.text = "\(count)"
-                        self.modifyCountOfItem(count: count)
-//                        self.totalPrice = Double(cell.productCount.text!)! * Double(cell.productPrice.text!)!
-//                        self.totalLable.text = String(self.totalPrice)
+                        self.itemList[indexPath.row].quantity = count
+                        self.totalPrice -= Double(self.itemList[indexPath.row].price)!
+                        self.totalLable.text = String(self.totalPrice)
                     }
                     else{
                         self.alertWarning(indexPath: indexPath, title: "warning", message: "can't decrease count of item to zero")

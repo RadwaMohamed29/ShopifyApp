@@ -29,7 +29,7 @@ struct DraftOrderTest: Codable {
 struct LineItem: Codable {
     let id, variantID, productID: Int
     let title,vendor: String
-    let quantity: Int
+    var quantity: Int
     let price:String
     enum CodingKeys: String, CodingKey {
         case id
@@ -41,6 +41,7 @@ struct LineItem: Codable {
         
     }
 }
+
 // MARK: - EmailMarketingConsent
 struct EmailMarketingConsent: Codable {
     let state, optInLevel: String
