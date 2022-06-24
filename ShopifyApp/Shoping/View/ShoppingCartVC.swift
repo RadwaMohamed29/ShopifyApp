@@ -20,6 +20,7 @@ class ShoppingCartVC: UIViewController {
     var totalPrice=0.0
     var itemList: [LineItem] = []
     var disposeBag = DisposeBag()
+    let userDefualt = Utilities()
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     override func viewDidLoad() {
         
@@ -59,26 +60,49 @@ class ShoppingCartVC: UIViewController {
         }
     
     }
+    func updateCustomerNote(){
+            if userDefualt.isLoggedIn(){
+                    let editCustomer = EditCustomerRequest(id: userDefualt.getCustomerId(), email: userDefualt.getCustomerEmail(), firstName: userDefualt.getCustomerName(), password: "\(userDefualt.getUserPassword())", note: "0")
+                    userDefualt.setUserNote(note: editCustomer.note)
+                    print("iddddddddd\(userDefualt.getDraftOrder())")
+                    print("passwordnooooote\(userDefualt.getUserNote())")
+                    productViewModel?.editCustomer(customer: EditCustomer(customer: editCustomer), customerID: userDefualt.getCustomerId(), completion: { result in
+                        switch result{
+                        case true:
+                            print("note Deleted\(editCustomer.note)")
+                        case false:
+                            print("note can't Deleted")
+                        }
+                        
+                    })
+        }    }
 
     func deleteItemFromCart(index:Int){
-        do{
-            try self.productViewModel?.removeProductFromCart(productID: "\(CartProducts[index].id ?? "1")", completionHandler: { response in
-                switch response{
-                case true:
-                    print("remove from cart")
-                   //self.getCartProductsFromCoreData()
-                    self.tableView.reloadData()
-                    if self.CartProducts.count == 0 {
-                        self.emptyView.isHidden=false
-                    }
-                case false:
-                    print("error in remove")
-                }
-            })
+        if itemList.count == 1{
+            productViewModel?.deleteDraftOrder(draftOrderID: Utilities.utilities.getDraftOrder())
+            Utilities.utilities.setDraftOrder(id: 0)
+            updateCustomerNote()
+
+            
         }
-        catch let error{
-            print(error.localizedDescription)
-        }
+//        do{
+//            try self.productViewModel?.removeProductFromCart(productID: "\(CartProducts[index].id ?? "1")", completionHandler: { response in
+//                switch response{
+//                case true:
+//                    print("remove from cart")
+//                   //self.getCartProductsFromCoreData()
+//                    self.tableView.reloadData()
+//                    if self.CartProducts.count == 0 {
+//                        self.emptyView.isHidden=false
+//                    }
+//                case false:
+//                    print("error in remove")
+//                }
+//            })
+//        }
+//        catch let error{
+//            print(error.localizedDescription)
+//        }
     }
     func UpdateTotalPrice(){
    //     var total = 0.0
