@@ -34,10 +34,12 @@ protocol ProductDetailsViewModelType{
     var lineItem : Array<LineItem>{get set}
 
 
+
 }
 
 
 final class ProductDetailsViewModel: ProductDetailsViewModelType{
+    
     var favoriteProducts: [FavouriteProduct]?
     var productsInCart: [CartProduct]?
     var isFav : Bool?
@@ -47,7 +49,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     var localDataSource :LocalDataSource
     let userDefult = Utilities()
     var lineItem = Array<LineItem>()
-
+    
 
     var productObservable: Observable<Product>
     var allProductsObservable :Observable<[Product]>
@@ -263,16 +265,6 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                 throw error
             }
         }
-    func setTotalPrice(completion: @escaping (Double?)-> Void){
-        var totalPrice: Double = 0.0
-        print("lineItemPriceee\(lineItem)")
-        for item in lineItem {
-            let price = Double(item.price)
-            totalPrice += Double(item.quantity)*price!
-        }
-        Utilities.utilities.setTotalPrice(totalPrice: totalPrice)
-        completion(totalPrice)
-    }
     func postDraftOrder(lineItems: LineItemDraftTest, customerID: Int , completion: @escaping (Bool)->Void){
         var lineItem = Array<LineItemDraftTest>()
         lineItem.append(lineItems)
@@ -369,6 +361,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             }
           }
         }
+
     func getProductImage(id: String) {
         network.getProductImage(id: id) {result in
             switch result{
@@ -381,6 +374,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             }
         }
     }
+
 
 
 }
