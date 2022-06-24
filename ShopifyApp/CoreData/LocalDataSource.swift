@@ -87,7 +87,7 @@ final class LocalDataSource: LocalDataSourcable{
         do{
             let products = try self.getProductFromCoreData()
             for item in products{
-                if item.id == productID {
+                if item.id == productID && "\(Utilities.utilities.getCustomerId())" == item.customer_id{
                     return true
                 }
             }
