@@ -36,6 +36,7 @@ enum Endpoints {
     case Customer(id:String)
     case order
     case getImage(id:String)
+    case deleteDraftOrder(id: Int)
 
     var path:String{
         switch self {
@@ -90,6 +91,8 @@ enum Endpoints {
             return "orders.json"
         case .getImage(id:let id):
             return "products/\(id)/images.json"
+        case .deleteDraftOrder(id: let id):
+            return "draft_orders/\(id).json"
         }
     }
 }

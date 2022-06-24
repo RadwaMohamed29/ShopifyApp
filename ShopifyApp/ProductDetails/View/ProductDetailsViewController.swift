@@ -226,6 +226,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     }
 
     func postDraftOrder(){
+        let quantity = 1
         let variantID = (product?.variant[0].id)!
         let productID = (product?.id)!
         let title = (product?.title)!
@@ -244,6 +245,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         })
     }
     func editDraftOrder(){
+        let quantity = 1
         let variantID = (product?.variant[0].id)!
         let productID = (product?.id)!
         let title = (product?.title)!
