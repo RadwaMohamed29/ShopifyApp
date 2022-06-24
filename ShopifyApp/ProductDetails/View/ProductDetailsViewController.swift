@@ -226,13 +226,13 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
     }
 
     func postDraftOrder(){
-        let quantity = (product?.variant[0].price)!
+        let quantity = 1
         let variantID = (product?.variant[0].id)!
         let productID = (product?.id)!
         let title = (product?.title)!
         let vendor = (product?.vendor)!
         let price = (product?.variant[0].price)!
-        let newItemDraft = LineItemDraftTest(quantity: Int(quantity)!, variantID: variantID, productID: productID, title: title, vendor: vendor, price: price)
+        let newItemDraft = LineItemDraftTest(quantity: quantity , variantID: variantID, productID: productID, title: title, vendor: vendor, price: price)
         productViewModel?.postDraftOrder(lineItems: newItemDraft, customerID: Utilities.utilities.getCustomerId() ,completion: { result in
             switch result {
             case true:

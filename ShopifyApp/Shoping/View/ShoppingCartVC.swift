@@ -33,6 +33,7 @@ class ShoppingCartVC: UIViewController {
         getItemsDraft()
         UpdateTotalPrice()
     }
+
      func getItemsDraft(){
             productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
             productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
@@ -78,12 +79,12 @@ class ShoppingCartVC: UIViewController {
         }    }
 
     func deleteItemFromCart(index:Int){
+        ///product details check product in cart a'3mleha 3la api
         if itemList.count == 1{
             productViewModel?.deleteDraftOrder(draftOrderID: Utilities.utilities.getDraftOrder())
+            self.emptyView.isHidden=false
             Utilities.utilities.setDraftOrder(id: 0)
             updateCustomerNote()
-
-            
         }
 //        do{
 //            try self.productViewModel?.removeProductFromCart(productID: "\(CartProducts[index].id ?? "1")", completionHandler: { response in
