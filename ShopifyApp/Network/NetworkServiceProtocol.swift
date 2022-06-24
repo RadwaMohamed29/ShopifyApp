@@ -31,5 +31,6 @@ protocol NetworkServiceProtocol{
     func postOrder(order:OrderObject, completion: @escaping(Data?, URLResponse?, Error?)->())
     func updateCustomerNote(id: String, customer: Customer, completion: @escaping (Data?, URLResponse?, Error?)->())
     func getProductImage(id: String , completion: @escaping ( Result<ImagesProduct, ErrorType>)->())
+    func deleteDraftOrder(idDraftOrder:Int, draftOrder:DraftOrderResponseTest , completion: @escaping(Data?, URLResponse?, Error?)->())
 
 }

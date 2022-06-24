@@ -32,6 +32,8 @@ protocol ProductDetailsViewModelType{
     func getItemsDraftOrder(idDraftOrde: Int)
     var itemDraftOrderObservable: Observable<DraftOrderTest>{get set}
     var lineItem : Array<LineItem>{get set}
+    func deleteDraftOrder(draftOrderID: Int)
+
 
 
 }
@@ -47,6 +49,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
     var localDataSource :LocalDataSource
     let userDefult = Utilities()
     var lineItem = Array<LineItem>()
+    let draftOrder = DraftOrderResponseTest(draftOrder: DraftOrderTest(id: 0, lineItems: []))
 
 
     var productObservable: Observable<Product>
@@ -379,6 +382,20 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
                 let message = error.localizedDescription
                 self.showError = message
             }
+        }
+    }
+    
+    
+    func deleteDraftOrder(draftOrderID: Int) {
+        network.deleteDraftOrder(idDraftOrder: draftOrderID, draftOrder: draftOrder ){(data, response, error) in
+            let json = try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! Dictionary<String,Any>
+            if json.isEmpty {
+                print("deleted")
+            }else{
+                print("cant delete")
+            }
+            print(json)
+            
         }
     }
 
