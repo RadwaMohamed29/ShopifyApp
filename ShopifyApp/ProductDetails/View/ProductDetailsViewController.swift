@@ -272,7 +272,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                 productViewModel?.checkProductInCart(id: "\(productId ?? "")")
                 guard let inCart = productViewModel?.isProductInCart else{return}
                 if(inCart){
-                    let alert = UIAlertController(title: "Already In Bag!", message: "if you need to increase the amount of product , you can from your cart ", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Already In Cart!", message: "if you need to increase the amount of product , you can from your cart ", preferredStyle: .alert)
                     let navigateToCart = UIAlertAction(title: "Cart", style: .default){ (action) -> Void in
                         let cart = ShoppingCartVC(nibName: "ShoppingCartVC", bundle: nil)
                         self.navigationController?.pushViewController(cart, animated: true)

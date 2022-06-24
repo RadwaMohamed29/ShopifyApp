@@ -8,6 +8,8 @@
 import UIKit
 import Kingfisher
 import RxSwift
+import RxCocoa
+import CoreMedia
 import Lottie
 class FavouriteViewController: UIViewController {
   
@@ -15,12 +17,13 @@ class FavouriteViewController: UIViewController {
     var disBag = DisposeBag()
     var listOfSelectedProducts:[FavoriteProducts] = []
     var favouriteProductsCD : [FavouriteProduct] = []
-    
+     
     var productViewModel : ProductDetailsViewModel?
     @IBOutlet weak var noDataView: UIView!
     
     @IBOutlet weak var favouriteCollectionView: UICollectionView!
-    
+    var productDetails : Product?
+    var itemList: [LineItem] = []
     var favProducts : [FavoriteProducts] = []
     var productName :String?
     var productImage : String?
@@ -83,24 +86,45 @@ class FavouriteViewController: UIViewController {
    
     
     @IBAction func addSelectedItemToCart(_ sender: Any) {
+        
         for product in listOfSelectedProducts{
             var product = product
+            
             productViewModel?.checkProductInCart(id: "\(product.id )")
             guard let inCart = productViewModel?.isProductInCart else{return}
             
             if(inCart){
-                let alert = UIAlertController(title: "Already In Bag!", message: "Some of selected is in bag!. if you need to increase the amount of product , you can do it from your bag ", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Already In Cart!", message: "Some of selected is in Cart!. if you need to increase the amount of product , you can do it from your cart ", preferredStyle: .alert)
                 let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alert.addAction(okBtn)
                 self.present(alert, animated: true, completion: nil)
                 
                 print("alert \(inCart)")
             }else{
+                getProduct(productId: "\(product.id )") { result in
+                    if result {
+                        if Utilities.utilities.getUserNote() == "0"{
+                            self.postDraftOrder()
+                            DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
+                                self.updateCustomer()
+                                Shared.showMessage(message: "Added To Bag Successfully!", error: false)
+
+                            }
+                        }else{
+                            self.getItemsDraft()
+                            DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
+                                self.editDraftOrder()
+                                Shared.showMessage(message: "Added To Bag Successfully!", error: false)
+
+                            }
+                        }
+                    }
+                }
+                
                 do{
                     try productViewModel?.addProductToCoreDataCart(id: "\(product.id)",title:product.title,image:product.scr,price:product.price, itemCount: 1, quantity:1, completion: { result in
                         switch result{
                         case true:
-                            Shared.showMessage(message: "Added To Bag Successfully!", error: false)
                             print("add to cart \(inCart)")
                             
                         case false :

@@ -15,7 +15,6 @@ class ShoppingCartVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
     var productViewModel : ProductDetailsViewModel?
-    var draftOrderViewModel : DraftOrderViewModel?
     var localDataSource : LocalDataSource?
     var CartProducts : [CartProduct] = []
     var itemList: [LineItem] = []
@@ -28,7 +27,6 @@ class ShoppingCartVC: UIViewController {
         tableView.register(OrdersTVC.nib(), forCellReuseIdentifier: OrdersTVC.identifier)
         tableView.delegate = self
         tableView.dataSource = self
-        draftOrderViewModel = DraftOrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         if Utilities.utilities.getUserNote() == "0" {
             self.emptyView.isHidden=false

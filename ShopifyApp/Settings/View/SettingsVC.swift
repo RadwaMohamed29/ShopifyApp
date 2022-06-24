@@ -39,6 +39,7 @@ class SettingsVC: UIViewController {
     @IBAction func logoutBtn(_ sender: Any) {
          //  Utilities.utilities.setDraftOrder(id: 0)
            Utilities.utilities.setUserNote(note: "0")
+        Utilities.utilities.addCustomerId(id: 0)
          //  print("Utilities.utilities.setDraftOrder\(Utilities.utilities.getUserNote())")
         Utilities.utilities.logout()
         let key = Utilities.utilities.getCode()
