@@ -122,7 +122,7 @@ class FavouriteViewController: UIViewController {
                 }catch let error{
                     print(error.localizedDescription)
                 }
-                Shared.showMessage(message: "Added To Bag Successfully!", error: false)
+                Shared.showMessage(message: "Added To Cart Successfully!", error: false)
             }
             product.isSelected = false
         }
