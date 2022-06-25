@@ -133,7 +133,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                             self.itemList[indexPath.row].quantity = count
                         self.totalPrice += Double(itemList[indexPath.row].price)!
                         self.totalLable.text = String(self.totalPrice)
-                      
+                       self.updateCount(productID: id, count: count)
                          
                                 }
                             cell.subCount={
@@ -144,7 +144,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                                     self.itemList[indexPath.row].quantity = count
                                     self.totalPrice -= Double(self.itemList[indexPath.row].price)!
                                     self.totalLable.text = String(self.totalPrice)
-                                  
+                                    self.updateCount(productID: id, count: count)
 
                                 }
                                 else{
