@@ -166,6 +166,7 @@
                 <outlet property="productPrice" destination="Xcq-aQ-fN3" id="aVV-gb-HDr"/>
                 <outlet property="productTitle" destination="Cuv-JL-Em5" id="1EF-FI-PdZ"/>
                 <outlet property="subBtn" destination="bSv-xL-toY" id="rJI-r1-Bdk"/>
+                <outlet property="trash_icon" destination="H5g-Ne-N4r" id="obt-c9-4Db"/>
             </connections>
             <point key="canvasLocation" x="181.8840579710145" y="97.767857142857139"/>
         </tableViewCell>

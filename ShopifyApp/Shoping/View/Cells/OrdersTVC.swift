@@ -13,6 +13,7 @@ class OrdersTVC : UITableViewCell {
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productTitle: UILabel!
     
+    @IBOutlet weak var trash_icon: UIButton!
     @IBOutlet weak var productPrice: UILabel!
     
     @IBOutlet weak var productCount: UILabel!
@@ -56,9 +57,6 @@ class OrdersTVC : UITableViewCell {
 
         }
     }
-//    func setTotalPrice(){
-//        self.totalPrice += Double(productCount.text!)!*Double(productPrice.text!)!
-//    }
     var deleteFromBagProducts:()->() = {}
     var addCount:()->() = {}
     var subCount:()->() = {}

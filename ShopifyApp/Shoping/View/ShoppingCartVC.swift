@@ -83,9 +83,7 @@ class ShoppingCartVC: UIViewController {
                         self.deleteItemFromCart(indexPath: indexPath)
                         self.deleteItemFromCoreData(index: indexPath)
                     }
-                    else{
-                        self.alertWarning(indexPath: indexPath, title: "information", message: "check your connection to detete the item")
-                    }
+                 
 
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
@@ -170,6 +168,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                                     .transition(.fade(1)),
                                     .cacheOriginalImage
                                 ])
+                    cell.trash_icon.isEnabled = false
                     cell.productCount.text = " \(CartProducts[indexPath.row].count)"
                     cell.productPrice.text = Shared.formatePrice(priceStr: CartProducts[indexPath.row].price!)
                     cell.deleteFromBagProducts = {[weak self] in
@@ -207,8 +206,13 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
         self.navigationController?.pushViewController(detalisVC, animated: true)
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            showDeleteAlert(indexPath: indexPath)
+        if flag == true {
+            if editingStyle == .delete {
+                showDeleteAlert(indexPath: indexPath)
+            }
+        }
+        else{
+            self.alertWarning(indexPath: indexPath, title: "information", message: "check your connection to detete the item")
         }
     }
     
