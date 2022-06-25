@@ -19,6 +19,8 @@ class MeViewController: UIViewController {
     var orderViewModel : OrderViewModelProtocol = OrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
     var isLoggedIn = false
     var meViewModel = MeViewModel()
+    var localDataSource = LocalDataSource(appDelegate: UIApplication.shared.delegate as! AppDelegate)
+    @IBOutlet weak var cart: UIBarButtonItem!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var noUserFound: UIView!
     @IBOutlet weak var userFounView: UIView!
@@ -48,7 +50,10 @@ class MeViewController: UIViewController {
         settingsIcon.tintColor = UIColor(red: 0.031, green: 0.498, blue: 0.537, alpha: 1.5)
        
     }
+    override func viewDidAppear(_ animated: Bool) {
+        self.cart.setBadge(text:String( self.localDataSource.getCountOfProductInCart()))
 
+    }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
