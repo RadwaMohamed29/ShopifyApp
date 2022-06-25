@@ -15,11 +15,9 @@ class ShoppingCartVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
     var productViewModel : ProductDetailsViewModel?
-    var draftOrderViewModel : DraftOrderViewModel?
     var localDataSource : LocalDataSource?
     var CartProducts : [CartProduct] = []
     var itemList: [LineItem] = []
-    var allItems: [LineItem] = []
     var disposeBag = DisposeBag()
     let userDefualt = Utilities()
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
@@ -30,7 +28,6 @@ class ShoppingCartVC: UIViewController {
         tableView.register(OrdersTVC.nib(), forCellReuseIdentifier: OrdersTVC.identifier)
         tableView.delegate = self
         tableView.dataSource = self
-        draftOrderViewModel = DraftOrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         if Utilities.utilities.getUserNote() == "0" {
             self.emptyView.isHidden=false
@@ -42,8 +39,10 @@ class ShoppingCartVC: UIViewController {
         }
         
     }
+
     override func viewWillDisappear(_ animated: Bool) {
         modifyCountOfItem()
+        
     }
 
      func getItemsDraft(){
@@ -64,6 +63,7 @@ class ShoppingCartVC: UIViewController {
         }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        //checkConnection()
         checkCartIsEmpty()
     }
     func checkCartIsEmpty(){
@@ -93,9 +93,10 @@ class ShoppingCartVC: UIViewController {
                         }
                         
                     })
-        }    }
-    //func getSelectedProduct(id: Int)
-    func deleteItemFromCart(index:Int){
+        }
+        
+    }
+     func deleteItemFromCart(indexPath:IndexPath){
         ///product details check product in cart a'3mleha 3la api
         print("draftId\(userDefualt.getDraftOrder())")
         if itemList.count == 1{
@@ -106,24 +107,27 @@ class ShoppingCartVC: UIViewController {
         }else{
             if userDefualt.isLoggedIn(){
                 if userDefualt.getUserNote() != "0"{
-                    allItems = productViewModel!.lineItem
-                    allItems.remove(at: index)
-                    let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(userDefualt.getDraftOrder()), lineItems: allItems ))
+                    itemList.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    tableView.reloadData()
+                    
+                    let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(userDefualt.getDraftOrder()), lineItems: itemList ))
                     productViewModel?.editDraftOrder(draftOrder: updateDraftOrder, draftID: userDefualt.getDraftOrder(), completion: { result in
                         switch result{
                         case true:
                             print("update order to api ")
-                            DispatchQueue.main.async {
-                                self.tableView.reloadData()
-                            }
+                            self.UpdateTotalPrice()
                         case false:
                             print("error to update in api")
                         }
                         
                     })
+
+                    
                 }
             }
         }
+    }
 //        do{
 //            try self.productViewModel?.removeProductFromCart(productID: "\(CartProducts[index].id ?? "1")", completionHandler: { response in
 //                switch response{
@@ -142,7 +146,7 @@ class ShoppingCartVC: UIViewController {
 //        catch let error{
 //            print(error.localizedDescription)
 //        }
-    }
+    
     func UpdateTotalPrice(){
         DispatchQueue.main.asyncAfter(deadline: .now()+1.0)
         { [self] in
@@ -167,7 +171,7 @@ class ShoppingCartVC: UIViewController {
     func showDeleteAlert(indexPath:IndexPath){
         let alert = UIAlertController(title: "Are you sure?", message: "You will remove this item from the cart", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { [self] UIAlertAction in
-            self.deleteItemFromCart(index: indexPath.row)
+            self.deleteItemFromCart(indexPath: indexPath)
           //  self.setTotalPrice()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
@@ -200,9 +204,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
         cell.deleteFromBagProducts = {
             self.showDeleteAlert(indexPath: indexPath)
         }
-        DispatchQueue.main.asyncAfter(deadline: .now()+1.15)
-        {
-            self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
+   self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
             let item = self.itemList[indexPath.row]
             cell.updateUI(item: item)
             var count = self.itemList[indexPath.row].quantity
@@ -228,7 +230,9 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                         self.alertWarning(indexPath: indexPath, title: "warning", message: "can't decrease count of item to zero")
                     }
                 }
+        
         return cell
+            
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -245,9 +249,9 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             showDeleteAlert(indexPath: indexPath)
-            
         }
     }
     
-    
+
 }
+
