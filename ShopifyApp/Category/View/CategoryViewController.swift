@@ -46,6 +46,9 @@ class CategoryViewController: UIViewController {
                 noDataImg.isHidden = true
             }
         }
+        categoryCollection.reloadData()
+    }
+    override func viewDidAppear(_ animated: Bool) {
         Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
             if isLoggedIn{
                 self.cartOutlet.setBadge(text: String(describing:self.localDataSource.getCountOfProductInCart()))
@@ -56,7 +59,6 @@ class CategoryViewController: UIViewController {
                 self.favOutlet.setBadge(text: String("0"))
             }
         }
-        categoryCollection.reloadData()
     }
     
     @IBAction func cartBtn(){
