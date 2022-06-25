@@ -10,6 +10,7 @@ import Kingfisher
 import RxSwift
 import RxCocoa
 import CoreData
+
 class AllProductsViewController: UIViewController ,SharedProtocol{
     func presentAlert(alert: UIAlertController) {
         self.present(alert, animated: true,completion: nil)
@@ -19,8 +20,8 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
     var brandId: Int?
     var isCommingFromHome :String?
     
+    @IBOutlet weak var filterBtn: UIButton!
     @IBOutlet weak var networkView: UIView!
-    @IBOutlet weak var filterBtn: UIToolbar!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchProductsCV: UICollectionView!
     var listOfProducts : [Product] = []
@@ -31,7 +32,7 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        filterBtn.menu = showDropMenu()
         self.title = "Products"
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
@@ -88,11 +89,6 @@ class AllProductsViewController: UIViewController ,SharedProtocol{
             .subscribe { result in
                 self.productViewModel?.searchWithWord(word: result)
             } .disposed(by: disBag)
-    }
-    
-    @IBAction func btnFilter(_ sender: Any) {
-        showAlertError(title: "Do you want filter products from", message: "")
-//        productViewModel?.filterbyPrice(order: 1)
     }
 }
 
@@ -243,4 +239,18 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
         alert.addAction(action3)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func showDropMenu() -> UIMenu {
+        let menu = UIMenu(title: "", children: [
+        
+            UIAction(title: "low", subtitle: "filter price from low to high",image: UIImage(systemName: "arrow.down.square.fill")?.withTintColor(.systemTeal, renderingMode: .alwaysOriginal), handler: { (_) in
+                self.productViewModel?.filterbyPrice(order: "low")
+            }),
+            UIAction(title: "high",subtitle: "filter price from high to low", image: UIImage(systemName: "arrow.up.square.fill")?.withTintColor(.systemOrange, renderingMode: .alwaysOriginal), handler: { (_) in
+                self.productViewModel?.filterbyPrice(order: "high")
+            })
+        ])
+        return menu
+    }
 }
+

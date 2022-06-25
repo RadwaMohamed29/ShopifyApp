@@ -19,11 +19,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onboarding" translatesAutoresizingMaskIntoConstraints="NO" id="Smc-NC-sWe">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bc8-Vb-gGL">
-                    <rect key="frame" x="45" y="640" width="325" height="64"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bc8-Vb-gGL">
+                    <rect key="frame" x="44.5" y="707" width="325" height="71"/>
                     <color key="tintColor" systemColor="systemGreenColor"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule">
@@ -44,9 +43,13 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Smc-NC-sWe" secondAttribute="trailing" id="4Im-Ot-tdO"/>
+                <constraint firstItem="bc8-Vb-gGL" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0792411" id="5um-xn-7XB"/>
                 <constraint firstItem="Smc-NC-sWe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Ek4-Xc-p6v"/>
                 <constraint firstItem="Smc-NC-sWe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="O24-ax-yVL"/>
-                <constraint firstAttribute="bottom" secondItem="Smc-NC-sWe" secondAttribute="bottom" id="fYh-tY-p1q"/>
+                <constraint firstItem="bc8-Vb-gGL" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="c9h-9k-IwO"/>
+                <constraint firstItem="Smc-NC-sWe" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.75" id="cAQ-DS-tgI"/>
+                <constraint firstItem="bc8-Vb-gGL" firstAttribute="top" secondItem="Smc-NC-sWe" secondAttribute="bottom" constant="35" id="nZk-H9-wZP"/>
+                <constraint firstItem="bc8-Vb-gGL" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.785024" id="xyc-Bw-HuS"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="112.5"/>
         </view>
