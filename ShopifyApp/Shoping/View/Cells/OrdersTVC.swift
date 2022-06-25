@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 
 class OrdersTVC : UITableViewCell {
-    var productViewModel : ProductDetailsViewModel?
+    var productVM : ProductDetailsViewModel?
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productTitle: UILabel!
     
@@ -19,15 +19,16 @@ class OrdersTVC : UITableViewCell {
     
     @IBOutlet weak var subBtn: UIButton!
     static let identifier = "ordersTVC"
-    var productIndex = 0
     var item: LineItem?
     var itemsImages = ""
+    var totalPrice=0.0
+
     static func nib() ->UINib{
         UINib(nibName: "OrdersTVC", bundle: nil)
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
+        productVM = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
 
     }
     func updateUI(item: LineItem) {
@@ -35,12 +36,12 @@ class OrdersTVC : UITableViewCell {
         productTitle.text = item.title
         productCount.text = String(describing: item.quantity)
         let id = String(describing: item.productID)
-        productViewModel!.getProductImage(id: id)
-        productViewModel!.bindImageURLToView = { self.onSuccessUpdateView() }
+        productVM!.getProductImage(id: id)
+        productVM!.bindImageURLToView = { self.onSuccessUpdateView() }
         productPrice.text = String(describing: item.price)
     }
     func onSuccessUpdateView() {
-        itemsImages = productViewModel!.imageURL!
+        itemsImages = productVM!.imageURL!
         DispatchQueue.main.async {
             let processor = DownsamplingImageProcessor(size: self.productImage.bounds.size)
             self.productImage.kf.indicatorType = .activity
@@ -55,6 +56,9 @@ class OrdersTVC : UITableViewCell {
 
         }
     }
+//    func setTotalPrice(){
+//        self.totalPrice += Double(productCount.text!)!*Double(productPrice.text!)!
+//    }
     var deleteFromBagProducts:()->() = {}
     var addCount:()->() = {}
     var subCount:()->() = {}

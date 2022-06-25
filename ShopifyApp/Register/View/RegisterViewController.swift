@@ -94,22 +94,23 @@ class RegisterViewController: UIViewController {
                             case true:
                                 print("from view  \(String(describing: self.firstName ?? ""))")
                             case false:
-                                if self.registerViewModel.flag == true{
+                                
+                                //if self.registerViewModel.flag == true{
                                     DispatchQueue.main.async {
                                         self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
                                         self.lblValidation.isHidden = false
                                         self.lblValidation.text = "This user already exists"
                                     }
                                     
-                                }
-                                else{
-                                    DispatchQueue.main.async {
-                                        self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
-                                        self.showSnackBar()
-                                        self.indicator.isHidden = true
-                                        
-                                    }
-                                }
+                                //}
+//                                else{
+//                                    DispatchQueue.main.async {
+//                                        self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
+//                                        self.showSnackBar()
+//                                        self.indicator.isHidden = true
+//                                        
+//                                    }
+//                                }
                             }
                         }
                 }else{
