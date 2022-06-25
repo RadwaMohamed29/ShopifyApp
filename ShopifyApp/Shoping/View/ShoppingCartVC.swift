@@ -23,6 +23,7 @@ class ShoppingCartVC: UIViewController {
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     var totalPrice=0.0
     var flag:Bool = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Cart"
@@ -83,6 +84,9 @@ class ShoppingCartVC: UIViewController {
                         self.deleteItemFromCart(indexPath: indexPath)
                         self.deleteItemFromCoreData(index: indexPath)
                     }
+            else{
+                self.alertWarning(indexPath: indexPath, title: "information", message: "check your connection to detete the item")
+            }
                  
 
         }))
@@ -220,7 +224,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
 }
 extension ShoppingCartVC{
   
-    func getItemsDraft(){
+  @objc func getItemsDraft(){
         if Utilities.utilities.getUserNote() != "0" {
             productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
             productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
@@ -250,13 +254,11 @@ extension ShoppingCartVC{
                        case false:
                            print("note can't Deleted")
                        }
-                       
-                   })
-       }
+                })
+           }
        
    }
     func deleteItemFromCart(indexPath:IndexPath){
-       ///product details check product in cart a'3mleha 3la api
        print("draftId\(userDefualt.getDraftOrder())")
        if itemList.count == 1{
            productViewModel?.deleteDraftOrder(draftOrderID: userDefualt.getDraftOrder())
@@ -296,7 +298,8 @@ extension ShoppingCartVC{
          totalPrice = 0.0
            for item in itemList {
                totalPrice += Double(item.quantity)*(Double(item.price) ?? 0.0)
-               totalLable.text = String(totalPrice)
+         //      totalLable.text = String(totalPrice)
+               totalLable.text = Shared.formatePrice(priceStr: String(totalPrice))
        }
       }
    }
@@ -358,7 +361,6 @@ extension ShoppingCartVC{
             do{
                 try productViewModel?.updatePrice(completion: { totalPrice in
                     guard let totalPrice = totalPrice else { return }
-                    Utilities.utilities.setTotalPrice(totalPrice:self.totalPrice ?? 0)
                     self.totalLable.text = Shared.formatePrice(priceStr: String(totalPrice))
                     print(totalPrice)
                     })

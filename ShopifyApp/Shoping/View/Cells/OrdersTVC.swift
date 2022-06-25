@@ -39,7 +39,7 @@ class OrdersTVC : UITableViewCell {
         let id = String(describing: item.productID)
         productVM!.getProductImage(id: id)
         productVM!.bindImageURLToView = { self.onSuccessUpdateView() }
-        productPrice.text = String(describing: item.price)
+        productPrice.text = Shared.formatePrice(priceStr: String(item.price))
     }
     func onSuccessUpdateView() {
         itemsImages = productVM!.imageURL!
