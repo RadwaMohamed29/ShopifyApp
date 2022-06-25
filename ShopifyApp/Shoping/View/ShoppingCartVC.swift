@@ -79,7 +79,14 @@ class ShoppingCartVC: UIViewController {
     func showDeleteAlert(indexPath:IndexPath){
         let alert = UIAlertController(title: "Are you sure?", message: "You will remove this item from the cart", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { [self] UIAlertAction in
-                self.deleteItemFromCart(indexPath: indexPath)
+            if flag == true{
+                        self.deleteItemFromCart(indexPath: indexPath)
+                        self.deleteItemFromCoreData(index: indexPath)
+                    }
+                    else{
+                        self.alertWarning(indexPath: indexPath, title: "information", message: "check your connection to detete the item")
+                    }
+
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
