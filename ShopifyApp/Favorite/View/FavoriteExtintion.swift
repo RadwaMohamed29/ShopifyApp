@@ -193,7 +193,8 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
         }.disposed(by: disBag)
     }
     
-    func getProduct(productId: String,compeletion: @escaping (Bool)-> Void ){
+    func getProduct(productId: String,compeletion: @escaping (Bool)-> Void ){                self.showActivityIndicator(indicator: self.indicator, startIndicator: true)
+        
         productViewModel?.getProduct(id: "\(productId)")
         productViewModel?.productObservable.subscribe(on: ConcurrentDispatchQueueScheduler
                                                         .init(qos: .background))
