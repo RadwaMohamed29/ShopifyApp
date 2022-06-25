@@ -63,7 +63,7 @@ class ShoppingCartVC: UIViewController {
         }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        //checkConnection()
+       // UpdateTotalPrice()
         checkCartIsEmpty()
     }
     func checkCartIsEmpty(){
@@ -110,20 +110,21 @@ class ShoppingCartVC: UIViewController {
                     itemList.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
                     tableView.reloadData()
-                    
+                   
                     let updateDraftOrder = PutOrderRequestTest(draftOrder: ModifyDraftOrderRequestTest(dratOrderId: Int(userDefualt.getDraftOrder()), lineItems: itemList ))
                     productViewModel?.editDraftOrder(draftOrder: updateDraftOrder, draftID: userDefualt.getDraftOrder(), completion: { result in
                         switch result{
                         case true:
                             print("update order to api ")
                             self.UpdateTotalPrice()
+            
                         case false:
                             print("error to update in api")
                         }
                         
                     })
 
-                    
+                   // self.UpdateTotalPrice()
                 }
             }
         }
@@ -150,6 +151,7 @@ class ShoppingCartVC: UIViewController {
     func UpdateTotalPrice(){
         DispatchQueue.main.asyncAfter(deadline: .now()+1.0)
         { [self] in
+          totalPrice = 0.0
             for item in itemList {
                 totalPrice += Double(item.quantity)*(Double(item.price) ?? 0.0)
                 totalLable.text = String(totalPrice)
