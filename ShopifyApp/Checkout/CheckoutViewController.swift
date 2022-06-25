@@ -38,6 +38,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     }
     @IBOutlet weak var smallView: UIView!
     var disBag = DisposeBag()
+    var productVM : ProductDetailsViewModel?
     var itemList : [LineItem] = []
     var items :[LineItems] = []
     var adress : Address?
@@ -58,6 +59,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
         smallView.layer.cornerRadius = 20
         discountLB.text = "\(Shared.formatePrice(priceStr: String(discount)))"
         lableAdress.text = "\(adress!.address2 ?? "") st, \(adress!.city ?? ""), \(adress!.country ?? "")"
+        productVM = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         orderViewModel = OrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
     }
@@ -71,9 +73,13 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
             
             switch result{
             case true:
+                self?.productVM?.deleteDraftOrder(draftOrderID: Utilities.utilities.getDraftOrder())
+                Utilities.utilities.setDraftOrder(id: 0)
+                self?.updateCustomerNote()
                 do{
                     try self?.orderViewModel?.removeItemsFromCartToSpecificCustomer()
                     Utilities.utilities.setCodeUsed(code: self!.copon,isUsed: true)
+                    Utilities.utilities.setCode(code: "")
                     DispatchQueue.main.async {
                         let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
                         self?.navigationController?.pushViewController(homeVC, animated: true)
@@ -155,25 +161,7 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
         availableHieght = itemsCV.frame.height - 24
         return CGSize(width: availableWidth, height: availableHieght)
     }
-    
-    
-//    func setImage(image: UIImageView,index : Int)  {
-//        let url = URL(string: itemList[index].image ?? "")
-//          let processor = DownsamplingImageProcessor(size: image.bounds.size)
-//                       |> RoundCornerImageProcessor(cornerRadius: 20)
-//          image.kf.indicatorType = .activity
-//        image.kf.setImage(
-//              with: url,
-//              options: [
-//                  .processor(processor),
-//                  .scaleFactor(UIScreen.main.scale),
-//                  .transition(.fade(1)),
-//                  .cacheOriginalImage
-//              ])
-//        image.layer.borderWidth = 1
-//        image.layer.borderColor = UIColor.lightGray.cgColor
-//        image.layer.cornerRadius = 20
-//    }
+
     func convertFromListOfCartProdeuctTolistOfLineItems(products:[LineItem]) -> [LineItems]{
         var items : [LineItems] = []
         for item in products{
@@ -206,5 +194,26 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
         return postOrder
     }
     
-    
+    func updateCustomerNote(){
+        if Utilities.utilities.isLoggedIn(){
+            let editCustomer = EditCustomerRequest(id: Utilities.utilities.getCustomerId()
+                                                   , email: Utilities.utilities.getCustomerEmail()
+                                                   , firstName: Utilities.utilities.getCustomerName()
+                                                   , password: "\(Utilities.utilities.getUserPassword())"
+                                                   , note: "0")
+            Utilities.utilities.setUserNote(note: editCustomer.note)
+            productVM?.editCustomer(customer: EditCustomer(customer: editCustomer)
+                                    ,customerID: Utilities.utilities.getCustomerId()
+                                    ,completion: { result in
+                        switch result{
+                        case true:
+                            print("note Deleted\(editCustomer.note)")
+                        case false:
+                            print("note can't Deleted")
+                        }
+                        
+                    })
+        }
+        
+    }
 }
