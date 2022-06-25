@@ -32,7 +32,6 @@ class ShoppingCartVC: UIViewController {
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
         if Utilities.utilities.getUserNote() == "0" {
-           // self.emptyView.isHidden=false
             getCartProductsFromCoreData()
         }
         else{
@@ -41,12 +40,9 @@ class ShoppingCartVC: UIViewController {
             UpdateTotalPrice()
             self.emptyView.isHidden=true
         }
-    //    checkConnection()
-        print("cacheCart\(CartProducts.count)")
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-       // UpdateTotalPrice()
         checkConnection()
   //      checkCartIsEmpty()
     }
@@ -84,7 +80,6 @@ class ShoppingCartVC: UIViewController {
         let alert = UIAlertController(title: "Are you sure?", message: "You will remove this item from the cart", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { [self] UIAlertAction in
                 self.deleteItemFromCart(indexPath: indexPath)
-          //  self.setTotalPrice()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -109,7 +104,6 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if flag == true{
             return itemList.count
-
         }
         else {
             return CartProducts.count
