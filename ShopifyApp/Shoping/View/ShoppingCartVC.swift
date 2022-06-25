@@ -127,28 +127,33 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
             var count = self.itemList[indexPath.row].quantity
             let id = self.itemList[indexPath.row].productID
 
-         cell.addCount={ [self] in
-                count+=1
-                cell.productCount.text = "\(count)"
-                self.itemList[indexPath.row].quantity = count
-            self.totalPrice += Double(itemList[indexPath.row].price)!
-            self.totalLable.text = String(self.totalPrice)
-           self.updateCount(productID: id, count: count)
-             
-                    }
-                cell.subCount={
-                    if (count != 1) {
-                        cell.subBtn.isEnabled = true
-                        count-=1
-                        cell.productCount.text = "\(count)"
-                        self.itemList[indexPath.row].quantity = count
-                        self.totalPrice -= Double(self.itemList[indexPath.row].price)!
+            if flag == true{ cell.addCount={ [self] in
+                            count+=1
+                            cell.productCount.text = "\(count)"
+                            self.itemList[indexPath.row].quantity = count
+                        self.totalPrice += Double(itemList[indexPath.row].price)!
                         self.totalLable.text = String(self.totalPrice)
-                        self.updateCount(productID: id, count: count)
+                      
+                         
+                                }
+                            cell.subCount={
+                                if (count != 1) {
+                                    cell.subBtn.isEnabled = true
+                                    count-=1
+                                    cell.productCount.text = "\(count)"
+                                    self.itemList[indexPath.row].quantity = count
+                                    self.totalPrice -= Double(self.itemList[indexPath.row].price)!
+                                    self.totalLable.text = String(self.totalPrice)
+                                  
 
-                    }
-                   
-                }
+                                }
+                                else{
+                                    self.alertWarning(indexPath: indexPath, title: "warning", message: "can't decrease count of item to zero")
+                                }
+                            }}
+                        else {
+                            self.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to modifay the item")
+                        }
             
         }
         else {
