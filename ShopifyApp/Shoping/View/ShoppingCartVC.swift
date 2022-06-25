@@ -128,32 +128,32 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
             let id = self.itemList[indexPath.row].productID
 
             if flag == true{ cell.addCount={ [self] in
-                            count+=1
-                            cell.productCount.text = "\(count)"
-                            self.itemList[indexPath.row].quantity = count
-                        self.totalPrice += Double(itemList[indexPath.row].price)!
-                        self.totalLable.text = String(self.totalPrice)
-                       self.updateCount(productID: id, count: count)
-                         
-                                }
-                            cell.subCount={
-                                if (count != 1) {
-                                    cell.subBtn.isEnabled = true
-                                    count-=1
-                                    cell.productCount.text = "\(count)"
-                                    self.itemList[indexPath.row].quantity = count
-                                    self.totalPrice -= Double(self.itemList[indexPath.row].price)!
-                                    self.totalLable.text = String(self.totalPrice)
-                                    self.updateCount(productID: id, count: count)
+                        count+=1
+                        cell.productCount.text = "\(count)"
+                        self.itemList[indexPath.row].quantity = count
+                    self.totalPrice += Double(itemList[indexPath.row].price)!
+                    self.totalLable.text = String(self.totalPrice)
+                   self.updateCount(productID: id, count: count)
+                     
+                            }
+                        cell.subCount={
+                            if (count != 1) {
+                                cell.subBtn.isEnabled = true
+                                count-=1
+                                cell.productCount.text = "\(count)"
+                                self.itemList[indexPath.row].quantity = count
+                                self.totalPrice -= Double(self.itemList[indexPath.row].price)!
+                                self.totalLable.text = String(self.totalPrice)
+                                self.updateCount(productID: id, count: count)
 
-                                }
-                                else{
-                                    self.alertWarning(indexPath: indexPath, title: "warning", message: "can't decrease count of item to zero")
-                                }
-                            }}
-                        else {
-                            self.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to modifay the item")
-                        }
+                            }
+                            else{
+                                self.alertWarning(indexPath: indexPath, title: "warning", message: "can't decrease count of item to zero")
+                            }
+                        }}
+                    else {
+                        self.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to modifay the item")
+                    }
             
         }
         else {
@@ -175,6 +175,14 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                     cell.deleteFromBagProducts = {[weak self] in
                     self?.showDeleteAlert(indexPath: indexPath)
                     }
+            cell.addCount={
+                self.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to modifay the item")
+
+            }
+            cell.subCount={
+                self.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to modifay the item")
+
+            }
         }
         
         return cell
@@ -189,7 +197,12 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         let detalisVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
-        detalisVC.productId = String(itemList[indexPath.row].productID)
+        if flag == true{
+            detalisVC.productId = String(itemList[indexPath.row].productID)
+        }
+        else {
+            detalisVC.productId = CartProducts[indexPath.row].id
+        }
         
         self.navigationController?.pushViewController(detalisVC, animated: true)
     }
