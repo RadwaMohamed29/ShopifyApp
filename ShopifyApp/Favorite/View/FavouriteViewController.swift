@@ -11,13 +11,14 @@ import RxSwift
 import RxCocoa
 import CoreMedia
 import Lottie
+import NVActivityIndicatorView
 class FavouriteViewController: UIViewController {
   
     var countOfSelectedItem = 0
     var disBag = DisposeBag()
     var listOfSelectedProducts:[FavoriteProducts] = []
     var favouriteProductsCD : [FavouriteProduct] = []
-     
+    let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     var productViewModel : ProductDetailsViewModel?
     @IBOutlet weak var noDataView: UIView!
     
@@ -89,10 +90,8 @@ class FavouriteViewController: UIViewController {
         
         for product in listOfSelectedProducts{
             var product = product
-            
             productViewModel?.checkProductInCart(id: "\(product.id )")
             guard let inCart = productViewModel?.isProductInCart else{return}
-            
             if(inCart){
                 let alert = UIAlertController(title: "Already In Cart!", message: "Some of selected is in Cart!. if you need to increase the amount of product , you can do it from your cart ", preferredStyle: .alert)
                 let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -107,35 +106,23 @@ class FavouriteViewController: UIViewController {
                             self.postDraftOrder()
                             DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
                                 self.updateCustomer()
-                                Shared.showMessage(message: "Added To Bag Successfully!", error: false)
-
+                                self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
                             }
                         }else{
                             self.getItemsDraft()
                             DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
                                 self.editDraftOrder()
-                                Shared.showMessage(message: "Added To Bag Successfully!", error: false)
-
+                                self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
                             }
                         }
                     }
                 }
-                
                 do{
-                    try productViewModel?.addProductToCoreDataCart(id: "\(product.id)",title:product.title,image:product.scr,price:product.price, itemCount: 1, quantity:1, completion: { result in
-                        switch result{
-                        case true:
-                            print("add to cart \(inCart)")
-                            
-                        case false :
-                            print("faild to add to cart")
-                        }
-                    })
-                    
+                    try productViewModel?.addProductToCoreDataCart(id: "\(product.id)",title:product.title,image:product.scr,price:product.price, itemCount: 1, quantity:1, completion: { _ in})
                 }catch let error{
                     print(error.localizedDescription)
                 }
-                
+                Shared.showMessage(message: "Added To Cart Successfully!", error: false)
             }
             product.isSelected = false
         }

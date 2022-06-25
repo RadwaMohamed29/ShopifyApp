@@ -38,7 +38,8 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     }
     @IBOutlet weak var smallView: UIView!
     var disBag = DisposeBag()
-    var cartProducts : [CartProduct] = []
+    var productVM : ProductDetailsViewModel?
+    var itemList : [LineItem] = []
     var items :[LineItems] = []
     var adress : Address?
     var subTotal :Double?
@@ -58,6 +59,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
         smallView.layer.cornerRadius = 20
         discountLB.text = "\(Shared.formatePrice(priceStr: String(discount)))"
         lableAdress.text = "\(adress!.address2 ?? "") st, \(adress!.city ?? ""), \(adress!.country ?? "")"
+        productVM = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         orderViewModel = OrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         
     }
@@ -71,9 +73,13 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
             
             switch result{
             case true:
+                self?.productVM?.deleteDraftOrder(draftOrderID: Utilities.utilities.getDraftOrder())
+                Utilities.utilities.setDraftOrder(id: 0)
+                self?.updateCustomerNote()
                 do{
                     try self?.orderViewModel?.removeItemsFromCartToSpecificCustomer()
                     Utilities.utilities.setCodeUsed(code: self!.copon,isUsed: true)
+                    Utilities.utilities.setCode(code: "")
                     DispatchQueue.main.async {
                         let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
                         self?.navigationController?.pushViewController(homeVC, animated: true)
@@ -96,7 +102,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     }
     
     @IBAction func btnConfirmPayment(_ sender: Any) {
-        items = convertFromListOfCartProdeuctTolistOfLineItems(products: cartProducts)
+        items = convertFromListOfCartProdeuctTolistOfLineItems(products: itemList)
         order = prepareOrderObject(items: items, adress: adress!,price: "\(total ?? 0)")
         let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
         
@@ -129,7 +135,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
 
 extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        cartProducts.count
+        itemList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -137,9 +143,9 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor(red: 0.031, green: 0.498, blue: 0.537, alpha: 1).cgColor
         cell.layer.cornerRadius = 20
-        setImage(image: cell.image, index: indexPath.row)
-        cell.price.text = Shared.formatePrice(priceStr: cartProducts[indexPath.row].price)
-        cell.amount.text = "\(cartProducts[indexPath.row].count)"
+        cell.updateUI(item: itemList[indexPath.row])
+        cell.price.text = Shared.formatePrice(priceStr: itemList[indexPath.row].price)
+        cell.amount.text = "\(itemList[indexPath.row].quantity)"
         
         
         return cell
@@ -155,40 +161,23 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
         availableHieght = itemsCV.frame.height - 24
         return CGSize(width: availableWidth, height: availableHieght)
     }
-    
-    func setImage(image: UIImageView,index : Int)  {
-        let url = URL(string: cartProducts[index].image ?? "")
-          let processor = DownsamplingImageProcessor(size: image.bounds.size)
-                       |> RoundCornerImageProcessor(cornerRadius: 20)
-          image.kf.indicatorType = .activity
-        image.kf.setImage(
-              with: url,
-              options: [
-                  .processor(processor),
-                  .scaleFactor(UIScreen.main.scale),
-                  .transition(.fade(1)),
-                  .cacheOriginalImage
-              ])
-        image.layer.borderWidth = 1
-        image.layer.borderColor = UIColor.lightGray.cgColor
-        image.layer.cornerRadius = 20
-    }
-    func convertFromListOfCartProdeuctTolistOfLineItems(products:[CartProduct]) -> [LineItems]{
+
+    func convertFromListOfCartProdeuctTolistOfLineItems(products:[LineItem]) -> [LineItems]{
         var items : [LineItems] = []
         for item in products{
             items.append(convertFromCartProdeuctToLineItems(cartProduct: item))
         }
         return items
     }
-    func convertFromCartProdeuctToLineItems(cartProduct : CartProduct)->LineItems{
+    func convertFromCartProdeuctToLineItems(cartProduct : LineItem)->LineItems{
         let lineItems = LineItems(id: nil
                                   , giftCard: false
-                                  , name: cartProduct.title ?? ""
-                                  , price: "\(cartProduct.price ?? "0")"
+                                  , name: cartProduct.title
+                                  , price: "\(cartProduct.price )"
                                   , productExists: true
-                                  , productID: Int(cartProduct.id ?? "0")
-                                  , quantity: Int(cartProduct.count)
-                                  , title: cartProduct.title ?? "")
+                                  , productID: Int(cartProduct.id )
+                                  , quantity: Int(cartProduct.quantity)
+                                  , title: cartProduct.title )
         return lineItems
     }
 
@@ -205,5 +194,26 @@ extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDe
         return postOrder
     }
     
-    
+    func updateCustomerNote(){
+        if Utilities.utilities.isLoggedIn(){
+            let editCustomer = EditCustomerRequest(id: Utilities.utilities.getCustomerId()
+                                                   , email: Utilities.utilities.getCustomerEmail()
+                                                   , firstName: Utilities.utilities.getCustomerName()
+                                                   , password: "\(Utilities.utilities.getUserPassword())"
+                                                   , note: "0")
+            Utilities.utilities.setUserNote(note: editCustomer.note)
+            productVM?.editCustomer(customer: EditCustomer(customer: editCustomer)
+                                    ,customerID: Utilities.utilities.getCustomerId()
+                                    ,completion: { result in
+                        switch result{
+                        case true:
+                            print("note Deleted\(editCustomer.note)")
+                        case false:
+                            print("note can't Deleted")
+                        }
+                        
+                    })
+        }
+        
+    }
 }

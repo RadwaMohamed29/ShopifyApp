@@ -128,25 +128,26 @@ class ShoppingCartVC: UIViewController {
                 }
             }
         }
+         //        do{
+         //            try self.productViewModel?.removeProductFromCart(productID: "\(CartProducts[index].id ?? "1")", completionHandler: { response in
+         //                switch response{
+         //                case true:
+         //                    print("remove from cart")
+         //                   //self.getCartProductsFromCoreData()
+         //                    self.tableView.reloadData()
+         //                    if self.CartProducts.count == 0 {
+         //                        self.emptyView.isHidden=false
+         //                    }
+         //                case false:
+         //                    print("error in remove")
+         //                }
+         //            })
+         //        }
+         //        catch let error{
+         //            print(error.localizedDescription)
+         //        }
     }
-//        do{
-//            try self.productViewModel?.removeProductFromCart(productID: "\(CartProducts[index].id ?? "1")", completionHandler: { response in
-//                switch response{
-//                case true:
-//                    print("remove from cart")
-//                   //self.getCartProductsFromCoreData()
-//                    self.tableView.reloadData()
-//                    if self.CartProducts.count == 0 {
-//                        self.emptyView.isHidden=false
-//                    }
-//                case false:
-//                    print("error in remove")
-//                }
-//            })
-//        }
-//        catch let error{
-//            print(error.localizedDescription)
-//        }
+
     
     func UpdateTotalPrice(){
         DispatchQueue.main.asyncAfter(deadline: .now()+1.0)
@@ -187,7 +188,7 @@ class ShoppingCartVC: UIViewController {
 
     @IBAction func goToAddress(_ sender: Any) {
         let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
-        address.cartProducts = CartProducts
+        address.itemList = itemList
         address.isComingWithOrder = true
         Utilities.utilities.setTotalPrice(totalPrice: totalPrice )
         self.navigationController?.pushViewController(address, animated: true)

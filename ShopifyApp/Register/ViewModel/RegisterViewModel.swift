@@ -87,7 +87,7 @@ class RegisterViewModel: RegisterViewModelType{
                     let customerEmail = savedCustomer?["email"] as? String ?? ""
                     let customerPassword = savedCustomer?["tags"] as? String ?? ""
 
-                    let customerNote = savedCustomer?["note"] as? String ?? ""
+                    let customerNote = savedCustomer?["note"] as? String ?? "0"
 
                     
                     if id != 0 {

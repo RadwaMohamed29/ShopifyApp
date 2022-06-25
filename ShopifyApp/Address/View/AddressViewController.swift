@@ -22,7 +22,7 @@ class AddressViewController: UIViewController {
     private var isConn:Bool = false
     private let disposeBag = DisposeBag()
     fileprivate var arr : [Address]!
-    var cartProducts : [CartProduct] = []
+    var itemList : [LineItem] = []
     fileprivate var viewModel:AddressViewModelProtocol!
     @IBOutlet weak var addressTableView: UITableView!
     var addrressID: String = ""
@@ -96,7 +96,7 @@ class AddressViewController: UIViewController {
     @IBAction func confirmAdress(_ sender: Any) {
         if arr.count > 0{
             let checkoutVC = CheckoutViewController(nibName: "CheckoutViewController", bundle: nil)
-            checkoutVC.cartProducts = cartProducts
+            checkoutVC.itemList = itemList
             if adress == nil{
                 adress = arr[0]
             }
