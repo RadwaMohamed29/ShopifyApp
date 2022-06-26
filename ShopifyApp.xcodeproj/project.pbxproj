@@ -61,6 +61,7 @@
 		3E753466283AEEA90072EF9A /* BrandTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E753464283AEEA90072EF9A /* BrandTableViewCell.xib */; };
 		3E77EFBC2868A27100BBF1B7 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E77EFBA2868A27100BBF1B7 /* AboutViewController.swift */; };
 		3E77EFBD2868A27100BBF1B7 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E77EFBB2868A27100BBF1B7 /* AboutViewController.xib */; };
+		3E77EFBF2869011000BBF1B7 /* HomeScreenTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E77EFBE2869011000BBF1B7 /* HomeScreenTest.swift */; };
 		3EA433862846F415001FB269 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA433852846F415001FB269 /* Utilities.swift */; };
 		3EA736682842B2FB002B32DA /* HandelConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA736672842B2FB002B32DA /* HandelConnection.swift */; };
 		3EA799C6285E2E93006B10DA /* DraftOrderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA799C5285E2E93006B10DA /* DraftOrderTest.swift */; };
@@ -212,6 +213,7 @@
 		3E753464283AEEA90072EF9A /* BrandTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrandTableViewCell.xib; sourceTree = "<group>"; };
 		3E77EFBA2868A27100BBF1B7 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		3E77EFBB2868A27100BBF1B7 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		3E77EFBE2869011000BBF1B7 /* HomeScreenTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenTest.swift; sourceTree = "<group>"; };
 		3EA433852846F415001FB269 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		3EA736672842B2FB002B32DA /* HandelConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandelConnection.swift; sourceTree = "<group>"; };
 		3EA799C5285E2E93006B10DA /* DraftOrderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftOrderTest.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				1654EB842835EB31000B78F1 /* ShopifyAppTests.swift */,
+				3E77EFBE2869011000BBF1B7 /* HomeScreenTest.swift */,
 			);
 			path = ShopifyAppTests;
 			sourceTree = "<group>";
@@ -1324,6 +1327,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E77EFBF2869011000BBF1B7 /* HomeScreenTest.swift in Sources */,
 				1654EB852835EB31000B78F1 /* ShopifyAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

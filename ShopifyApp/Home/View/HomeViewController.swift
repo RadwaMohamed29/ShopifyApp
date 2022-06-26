@@ -147,17 +147,6 @@ extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
         }
         return height
     }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        var title = ""
-        switch section{
-        case 0:
-            title = ""
-        default:
-            title = ""
-        }
-        return title
-    }
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.textLabel?.font = UIFont(name: "Verdana", size: 18)

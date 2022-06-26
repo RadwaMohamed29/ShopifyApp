@@ -52,33 +52,4 @@ class HomeViewModel: DataOfBrands {
       }
     }
 
-    var bindAddsViewModelToView : (()->()) = {}
-    var adds: [Discount_codes]? {
-        didSet {
-            self.bindAddsViewModelToView()
-        }
-    }
-    var bindViewModelErrorToView : (()->()) = {}
-    var showError: String? {
-        didSet {
-            self.bindViewModelErrorToView()
-        }
-    }
-    let userDefualt = Utilities()
-
-    func fetchAdds (priceRuleID: String = "1173393834242"){
-        
-        network.getDiscountCode(priceRule: priceRuleID){ [weak self] result in
-            switch result {
-            case .success(let response):
-                guard let discountCode = response.discount_codes else{return}
-                self?.adds = discountCode
-              // print("discount code: \(self?.adds?[0].code ?? "5")")
-                self?.userDefualt.setDiscountCode(code: discountCode[0].code ?? "")
-                
-            case .failure(let error):
-                print(error.localizedDescription)
-        }
-        }
-    }
 }
