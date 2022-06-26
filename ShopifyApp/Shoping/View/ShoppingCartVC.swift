@@ -101,13 +101,14 @@ class ShoppingCartVC: UIViewController {
     }
 
     @IBAction func goToAddress(_ sender: Any) {
-        let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
-        address.itemList = itemList
-        address.isComingWithOrder = true
-        Utilities.utilities.setTotalPrice(totalPrice: totalPrice )
-        self.navigationController?.pushViewController(address, animated: true)
+        if !itemList.isEmpty || !CartProducts.isEmpty{
+            let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
+            address.itemList = itemList
+            address.isComingWithOrder = true
+            Utilities.utilities.setTotalPrice(totalPrice: totalPrice )
+            self.navigationController?.pushViewController(address, animated: true)
+        }
     }
-
 }
 extension ShoppingCartVC{
     func getItemsDraft(){

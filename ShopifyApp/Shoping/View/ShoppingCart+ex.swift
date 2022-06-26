@@ -21,12 +21,12 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
         cell.deleteFromBagProducts = {
             self.showDeleteAlert(indexPath: indexPath)
         }
-        if flag == true{    let item = self.itemList[indexPath.row]
+        if flag == true{
+            let item = self.itemList[indexPath.row]
             cell.updateUI(item: item)
             var count = self.itemList[indexPath.row].quantity
             let id = self.itemList[indexPath.row].productID
-            DispatchQueue.main.asyncAfter(deadline: .now()+1.5){
-                [self] in
+            if !quantityOfProducts.isEmpty{
                 let quantity = quantityOfProducts[indexPath.row].variant[0].inventoryQuantity
                 if flag == true{
                   cell.addCount={ [self] in
@@ -41,7 +41,6 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                         self.totalLable.text = Shared.formatePrice(priceStr: String(self.totalPrice))
                      self.updateCount(productID: id, count: count)
                     }
-                      
                   }
                      cell.subCount={
                      if (count != 1)
@@ -57,7 +56,6 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                          else{
                             self.alertWarning(indexPath: indexPath, title: "warning", message: "can't decrease count of item to zero")
                             }
-                         
                      }
                     
                 }else{

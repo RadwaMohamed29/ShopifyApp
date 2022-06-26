@@ -12,12 +12,10 @@ class HomeViewController: UIViewController,brandIdProtocol {
     @IBOutlet weak var favBtn: UIBarButtonItem!
     @IBOutlet weak var cartBtn: UIBarButtonItem!
     @IBOutlet weak var homeTV: UITableView!
-    var productViewModel : ProductDetailsViewModel?
     var localDataSource = LocalDataSource(appDelegate: UIApplication.shared.delegate as! AppDelegate)
     let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
-        productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
         BrandTableViewCell.setHome(deleget: self)
         setupTableView()
 
