@@ -173,6 +173,7 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
             self.present(alert, animated: true, completion: nil)
         }else{
             let alert = UIAlertController(title: "Are you sure?", message: "You will remove this address", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
             alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { [self] UIAlertAction in
                 deleteAddress(indexPath: indexPath)
        

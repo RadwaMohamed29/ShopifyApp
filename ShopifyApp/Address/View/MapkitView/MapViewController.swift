@@ -28,6 +28,7 @@ class MapViewController: UIViewController {
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.delegate = self
         mapView.delegate = self
+        
         if isLocationServiceEnabled(){
             checkAuthorizationState()
         }else{
@@ -111,10 +112,12 @@ extension MapViewController:CLLocationManagerDelegate{
         case .authorizedAlways:
             manager.startUpdatingLocation()
             mapView.showsUserLocation = true
+            zoomToUserLocation(location: manager.location ?? CLLocation(latitude: 30.0444, longitude: 31.2357))
             break
         case .authorizedWhenInUse:
             manager.requestAlwaysAuthorization()
             mapView.showsUserLocation = true
+            zoomToUserLocation(location: manager.location ?? CLLocation(latitude: 30.0444, longitude: 31.2357))
             break
         default:
             print("Default")
@@ -129,16 +132,13 @@ extension MapViewController:CLLocationManagerDelegate{
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            //            getCurrentLocation(location: location)
-            zoomToUserLocation(location: location)
-            getLocationInfo(location: location )
-        }
     }
     
     func zoomToUserLocation(location:CLLocation) {
-        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 0.1, longitudinalMeters: 0.1)
         mapView.setRegion(region, animated: true)
+        let zoom = MKMapView.CameraZoomRange(maxCenterCoordinateDistance: 1200000)
+        mapView.setCameraZoomRange(zoom, animated: true)
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -149,10 +149,12 @@ extension MapViewController:CLLocationManagerDelegate{
         case .authorizedAlways:
             manager.startUpdatingLocation()
             mapView.showsUserLocation = true
+            zoomToUserLocation(location: manager.location ?? CLLocation(latitude: 30.0444, longitude: 31.2357))
             break
         case .authorizedWhenInUse:
             manager.requestAlwaysAuthorization()
             mapView.showsUserLocation = true
+            zoomToUserLocation(location: manager.location ?? CLLocation(latitude: 30.0444, longitude: 31.2357))
             break
         default:
             print("Default")
