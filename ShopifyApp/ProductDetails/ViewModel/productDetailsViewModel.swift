@@ -33,6 +33,8 @@ protocol ProductDetailsViewModelType{
     var itemDraftOrderObservable: Observable<DraftOrderTest>{get set}
     var lineItem : Array<LineItem>{get set}
     func deleteDraftOrder(draftOrderID: Int)
+    func getProductImage(id: String)
+    
 
 
 
