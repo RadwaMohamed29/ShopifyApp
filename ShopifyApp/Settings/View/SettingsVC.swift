@@ -23,12 +23,15 @@ class SettingsVC: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     @IBAction func websiteBtn(_ sender: Any) {
+        settingViewModel.openWebsite(url:"https://shopify.dev/api/admin-rest")
     }
     
     @IBAction func faceBookBtn(_ sender: Any) {
+        settingViewModel.openWebsite(url: "https://www.facebook.com/shopify/")
     }
     @IBAction func aboutBtn(_ sender: Any) {
-        
+        let aboutVC = AboutViewController(nibName: "AboutViewController", bundle: nil)
+        self.present(aboutVC, animated: true)
     }
     @IBAction func addressBtn(_ sender: Any) {
         let addressVC = AddressViewController(nibName: "AddressViewController", bundle: nil)
@@ -46,6 +49,7 @@ class SettingsVC: UIViewController {
         Utilities.utilities.setCodeUsed(code: key,isUsed: false)
         self.navigationController?.popViewController(animated: true)
     }
+    
 
     @IBAction func currencyBtn(_ sender: Any) {
         switch currencySegmant.selectedSegmentIndex {
@@ -69,4 +73,8 @@ class SettingsVC: UIViewController {
         }
         
     }
+//    @objc func youtubeTapped(sender:UIButton){
+//        let url = sender.accessibilityValue!
+//        viewModel.openInYoutube(url: url)
+//    }
 }

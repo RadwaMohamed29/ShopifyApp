@@ -6,12 +6,14 @@
 //
 
 import Foundation
-
+import UIKit
 protocol SettingsViewModelType{
     func getCurrency(key:String)->String
     func setCurrency(key:String, value: String)
+    func openWebsite(url:String)
     var currency: String? {get set }
     var bindSettingViewModel : (()->()){get set}
+    
 }
 class SettingsViewModel:NSObject, SettingsViewModelType{
     var userDefualts =  Utilities()
@@ -31,5 +33,13 @@ class SettingsViewModel:NSObject, SettingsViewModelType{
     func setCurrency(key: String, value: String) {
         userDefualts.setCurrency(Key: key, value: value)
         currency = value
+    }
+    func openWebsite(url:String){
+        let app = UIApplication.shared
+        if app.canOpenURL(URL(string: url)!){
+            app.open(URL(string: url)!)
+        }else {
+            app.open(URL(string: "https://\(url)")!)
+        }
     }
 }
