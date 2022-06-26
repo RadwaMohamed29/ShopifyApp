@@ -11,6 +11,7 @@
             <connections>
                 <outlet property="addressTableView" destination="XlZ-NF-4O3" id="M7y-y3-FAa"/>
                 <outlet property="btnConfirmAddress" destination="TFL-qu-Lm4" id="DHA-To-zjU"/>
+                <outlet property="map" destination="aKR-nB-To1" id="2O7-l8-xv9"/>
                 <outlet property="noAddressView" destination="ID7-dr-edd" id="Xhf-tR-zUu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -36,7 +37,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRI-P5-IhI">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="address" translatesAutoresizingMaskIntoConstraints="NO" id="aKR-nB-To1">
+                                <imageView clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map" translatesAutoresizingMaskIntoConstraints="NO" id="aKR-nB-To1">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="163"/>
                                 </imageView>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XlZ-NF-4O3">
@@ -72,6 +73,11 @@
                                         <constraint firstItem="QJE-bz-hn2" firstAttribute="width" secondItem="ID7-dr-edd" secondAttribute="width" multiplier="0.84136" id="yoD-aA-oIz"/>
                                     </constraints>
                                 </view>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alw-xO-o6S">
+                                    <rect key="frame" x="0.0" y="122.5" width="414" height="40.5"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="tinted" title="Choose From Map"/>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -79,8 +85,10 @@
                                 <constraint firstAttribute="height" constant="808" id="4EB-Q4-6EY"/>
                                 <constraint firstAttribute="trailing" secondItem="aKR-nB-To1" secondAttribute="trailing" id="81l-DI-5Ti"/>
                                 <constraint firstItem="aKR-nB-To1" firstAttribute="top" secondItem="tRI-P5-IhI" secondAttribute="top" id="84w-gw-3NY"/>
+                                <constraint firstItem="alw-xO-o6S" firstAttribute="width" secondItem="aKR-nB-To1" secondAttribute="width" id="8fo-Ta-Ujc"/>
                                 <constraint firstItem="ID7-dr-edd" firstAttribute="height" secondItem="tRI-P5-IhI" secondAttribute="height" multiplier="0.42203" id="AK1-1h-D72"/>
                                 <constraint firstItem="ID7-dr-edd" firstAttribute="width" secondItem="tRI-P5-IhI" secondAttribute="width" multiplier="0.852657" id="BPc-FY-NsR"/>
+                                <constraint firstItem="alw-xO-o6S" firstAttribute="bottom" secondItem="aKR-nB-To1" secondAttribute="bottom" id="EoT-Ga-eA4"/>
                                 <constraint firstItem="aKR-nB-To1" firstAttribute="leading" secondItem="tRI-P5-IhI" secondAttribute="leading" id="Gg2-W0-rGB"/>
                                 <constraint firstItem="XlZ-NF-4O3" firstAttribute="leading" secondItem="tRI-P5-IhI" secondAttribute="leading" id="Llw-Iz-Uex"/>
                                 <constraint firstAttribute="trailing" secondItem="XlZ-NF-4O3" secondAttribute="trailing" id="TU6-lC-T5O"/>
@@ -88,6 +96,8 @@
                                 <constraint firstAttribute="trailing" secondItem="aKR-nB-To1" secondAttribute="trailing" id="ZIF-rR-WKK"/>
                                 <constraint firstItem="XlZ-NF-4O3" firstAttribute="top" secondItem="aKR-nB-To1" secondAttribute="bottom" id="bMn-I8-V9w"/>
                                 <constraint firstItem="ID7-dr-edd" firstAttribute="centerX" secondItem="tRI-P5-IhI" secondAttribute="centerX" id="e1e-k9-6BK"/>
+                                <constraint firstItem="alw-xO-o6S" firstAttribute="height" secondItem="aKR-nB-To1" secondAttribute="height" multiplier="0.25" id="iE7-Vi-v8c"/>
+                                <constraint firstItem="alw-xO-o6S" firstAttribute="centerX" secondItem="aKR-nB-To1" secondAttribute="centerX" id="k86-vA-rA9"/>
                                 <constraint firstItem="aKR-nB-To1" firstAttribute="leading" secondItem="tRI-P5-IhI" secondAttribute="leading" id="uIa-sS-JRg"/>
                             </constraints>
                         </view>
@@ -120,7 +130,7 @@
         </view>
     </objects>
     <resources>
-        <image name="address" width="3000" height="2000"/>
+        <image name="map" width="1200" height="533"/>
         <image name="plus" catalog="system" width="128" height="113"/>
     </resources>
 </document>

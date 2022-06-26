@@ -102,6 +102,8 @@
 		BE14A598283FD87B001D8A9D /* Products.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE14A597283FD87B001D8A9D /* Products.swift */; };
 		BE14A59B283FE649001D8A9D /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE14A59A283FE649001D8A9D /* CategoryViewModel.swift */; };
 		BE235E7A284D390F0036A81C /* Address + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE235E79284D390F0036A81C /* Address + extension.swift */; };
+		BE2EA1292867CA51005A37BF /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE2EA1272867CA51005A37BF /* MapViewController.swift */; };
+		BE2EA12A2867CA51005A37BF /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE2EA1282867CA51005A37BF /* MapViewController.xib */; };
 		BE3415832860061200F69703 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3415812860061200F69703 /* OnBoardingViewController.swift */; };
 		BE3415842860061200F69703 /* OnBoardingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE3415822860061200F69703 /* OnBoardingViewController.xib */; };
 		BE3415872860145F00F69703 /* FirstOnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3415852860145F00F69703 /* FirstOnBoardingViewController.swift */; };
@@ -246,6 +248,8 @@
 		BE14A597283FD87B001D8A9D /* Products.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Products.swift; sourceTree = "<group>"; };
 		BE14A59A283FE649001D8A9D /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		BE235E79284D390F0036A81C /* Address + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Address + extension.swift"; sourceTree = "<group>"; };
+		BE2EA1272867CA51005A37BF /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		BE2EA1282867CA51005A37BF /* MapViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MapViewController.xib; sourceTree = "<group>"; };
 		BE3415812860061200F69703 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
 		BE3415822860061200F69703 /* OnBoardingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OnBoardingViewController.xib; sourceTree = "<group>"; };
 		BE3415852860145F00F69703 /* FirstOnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstOnBoardingViewController.swift; sourceTree = "<group>"; };
@@ -867,6 +871,15 @@
 			path = CategoryViewModel;
 			sourceTree = "<group>";
 		};
+		BE2EA1262867CA19005A37BF /* MapkitView */ = {
+			isa = PBXGroup;
+			children = (
+				BE2EA1272867CA51005A37BF /* MapViewController.swift */,
+				BE2EA1282867CA51005A37BF /* MapViewController.xib */,
+			);
+			path = MapkitView;
+			sourceTree = "<group>";
+		};
 		BE34158928601F9900F69703 /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -899,6 +912,7 @@
 		BE9E3738284BF62D0061DF86 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BE2EA1262867CA19005A37BF /* MapkitView */,
 				BE9E3734284BF6270061DF86 /* AddressViewController.swift */,
 				BE235E79284D390F0036A81C /* Address + extension.swift */,
 				BE9E3735284BF6270061DF86 /* AddressViewController.xib */,
@@ -1044,6 +1058,7 @@
 				BE9E373C284BF6970061DF86 /* AddressCellTableViewCell.xib in Resources */,
 				9CB996D9283FD8C500136ABC /* SearchCollectionViewCell.xib in Resources */,
 				9C06B41F284BEC1B00B64732 /* OrderCollectionViewCell.xib in Resources */,
+				BE2EA12A2867CA51005A37BF /* MapViewController.xib in Resources */,
 				9CB996D3283FC59100136ABC /* AllProductsViewController.xib in Resources */,
 				9CCBF3DF283BF81F00825219 /* FavouriteViewController.xib in Resources */,
 				3E37B9B7283D9860000A0FD9 /* ShoppingCartVC.xib in Resources */,
@@ -1233,6 +1248,7 @@
 				BE3415832860061200F69703 /* OnBoardingViewController.swift in Sources */,
 				1654EB6B2835EB2F000B78F1 /* AppDelegate.swift in Sources */,
 				9C06B417284BEBA500B64732 /* AllOrdersViewController.swift in Sources */,
+				BE2EA1292867CA51005A37BF /* MapViewController.swift in Sources */,
 				1654EB752835EB2F000B78F1 /* ShopifyApp.xcdatamodeld in Sources */,
 				BE05DE1C29610B8700B5A454 /* Methods.swift in Sources */,
 				3E753465283AEEA90072EF9A /* BrandTableViewCell.swift in Sources */,

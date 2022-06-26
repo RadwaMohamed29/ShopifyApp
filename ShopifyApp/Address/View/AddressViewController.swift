@@ -18,6 +18,7 @@ class AddressViewController: UIViewController {
     let userDefault = Utilities()
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     @IBOutlet weak var noAddressView: UIView!
+    @IBOutlet weak var map: UIImageView!
     @IBOutlet weak var btnConfirmAddress: UIButton!
     private var isConn:Bool = false
     private let disposeBag = DisposeBag()
@@ -27,6 +28,7 @@ class AddressViewController: UIViewController {
     @IBOutlet weak var addressTableView: UITableView!
     var addrressID: String = ""
     var adress : Address?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTable()
@@ -35,6 +37,8 @@ class AddressViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAddress))
         arr = []
         
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(mapTapped))
+        map.addGestureRecognizer(gesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +51,11 @@ class AddressViewController: UIViewController {
         }
     }
         
+    @objc func mapTapped(){
+        let map = MapViewController(nibName: "MapViewController", bundle: nil)
+        self.navigationController?.pushViewController(map, animated: true)
+    }
+    
     func checkNetwork() {
         viewModel.checkConnection()
         viewModel.networkObservable.subscribe {[weak self] isConn in
@@ -88,9 +97,6 @@ class AddressViewController: UIViewController {
             print("disposed")
         }.disposed(by: disposeBag)
 
-    }
-    override func addChild(_ childController: UIViewController) {
-        
     }
     
     @IBAction func confirmAdress(_ sender: Any) {
