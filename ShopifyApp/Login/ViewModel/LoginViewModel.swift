@@ -14,8 +14,11 @@ protocol LoginViewModelType{
     var navigate:Bool!{get set}
     var notFound:Bool!{get set}
     var errorMessage: String! {get}
+    var note: String!{get set}
 }
 class LoginViewModel: LoginViewModelType{
+    var note: String! = "0"
+    
     let network = APIClient()
     let userDefualt = Utilities()
     private var listOfCustomer : [CustomerModel] = []
@@ -56,6 +59,8 @@ class LoginViewModel: LoginViewModelType{
                                 self?.userDefualt.setUserNote(note: item.note ?? "")
                                 print("Utilities.utilities.getUserNote()\(Utilities.utilities.getUserNote())")
                                 self?.navigate = true
+                                self?.note = item.note
+                                print("userNooote\(self?.note)")
                                 break
                             }
                         }

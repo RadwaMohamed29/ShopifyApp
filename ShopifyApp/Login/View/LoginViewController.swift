@@ -22,7 +22,6 @@ class LoginViewController: UIViewController {
             self.viewModel = LoginViewModel()
             self.bindToViewModel()
         
-        // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -33,6 +32,7 @@ class LoginViewController: UIViewController {
             DispatchQueue.main.async {
                 self?.showActivityIndicator(indicator: self?.indicator, startIndicator: false)
                 self?.navigate()
+                self?.checkDraftOrderInUser()
             }
         }
         viewModel.bindDontNavigate = { [weak self] in
@@ -56,11 +56,27 @@ class LoginViewController: UIViewController {
             
         }
     }
+    func checkDraftOrderInUser(){
+        let userNote = viewModel.note 
+        print("note\(userNote)")
+        if userNote == "0"{
+            Utilities.utilities.setDraftOrder(id: 0)
+            Utilities.utilities.setUserNote(note: "0")
+        }else{
+            Utilities.utilities.setDraftOrder(id: Int(userNote!)!)
+            Utilities.utilities.setUserNote(note: userNote!)
+        }
+    }
+    
     @IBAction func loginBtn(_ sender: Any) {
         self.showActivityIndicator(indicator: self.indicator, startIndicator: true)
         email = emailLabel.text ?? ""
         password = passwordLabel.text ?? ""
         viewModel.loginCustomer(email: email, password: password)
+//        DispatchQueue.main.asyncAfter(deadline: .now()+2.0){
+//            self.checkDraftOrderInUser()
+//        }
+        
     }
     
     @IBAction func registerBtn(_ sender: Any) {
