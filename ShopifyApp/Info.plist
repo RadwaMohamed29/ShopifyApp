@@ -22,6 +22,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We are accessing your location to give you better experience while using our Application.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We are accessing your location to give you better experience while using our Application.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

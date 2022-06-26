@@ -76,10 +76,6 @@ class AddressViewController: UIViewController {
 
     }
     
-    func chooseFromMap() {
-        
-    }
-    
     func getAddresses(id:String) {
         viewModel.getAddressesForCurrentUser(id: id)
         viewModel.addressObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background)).observe(on: MainScheduler.instance).subscribe { [weak self]result in
@@ -101,9 +97,6 @@ class AddressViewController: UIViewController {
             print("disposed")
         }.disposed(by: disposeBag)
 
-    }
-    override func addChild(_ childController: UIViewController) {
-        
     }
     
     @IBAction func confirmAdress(_ sender: Any) {
