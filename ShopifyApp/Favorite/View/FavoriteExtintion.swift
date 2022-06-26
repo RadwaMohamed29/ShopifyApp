@@ -28,9 +28,9 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
-        if countOfSelectedItem > 0 {
+        if lastIndex !=  nil {
             selectOrUnselectProduct(indexPath: indexPath)
-        }else if countOfSelectedItem == 0 {
+        }else  {
             detailsVC.productId = favProducts[indexPath.row].id
             self.navigationController?.pushViewController(detailsVC, animated: true)
         }

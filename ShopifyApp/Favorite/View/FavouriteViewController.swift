@@ -176,14 +176,6 @@ class FavouriteViewController: UIViewController {
             favProducts[indexPath.row].isSelected = false
             listOfSelectedProducts = []
             lastIndex = nil
-//            let numberOfItems = listOfSelectedProducts.count
-//            for i in 0..<numberOfItems{
-//                if listOfSelectedProducts[i].id == favProducts[indexPath.row].id{
-//                    listOfSelectedProducts.remove(at: i)
-//                    favProducts[indexPath.row].isSelected = false
-//                    return
-//                }
-//            }
             
         }
     }
