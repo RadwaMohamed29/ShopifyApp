@@ -13,6 +13,7 @@ class OrdersTVC : UITableViewCell {
     @IBOutlet weak var productImage: UIImageView!
     @IBOutlet weak var productTitle: UILabel!
     
+    @IBOutlet weak var trash_icon: UIButton!
     @IBOutlet weak var productPrice: UILabel!
     
     @IBOutlet weak var productCount: UILabel!
@@ -38,7 +39,7 @@ class OrdersTVC : UITableViewCell {
         let id = String(describing: item.productID)
         productVM!.getProductImage(id: id)
         productVM!.bindImageURLToView = { self.onSuccessUpdateView() }
-        productPrice.text = String(describing: item.price)
+        productPrice.text = Shared.formatePrice(priceStr: String(item.price))
     }
     func onSuccessUpdateView() {
         itemsImages = productVM!.imageURL!
@@ -56,9 +57,6 @@ class OrdersTVC : UITableViewCell {
 
         }
     }
-//    func setTotalPrice(){
-//        self.totalPrice += Double(productCount.text!)!*Double(productPrice.text!)!
-//    }
     var deleteFromBagProducts:()->() = {}
     var addCount:()->() = {}
     var subCount:()->() = {}
