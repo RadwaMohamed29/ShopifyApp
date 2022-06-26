@@ -28,9 +28,9 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailsVC = ProductDetailsViewController(nibName: "ProductDetailsViewController", bundle: nil)
-        if countOfSelectedItem > 0 {
+        if lastIndex !=  nil {
             selectOrUnselectProduct(indexPath: indexPath)
-        }else if countOfSelectedItem == 0 {
+        }else  {
             detailsVC.productId = favProducts[indexPath.row].id
             self.navigationController?.pushViewController(detailsVC, animated: true)
         }
@@ -72,8 +72,6 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
     
     
     func actionForConfirmationOfFavoriteButton(index:Int,favBtn: UIButton,isFav:Bool){
-        
-        
             do{
                 try self.productViewModel?.removeProductFromFavorites(productID: "\(favProducts[index].id)", completionHandler: { response in
                     switch response{
@@ -125,8 +123,6 @@ extension FavouriteViewController :UICollectionViewDataSource,UICollectionViewDe
                                                        ,password:"\(Utilities.utilities.getUserPassword())"
                                                        ,note: "\(Utilities.utilities.getDraftOrder())")
                 Utilities.utilities.setUserNote(note: editCustomer.note)
-                print("iddddddddd\(Utilities.utilities.getDraftOrder())")
-                print("passwordnooooote\(Utilities.utilities.getUserNote())")
                 productViewModel?.editCustomer(customer: EditCustomer(customer: editCustomer), customerID: Utilities.utilities.getCustomerId(), completion: { result in
                     switch result{
                     case true:

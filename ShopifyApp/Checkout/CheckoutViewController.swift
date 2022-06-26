@@ -12,7 +12,7 @@ import SwiftMessages
 
 protocol PaymentCheckoutDelegation{
     
-    func approvePayment()
+    func approvePayment(discoun: Double)
     func onPaymentFailed()
 }
 
@@ -68,7 +68,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
         couponTxtField.text = Utilities.utilities.getCode()
     }
     
-    func approvePayment() {
+    func approvePayment(discoun: Double) {
         orderViewModel?.addOrder(order: order!, completion: {[weak self] result in
             
             switch result{
@@ -78,8 +78,10 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
                 self?.updateCustomerNote()
                 do{
                     try self?.orderViewModel?.removeItemsFromCartToSpecificCustomer()
-                    Utilities.utilities.setCodeUsed(code: self!.copon,isUsed: true)
-                    Utilities.utilities.setCode(code: "")
+                    if discoun != 0 {
+                        Utilities.utilities.setCodeUsed(code: self!.copon,isUsed: true)
+                        Utilities.utilities.setCode(code: "")
+                    }
                     DispatchQueue.main.async {
                         let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
                         self?.navigationController?.pushViewController(homeVC, animated: true)
@@ -109,6 +111,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
         //coupon check
         payment.checkoutDelegate = self
         payment.totalPrice = total
+        payment.discount = discount
         self.navigationController?.pushViewController(payment, animated: true)
     }
     
@@ -117,7 +120,6 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
             copon = couponTxtField.text ?? ""
             if Utilities.utilities.getCode() == couponTxtField.text {
                 if Utilities.utilities.isCodeUsed(code: couponTxtField.text ?? "") != true{
-                    //MARK: discount not applicable on currency with both (EGP and USD).. please check it boda❤️
                     discount = subTotal! * (30/100)
                     discountLB.text = "\(discount)"
                     total = subTotal! - discount
@@ -127,7 +129,17 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
                 }else{
                     Shared.showMessage(message: "This coupon is used", error: false)
                 }
+            }else{
+                discount = 0
+                discountLB.text = "\(discount)"
+                total = subTotal! - discount
+                totalPrice.text = "\(total ?? 0)"
             }
+        }else{
+            discount = 0
+            discountLB.text = "\(discount)"
+            total = subTotal! - discount
+            totalPrice.text = "\(total ?? 0)"
         }
         
     }

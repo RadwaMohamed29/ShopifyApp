@@ -9,7 +9,7 @@ import UIKit
 import CoreData
 import Braintree
 
-@main
+    @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
