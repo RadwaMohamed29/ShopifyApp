@@ -14,6 +14,7 @@ class PaymentMethodViewController: UIViewController {
     
     var totalPrice:Double?
     var checkoutDelegate:PaymentCheckoutDelegation?
+    var discount :Double?
     let authorization = "sandbox_rzprnvv6_z6cj5tnwx5cyps9m"
     @IBOutlet weak var labelTotalPrice: UILabel!
     @IBOutlet weak var btnPayMethod: UIButton!
@@ -30,7 +31,7 @@ class PaymentMethodViewController: UIViewController {
         if segmentedControl.selectedSegmentIndex == 1{
             startCheckout(amount: String(totalPrice ?? 0))
         }else{
-            checkoutDelegate?.approvePayment()
+            checkoutDelegate?.approvePayment(discoun: discount ?? 0)
         }
     }
     
@@ -55,7 +56,7 @@ class PaymentMethodViewController: UIViewController {
                 print("error is \(error)")
             }
             if err == nil{
-                self?.checkoutDelegate?.approvePayment()
+                self?.checkoutDelegate?.approvePayment(discoun: self?.discount ?? 0)
             }
         }
     }
