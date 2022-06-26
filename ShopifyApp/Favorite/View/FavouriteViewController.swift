@@ -13,7 +13,7 @@ import CoreMedia
 import Lottie
 import NVActivityIndicatorView
 class FavouriteViewController: UIViewController {
-  
+    var lastIndex :IndexPath?
     var countOfSelectedItem = 0
     var disBag = DisposeBag()
     var listOfSelectedProducts:[FavoriteProducts] = []
@@ -57,6 +57,7 @@ class FavouriteViewController: UIViewController {
         else{
             noDataView.isHidden = false
         }
+        
     }
     
     
@@ -126,7 +127,7 @@ class FavouriteViewController: UIViewController {
             }
             product.isSelected = false
         }
-        
+        lastIndex = nil
         listOfSelectedProducts = []
         countOfSelectedItem = 0
         favouriteCollectionView.reloadData()
@@ -149,24 +150,40 @@ class FavouriteViewController: UIViewController {
     
     func selectOrUnselectProduct(indexPath:IndexPath){
         let cell = self.favouriteCollectionView.cellForItem(at: indexPath) as! FavouriteCollectionViewCell
+      
         if favProducts[indexPath.row].isSelected == false{
             cell.productImage.layer.borderWidth = 2
             cell.productImage.layer.borderColor = UIColor.systemGreen.cgColor
-            countOfSelectedItem += 1
+            countOfSelectedItem = 1
             listOfSelectedProducts.append(favProducts[indexPath.row])
             favProducts[indexPath.row].isSelected =  true
-        }else{
-            cell.productImage.layer.borderWidth = 1
-            cell.productImage.layer.borderColor = UIColor.lightGray.cgColor
-            countOfSelectedItem -= 1
-            let numberOfItems = listOfSelectedProducts.count
-            for i in 0..<numberOfItems{
-                if listOfSelectedProducts[i].id == favProducts[indexPath.row].id{
-                    listOfSelectedProducts.remove(at: i)
-                    favProducts[indexPath.row].isSelected = false
-                    return
-                }
+            if lastIndex == nil{
+                lastIndex = indexPath
+            }else{
+                favProducts[lastIndex!.row].isSelected =  false
+                listOfSelectedProducts.remove(at: 0)
+                let cellHash = self.favouriteCollectionView.cellForItem(at: lastIndex!) as! FavouriteCollectionViewCell
+                cellHash.productImage.layer.borderWidth = 1
+                cellHash.productImage.layer.borderColor = UIColor.lightGray.cgColor
+                countOfSelectedItem = 0
+                lastIndex = indexPath
             }
+        }else{
+            let cellHash = self.favouriteCollectionView.cellForItem(at: lastIndex!) as! FavouriteCollectionViewCell
+            cellHash.productImage.layer.borderWidth = 1
+            cellHash.productImage.layer.borderColor = UIColor.lightGray.cgColor
+            countOfSelectedItem = 0
+            favProducts[indexPath.row].isSelected = false
+            listOfSelectedProducts = []
+            lastIndex = nil
+//            let numberOfItems = listOfSelectedProducts.count
+//            for i in 0..<numberOfItems{
+//                if listOfSelectedProducts[i].id == favProducts[indexPath.row].id{
+//                    listOfSelectedProducts.remove(at: i)
+//                    favProducts[indexPath.row].isSelected = false
+//                    return
+//                }
+//            }
             
         }
     }
