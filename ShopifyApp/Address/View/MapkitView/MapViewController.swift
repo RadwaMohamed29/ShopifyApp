@@ -82,7 +82,7 @@ extension MapViewController:CLLocationManagerDelegate{
         guard let address = address else {return}
         let phone = PhoneViewController(nibName: "PhoneViewController", bundle: nil)
         phone.address = address
-        self.navigationController?.present(phone, animated: true)
+        self.navigationController?.pushViewController(phone, animated: true)
     }
     
     

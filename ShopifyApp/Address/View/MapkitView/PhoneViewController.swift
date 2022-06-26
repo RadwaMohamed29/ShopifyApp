@@ -21,16 +21,24 @@ class PhoneViewController: UIViewController {
     }
 
     @IBAction func btnConfirmAddress(_ sender: Any) {
+        if phonetxtField.text!.count != 11 || phonetxtField.text!.prefix(2) != "01"{
+            labelWrongPhone.isHidden = false
+        }else{
+            postAddress()
+        }
     }
     
     
     func postAddress() {
         
-    self.viewModel.getAddDetailsAndPostToCustomer(customerID: String((self.userDefault.getCustomerId())), phone: "00214", streetName: address.streetName, city: address.city, country: address.country) { isSucceeded in
+        self.viewModel.getAddDetailsAndPostToCustomer(customerID: String((self.userDefault.getCustomerId())), phone: phonetxtField.text!, streetName: address.streetName, city: address.city, country: address.country) { [weak self] isSucceeded in
+            guard let self = self else{return}
         HandelConnection.handelConnection.checkNetworkConnection { isConn in
             if isConn{
                 if isSucceeded{
-                    self.navigationController?.popViewController(animated: true)
+                    let addresses = AddressViewController(nibName: "AddressViewController", bundle: nil)
+                    self.navigationController?.pushViewController(addresses, animated: true)
+                
                 }else{
                     self.showLocationAlert(text: "something went wrong, may be address already added")
                 }
