@@ -31,4 +31,6 @@ class CheckoutViewControllerTest: XCTestCase {
         let test = Utilities.utilities.isCodeUsed(code: Utilities.utilities.getCode())
         XCTAssertEqual(test, false)
     }
+    
+    
 }
