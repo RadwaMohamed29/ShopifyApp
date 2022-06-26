@@ -30,6 +30,13 @@
                         <action selector="btnConfirmAddress:" destination="-1" eventType="touchUpInside" id="TeL-KN-Mj4"/>
                     </connections>
                 </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin" translatesAutoresizingMaskIntoConstraints="NO" id="ZOu-4b-qr8">
+                    <rect key="frame" x="157" y="398" width="100" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="9X1-Bu-dt9"/>
+                        <constraint firstAttribute="height" constant="50" id="Mzb-cH-FGm"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -40,13 +47,16 @@
                 <constraint firstAttribute="bottom" secondItem="wAH-Lx-HNJ" secondAttribute="bottom" id="Hns-ZC-AUd"/>
                 <constraint firstItem="66D-DG-e7U" firstAttribute="width" secondItem="wAH-Lx-HNJ" secondAttribute="width" multiplier="0.8" id="QbS-Ct-3hP"/>
                 <constraint firstItem="66D-DG-e7U" firstAttribute="height" secondItem="wAH-Lx-HNJ" secondAttribute="height" multiplier="0.048" id="VFZ-WD-3rG"/>
+                <constraint firstItem="ZOu-4b-qr8" firstAttribute="centerX" secondItem="wAH-Lx-HNJ" secondAttribute="centerX" id="Xln-us-jpj"/>
                 <constraint firstItem="wAH-Lx-HNJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jQ9-BK-6Q9"/>
+                <constraint firstItem="ZOu-4b-qr8" firstAttribute="centerY" secondItem="wAH-Lx-HNJ" secondAttribute="centerY" constant="-25" id="mtJ-75-0R1"/>
                 <constraint firstItem="wAH-Lx-HNJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qM4-vj-2Hq"/>
             </constraints>
             <point key="canvasLocation" x="139" y="90"/>
         </view>
     </objects>
     <resources>
+        <image name="pin" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

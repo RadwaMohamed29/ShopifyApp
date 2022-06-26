@@ -133,6 +133,12 @@ extension UIViewController{
             txtField.layer.borderWidth = 0.5
         }
     }
+    
+    func showLocationAlert(text:String) {
+        let alert = UIAlertController(title: "Location services", message: text, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Close", style: .destructive))
+        present(alert, animated: true)
+    }
 }
 
 extension Shared{
