@@ -65,7 +65,12 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        couponTxtField.text = Utilities.utilities.getCode()
+        if Utilities.utilities.isCodeUsed(code: Utilities.utilities.getCode() ) != true{
+            couponTxtField.text = Utilities.utilities.getCode()
+        }else{
+            couponTxtField.text = ""
+        }
+        
     }
     
     func approvePayment(discoun: Double) {
@@ -80,7 +85,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
                     try self?.orderViewModel?.removeItemsFromCartToSpecificCustomer()
                     if discoun != 0 {
                         Utilities.utilities.setCodeUsed(code: self!.copon,isUsed: true)
-                        Utilities.utilities.setCode(code: "")
+//                        Utilities.utilities.setCode(code: "")
                     }
                     DispatchQueue.main.async {
                         let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
