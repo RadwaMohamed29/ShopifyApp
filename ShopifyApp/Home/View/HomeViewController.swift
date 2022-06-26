@@ -22,11 +22,7 @@ class HomeViewController: UIViewController,brandIdProtocol {
         setupTableView()
 
     }
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        refreshControl.tintColor = UIColor.darkGray
-        refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
-        homeTV.addSubview(refreshControl)
+    override func viewDidAppear(_ animated: Bool) {
         Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
             if isLoggedIn{
                 self.cartBtn.setBadge(text:String( self.localDataSource.getCountOfProductInCart()))
@@ -37,6 +33,12 @@ class HomeViewController: UIViewController,brandIdProtocol {
                 self.favBtn.setBadge(text: String("0"))
             }
         }
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        refreshControl.tintColor = UIColor.darkGray
+        refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
+        homeTV.addSubview(refreshControl)
         checkConnection()
 
     }
@@ -103,6 +105,10 @@ extension HomeViewController{
                 self.showSnackBar()
             }
         }
+       DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+           self.refreshControl.endRefreshing()
+       }
+       
     }
 }
 extension HomeViewController :UITableViewDelegate, UITableViewDataSource{

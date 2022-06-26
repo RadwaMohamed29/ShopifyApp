@@ -143,7 +143,7 @@ extension Shared{
            return "\(toEGP(amount:Double(priceStr ?? "")! )) EGP"
            }
            else {
-               return "\(priceStr!) USD"
+               return "\(priceStr ?? "") USD" 
                
            }
        }
