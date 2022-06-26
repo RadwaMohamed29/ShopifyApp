@@ -121,10 +121,9 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     }
     
     @IBAction func btnCheckDiscount(_ sender: Any) {
-        if !couponTxtField.text!.isEmpty{
             copon = couponTxtField.text ?? ""
-            if Utilities.utilities.getCode() == couponTxtField.text {
-                if Utilities.utilities.isCodeUsed(code: couponTxtField.text ?? "") != true{
+            if Utilities.utilities.getCode() == copon {
+                if Utilities.utilities.isCodeUsed(code: copon ) != true{
                     discount = subTotal! * (30/100)
                     discountLB.text = "\(discount)"
                     total = subTotal! - discount
@@ -140,14 +139,9 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
                 total = subTotal! - discount
                 totalPrice.text = "\(total ?? 0)"
             }
-        }else{
-            discount = 0
-            discountLB.text = "\(discount)"
-            total = subTotal! - discount
-            totalPrice.text = "\(total ?? 0)"
         }
         
-    }
+    
 }
 
 extension CheckoutViewController : UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
