@@ -23,9 +23,9 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                 </mapView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66D-DG-e7U">
-                    <rect key="frame" x="62" y="781" width="290" height="43"/>
+                    <rect key="frame" x="41.5" y="781" width="331" height="43"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="tinted" title="Confirm Address" cornerStyle="capsule"/>
+                    <buttonConfiguration key="configuration" style="tinted" title="Confirm current loaction" cornerStyle="capsule"/>
                     <connections>
                         <action selector="btnConfirmAddress:" destination="-1" eventType="touchUpInside" id="TeL-KN-Mj4"/>
                     </connections>
@@ -38,7 +38,7 @@
                 <constraint firstItem="66D-DG-e7U" firstAttribute="centerX" secondItem="wAH-Lx-HNJ" secondAttribute="centerX" id="2md-j6-Zcw"/>
                 <constraint firstAttribute="trailing" secondItem="wAH-Lx-HNJ" secondAttribute="trailing" id="DJa-ZR-P2E"/>
                 <constraint firstAttribute="bottom" secondItem="wAH-Lx-HNJ" secondAttribute="bottom" id="Hns-ZC-AUd"/>
-                <constraint firstItem="66D-DG-e7U" firstAttribute="width" secondItem="wAH-Lx-HNJ" secondAttribute="width" multiplier="0.7" id="QbS-Ct-3hP"/>
+                <constraint firstItem="66D-DG-e7U" firstAttribute="width" secondItem="wAH-Lx-HNJ" secondAttribute="width" multiplier="0.8" id="QbS-Ct-3hP"/>
                 <constraint firstItem="66D-DG-e7U" firstAttribute="height" secondItem="wAH-Lx-HNJ" secondAttribute="height" multiplier="0.048" id="VFZ-WD-3rG"/>
                 <constraint firstItem="wAH-Lx-HNJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jQ9-BK-6Q9"/>
                 <constraint firstItem="wAH-Lx-HNJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qM4-vj-2Hq"/>

@@ -65,9 +65,10 @@ extension MapViewController:CLLocationManagerDelegate{
                 HandelConnection.handelConnection.checkNetworkConnection { isConn in
                     if isConn{
                         if isSucceeded{
+                            self.mapView.layer.opacity = 0.6
                             self.navigationController?.popViewController(animated: true)
                         }else{
-                            self.showAlert(text: "something went wrong, Try again..")
+                            self.showAlert(text: "something went wrong, may be address already added")
                         }
                     }else{
                         self.showAlert(text: "Please check your internet connection..")
@@ -106,7 +107,7 @@ extension MapViewController:CLLocationManagerDelegate{
     
     
     func showAlert(text:String) {
-        let alert = UIAlertController(title: "Location Permission", message: text, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Location services", message: text, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Close", style: .destructive))
         present(alert, animated: true)
     }
