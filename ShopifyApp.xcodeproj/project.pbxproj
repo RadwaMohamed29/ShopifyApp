@@ -59,6 +59,8 @@
 		3E753462283AEB530072EF9A /* AbsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E753460283AEB530072EF9A /* AbsCollectionViewCell.xib */; };
 		3E753465283AEEA90072EF9A /* BrandTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E753463283AEEA90072EF9A /* BrandTableViewCell.swift */; };
 		3E753466283AEEA90072EF9A /* BrandTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E753464283AEEA90072EF9A /* BrandTableViewCell.xib */; };
+		3E77EFBC2868A27100BBF1B7 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E77EFBA2868A27100BBF1B7 /* AboutViewController.swift */; };
+		3E77EFBD2868A27100BBF1B7 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E77EFBB2868A27100BBF1B7 /* AboutViewController.xib */; };
 		3EA433862846F415001FB269 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA433852846F415001FB269 /* Utilities.swift */; };
 		3EA736682842B2FB002B32DA /* HandelConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA736672842B2FB002B32DA /* HandelConnection.swift */; };
 		3EA799C6285E2E93006B10DA /* DraftOrderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EA799C5285E2E93006B10DA /* DraftOrderTest.swift */; };
@@ -205,6 +207,8 @@
 		3E753460283AEB530072EF9A /* AbsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AbsCollectionViewCell.xib; sourceTree = "<group>"; };
 		3E753463283AEEA90072EF9A /* BrandTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandTableViewCell.swift; sourceTree = "<group>"; };
 		3E753464283AEEA90072EF9A /* BrandTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrandTableViewCell.xib; sourceTree = "<group>"; };
+		3E77EFBA2868A27100BBF1B7 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		3E77EFBB2868A27100BBF1B7 /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		3EA433852846F415001FB269 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		3EA736672842B2FB002B32DA /* HandelConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HandelConnection.swift; sourceTree = "<group>"; };
 		3EA799C5285E2E93006B10DA /* DraftOrderTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraftOrderTest.swift; sourceTree = "<group>"; };
@@ -654,6 +658,8 @@
 			children = (
 				3EC7D5A3284D5204006854D9 /* SettingsVC.swift */,
 				3EC7D5A4284D5204006854D9 /* SettingsVC.xib */,
+				3E77EFBA2868A27100BBF1B7 /* AboutViewController.swift */,
+				3E77EFBB2868A27100BBF1B7 /* AboutViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1081,6 +1087,7 @@
 				9C898C2028381C9500A86758 /* CategoryViewController.xib in Resources */,
 				3E75345E283ADFF70072EF9A /* AbsTableViewCell.xib in Resources */,
 				16F65519284E0E9A002F3BD3 /* LuanchAnimation.json in Resources */,
+				3E77EFBD2868A27100BBF1B7 /* AboutViewController.xib in Resources */,
 				BED44803283E57EA00EA74BC /* CheckoutViewController.xib in Resources */,
 				16873CD7283D868A00694061 /* ProductImagesCollectionViewCell.xib in Resources */,
 				16A24343284993CC00A6154F /* ReviewsCollectionViewCell.xib in Resources */,
@@ -1247,6 +1254,7 @@
 				9CCBF3DE283BF81F00825219 /* FavouriteViewController.swift in Sources */,
 				BE3415832860061200F69703 /* OnBoardingViewController.swift in Sources */,
 				1654EB6B2835EB2F000B78F1 /* AppDelegate.swift in Sources */,
+				3E77EFBC2868A27100BBF1B7 /* AboutViewController.swift in Sources */,
 				9C06B417284BEBA500B64732 /* AllOrdersViewController.swift in Sources */,
 				BE2EA1292867CA51005A37BF /* MapViewController.swift in Sources */,
 				1654EB752835EB2F000B78F1 /* ShopifyApp.xcdatamodeld in Sources */,
