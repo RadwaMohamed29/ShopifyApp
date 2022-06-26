@@ -86,11 +86,37 @@ extension MapViewController:CLLocationManagerDelegate{
         
         if let location = locations.last {
             
-            getCurrentLocation(location: location)
-//            zoomToUserLocation(location: location)
+//            getCurrentLocation(location: location)
+            zoomToUserLocation(location: location)
             print(location.coordinate)
         }
     }
     
-   
+    func zoomToUserLocation(location:CLLocation) {
+        let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
+        mapView.setRegion(region, animated: true)
+        let pin = MKPointAnnotation()
+        pin.coordinate = location.coordinate
+        mapView.addAnnotation(pin)
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        
+        switch manager.authorizationStatus{
+        
+        case .denied:
+            self.showAlert(text: "Please authorize our access to get your location..")
+            break
+        case .authorizedAlways:
+            manager.startUpdatingLocation()
+            mapView.showsUserLocation = true
+            break
+        case .authorizedWhenInUse:
+            manager.requestAlwaysAuthorization()
+            mapView.showsUserLocation = true
+            break
+        default:
+            print("Default")
+        }
+    }
 }
