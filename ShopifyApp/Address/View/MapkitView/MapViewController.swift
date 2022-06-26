@@ -32,16 +32,16 @@ class MapViewController: UIViewController {
         if isLocationServiceEnabled(){
             checkAuthorizationState()
         }else{
-            showAlert(text: "Please Enable Location..")
+            showLocationAlert(text: "Please Enable Location..")
         }
     }
     
     @IBAction func btnConfirmAddress(_ sender: Any) {
 //        getLocationInfo(location: manager.location!)
         if newAddress != nil{
-            postAddress()
+            completeAddress()
         }else{
-            showAlert(text: "choose an address")
+            showLocationAlert(text: "choose an address")
         }
     }
 }
@@ -77,23 +77,12 @@ extension MapViewController:CLLocationManagerDelegate{
         }  
     }
     
-    func postAddress() {
+    func completeAddress() {
         let address = newAddress
         guard let address = address else {return}
-        self.viewModel.getAddDetailsAndPostToCustomer(customerID: String((self.userDefault.getCustomerId())), phone: "00214", streetName: address.streetName, city: address.city, country: address.country) { isSucceeded in
-            HandelConnection.handelConnection.checkNetworkConnection { isConn in
-                if isConn{
-                    if isSucceeded{
-                        self.mapView.layer.opacity = 0.6
-                        self.navigationController?.popViewController(animated: true)
-                    }else{
-                        self.showAlert(text: "something went wrong, may be address already added")
-                    }
-                }else{
-                    self.showAlert(text: "Please check your internet connection..")
-                }
-            }
-        }
+        let phone = PhoneViewController(nibName: "PhoneViewController", bundle: nil)
+        phone.address = address
+        self.navigationController?.present(phone, animated: true)
     }
     
     
@@ -104,10 +93,10 @@ extension MapViewController:CLLocationManagerDelegate{
             manager.requestWhenInUseAuthorization()
             break
         case .restricted:
-            self.showAlert(text: "Access Restricted")
+            self.showLocationAlert(text: "Access Restricted")
             break
         case .denied:
-            self.showAlert(text: "Please authorize our access to get your location..")
+            self.showLocationAlert(text: "Please authorize our access to get your location..")
             break
         case .authorizedAlways:
             manager.startUpdatingLocation()
@@ -125,11 +114,7 @@ extension MapViewController:CLLocationManagerDelegate{
     }
     
     
-    func showAlert(text:String) {
-        let alert = UIAlertController(title: "Location services", message: text, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Close", style: .destructive))
-        present(alert, animated: true)
-    }
+   
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     }
@@ -144,7 +129,7 @@ extension MapViewController:CLLocationManagerDelegate{
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus{
         case .denied:
-            self.showAlert(text: "Please authorize our access to get your location..")
+            self.showLocationAlert(text: "Please authorize our access to get your location..")
             break
         case .authorizedAlways:
             manager.startUpdatingLocation()
