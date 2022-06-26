@@ -11,12 +11,15 @@ import CoreLocation
 
 class MapViewController: UIViewController {
 
+    private let userDefault = Utilities()
+    private var viewModel:AddressViewModel!
     @IBOutlet var mapView:MKMapView!
     var manager = CLLocationManager()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = AddressViewModel(network: APIClient())
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -28,7 +31,10 @@ class MapViewController: UIViewController {
         }else{
             showAlert(text: "Please Enable Location..")
         }
-        
+    }
+    
+    @IBAction func btnConfirmAddress(_ sender: Any) {
+        getLocationInfo(location: manager.location!)
     }
 }
 
@@ -48,6 +54,28 @@ extension MapViewController:CLLocationManagerDelegate{
     
     func isLocationServiceEnabled() -> Bool{
         return CLLocationManager.locationServicesEnabled()
+    }
+    
+    func getLocationInfo(location:CLLocation) {
+        let geoCoder = CLGeocoder()
+        geoCoder.reverseGeocodeLocation(location) {[weak self] places, error in
+            guard let place = places?.first, error == nil else{return}
+            guard let self = self else{return}
+            self.viewModel.getAddDetailsAndPostToCustomer(customerID: String((self.userDefault.getCustomerId())), phone: "00214", streetName: place.name ?? "", city: place.subLocality ?? "", country: place.country ?? "") { isSucceeded in
+                HandelConnection.handelConnection.checkNetworkConnection { isConn in
+                    if isConn{
+                        if isSucceeded{
+                            self.navigationController?.popViewController(animated: true)
+                        }else{
+                            self.showAlert(text: "something went wrong, Try again..")
+                        }
+                    }else{
+                        self.showAlert(text: "Please check your internet connection..")
+                    }
+                }
+                
+            }
+        }
     }
     
     func checkAuthorizationState() {
@@ -76,6 +104,7 @@ extension MapViewController:CLLocationManagerDelegate{
         }
     }
     
+    
     func showAlert(text:String) {
         let alert = UIAlertController(title: "Location Permission", message: text, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "Close", style: .destructive))
@@ -88,16 +117,17 @@ extension MapViewController:CLLocationManagerDelegate{
             
 //            getCurrentLocation(location: location)
             zoomToUserLocation(location: location)
-            print(location.coordinate)
+            getLocationInfo(location: location )
         }
     }
     
     func zoomToUserLocation(location:CLLocation) {
         let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 500, longitudinalMeters: 500)
         mapView.setRegion(region, animated: true)
-        let pin = MKPointAnnotation()
-        pin.coordinate = location.coordinate
-        mapView.addAnnotation(pin)
+        print("long: \(location.coordinate.longitude)")
+//        let pin = MKPointAnnotation()
+//        pin.coordinate = location.coordinate
+//        mapView.addAnnotation(pin)
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
