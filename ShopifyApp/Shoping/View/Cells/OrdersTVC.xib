@@ -28,12 +28,12 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="T-Shirt" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cuv-JL-Em5">
-                                <rect key="frame" x="119" y="25" width="158" height="19"/>
+                                <rect key="frame" x="127" y="18" width="158" height="53.5"/>
                                 <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=compact">
-                                    <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="17"/>
+                                    <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="15"/>
                                 </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H5g-Ne-N4r">
@@ -48,7 +48,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="$189 per one" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcq-aQ-fN3">
-                                <rect key="frame" x="119" y="52" width="110" height="20"/>
+                                <rect key="frame" x="127" y="79.5" width="110" height="20"/>
                                 <color key="tintColor" red="0.094089172780513763" green="0.6210511326789856" blue="0.64091527462005615" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Palatino-Bold" family="Palatino" pointSize="20"/>
                                 <nil key="highlightedColor"/>
@@ -61,14 +61,15 @@
                         <constraints>
                             <constraint firstItem="Kcc-43-poD" firstAttribute="top" secondItem="IxS-eb-hWk" secondAttribute="top" constant="5" id="6eh-nQ-Li2"/>
                             <constraint firstItem="Kcc-43-poD" firstAttribute="leading" secondItem="IxS-eb-hWk" secondAttribute="leading" id="72k-LG-ZSF"/>
+                            <constraint firstItem="Cuv-JL-Em5" firstAttribute="width" secondItem="IxS-eb-hWk" secondAttribute="width" multiplier="0.45" id="Gg9-AH-FGW"/>
                             <constraint firstAttribute="bottom" secondItem="Kcc-43-poD" secondAttribute="bottom" id="TDz-pY-6iR"/>
                             <constraint firstAttribute="trailing" secondItem="H5g-Ne-N4r" secondAttribute="trailing" constant="10" id="TNU-QM-siX"/>
-                            <constraint firstItem="Cuv-JL-Em5" firstAttribute="leading" secondItem="Kcc-43-poD" secondAttribute="trailing" constant="2" id="W4C-Wl-f11"/>
-                            <constraint firstItem="Cuv-JL-Em5" firstAttribute="top" secondItem="IxS-eb-hWk" secondAttribute="top" constant="25" id="eL5-3N-wb2"/>
+                            <constraint firstItem="Cuv-JL-Em5" firstAttribute="leading" secondItem="Kcc-43-poD" secondAttribute="trailing" constant="10" id="W4C-Wl-f11"/>
+                            <constraint firstItem="Cuv-JL-Em5" firstAttribute="top" secondItem="IxS-eb-hWk" secondAttribute="top" constant="18" id="eL5-3N-wb2"/>
                             <constraint firstAttribute="bottom" secondItem="H5g-Ne-N4r" secondAttribute="bottom" constant="96" id="jOo-Bn-dUU"/>
                             <constraint firstItem="Cuv-JL-Em5" firstAttribute="leading" secondItem="Xcq-aQ-fN3" secondAttribute="leading" id="jbe-Fq-BJS"/>
                             <constraint firstItem="Xcq-aQ-fN3" firstAttribute="top" secondItem="Cuv-JL-Em5" secondAttribute="bottom" constant="8" id="na3-U7-Z6Y"/>
-                            <constraint firstItem="H5g-Ne-N4r" firstAttribute="leading" secondItem="Cuv-JL-Em5" secondAttribute="trailing" constant="20" id="vPN-PG-2to"/>
+                            <constraint firstItem="Cuv-JL-Em5" firstAttribute="height" secondItem="IxS-eb-hWk" secondAttribute="height" multiplier="0.4" id="rA4-Z2-gOC"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -144,6 +145,7 @@
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="bSv-xL-toY" secondAttribute="bottom" constant="12" id="7Pg-Lh-DCc"/>
                     <constraint firstItem="IxS-eb-hWk" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="7nt-CG-Y2l"/>
+                    <constraint firstItem="H5g-Ne-N4r" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Hb1-7y-Dd4"/>
                     <constraint firstItem="tdW-95-TMk" firstAttribute="leading" secondItem="bSv-xL-toY" secondAttribute="trailing" constant="8" id="Oj6-v7-kAd"/>
                     <constraint firstAttribute="trailing" secondItem="IxS-eb-hWk" secondAttribute="trailing" constant="8" id="YQE-fe-3Pd"/>
                     <constraint firstAttribute="bottom" secondItem="IxS-eb-hWk" secondAttribute="bottom" constant="8" id="edw-Lf-V7W"/>
