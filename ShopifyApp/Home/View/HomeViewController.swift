@@ -39,7 +39,6 @@ class HomeViewController: UIViewController,brandIdProtocol {
         refreshControl.tintColor = UIColor.darkGray
         refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
         homeTV.addSubview(refreshControl)
-      
         checkConnection()
 
     }
@@ -106,6 +105,10 @@ extension HomeViewController{
                 self.showSnackBar()
             }
         }
+       DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+           self.refreshControl.endRefreshing()
+       }
+       
     }
 }
 extension HomeViewController :UITableViewDelegate, UITableViewDataSource{

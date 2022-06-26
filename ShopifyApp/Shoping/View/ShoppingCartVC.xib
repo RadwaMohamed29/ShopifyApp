@@ -9,7 +9,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShoppingCartVC" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
-                <outlet property="cartTV" destination="Kka-bL-Oe2" id="19f-ts-7V2"/>
                 <outlet property="emptyView" destination="mSe-P0-8Ib" id="fGd-d8-6fG"/>
                 <outlet property="tableView" destination="Kka-bL-Oe2" id="cbO-DO-Rlx"/>
                 <outlet property="totalLable" destination="jIz-He-i1j" id="Jwf-Rk-LSj"/>

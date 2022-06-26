@@ -14,7 +14,6 @@ class ShoppingCartVC: UIViewController {
     @IBOutlet weak var totalLable: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
-    @IBOutlet weak var cartTV: UITableView!
     var productViewModel : ProductDetailsViewModel?
     var localDataSource : LocalDataSource?
     var CartProducts : [CartProduct] = []
@@ -24,7 +23,6 @@ class ShoppingCartVC: UIViewController {
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     var totalPrice=0.0
     var flag:Bool = true
-    let refreshControl = UIRefreshControl()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Cart"
@@ -32,6 +30,7 @@ class ShoppingCartVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
+        
         if Utilities.utilities.getUserNote() == "0" {
             getCartProductsFromCoreData()
         }
@@ -44,8 +43,6 @@ class ShoppingCartVC: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        refreshControl.addTarget(self, action: #selector(getItemsDraft), for: .valueChanged)
-        cartTV.addSubview(refreshControl)
         checkConnection()
   //      checkCartIsEmpty()
     }
@@ -79,10 +76,6 @@ class ShoppingCartVC: UIViewController {
                 self.setTotalPrice()
             }
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.refreshControl.endRefreshing()
-        }
-
     }
 
     func showDeleteAlert(indexPath:IndexPath){
@@ -232,23 +225,21 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
 }
 extension ShoppingCartVC{
   
-    @objc func getItemsDraft(){
-            if Utilities.utilities.getUserNote() != "0" {
-                productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
-                productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
-                    .init(qos: .background))
-                .observe(on: MainScheduler.asyncInstance)
-                .subscribe{ result in
-                    self.itemList = self.productViewModel!.lineItem
-                    self.tableView.reloadData()
-                    print("get items success ")
-                }.disposed(by: disposeBag)
-            }
-            else {
-                self.emptyView.isHidden=false
-            }
-        
-      
+    func getItemsDraft(){
+        if Utilities.utilities.getUserNote() != "0" {
+            productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
+            productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+                .init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe{ result in
+                self.itemList = self.productViewModel!.lineItem
+                self.tableView.reloadData()
+                print("get items success ")
+            }.disposed(by: disposeBag)
+        }
+        else {
+            self.emptyView.isHidden=false
+        }
        }
 
    func updateCustomerNote(){
