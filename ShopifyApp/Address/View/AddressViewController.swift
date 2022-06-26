@@ -168,7 +168,7 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
     func showAlert(indexPath: IndexPath){
         if indexPath.row == 0{
             let alert = UIAlertController(title: title, message: "Sorry defualt address can not be deleted!", preferredStyle: .alert)
-            let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            let okBtn = UIAlertAction(title: "OK", style: .destructive, handler: nil)
             alert.addAction(okBtn)
             self.present(alert, animated: true, completion: nil)
         }else{
@@ -177,7 +177,6 @@ extension AddressViewController: UITableViewDelegate, UITableViewDataSource{
                 deleteAddress(indexPath: indexPath)
        
             }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
      
