@@ -58,7 +58,6 @@ class LoginViewController: UIViewController {
     }
     func checkDraftOrderInUser(){
         let userNote = viewModel.note 
-        print("note\(userNote)")
         if userNote == "0"{
             Utilities.utilities.setDraftOrder(id: 0)
             Utilities.utilities.setUserNote(note: "0")
@@ -73,9 +72,7 @@ class LoginViewController: UIViewController {
         email = emailLabel.text ?? ""
         password = passwordLabel.text ?? ""
         viewModel.loginCustomer(email: email, password: password)
-//        DispatchQueue.main.asyncAfter(deadline: .now()+2.0){
-//            self.checkDraftOrderInUser()
-//        }
+
         
     }
     
