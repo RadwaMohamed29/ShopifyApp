@@ -23,6 +23,7 @@ class ShoppingCartVC: UIViewController {
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     var totalPrice=0.0
     var flag:Bool = true
+    var quantityOfProducts : [Product] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Cart"
@@ -30,7 +31,6 @@ class ShoppingCartVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
-        
         if Utilities.utilities.getUserNote() == "0" {
             getCartProductsFromCoreData()
         }
@@ -40,11 +40,11 @@ class ShoppingCartVC: UIViewController {
             UpdateTotalPrice()
             self.emptyView.isHidden=true
         }
+        getAllProductsFromApi()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         checkConnection()
-  //      checkCartIsEmpty()
     }
     func checkCartIsEmpty(){
         DispatchQueue.main.asyncAfter(deadline: .now()+1.0)
@@ -107,8 +107,7 @@ class ShoppingCartVC: UIViewController {
         Utilities.utilities.setTotalPrice(totalPrice: totalPrice )
         self.navigationController?.pushViewController(address, animated: true)
     }
-    
-    
+
 }
 extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -129,34 +128,44 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
             cell.updateUI(item: item)
             var count = self.itemList[indexPath.row].quantity
             let id = self.itemList[indexPath.row].productID
-
-            if flag == true{ cell.addCount={ [self] in
-                        count+=1
-                        cell.productCount.text = "\(count)"
-                        self.itemList[indexPath.row].quantity = count
-                    self.totalPrice += Double(itemList[indexPath.row].price)!
-                    self.totalLable.text = String(self.totalPrice)
-                   self.updateCount(productID: id, count: count)
-                     
-                            }
-                        cell.subCount={
-                            if (count != 1) {
-                                cell.subBtn.isEnabled = true
-                                count-=1
-                                cell.productCount.text = "\(count)"
-                                self.itemList[indexPath.row].quantity = count
-                                self.totalPrice -= Double(self.itemList[indexPath.row].price)!
-                                self.totalLable.text = String(self.totalPrice)
-                                self.updateCount(productID: id, count: count)
-
-                            }
-                            else{
-                                self.alertWarning(indexPath: indexPath, title: "warning", message: "can't decrease count of item to zero")
-                            }
-                        }}
-                    else {
-                        self.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to modifay the item")
+            DispatchQueue.main.asyncAfter(deadline: .now()+1.5){
+                [self] in
+                let quantity = quantityOfProducts[indexPath.row].variant[0].inventoryQuantity
+                if flag == true{
+                    cell.addCount={ [self] in
+                        if Int(count) == Int(quantity) {
+                        alertWarning(indexPath: indexPath, title: "warning", message: "quantity not avalible")
                     }
+                    else{
+                        count+=1
+                            cell.productCount.text = "\(count)"
+                            self.itemList[indexPath.row].quantity = count
+                        self.totalPrice += Double(itemList[indexPath.row].price)!
+                        self.totalLable.text = String(self.totalPrice)
+                       self.updateCount(productID: id, count: count)
+                         
+                    }
+             
+                                }
+                            cell.subCount={
+                                if (count != 1) {
+                                    cell.subBtn.isEnabled = true
+                                    count-=1
+                                    cell.productCount.text = "\(count)"
+                                    self.itemList[indexPath.row].quantity = count
+                                    self.totalPrice -= Double(self.itemList[indexPath.row].price)!
+                                    self.totalLable.text = String(self.totalPrice)
+                                    self.updateCount(productID: id, count: count)
+
+                                }
+                                else{
+                                    self.alertWarning(indexPath: indexPath, title: "warning", message: "can't decrease count of item to zero")
+                                }
+                            }}
+                        else {
+                            self.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to modifay the item")
+                        }
+            }
             
         }
         else {
@@ -224,7 +233,6 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
 
 }
 extension ShoppingCartVC{
-  
     func getItemsDraft(){
         if Utilities.utilities.getUserNote() != "0" {
             productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
@@ -246,8 +254,7 @@ extension ShoppingCartVC{
            if userDefualt.isLoggedIn(){
                    let editCustomer = EditCustomerRequest(id: userDefualt.getCustomerId(), email: userDefualt.getCustomerEmail(), firstName: userDefualt.getCustomerName(), password: "\(userDefualt.getUserPassword())", note: "0")
                    userDefualt.setUserNote(note: editCustomer.note)
-                   print("iddddddddd\(userDefualt.getDraftOrder())")
-                   print("passwordnooooote\(userDefualt.getUserNote())")
+                   print("idddddddddnooooote\(userDefualt.getUserNote())")
                    productViewModel?.editCustomer(customer: EditCustomer(customer: editCustomer), customerID: userDefualt.getCustomerId(), completion: { result in
                        switch result{
                        case true:
@@ -299,7 +306,6 @@ extension ShoppingCartVC{
          totalPrice = 0.0
            for item in itemList {
                totalPrice += Double(item.quantity)*(Double(item.price) ?? 0.0)
-         //      totalLable.text = String(totalPrice)
                totalLable.text = Shared.formatePrice(priceStr: String(totalPrice))
        }
       }
@@ -316,6 +322,18 @@ extension ShoppingCartVC{
        })
        
    }
+    
+    func getAllProductsFromApi(){
+        productViewModel?.getAllProducts()
+        productViewModel?.allProductsObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe { products in
+                self.quantityOfProducts = products
+                self.tableView.reloadData()
+            } onError: { error in
+                print(error)
+            }.disposed(by: disposeBag)
+    }
 }
 extension ShoppingCartVC{
     func getCartProductsFromCoreData(){
