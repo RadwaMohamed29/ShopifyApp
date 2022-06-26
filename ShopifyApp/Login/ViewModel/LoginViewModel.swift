@@ -60,7 +60,6 @@ class LoginViewModel: LoginViewModelType{
                                 print("Utilities.utilities.getUserNote()\(Utilities.utilities.getUserNote())")
                                 self?.navigate = true
                                 self?.note = item.note
-                                print("userNooote\(self?.note)")
                                 break
                             }
                         }
