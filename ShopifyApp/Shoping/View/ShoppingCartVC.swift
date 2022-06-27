@@ -118,7 +118,7 @@ extension ShoppingCartVC{
                 .init(qos: .background))
             .observe(on: MainScheduler.asyncInstance)
             .subscribe{ result in
-                self.itemList = self.productViewModel!.lineItem
+                self.itemList = result.element?.lineItems ?? []
                 self.tableView.reloadData()
                 print("get items success ")
             }.disposed(by: disposeBag)
@@ -127,7 +127,7 @@ extension ShoppingCartVC{
             self.emptyView.isHidden=false
         }
        }
-
+ 
    func updateCustomerNote(){
            if userDefualt.isLoggedIn(){
                    let editCustomer = EditCustomerRequest(id: userDefualt.getCustomerId(), email: userDefualt.getCustomerEmail(), firstName: userDefualt.getCustomerName(), password: "\(userDefualt.getUserPassword())", note: "0")
@@ -170,8 +170,6 @@ extension ShoppingCartVC{
                        }
                        
                    })
-
-                  // self.UpdateTotalPrice()
                }
            }
        }

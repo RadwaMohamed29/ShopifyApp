@@ -38,7 +38,6 @@ final class LocalDataSource: LocalDataSourcable{
         product.setValue(newProduct.title, forKey: "title")
         product.setValue(newProduct.price, forKey: "price")
         product.setValue("\(String(describing: Utilities.utilities.getCustomerId))", forKey: "customer_id")
-        print("idCustomer\(Utilities.utilities.getCustomerId)")
         
         do{
             try context.save()
@@ -151,7 +150,6 @@ extension LocalDataSource{
     }
     func saveProductToCartCoreData(id: String,title:String,image:String,price:String, itemCount: Int, quantity:Int )throws{
         let cart = CartProduct(entity: entityCart, insertInto: context)
-    //    let product = NSManagedObject(entity: entityCart, insertInto: contextCart)
         cart.id = id
         cart.title = title
         cart.image = image
@@ -159,13 +157,6 @@ extension LocalDataSource{
         cart.count = Int64(itemCount)
         cart.quantity = Int64(quantity)
         cart.user_id = "\(Utilities.utilities.getCustomerId())"
-        print("idddddUser\(Utilities.utilities.getCustomerId)")
-        //        product.setValue(id, forKey: "id")
-//        product.setValue(title, forKey: "title")
-//        product.setValue(image, forKey: "image")
-//        product.setValue(price, forKey: "price")
-//        product.setValue(Int64(itemCount), forKey: "count")
-//        product.setValue("\(Utilities.utilities.getCustomerId)", forKey: "user_id")
 
         do{
             try context.save()
