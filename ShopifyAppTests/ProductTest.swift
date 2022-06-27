@@ -7,11 +7,14 @@
 
 import XCTest
 import RxSwift
+@testable import ShopifyApp
 class ProductTest: XCTestCase {
-    //var
-
+    var productViewModel: ProductDetailsViewModelType!
+    var disposeBag: DisposeBag!
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        productViewModel = ProductDetailsViewModel(appDelegate: appDelegate)
+       disposeBag = DisposeBag()
     }
 
     override func tearDownWithError() throws {
@@ -33,15 +36,15 @@ class ProductTest: XCTestCase {
         }
     }
     
-//    func testCollection(){
-//            let expect = expectation(description: "load response")
-//            homeViewModel!.allBrandObservable.asObservable().subscribe { smartCollection in
-//                expect.fulfill()
-//                XCTAssertNotNil(smartCollection.element)
-//            }.disposed(by: bag)
-//            homeViewModel!.getAllBrands()
-//            waitForExpectations(timeout: 5)
-//            
-//        }
+    func testCollection(){
+            let expect = expectation(description: "load response")
+        productViewModel!.productObservable.asObservable().subscribe { product in
+                expect.fulfill()
+                XCTAssertNotNil(product.element)
+            }.disposed(by: disposeBag)
+        productViewModel.getProduct(id: "7706242121986")
+            waitForExpectations(timeout: 10)
+
+        }
 
 }

@@ -33,16 +33,22 @@ class RegistetUnitTest: XCTestCase {
     
     func testRegister(){
         let result = expectation(description: "r")
-        registerViewModel.registerCustomer(firstName: "radwa", lastName: "mohamed", email: "radwa@gmail.com", password: "123123", completion: { result in
-             XCTAssertTrue(true)
+        registerViewModel.registerCustomer(firstName: "radwa", lastName: "mohamed", email: "radwaa@gmail.com", password: "123123", completion: { result in
+            switch result{
+            case true:
+                XCTAssertTrue(true)
+            case false:
+                XCTAssertFalse(false)
+            }
+          
 
         })
         registerViewModel.bindNavigate = {
             let navigate = self.registerViewModel.navigate
             result.fulfill()
-            XCTAssertTrue(navigate == false)
+            XCTAssertEqual(navigate, true)
         }
-        waitForExpectations(timeout: 10, handler: nil)
+        waitForExpectations(timeout: 25, handler: nil)
     }
 
     func testLogin(){
