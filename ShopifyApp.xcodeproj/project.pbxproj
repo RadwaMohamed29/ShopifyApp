@@ -15,6 +15,7 @@
 		1640B036285093B10000408C /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1640B035285093B10000408C /* SettingsViewModel.swift */; };
 		1642622B2841884000DAF5F4 /* LocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1642622A2841884000DAF5F4 /* LocalDataSource.swift */; };
 		164C0DFA286954BF00080D49 /* Splash.json in Resources */ = {isa = PBXBuildFile; fileRef = 164C0DF9286954BF00080D49 /* Splash.json */; };
+		164C0DFE28697E8400080D49 /* RegistetUnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 164C0DFD28697E8400080D49 /* RegistetUnitTest.swift */; };
 		1654EB6B2835EB2F000B78F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654EB6A2835EB2F000B78F1 /* AppDelegate.swift */; };
 		1654EB6D2835EB2F000B78F1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654EB6C2835EB2F000B78F1 /* SceneDelegate.swift */; };
 		1654EB6F2835EB2F000B78F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1654EB6E2835EB2F000B78F1 /* ViewController.swift */; };
@@ -158,6 +159,7 @@
 		1640B035285093B10000408C /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		1642622A2841884000DAF5F4 /* LocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataSource.swift; sourceTree = "<group>"; };
 		164C0DF9286954BF00080D49 /* Splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Splash.json; sourceTree = "<group>"; };
+		164C0DFD28697E8400080D49 /* RegistetUnitTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistetUnitTest.swift; sourceTree = "<group>"; };
 		1654EB672835EB2F000B78F1 /* ShopifyApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShopifyApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1654EB6A2835EB2F000B78F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1654EB6C2835EB2F000B78F1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				1654EB842835EB31000B78F1 /* ShopifyAppTests.swift */,
+				164C0DFD28697E8400080D49 /* RegistetUnitTest.swift */,
 			);
 			path = ShopifyAppTests;
 			sourceTree = "<group>";
@@ -1324,6 +1327,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				164C0DFE28697E8400080D49 /* RegistetUnitTest.swift in Sources */,
 				1654EB852835EB31000B78F1 /* ShopifyAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
