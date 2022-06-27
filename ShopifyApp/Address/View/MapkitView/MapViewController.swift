@@ -9,26 +9,31 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class MapViewController: UIViewController {
+protocol PhoneDelegate {
+    func getPhone(phone:String)
+}
 
+class MapViewController: UIViewController, PhoneDelegate{
+    
+    var address:AddressFromMap!
+    var isAddressSucceded:Bool!
+    var phone:String?
     private let userDefault = Utilities()
     private var viewModel:AddressViewModel!
     @IBOutlet var mapView:MKMapView!
     private var newAddress:AddressFromMap?
     var manager = CLLocationManager()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel = AddressViewModel(network: APIClient())
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         manager.desiredAccuracy = kCLLocationAccuracyBest
         manager.delegate = self
         mapView.delegate = self
-        
         if isLocationServiceEnabled(){
             checkAuthorizationState()
         }else{
@@ -36,12 +41,21 @@ class MapViewController: UIViewController {
         }
     }
     
+    func getPhone(phone: String) {
+        self.phone = phone
+    }
+    
+    @IBAction func btnAddPhone(_ sender: Any) {
+        let phone = PhoneViewController(nibName: "PhoneViewController", bundle: nil)
+        phone.phoneDelegate = self
+        self.navigationController?.present(phone, animated: true)
+    }
+    
     @IBAction func btnConfirmAddress(_ sender: Any) {
-//        getLocationInfo(location: manager.location!)
         if newAddress != nil{
-            completeAddress()
+            postAddress()
         }else{
-            showLocationAlert(text: "choose an address")
+            showLocationAlert(text: "something went wrong ... make sure you're connected")
         }
     }
 }
@@ -53,16 +67,6 @@ extension MapViewController: MKMapViewDelegate{
 }
 
 extension MapViewController:CLLocationManagerDelegate{
-    
-    func getCurrentLocation(location:CLLocation) {
-//        let coordinate = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-//        let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-//        let region = MKCoordinateRegion(center: coordinate, span: span)
-//        mapView.setRegion(region, animated: true)
-//        mapView.setCameraBoundary(MKMapView.CameraBoundary(coordinateRegion: region), animated: true)
-//        mapView.setCameraZoomRange(MKMapView.CameraZoomRange(maxCenterCoordinateDistance:  1000), animated: true)
-        
-    }
     
     func isLocationServiceEnabled() -> Bool{
         return CLLocationManager.locationServicesEnabled()
@@ -77,14 +81,24 @@ extension MapViewController:CLLocationManagerDelegate{
         }  
     }
     
-    func completeAddress() {
-        let address = newAddress
-        guard let address = address else {return}
-        let phone = PhoneViewController(nibName: "PhoneViewController", bundle: nil)
-        phone.address = address
-        self.navigationController?.pushViewController(phone, animated: true)
+    func postAddress() {
+        address = newAddress
+        guard let phone = phone else { showLocationAlert(text: "Please add your phone first"); return}
+        self.viewModel.getAddDetailsAndPostToCustomer(customerID: String((self.userDefault.getCustomerId())), phone: phone, streetName: address.streetName, city: address.city, country: address.country) { [weak self] isSucceeded in
+            guard let self = self else{return}
+            HandelConnection.handelConnection.checkNetworkConnection { isConn in
+                if isConn{
+                    if isSucceeded{
+                        self.navigationController?.popViewController(animated: true)
+                    }else{
+                        self.showLocationAlert(text: "something went wrong, may be address already added")
+                    }
+                }else{
+                    self.showLocationAlert(text: "Please check your internet connection..")
+                }
+            }
+        }
     }
-    
     
     func checkAuthorizationState() {
         
@@ -112,10 +126,7 @@ extension MapViewController:CLLocationManagerDelegate{
             print("Default")
         }
     }
-    
-    
-   
-    
+       
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     }
     

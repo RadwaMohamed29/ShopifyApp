@@ -23,7 +23,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                 </mapView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66D-DG-e7U">
-                    <rect key="frame" x="41.5" y="781" width="331" height="43"/>
+                    <rect key="frame" x="83" y="781" width="248" height="43"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="tinted" title="Confirm current loaction" cornerStyle="capsule"/>
                     <connections>
@@ -37,25 +37,38 @@
                         <constraint firstAttribute="height" constant="50" id="Mzb-cH-FGm"/>
                     </constraints>
                 </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CO7-WN-Olu">
+                    <rect key="frame" x="344" y="781" width="41.5" height="43"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="tinted" image="phone" catalog="system" cornerStyle="capsule"/>
+                    <connections>
+                        <action selector="btnAddPhone:" destination="-1" eventType="touchUpInside" id="L3h-K4-JV8"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="66D-DG-e7U" secondAttribute="bottom" constant="38" id="1pV-a4-BHG"/>
                 <constraint firstItem="66D-DG-e7U" firstAttribute="centerX" secondItem="wAH-Lx-HNJ" secondAttribute="centerX" id="2md-j6-Zcw"/>
+                <constraint firstItem="CO7-WN-Olu" firstAttribute="height" secondItem="66D-DG-e7U" secondAttribute="height" id="Bbs-x0-Nyk"/>
                 <constraint firstAttribute="trailing" secondItem="wAH-Lx-HNJ" secondAttribute="trailing" id="DJa-ZR-P2E"/>
                 <constraint firstAttribute="bottom" secondItem="wAH-Lx-HNJ" secondAttribute="bottom" id="Hns-ZC-AUd"/>
-                <constraint firstItem="66D-DG-e7U" firstAttribute="width" secondItem="wAH-Lx-HNJ" secondAttribute="width" multiplier="0.8" id="QbS-Ct-3hP"/>
+                <constraint firstItem="66D-DG-e7U" firstAttribute="width" secondItem="wAH-Lx-HNJ" secondAttribute="width" multiplier="0.6" id="QbS-Ct-3hP"/>
                 <constraint firstItem="66D-DG-e7U" firstAttribute="height" secondItem="wAH-Lx-HNJ" secondAttribute="height" multiplier="0.048" id="VFZ-WD-3rG"/>
                 <constraint firstItem="ZOu-4b-qr8" firstAttribute="centerX" secondItem="wAH-Lx-HNJ" secondAttribute="centerX" id="Xln-us-jpj"/>
+                <constraint firstItem="CO7-WN-Olu" firstAttribute="centerY" secondItem="66D-DG-e7U" secondAttribute="centerY" id="hff-UB-wUs"/>
                 <constraint firstItem="wAH-Lx-HNJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="jQ9-BK-6Q9"/>
                 <constraint firstItem="ZOu-4b-qr8" firstAttribute="centerY" secondItem="wAH-Lx-HNJ" secondAttribute="centerY" constant="-25" id="mtJ-75-0R1"/>
                 <constraint firstItem="wAH-Lx-HNJ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qM4-vj-2Hq"/>
+                <constraint firstItem="CO7-WN-Olu" firstAttribute="leading" secondItem="66D-DG-e7U" secondAttribute="trailing" constant="13" id="uPZ-au-9cA"/>
+                <constraint firstItem="CO7-WN-Olu" firstAttribute="width" secondItem="wAH-Lx-HNJ" secondAttribute="width" multiplier="0.1" id="ujk-N9-KBb"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="90"/>
+            <point key="canvasLocation" x="137.68115942028987" y="89.732142857142847"/>
         </view>
     </objects>
     <resources>
+        <image name="phone" catalog="system" width="128" height="115"/>
         <image name="pin" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
