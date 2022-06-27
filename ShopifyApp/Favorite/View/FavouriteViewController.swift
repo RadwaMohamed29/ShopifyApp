@@ -127,6 +127,7 @@ class FavouriteViewController: UIViewController {
             }
             product.isSelected = false
         }
+        favProducts[lastIndex!.row].isSelected =  false
         lastIndex = nil
         listOfSelectedProducts = []
         countOfSelectedItem = 0
