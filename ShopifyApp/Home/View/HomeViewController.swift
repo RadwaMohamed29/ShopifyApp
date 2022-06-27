@@ -37,12 +37,12 @@ class HomeViewController: UIViewController,brandIdProtocol {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         refreshControl.tintColor = UIColor.darkGray
-        refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
+        refreshControl.addTarget(self, action:#selector(setupTableView), for: .valueChanged)
         homeTV.addSubview(refreshControl)
         checkConnection()
 
     }
-    func setupTableView(){
+  @objc  func setupTableView(){
         homeTV.register(AbsTableViewCell.Nib(), forCellReuseIdentifier: AbsTableViewCell.identifier)
         homeTV.register(BrandTableViewCell.Nib(), forCellReuseIdentifier: BrandTableViewCell.identifier)
         homeTV.delegate = self
@@ -146,17 +146,6 @@ extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
             height = view.frame.height * 1.5
         }
         return height
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        var title = ""
-        switch section{
-        case 0:
-            title = ""
-        default:
-            title = ""
-        }
-        return title
     }
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView

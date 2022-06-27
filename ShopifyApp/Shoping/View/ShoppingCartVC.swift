@@ -35,7 +35,7 @@ class ShoppingCartVC: UIViewController {
         setCartView()
     }
    @objc func setCartView(){
-        if Utilities.utilities.getUserNote() == "0" {
+        if Utilities.utilities.getUserNote() == "0" && flag == false {
             getCartProductsFromCoreData()
         }
         else{
@@ -49,7 +49,7 @@ class ShoppingCartVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         refreshControl.tintColor = UIColor.darkGray
-        refreshControl.addTarget(self, action:#selector(setCartView), for: .valueChanged)
+        refreshControl.addTarget(self, action:#selector(getItemsDraft), for: .valueChanged)
         tableView.addSubview(refreshControl)
         checkConnection()
     }
@@ -138,6 +138,8 @@ extension ShoppingCartVC{
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.refreshControl.endRefreshing()
+            print("get items success ")
+
         }
        }
     
