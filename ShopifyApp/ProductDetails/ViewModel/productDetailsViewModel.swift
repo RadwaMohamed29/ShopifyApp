@@ -30,12 +30,11 @@ protocol ProductDetailsViewModelType{
     func editCustomer(customer: EditCustomer, customerID: Int, completion: @escaping (Bool)->())
     func editDraftOrder(draftOrder: PutOrderRequestTest, draftID: Int, completion: @escaping (Bool)->())
     func getItemsDraftOrder(idDraftOrde: Int)
-    var itemDraftOrderObservable: Observable<DraftOrderTest>{get set}
-    var lineItem : Array<LineItem>{get set}
+    var  itemDraftOrderObservable: Observable<DraftOrderTest>{get set}
+    var  lineItem : Array<LineItem>{get set}
     func deleteDraftOrder(draftOrderID: Int)
-
-
-
+    func getProductImage(id: String)
+    func removeItemsFromCartToSpecificCustomer()throws
 
 }
 
@@ -389,6 +388,14 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
             }
             print(json)
             
+        }
+    }
+    func removeItemsFromCartToSpecificCustomer() throws {
+        do{
+            try localDataSource.removeItemsFromCartToSpecificCustomer()
+        }
+        catch let error{
+            throw error
         }
     }
 

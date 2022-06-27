@@ -101,13 +101,14 @@ class ShoppingCartVC: UIViewController {
     }
 
     @IBAction func goToAddress(_ sender: Any) {
-        let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
-        address.itemList = itemList
-        address.isComingWithOrder = true
-        Utilities.utilities.setTotalPrice(totalPrice: totalPrice )
-        self.navigationController?.pushViewController(address, animated: true)
+        if !itemList.isEmpty || !CartProducts.isEmpty{
+            let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
+            address.itemList = itemList
+            address.isComingWithOrder = true
+            Utilities.utilities.setTotalPrice(totalPrice: totalPrice )
+            self.navigationController?.pushViewController(address, animated: true)
+        }
     }
-
 }
 extension ShoppingCartVC{
     func getItemsDraft(){
@@ -117,7 +118,7 @@ extension ShoppingCartVC{
                 .init(qos: .background))
             .observe(on: MainScheduler.asyncInstance)
             .subscribe{ result in
-                self.itemList = self.productViewModel!.lineItem
+                self.itemList = result.element?.lineItems ?? []
                 self.tableView.reloadData()
                 print("get items success ")
             }.disposed(by: disposeBag)
@@ -126,7 +127,7 @@ extension ShoppingCartVC{
             self.emptyView.isHidden=false
         }
        }
-
+ 
    func updateCustomerNote(){
            if userDefualt.isLoggedIn(){
                    let editCustomer = EditCustomerRequest(id: userDefualt.getCustomerId(), email: userDefualt.getCustomerEmail(), firstName: userDefualt.getCustomerName(), password: "\(userDefualt.getUserPassword())", note: "0")
@@ -169,8 +170,6 @@ extension ShoppingCartVC{
                        }
                        
                    })
-
-                  // self.UpdateTotalPrice()
                }
            }
        }

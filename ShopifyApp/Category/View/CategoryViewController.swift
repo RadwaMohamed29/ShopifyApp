@@ -17,6 +17,7 @@ class CategoryViewController: UIViewController {
     var dbList:[Product]?
     let refreshController = UIRefreshControl()
     var viewModel:CategoryViewModelProtocol!
+    var itemList: [LineItem] = []
     let queue = OperationQueue()
     static var subProduct:Int = 0
     @IBOutlet weak var searchBar: UISearchBar!
@@ -33,7 +34,6 @@ class CategoryViewController: UIViewController {
     @IBOutlet private weak var fabBtn: Floaty!
     @IBOutlet  weak var categoryCollection: UICollectionView!
     var collectionFlowLayout:UICollectionViewFlowLayout!
-    
     @IBOutlet weak var cartOutlet: UIBarButtonItem!
     @IBOutlet weak var favOutlet: UIBarButtonItem!
     var localDataSource = LocalDataSource(appDelegate: UIApplication.shared.delegate as! AppDelegate)
@@ -51,7 +51,9 @@ class CategoryViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
             if isLoggedIn{
-                self.cartOutlet.setBadge(text: String(describing:self.localDataSource.getCountOfProductInCart()))
+                if Utilities.utilities.getUserNote() != "0"{
+                    self.getItemsDraft()
+                }
                 self.favOutlet.setBadge(text: String(describing: self.localDataSource.getCountOfProductInFav()))
             }
             else{
@@ -171,6 +173,22 @@ class CategoryViewController: UIViewController {
         unSelectToolbar()
         stopSpinnerIfNoNetwork()
     }
+   func getItemsDraft(){
+        if Utilities.utilities.getUserNote() != "0" {
+            productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
+            productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+                .init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe{ result in
+                self.itemList = result.element?.lineItems ?? []
+                DispatchQueue.main.async{
+                    self.cartOutlet.setBadge(text:String( self.itemList.count))
+                }
+                self.categoryCollection.reloadData()
+                print("get items success ")
+            }.disposed(by: disposeBag)
+        }
+       }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
             return UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
