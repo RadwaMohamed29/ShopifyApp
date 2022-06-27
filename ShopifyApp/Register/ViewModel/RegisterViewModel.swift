@@ -84,6 +84,7 @@ class RegisterViewModel: RegisterViewModelType{
                     let savedCustomer = json["customer"] as? Dictionary<String,Any>
                     let id = savedCustomer?["id"] as? Int ?? 0
                     let customerName = savedCustomer?["first_name"] as? String ?? ""
+                    let customerLastName = savedCustomer?["last_name"] as? String ?? ""
                     let customerEmail = savedCustomer?["email"] as? String ?? ""
                     let customerPassword = savedCustomer?["tags"] as? String ?? ""
 
@@ -94,7 +95,7 @@ class RegisterViewModel: RegisterViewModelType{
                         self?.userDefualt.login()
                         self?.userDefualt.addCustomerId(id: id)
                         self?.userDefualt.addCustomerEmail(customerEmail: customerEmail)
-                        self?.userDefualt.addCustomerName(customerName: customerName)
+                        self?.userDefualt.addCustomerName(customerName: "\(customerName) \(customerLastName)")
                         self?.userDefualt.login()
                         self?.userDefualt.setUserPassword(password: customerPassword)
 
