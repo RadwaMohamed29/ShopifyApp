@@ -32,7 +32,6 @@ class HomeViewController: UIViewController,brandIdProtocol {
                 self.favBtn.setBadge(text: String(describing: self.localDataSource!.getCountOfProductInFav()))
             }
             else{
-                self.cartBtn.setBadge(text: String("0"))
                 self.favBtn.setBadge(text: String("0"))
             }
         }
@@ -137,6 +136,10 @@ extension HomeViewController{
                 self.homeTV.reloadData()
                 print("get items success ")
             }.disposed(by: disposeBag)
+        }
+        else{
+            self.cartBtn.setBadge(text: String("0"))
+
         }
        }
     func removeAllItemFromCoreData(){
