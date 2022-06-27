@@ -29,10 +29,25 @@ class RegistetUnitTest: XCTestCase {
         // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
     }
+    
+    
+    func testRegister(){
+        let result = expectation(description: "r")
+        registerViewModel.registerCustomer(firstName: "radwa", lastName: "mohamed", email: "radwa@gmail.com", password: "123123", completion: { result in
+             XCTAssertTrue(true)
+
+        })
+        registerViewModel.bindNavigate = {
+            let navigate = self.registerViewModel.navigate
+            result.fulfill()
+            XCTAssertTrue(navigate == false)
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
 
     func testLogin(){
         let result = expectation(description: "r")
-        loginViewModel.loginCustomer(email: "radwa@gmail.com", password: "123123")
+        loginViewModel.loginCustomer(email: "hussien@gmail.com", password: "123123")
         loginViewModel.bindNavigate = {
             let navigate = self.loginViewModel.navigate
             result.fulfill()
@@ -42,16 +57,7 @@ class RegistetUnitTest: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
         
     }
-//
-//    func testRegister(){
-//        let result = expectation(description: "r")
-//        registerViewModel.registerCustomer(firstName: "radwa", lastName: "mohamed", email: "radwa@gmail.com", password: "123123", completion:  )
-//        registerViewModel.bindNavigate = {
-//            let navigate = self.registerViewModel.navigate
-//            result.fulfill()
-//            XCTAssertTrue(navigate == true)
-//        }
-//        waitForExpectations(timeout: 10, handler: nil)
-//    }
+    
+
 
 }
