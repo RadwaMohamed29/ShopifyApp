@@ -111,13 +111,20 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     @IBAction func btnConfirmPayment(_ sender: Any) {
         items = convertFromListOfCartProdeuctTolistOfLineItems(products: itemList)
         order = prepareOrderObject(items: items, adress: adress!,price: "\(total ?? 0)")
-        let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
-        
-        //coupon check
-        payment.checkoutDelegate = self
-        payment.totalPrice = total
-        payment.discount = discount
-        self.navigationController?.pushViewController(payment, animated: true)
+        HandelConnection.handelConnection.checkNetworkConnection { [weak self] isConnected in
+            if isConnected{
+                let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
+                payment.checkoutDelegate = self
+                payment.totalPrice = self?.total
+                payment.discount = self?.discount
+                self?.navigationController?.pushViewController(payment, animated: true)
+            }else{
+                let alert = UIAlertController(title: "Network Connection!", message: "Check your network please!", preferredStyle: .alert)
+                let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alert.addAction(okBtn)
+                self?.present(alert, animated: true, completion: nil)
+            }
+        }
     }
     
     @IBAction func btnCheckDiscount(_ sender: Any) {

@@ -117,7 +117,6 @@ class ShoppingCartVC: UIViewController {
             
         }
     }
-
 }
 extension ShoppingCartVC{
     @objc func getItemsDraft(){
@@ -142,6 +141,7 @@ extension ShoppingCartVC{
 
         }
        }
+ 
     
 
    func updateCustomerNote(){

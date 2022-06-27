@@ -28,11 +28,22 @@ class PaymentMethodViewController: UIViewController {
     
         
     @IBAction func btnpay(_ sender: Any) {
-        if segmentedControl.selectedSegmentIndex == 1{
-            startCheckout(amount: String(totalPrice ?? 0))
-        }else{
-            checkoutDelegate?.approvePayment(discoun: discount ?? 0)
+        HandelConnection.handelConnection.checkNetworkConnection { [weak self] isConnected in
+            if isConnected{
+                if self?.segmentedControl.selectedSegmentIndex == 1{
+                    self?.startCheckout(amount: String(self?.totalPrice ?? 0))
+                }else{
+                    self?.checkoutDelegate?.approvePayment(discoun: self?.discount ?? 0)
+                }
+            }else{
+                let alert = UIAlertController(title: "Network Connection!", message: "Check your network please!", preferredStyle: .alert)
+                let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alert.addAction(okBtn)
+                self?.present(alert, animated: true, completion: nil)
+            }
+            
         }
+       
     }
     
     @IBAction func segment(_ sender: Any) {
