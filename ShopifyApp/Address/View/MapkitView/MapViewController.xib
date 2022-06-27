@@ -37,7 +37,7 @@
                         <constraint firstAttribute="height" constant="50" id="Mzb-cH-FGm"/>
                     </constraints>
                 </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CO7-WN-Olu">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CO7-WN-Olu" userLabel="phone">
                     <rect key="frame" x="344" y="781" width="41.5" height="43"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="tinted" image="phone" catalog="system" cornerStyle="capsule"/>

@@ -20,7 +20,7 @@ class MapViewController: UIViewController, PhoneDelegate{
     var phone:String?
     private let userDefault = Utilities()
     private var viewModel:AddressViewModel!
-    @IBOutlet var mapView:MKMapView!
+    @IBOutlet private var mapView:MKMapView!
     private var newAddress:AddressFromMap?
     var manager = CLLocationManager()
     
