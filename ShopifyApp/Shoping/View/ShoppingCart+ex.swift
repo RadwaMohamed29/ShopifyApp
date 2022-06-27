@@ -19,6 +19,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: OrdersTVC.identifier, for: indexPath) as! OrdersTVC
         cell.deleteFromBagProducts = {
+            self.checkConnection()
             self.showDeleteAlert(indexPath: indexPath)
         }
         if flag == true{
@@ -29,6 +30,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
             if !quantityOfProducts.isEmpty{
                 let quantity = quantityOfProducts[indexPath.row].variant[0].inventoryQuantity
                 if flag == true{
+                  self.checkConnection()
                   cell.addCount={ [self] in
                    if Int(count) == Int(quantity) {
                         alertWarning(indexPath: indexPath, title: "warning", message: "quantity not avalible")
@@ -43,6 +45,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                     }
                   }
                      cell.subCount={
+                     self.checkConnection()
                      if (count != 1)
                          {
                          cell.subBtn.isEnabled = true
@@ -72,18 +75,18 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                     cell.productImage.kf.indicatorType = .activity
                     cell.productImage.kf.setImage(
                     with: url,
-                    placeholder: UIImage(named: "placeholderImage"),
+                    placeholder: UIImage(named: "placeholder"),
                     options: [
                         .processor(processor),
                         .scaleFactor(UIScreen.main.scale),
                         .transition(.fade(1)),
                         .cacheOriginalImage
                             ])
-                    cell.trash_icon.isEnabled = false
+                //    cell.trash_icon.isEnabled = false
                     cell.productCount.text = " \(CartProducts[indexPath.row].count)"
                     cell.productPrice.text = Shared.formatePrice(priceStr: CartProducts[indexPath.row].price!)
                     cell.deleteFromBagProducts = {[weak self] in
-                    self?.showDeleteAlert(indexPath: indexPath)
+                        self?.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to delete the item")
                     }
             cell.addCount={
                 self.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to modifay the item")

@@ -48,10 +48,10 @@ class ShoppingCartVC: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-        refreshControl.tintColor = UIColor.darkGray
-        refreshControl.addTarget(self, action:#selector(getItemsDraft), for: .valueChanged)
-        tableView.addSubview(refreshControl)
         checkConnection()
+        refreshControl.tintColor = UIColor.darkGray
+        refreshControl.addTarget(self, action:#selector(setCartView), for: .valueChanged)
+        tableView.addSubview(refreshControl)
     }
     func checkCartIsEmpty(){
         if itemList.isEmpty || CartProducts.isEmpty {
@@ -66,7 +66,7 @@ class ShoppingCartVC: UIViewController {
             modifyCountOfItem()
         }
     }
-    @objc func checkConnection(){
+     func checkConnection(){
         HandelConnection.handelConnection.checkNetworkConnection { [self] isConnected in
             if isConnected{
                 self.flag = true
@@ -78,6 +78,7 @@ class ShoppingCartVC: UIViewController {
                     self.alertWarning(indexPath:[], title: "information", message: "this is last update")
 
                 }
+                
                 self.setTotalPrice()
             }
         }

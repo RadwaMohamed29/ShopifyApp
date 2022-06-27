@@ -127,7 +127,7 @@ extension HomeViewController{
                 self.removeAllItemFromCoreData()
                 for item in self.itemList {
                     do {
-                        try self.productViewModel?.addProductToCoreDataCart(id: String(item.productID), title: item.title, image: "", price: String(item.price), itemCount:item.quantity, quantity: item.quantity, completion: { result in
+                        try self.productViewModel?.addProductToCoreDataCart(id: String(item.productID), title: item.title, image:"placeholder", price: String(item.price), itemCount:item.quantity, quantity: item.quantity, completion: { result in
                         })
                     }
                     catch let error{
