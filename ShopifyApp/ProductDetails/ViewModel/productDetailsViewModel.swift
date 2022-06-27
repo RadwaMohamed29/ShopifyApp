@@ -353,6 +353,7 @@ final class ProductDetailsViewModel: ProductDetailsViewModelType{
         network.getItemsDraftOrder(idDraftOrde: idDraftOrde) { result in
             switch result {
             case .success(let response):
+                
                  let items = response.draftOrder
                 for item in items.lineItems {
                     self.lineItem.append(item)
