@@ -40,12 +40,12 @@ class HomeViewController: UIViewController,brandIdProtocol {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         refreshControl.tintColor = UIColor.darkGray
-        refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
+        refreshControl.addTarget(self, action:#selector(setupTableView), for: .valueChanged)
         homeTV.addSubview(refreshControl)
         checkConnection()
 
     }
-    func setupTableView(){
+  @objc  func setupTableView(){
         homeTV.register(AbsTableViewCell.Nib(), forCellReuseIdentifier: AbsTableViewCell.identifier)
         homeTV.register(BrandTableViewCell.Nib(), forCellReuseIdentifier: BrandTableViewCell.identifier)
         homeTV.delegate = self
@@ -127,7 +127,7 @@ extension HomeViewController{
                 self.removeAllItemFromCoreData()
                 for item in self.itemList {
                     do {
-                        try self.productViewModel?.addProductToCoreDataCart(id: String(item.productID), title: item.title, image: "", price: String(item.price), itemCount:item.quantity, quantity: item.quantity, completion: { result in
+                        try self.productViewModel?.addProductToCoreDataCart(id: String(item.productID), title: item.title, image:"placeholder", price: String(item.price), itemCount:item.quantity, quantity: item.quantity, completion: { result in
                         })
                     }
                     catch let error{
