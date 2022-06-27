@@ -88,51 +88,62 @@ class FavouriteViewController: UIViewController {
    
     
     @IBAction func addSelectedItemToCart(_ sender: Any) {
-        
-        for product in listOfSelectedProducts{
-            var product = product
-            productViewModel?.checkProductInCart(id: "\(product.id )")
-            guard let inCart = productViewModel?.isProductInCart else{return}
-            if(inCart){
-                let alert = UIAlertController(title: "Already In Cart!", message: "Some of selected is in Cart!. if you need to increase the amount of product , you can do it from your cart ", preferredStyle: .alert)
+        productViewModel = nil
+        HandelConnection.handelConnection.checkNetworkConnection { [self] isConnected in
+            if isConnected{
+                productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
+                for product in listOfSelectedProducts{
+                    let product = product
+                    productViewModel?.checkProductInCart(id: "\(product.id )")
+                    guard let inCart = productViewModel?.isProductInCart else{return}
+                    if(inCart){
+                        let alert = UIAlertController(title: "Already In Cart!", message: "Some of selected is in Cart!. if you need to increase the amount of product , you can do it from your cart ", preferredStyle: .alert)
+                        let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                        alert.addAction(okBtn)
+                        self.present(alert, animated: true, completion: nil)
+                    }else{
+                        if product.isSelected{
+                            getProduct(productId: "\(product.id )") { result in
+                                if result {
+                                    if Utilities.utilities.getUserNote() == "0"{
+                                        self.postDraftOrder()
+                                        DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
+                                            self.updateCustomer()
+                                            self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
+                                        }
+                                    }else{
+                                        self.getItemsDraft()
+                                        DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
+                                            self.editDraftOrder()
+                                            self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
+                                        }
+                                    }
+                                }
+                            }
+                            do{
+                                try self.productViewModel?.addProductToCoreDataCart(id: "\(product.id)",title:product.title,image:product.scr,price:product.price, itemCount: 1, quantity:1, completion: { _ in})
+                            }catch let error{
+                                print(error.localizedDescription)
+                            }
+                            Shared.showMessage(message: "Added To Cart Successfully!", error: false)
+                            self.favProducts[self.lastIndex!.row].isSelected =  false
+                            self.lastIndex = nil
+                            self.listOfSelectedProducts = []
+                            self.countOfSelectedItem = 0
+                            self.favouriteCollectionView.reloadData()
+                        }
+                        
+                    }
+                }
+                
+            }else{
+                let alert = UIAlertController(title: "Network Connection!", message: "Check your network please!", preferredStyle: .alert)
                 let okBtn = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alert.addAction(okBtn)
                 self.present(alert, animated: true, completion: nil)
-                
-                print("alert \(inCart)")
-            }else{
-                getProduct(productId: "\(product.id )") { result in
-                    if result {
-                        if Utilities.utilities.getUserNote() == "0"{
-                            self.postDraftOrder()
-                            DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
-                                self.updateCustomer()
-                                self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
-                            }
-                        }else{
-                            self.getItemsDraft()
-                            DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
-                                self.editDraftOrder()
-                                self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
-                            }
-                        }
-                    }
-                }
-                do{
-                    try productViewModel?.addProductToCoreDataCart(id: "\(product.id)",title:product.title,image:product.scr,price:product.price, itemCount: 1, quantity:1, completion: { _ in})
-                }catch let error{
-                    print(error.localizedDescription)
-                }
-                Shared.showMessage(message: "Added To Cart Successfully!", error: false)
             }
-            product.isSelected = false
         }
-        favProducts[lastIndex!.row].isSelected =  false
-        lastIndex = nil
-        listOfSelectedProducts = []
-        countOfSelectedItem = 0
-        favouriteCollectionView.reloadData()
-        
+       
     }
    
     @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
@@ -156,8 +167,8 @@ class FavouriteViewController: UIViewController {
             cell.productImage.layer.borderWidth = 2
             cell.productImage.layer.borderColor = UIColor.systemGreen.cgColor
             countOfSelectedItem = 1
-            listOfSelectedProducts.append(favProducts[indexPath.row])
             favProducts[indexPath.row].isSelected =  true
+            listOfSelectedProducts.append(favProducts[indexPath.row])
             if lastIndex == nil{
                 lastIndex = indexPath
             }else{
