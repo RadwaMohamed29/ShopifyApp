@@ -43,6 +43,7 @@
 		16F65517284DBCE0002F3BD3 /* LaunchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16F65515284DBCE0002F3BD3 /* LaunchViewController.xib */; };
 		3E0865D6283EE3E500755C18 /* Brands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0865D5283EE3E500755C18 /* Brands.swift */; };
 		3E0865D8283EE44800755C18 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0865D7283EE44800755C18 /* HomeViewModel.swift */; };
+		3E1DEE95286A77A8002D93B5 /* UtilsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1DEE94286A77A8002D93B5 /* UtilsTest.swift */; };
 		3E374BE228428EB30008CD46 /* CartModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E374BE128428EB30008CD46 /* CartModel.swift */; };
 		3E37B9AE283D9845000A0FD9 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E37B9AC283D9845000A0FD9 /* RegisterViewController.swift */; };
 		3E37B9AF283D9845000A0FD9 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E37B9AD283D9845000A0FD9 /* RegisterViewController.xib */; };
@@ -200,6 +201,7 @@
 		385236EEA1DBF452D0570BBD /* Pods-ShopifyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShopifyApp.release.xcconfig"; path = "Target Support Files/Pods-ShopifyApp/Pods-ShopifyApp.release.xcconfig"; sourceTree = "<group>"; };
 		3E0865D5283EE3E500755C18 /* Brands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brands.swift; sourceTree = "<group>"; };
 		3E0865D7283EE44800755C18 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		3E1DEE94286A77A8002D93B5 /* UtilsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsTest.swift; sourceTree = "<group>"; };
 		3E374BE128428EB30008CD46 /* CartModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CartModel.swift; sourceTree = "<group>"; };
 		3E37B9AC283D9845000A0FD9 /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		3E37B9AD283D9845000A0FD9 /* RegisterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 				164C0DFD28697E8400080D49 /* RegistetUnitTest.swift */,
 				164C0DFF28698D4E00080D49 /* SettingsUnitTest.swift */,
 				164C0E012869905C00080D49 /* ProductTest.swift */,
+				3E1DEE94286A77A8002D93B5 /* UtilsTest.swift */,
 			);
 			path = ShopifyAppTests;
 			sourceTree = "<group>";
@@ -1349,6 +1352,7 @@
 				164C0E022869905C00080D49 /* ProductTest.swift in Sources */,
 				164C0DFE28697E8400080D49 /* RegistetUnitTest.swift in Sources */,
 				1654EB852835EB31000B78F1 /* ShopifyAppTests.swift in Sources */,
+				3E1DEE95286A77A8002D93B5 /* UtilsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
