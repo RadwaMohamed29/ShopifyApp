@@ -243,10 +243,10 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
     func showDropMenu() -> UIMenu {
         let menu = UIMenu(title: "", children: [
         
-            UIAction(title: "low", subtitle: "filter price from low to high",image: UIImage(systemName: "arrow.down.square.fill")?.withTintColor(.systemTeal, renderingMode: .alwaysOriginal), handler: { (_) in
+            UIAction(title: "low", subtitle: "price(low to high)",image: UIImage(systemName: "arrow.down.square.fill")?.withTintColor(.systemTeal, renderingMode: .alwaysOriginal), handler: { (_) in
                 self.productViewModel?.filterbyPrice(order: "low")
             }),
-            UIAction(title: "high",subtitle: "filter price from high to low", image: UIImage(systemName: "arrow.up.square.fill")?.withTintColor(.systemOrange, renderingMode: .alwaysOriginal), handler: { (_) in
+            UIAction(title: "high",subtitle: "price(high to low)", image: UIImage(systemName: "arrow.up.square.fill")?.withTintColor(.systemOrange, renderingMode: .alwaysOriginal), handler: { (_) in
                 self.productViewModel?.filterbyPrice(order: "high")
             })
         ])
