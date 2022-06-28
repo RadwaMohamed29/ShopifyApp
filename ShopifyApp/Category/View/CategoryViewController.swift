@@ -110,7 +110,7 @@ class CategoryViewController: UIViewController {
         fabBtn.addItem("Shoes", icon: UIImage(named: "fabShoe")) { [weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "SHOES")
             if CategoryViewController.subProduct == 0{
-                self?.fabActions(type: "SHOES", subProductIndex: 3, target: .HomeWithProductType(id: "SHOES"))
+                self?.fabActions(type: "SHOES", subProductIndex: 0, target: .HomeWithProductType(id: "SHOES"))
             }else{
                 self?.fabActions(type: "Shoes", subProductIndex: 1, target: .ShoesType(id: index!.ID))}
         }
@@ -118,7 +118,7 @@ class CategoryViewController: UIViewController {
         fabBtn.addItem("T_shirts", icon: UIImage(named: "fabTshirt")) {[weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "T_shirts")
             if CategoryViewController.subProduct == 0{
-                self?.fabActions(type: "T-SHIRTS", subProductIndex: 3, target: .HomeWithProductType(id: "T-SHIRTS"))
+                self?.fabActions(type: "T-SHIRTS", subProductIndex: 0, target: .HomeWithProductType(id: "T-SHIRTS"))
             }else{
                 self?.fabActions(type: "T-SHIRTS", subProductIndex: 2, target: .TshirtType(id: index!.ID))}
         }
@@ -126,7 +126,7 @@ class CategoryViewController: UIViewController {
         fabBtn.addItem("Accessories", icon: UIImage(named: "fabAcc")) {[weak self] _ in
             let index = self?.getSelectedIndexInToolBar(type: "Accessories")
             if CategoryViewController.subProduct == 0{
-                self?.fabActions(type: "Accessories", subProductIndex: 3, target: .HomeWithProductType(id: "Accessories"))
+                self?.fabActions(type: "Accessories", subProductIndex: 0, target: .HomeWithProductType(id: "Accessories"))
             }else{
                 self?.fabActions(type: "Accessories", subProductIndex: 3, target: .AccecoriesType(id: index!.ID))}
         }
@@ -171,6 +171,7 @@ class CategoryViewController: UIViewController {
         refreshController.endRefreshing()
         categoryCollection.reloadData()
         unSelectToolbar()
+        CategoryViewController.subProduct = 0
         stopSpinnerIfNoNetwork()
     }
    func getItemsDraft(){
@@ -216,6 +217,7 @@ class CategoryViewController: UIViewController {
             self?.getCategory(target: .MenCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 2)
             self?.stopSpinnerIfNoNetwork()
+            CategoryViewController.subProduct = 2
         }.disposed(by: disposeBag)
     }
     
@@ -224,6 +226,7 @@ class CategoryViewController: UIViewController {
             self?.spinner.startAnimating()
             self?.getCategory(target: .WomenCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 1)
+            CategoryViewController.subProduct = 1
             self?.stopSpinnerIfNoNetwork()
         }.disposed(by: disposeBag)
     }
@@ -234,6 +237,7 @@ class CategoryViewController: UIViewController {
             self?.getCategory(target: .SaleCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 4)
             self?.stopSpinnerIfNoNetwork()
+            CategoryViewController.subProduct = 4
         }.disposed(by: disposeBag)
     }
     
@@ -243,6 +247,7 @@ class CategoryViewController: UIViewController {
             self?.getCategory(target: .KidsCategoryProduct)
             self?.checkHilightedBtnInToolbar(index: 3)
             self?.stopSpinnerIfNoNetwork()
+            CategoryViewController.subProduct = 3
         }.disposed(by: disposeBag)
     }
     

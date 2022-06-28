@@ -41,15 +41,15 @@ enum Endpoints {
     var path:String{
         switch self {
         case .SaleCategoryProduct:
-            return "products.json?collection_id=395963695362"
+            return "products.json?collection_id=397089603842"
         case .HomeCategoryProducts:
             return "products.json"
         case .MenCategoryProduct:
-            return "products.json?collection_id=395963597058"
+            return "products.json?collection_id=397089505538"
         case .WomenCategoryProduct:
-            return "products.json?collection_id=395965432066"
+            return "products.json?collection_id=397089538306"
         case .KidsCategoryProduct:
-            return "products.json?collection_id=395964940546"
+            return "products.json?collection_id=397089571074"
         case .ProductDetails(id: let productId):
             return "products/\(productId).json"
         case .Customers:
@@ -107,13 +107,13 @@ enum categoryID {
     var ID:String{
         switch self {
         case .MEN:
-            return "395963597058"
+            return "397089505538"
         case .WOMEN:
-            return "395965432066"
+            return "397089538306"
         case .KIDS:
-            return "395964940546"
+            return "397089571074"
         case .SALE:
-            return "395963695362"
+            return "397089603842"
         case .Home(type: let type):
             return "\(type)"
         }
