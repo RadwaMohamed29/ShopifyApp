@@ -42,7 +42,6 @@ class ShoppingCartVC: UIViewController {
             getCartProductsFromCoreData()
             getItemsDraft()
             UpdateTotalPrice()
-            self.emptyView.isHidden=true
         }
         getAllProductsFromApi()
     }
@@ -129,6 +128,7 @@ extension ShoppingCartVC{
             .subscribe{ result in
                 self.itemList = result.element?.lineItems ?? []
                 self.UpdateTotalPrice()
+                self.emptyView.isHidden=true
                 self.tableView.reloadData()
                 print("get items success ")
             }.disposed(by: disposeBag)
@@ -235,6 +235,7 @@ extension ShoppingCartVC{
                     //MARK: LSA M5LST4
                     switch response{
                     case true:
+                        self.emptyView.isHidden=true
                         print("data retrived successfuly")
                     case false:
                         print("data cant't retrieved")
