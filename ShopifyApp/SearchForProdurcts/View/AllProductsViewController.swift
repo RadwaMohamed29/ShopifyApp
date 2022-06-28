@@ -222,24 +222,7 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
 
         }
     }
-    
-    func showAlertError(title: String, message: String){
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action1 = UIAlertAction(title: "High to low", style: .default, handler: {[weak self](action)->() in
-            self?.productViewModel?.filterbyPrice(order: "high")
-        })
-        let action2 = UIAlertAction(title: "low to high", style: .default, handler: {[weak self](a)->() in
-            self?.productViewModel?.filterbyPrice(order: "low")
-        })
-        let action3 = UIAlertAction(title: "Cancel", style: .destructive, handler: {[weak self](a)->() in
-            self?.dismiss(animated: true)
-        })
-        alert.addAction(action2)
-        alert.addAction(action1)
-        alert.addAction(action3)
-        self.present(alert, animated: true, completion: nil)
-    }
-    
+ 
     func showDropMenu() -> UIMenu {
         let menu = UIMenu(title: "", children: [
         
