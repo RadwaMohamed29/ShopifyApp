@@ -48,9 +48,9 @@ class PaymentMethodViewController: UIViewController {
     
     @IBAction func segment(_ sender: Any) {
         if segmentedControl.selectedSegmentIndex == 1{
-            btnPayMethod.setTitle("PayPal", for: .normal)
+            btnPayMethod.setTitle("Continue with PayPal", for: .normal)
         }else{
-            btnPayMethod.setTitle("CASH", for: .normal)
+            btnPayMethod.setTitle("Place Order", for: .normal)
         }
     }
     

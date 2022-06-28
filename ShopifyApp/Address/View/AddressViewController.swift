@@ -38,7 +38,7 @@ class AddressViewController: UIViewController {
         setupTable()
         viewModel = AddressViewModel(network: APIClient())
         addressTableView.separatorStyle = .none
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addAddress))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "ADD", style: .done, target: self, action: #selector(addAddress))
         arr = []
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(mapTapped))
@@ -61,7 +61,7 @@ class AddressViewController: UIViewController {
         refreshController.beginRefreshing()
         checkNetwork()
         DispatchQueue.main.asyncAfter(deadline: .now()+5) { 
-            if self.arr.isEmpty{
+            if self.refreshController.isRefreshing{
                 self.refreshController.endRefreshing()
             }
         }
@@ -94,6 +94,10 @@ class AddressViewController: UIViewController {
 
     }
     
+    @IBAction func btnFromMAp(_ sender: Any) {
+        mapTapped()
+    }
+    
     func getAddresses(id:String) {
         viewModel.getAddressesForCurrentUser(id: id)
         viewModel.addressObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background)).observe(on: MainScheduler.instance).subscribe { [weak self]result in
@@ -117,6 +121,10 @@ class AddressViewController: UIViewController {
             print("disposed")
         }.disposed(by: disposeBag)
 
+    }
+    
+    @IBAction func btnAddAddress(_ sender: Any) {
+        addAddress()
     }
     
     @IBAction func confirmAdress(_ sender: Any) {

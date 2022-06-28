@@ -41,10 +41,10 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" alpha="0.80000000000000004" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map" translatesAutoresizingMaskIntoConstraints="NO" id="aKR-nB-To1">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="163"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="269"/>
                                 </imageView>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XlZ-NF-4O3">
-                                    <rect key="frame" x="0.0" y="163" width="414" height="645"/>
+                                    <rect key="frame" x="0.0" y="269" width="414" height="539"/>
                                     <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </tableView>
                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ID7-dr-edd">
@@ -56,6 +56,9 @@
                                             <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system" cornerStyle="capsule">
                                                 <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" weight="heavy"/>
                                             </buttonConfiguration>
+                                            <connections>
+                                                <action selector="btnAddAddress:" destination="-1" eventType="touchUpInside" id="ulb-ca-LJ3"/>
+                                            </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There's no address, You must add one to complete your payment" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJE-bz-hn2">
                                             <rect key="frame" x="28" y="101" width="297" height="139"/>
@@ -77,22 +80,27 @@
                                     </constraints>
                                 </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alw-xO-o6S">
-                                    <rect key="frame" x="0.0" y="122.5" width="414" height="40.5"/>
+                                    <rect key="frame" x="0.0" y="201.5" width="414" height="67.5"/>
+                                    <color key="backgroundColor" red="0.81757750470000001" green="0.84758812490000002" blue="0.34909125299999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="tinted" title="Choose From Map"/>
+                                    <buttonConfiguration key="configuration" style="tinted" image="location.fill" catalog="system" title="Choose From Map" subtitle="You can click to add your place from map"/>
+                                    <connections>
+                                        <action selector="btnFromMAp:" destination="-1" eventType="touchUpInside" id="DG8-vc-Xnw"/>
+                                    </connections>
                                 </button>
                                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O7O-Dh-Hb0">
-                                    <rect key="frame" x="0.0" y="27" width="414" height="26"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="27"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are not connected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctM-Rd-9Am">
-                                            <rect key="frame" x="121.5" y="2.5" width="171.5" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <rect key="frame" x="72.5" y="5" width="269" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.84758812490000002" green="0.15170450960000001" blue="0.28754646919999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
+                                        <constraint firstItem="ctM-Rd-9Am" firstAttribute="width" secondItem="O7O-Dh-Hb0" secondAttribute="width" multiplier="0.65" id="NqW-ZV-YKq"/>
                                         <constraint firstItem="ctM-Rd-9Am" firstAttribute="centerX" secondItem="O7O-Dh-Hb0" secondAttribute="centerX" id="YTh-YU-QIH"/>
                                         <constraint firstItem="ctM-Rd-9Am" firstAttribute="centerY" secondItem="O7O-Dh-Hb0" secondAttribute="centerY" id="cuD-jS-xxO"/>
                                     </constraints>
@@ -120,7 +128,7 @@
                                 <constraint firstItem="alw-xO-o6S" firstAttribute="centerX" secondItem="aKR-nB-To1" secondAttribute="centerX" id="k86-vA-rA9"/>
                                 <constraint firstItem="aKR-nB-To1" firstAttribute="leading" secondItem="tRI-P5-IhI" secondAttribute="leading" id="uIa-sS-JRg"/>
                                 <constraint firstAttribute="trailing" secondItem="O7O-Dh-Hb0" secondAttribute="trailing" id="wYp-08-RgV"/>
-                                <constraint firstItem="O7O-Dh-Hb0" firstAttribute="height" secondItem="aKR-nB-To1" secondAttribute="height" multiplier="0.159509" id="xFe-mB-D9w"/>
+                                <constraint firstItem="O7O-Dh-Hb0" firstAttribute="height" secondItem="aKR-nB-To1" secondAttribute="height" multiplier="0.1" id="xFe-mB-D9w"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -138,7 +146,7 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="aKR-nB-To1" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.18192" id="6dJ-QV-weK"/>
+                <constraint firstItem="aKR-nB-To1" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.3" id="6dJ-QV-weK"/>
                 <constraint firstItem="VVh-p5-Oph" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="EK9-cb-Hu2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="TFL-qu-Lm4" secondAttribute="bottom" constant="20" id="HeY-mJ-zFg"/>
                 <constraint firstItem="VVh-p5-Oph" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Nur-SK-4WR"/>
@@ -153,7 +161,8 @@
         </view>
     </objects>
     <resources>
-        <image name="map" width="1200" height="533"/>
+        <image name="location.fill" catalog="system" width="128" height="121"/>
+        <image name="map" width="1093" height="538"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
