@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FavouriteViewController" customModule="ShopifyApp" customModuleProvider="target">
             <connections>
+                <outlet property="addToCart" destination="MhY-v3-Mya" id="lNl-8q-gXj"/>
                 <outlet property="favouriteCollectionView" destination="8c1-9l-lAL" id="Cac-M1-FKA"/>
                 <outlet property="noDataView" destination="rbD-dV-iku" id="yo3-Nc-VhH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -19,40 +20,6 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhY-v3-Mya">
-                    <rect key="frame" x="83" y="804" width="248" height="58"/>
-                    <constraints>
-                        <constraint firstAttribute="height" secondItem="MhY-v3-Mya" secondAttribute="height" multiplier="1:1" id="MJo-9r-E0p"/>
-                        <constraint firstAttribute="width" secondItem="MhY-v3-Mya" secondAttribute="width" multiplier="1:1" id="MSf-sH-0bb"/>
-                    </constraints>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
-                        <backgroundConfiguration key="background">
-                            <color key="backgroundColor" red="0.031" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        </backgroundConfiguration>
-                        <attributedString key="attributedTitle">
-                            <fragment content="Add To Cart">
-                                <attributes>
-                                    <font key="NSFont" size="20" name="Helvetica"/>
-                                </attributes>
-                            </fragment>
-                        </attributedString>
-                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </buttonConfiguration>
-                    <connections>
-                        <action selector="addSelectedItemToCart:" destination="-1" eventType="touchUpInside" id="irW-Lz-326"/>
-                    </connections>
-                </button>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8c1-9l-lAL">
-                    <rect key="frame" x="0.0" y="44" width="414" height="760"/>
-                    <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PCB-Cm-dnb">
-                        <size key="itemSize" width="128" height="128"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                </collectionView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rbD-dV-iku">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
@@ -92,6 +59,40 @@
                         <constraint firstItem="SNd-mU-Ebn" firstAttribute="centerX" secondItem="rbD-dV-iku" secondAttribute="centerX" id="xZg-6a-wGT"/>
                     </constraints>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MhY-v3-Mya">
+                    <rect key="frame" x="83" y="804" width="248" height="58"/>
+                    <constraints>
+                        <constraint firstAttribute="height" secondItem="MhY-v3-Mya" secondAttribute="height" multiplier="1:1" id="MJo-9r-E0p"/>
+                        <constraint firstAttribute="width" secondItem="MhY-v3-Mya" secondAttribute="width" multiplier="1:1" id="MSf-sH-0bb"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
+                        <backgroundConfiguration key="background">
+                            <color key="backgroundColor" red="0.031" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </backgroundConfiguration>
+                        <attributedString key="attributedTitle">
+                            <fragment content="Add To Cart">
+                                <attributes>
+                                    <font key="NSFont" size="20" name="Helvetica"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="addSelectedItemToCart:" destination="-1" eventType="touchUpInside" id="irW-Lz-326"/>
+                    </connections>
+                </button>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="8c1-9l-lAL">
+                    <rect key="frame" x="0.0" y="44" width="414" height="760"/>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PCB-Cm-dnb">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>

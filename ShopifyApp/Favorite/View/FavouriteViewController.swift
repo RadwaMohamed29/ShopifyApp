@@ -17,6 +17,7 @@ class FavouriteViewController: UIViewController {
     var countOfSelectedItem = 0
     var disBag = DisposeBag()
     var listOfSelectedProducts:[FavoriteProducts] = []
+    @IBOutlet weak var addToCart: UIButton!
     var favouriteProductsCD : [FavouriteProduct] = []
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
     var productViewModel : ProductDetailsViewModel?
@@ -50,6 +51,7 @@ class FavouriteViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        addToCart.isHidden = true
         super.viewWillAppear(animated)
                 if !favProducts.isEmpty{
             noDataView.isHidden = true
