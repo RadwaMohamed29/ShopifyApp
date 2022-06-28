@@ -16,6 +16,7 @@ class MeViewController: UIViewController {
     var favouriteProductsCD:[FavouriteProduct] = []
     var productViewModel : ProductDetailsViewModel?
     var disBag = DisposeBag()
+    var itemList: [LineItem] = []
     var orderViewModel : OrderViewModelProtocol = OrderViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
     var isLoggedIn = false
     var meViewModel = MeViewModel()
@@ -51,7 +52,16 @@ class MeViewController: UIViewController {
        
     }
     override func viewDidAppear(_ animated: Bool) {
-        self.cart.setBadge(text:String( self.localDataSource.getCountOfProductInCart()))
+        Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
+            if isLoggedIn{
+            self.getItemsDraft()
+        }
+            else{
+                self.cart.setBadge(text: String("0"))
+
+            }
+        }
+      //  self.cart.setBadge(text:String( self.localDataSource.getCountOfProductInCart()))
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -85,8 +95,6 @@ class MeViewController: UIViewController {
         }catch{
             print("cant get orders")
         }
-       
-
     }
     
     func getFavoriteProductsFromCoreData(){
@@ -110,6 +118,22 @@ class MeViewController: UIViewController {
         }
         wishListCV.reloadData()
     }
+    func getItemsDraft(){
+        if Utilities.utilities.getUserNote() != "0" {
+            productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
+            productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+                .init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe{ result in
+                self.itemList = result.element?.lineItems ?? []
+                DispatchQueue.main.async{
+                    self.cart.setBadge(text:String( self.itemList.count))
+                }
+             //   self.orderList.reloadData()
+                print("get items success ")
+            }.disposed(by: disBag)
+        }
+       }
     
     @IBAction func gotoSignInScreen(_ sender: Any) {
         let signInVC = LoginViewController(nibName: "LoginViewController", bundle: nil)

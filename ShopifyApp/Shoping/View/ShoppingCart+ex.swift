@@ -19,16 +19,18 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: OrdersTVC.identifier, for: indexPath) as! OrdersTVC
         cell.deleteFromBagProducts = {
+            self.checkConnection()
             self.showDeleteAlert(indexPath: indexPath)
         }
-        if flag == true{    let item = self.itemList[indexPath.row]
+        if flag == true{
+            let item = self.itemList[indexPath.row]
             cell.updateUI(item: item)
             var count = self.itemList[indexPath.row].quantity
             let id = self.itemList[indexPath.row].productID
-            DispatchQueue.main.asyncAfter(deadline: .now()+1.5){
-                [self] in
+            if !quantityOfProducts.isEmpty{
                 let quantity = quantityOfProducts[indexPath.row].variant[0].inventoryQuantity
                 if flag == true{
+                  self.checkConnection()
                   cell.addCount={ [self] in
                    if Int(count) == Int(quantity) {
                         alertWarning(indexPath: indexPath, title: "warning", message: "quantity not avalible")
@@ -38,12 +40,12 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                      cell.productCount.text = "\(count)"
                      self.itemList[indexPath.row].quantity = count
                      self.totalPrice += Double(itemList[indexPath.row].price)!
-                        self.totalLable.text = Shared.formatePrice(priceStr: String(self.totalPrice))
+                     self.totalLable.text = Shared.formatePrice(priceStr: String(self.totalPrice))
                      self.updateCount(productID: id, count: count)
                     }
-                      
                   }
                      cell.subCount={
+                     self.checkConnection()
                      if (count != 1)
                          {
                          cell.subBtn.isEnabled = true
@@ -57,7 +59,6 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                          else{
                             self.alertWarning(indexPath: indexPath, title: "warning", message: "can't decrease count of item to zero")
                             }
-                         
                      }
                     
                 }else{
@@ -74,18 +75,18 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                     cell.productImage.kf.indicatorType = .activity
                     cell.productImage.kf.setImage(
                     with: url,
-                    placeholder: UIImage(named: "placeholderImage"),
+                    placeholder: UIImage(named: "placeholder"),
                     options: [
                         .processor(processor),
                         .scaleFactor(UIScreen.main.scale),
                         .transition(.fade(1)),
                         .cacheOriginalImage
                             ])
-                    cell.trash_icon.isEnabled = false
+                //    cell.trash_icon.isEnabled = false
                     cell.productCount.text = " \(CartProducts[indexPath.row].count)"
                     cell.productPrice.text = Shared.formatePrice(priceStr: CartProducts[indexPath.row].price!)
                     cell.deleteFromBagProducts = {[weak self] in
-                    self?.showDeleteAlert(indexPath: indexPath)
+                        self?.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to delete the item")
                     }
             cell.addCount={
                 self.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to modifay the item")

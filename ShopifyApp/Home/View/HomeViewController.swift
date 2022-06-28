@@ -12,21 +12,24 @@ class HomeViewController: UIViewController,brandIdProtocol {
     @IBOutlet weak var favBtn: UIBarButtonItem!
     @IBOutlet weak var cartBtn: UIBarButtonItem!
     @IBOutlet weak var homeTV: UITableView!
+    var appDelegate = UIApplication.shared.delegate as! AppDelegate
     var productViewModel : ProductDetailsViewModel?
-    var localDataSource = LocalDataSource(appDelegate: UIApplication.shared.delegate as! AppDelegate)
+    var localDataSource : LocalDataSource?
     let refreshControl = UIRefreshControl()
+    var itemList: [LineItem] = []
+    var disposeBag = DisposeBag()
     override func viewDidLoad() {
         super.viewDidLoad()
-        productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
+        localDataSource = LocalDataSource(appDelegate: appDelegate)
+        productViewModel = ProductDetailsViewModel(appDelegate: appDelegate)
         BrandTableViewCell.setHome(deleget: self)
         setupTableView()
-
     }
     override func viewDidAppear(_ animated: Bool) {
         Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
             if isLoggedIn{
-                self.cartBtn.setBadge(text:String( self.localDataSource.getCountOfProductInCart()))
-                self.favBtn.setBadge(text: String(describing: self.localDataSource.getCountOfProductInFav()))
+                self.getItemsDraft()
+                self.favBtn.setBadge(text: String(describing: self.localDataSource!.getCountOfProductInFav()))
             }
             else{
                 self.cartBtn.setBadge(text: String("0"))
@@ -37,12 +40,12 @@ class HomeViewController: UIViewController,brandIdProtocol {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         refreshControl.tintColor = UIColor.darkGray
-        refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
+        refreshControl.addTarget(self, action:#selector(setupTableView), for: .valueChanged)
         homeTV.addSubview(refreshControl)
         checkConnection()
 
     }
-    func setupTableView(){
+  @objc  func setupTableView(){
         homeTV.register(AbsTableViewCell.Nib(), forCellReuseIdentifier: AbsTableViewCell.identifier)
         homeTV.register(BrandTableViewCell.Nib(), forCellReuseIdentifier: BrandTableViewCell.identifier)
         homeTV.delegate = self
@@ -93,7 +96,7 @@ extension HomeViewController{
     productListVC.isCommingFromHome = isCommingFromBrand
     self.navigationController?.pushViewController(productListVC, animated: true)
      }
-   @objc func checkConnection(){
+    @objc func checkConnection(){
         HandelConnection.handelConnection.checkNetworkConnection { isConnected in
             if isConnected{
                 self.homeTV.isHidden = false
@@ -110,6 +113,41 @@ extension HomeViewController{
        }
        
     }
+    func getItemsDraft(){
+        if Utilities.utilities.getUserNote() != "0" {
+            productViewModel?.getItemsDraftOrder(idDraftOrde: Utilities.utilities.getDraftOrder())
+            productViewModel?.itemDraftOrderObservable.subscribe(on: ConcurrentDispatchQueueScheduler
+                .init(qos: .background))
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe{ result in
+                self.itemList = result.element?.lineItems ?? []
+                DispatchQueue.main.async{
+                    self.cartBtn.setBadge(text:String( self.itemList.count))
+                }
+                self.removeAllItemFromCoreData()
+                for item in self.itemList {
+                    do {
+                        try self.productViewModel?.addProductToCoreDataCart(id: String(item.productID), title: item.title, image:"placeholder", price: String(item.price), itemCount:item.quantity, quantity: item.quantity, completion: { result in
+                        })
+                    }
+                    catch let error{
+                        print(error.localizedDescription)
+                    }
+                }
+                self.homeTV.reloadData()
+                print("get items success ")
+            }.disposed(by: disposeBag)
+        }
+       }
+    func removeAllItemFromCoreData(){
+        do{
+            try self.productViewModel?.removeItemsFromCartToSpecificCustomer()
+            
+        }catch let error{
+            print(error.localizedDescription)
+        }
+    }
+ 
 }
 extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -146,17 +184,6 @@ extension HomeViewController :UITableViewDelegate, UITableViewDataSource{
             height = view.frame.height * 1.5
         }
         return height
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        var title = ""
-        switch section{
-        case 0:
-            title = ""
-        default:
-            title = ""
-        }
-        return title
     }
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView

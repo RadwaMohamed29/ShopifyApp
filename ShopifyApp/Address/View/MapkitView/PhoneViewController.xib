@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,21 +19,21 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IEl-4i-ueU">
-                    <rect key="frame" x="64.5" y="436" width="285" height="34"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="enter a phone number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IEl-4i-ueU">
+                    <rect key="frame" x="64.5" y="430.5" width="285" height="45"/>
+                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                     <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OdA-fN-0rX">
-                    <rect key="frame" x="64.5" y="405" width="116" height="21"/>
+                    <rect key="frame" x="64.5" y="399.5" width="116" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LXK-3Y-5aQ">
-                    <rect key="frame" x="72.5" y="524" width="269" height="54"/>
+                    <rect key="frame" x="72.5" y="536" width="269" height="54"/>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="tinted" title="Confirm address" cornerStyle="capsule"/>
+                    <buttonConfiguration key="configuration" style="tinted" title="Add phone" cornerStyle="capsule"/>
                     <connections>
                         <action selector="btnConfirmAddress:" destination="-1" eventType="touchUpInside" id="aCk-g8-17y"/>
                     </connections>
@@ -46,14 +45,14 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="please enter a valid number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9N-DK-9lV">
-                    <rect key="frame" x="67.5" y="478" width="279" height="21"/>
+                    <rect key="frame" x="67.5" y="483.5" width="279" height="27.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.74649882320000005" green="0.25959959630000001" blue="0.24273183940000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" red="0.95122975109999997" green="0.96351319550000003" blue="0.96457487340000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="OdA-fN-0rX" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0234375" id="32Z-GJ-nuM"/>
                 <constraint firstItem="LXK-3Y-5aQ" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="6mG-lD-NzS"/>
@@ -63,7 +62,7 @@
                 <constraint firstItem="d9N-DK-9lV" firstAttribute="top" secondItem="IEl-4i-ueU" secondAttribute="bottom" constant="8" symbolic="YES" id="HSP-pG-xWP"/>
                 <constraint firstItem="IEl-4i-ueU" firstAttribute="top" secondItem="OdA-fN-0rX" secondAttribute="bottom" constant="10" id="JXw-Nq-2qG"/>
                 <constraint firstItem="LXK-3Y-5aQ" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.06" id="NzQ-OH-Xny"/>
-                <constraint firstItem="IEl-4i-ueU" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0379464" id="X75-NU-Pkv"/>
+                <constraint firstItem="IEl-4i-ueU" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="X75-NU-Pkv"/>
                 <constraint firstItem="IEl-4i-ueU" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="XyY-fh-UQ8"/>
                 <constraint firstItem="OdA-fN-0rX" firstAttribute="leading" secondItem="IEl-4i-ueU" secondAttribute="leading" id="Z9P-iv-ls3"/>
                 <constraint firstItem="2N1-Ps-ziL" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.140625" id="d5o-ij-QUY"/>
@@ -79,9 +78,4 @@
             <point key="canvasLocation" x="137.68115942028987" y="102.45535714285714"/>
         </view>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>
