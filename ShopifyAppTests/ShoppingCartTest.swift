@@ -13,6 +13,7 @@ class ShoppingCartTest: XCTestCase {
     var cart : ProductDetailsViewModel?
     var bag :DisposeBag!
     var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var product1 : Product?
 
 
     override func setUpWithError() throws {
@@ -28,7 +29,7 @@ class ShoppingCartTest: XCTestCase {
     }
 
     func testExample() throws {
-        // This is an example of a functional test case.
+        // This is an example of a funct/Users/menna/Desktop/FinalProject/ShopifyApp/ShopifyAppTests/ShoppingCartTest.swiftional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         // Any test you write for XCTest can be annotated as throws and async.
         // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
@@ -56,11 +57,9 @@ class ShoppingCartTest: XCTestCase {
         cart?.bindImageURLToView={
             expect.fulfill()
             let images = self.cart?.imageURL
-            XCTAssertEqual(images?.count, 12)
+            XCTAssertEqual(images?.count, 107)
         }
         waitForExpectations(timeout: 3, handler: nil)
     }
- 
-    
 
 }
