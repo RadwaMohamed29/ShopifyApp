@@ -60,7 +60,7 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cash" translatesAutoresizingMaskIntoConstraints="NO" id="RBM-f7-JrR">
                     <rect key="frame" x="27" y="344" width="176" height="64"/>
                 </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GPay" translatesAutoresizingMaskIntoConstraints="NO" id="Oxw-gB-vbs">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="paypal" translatesAutoresizingMaskIntoConstraints="NO" id="Oxw-gB-vbs">
                     <rect key="frame" x="211" y="344" width="176" height="64"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="39x-VL-aGm">
@@ -115,7 +115,7 @@
         </view>
     </objects>
     <resources>
-        <image name="GPay" width="300" height="300"/>
         <image name="cash" width="840" height="859"/>
+        <image name="paypal" width="900" height="640"/>
     </resources>
 </document>
