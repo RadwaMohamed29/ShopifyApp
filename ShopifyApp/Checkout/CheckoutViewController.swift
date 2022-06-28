@@ -65,7 +65,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if Utilities.utilities.isCodeUsed(code: Utilities.utilities.getCode() ) != true{
+        if Utilities.utilities.isCodeUsed(code: "\(Utilities.utilities.getCustomerId())\(Utilities.utilities.getCode())" ) != true{
             couponTxtField.text = Utilities.utilities.getCode()
         }else{
             couponTxtField.text = ""
@@ -84,7 +84,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
                 do{
                     try self?.orderViewModel?.removeItemsFromCartToSpecificCustomer()
                     if discoun != 0 {
-                        Utilities.utilities.setCodeUsed(code: self!.copon,isUsed: true)
+                        Utilities.utilities.setCodeUsed(code: "\(Utilities.utilities.getCustomerId())\(self!.copon)",isUsed: true)
 //                        Utilities.utilities.setCode(code: "")
                     }
                     DispatchQueue.main.async {
@@ -130,7 +130,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     @IBAction func btnCheckDiscount(_ sender: Any) {
             copon = couponTxtField.text ?? ""
             if Utilities.utilities.getCode() == copon {
-                if Utilities.utilities.isCodeUsed(code: copon ) != true{
+                if Utilities.utilities.isCodeUsed(code: "\(Utilities.utilities.getCustomerId())\(copon)" ) != true{
                     discount = subTotal! * (30/100)
                     discountLB.text = "\(Shared.formatePrice(priceStr: String(discount)))"
                     total = subTotal! - discount
