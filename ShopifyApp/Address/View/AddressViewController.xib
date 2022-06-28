@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,7 +13,9 @@
                 <outlet property="addressTableView" destination="XlZ-NF-4O3" id="M7y-y3-FAa"/>
                 <outlet property="btnConfirmAddress" destination="TFL-qu-Lm4" id="DHA-To-zjU"/>
                 <outlet property="map" destination="aKR-nB-To1" id="2O7-l8-xv9"/>
+                <outlet property="networkView" destination="O7O-Dh-Hb0" id="DM9-bE-8Bn"/>
                 <outlet property="noAddressView" destination="ID7-dr-edd" id="Xhf-tR-zUu"/>
+                <outlet property="scrollView" destination="VVh-p5-Oph" id="LEi-fC-ggD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -78,6 +81,22 @@
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="tinted" title="Choose From Map"/>
                                 </button>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O7O-Dh-Hb0">
+                                    <rect key="frame" x="0.0" y="27" width="414" height="26"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are not connected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ctM-Rd-9Am">
+                                            <rect key="frame" x="121.5" y="2.5" width="171.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.84758812490000002" green="0.15170450960000001" blue="0.28754646919999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <constraints>
+                                        <constraint firstItem="ctM-Rd-9Am" firstAttribute="centerX" secondItem="O7O-Dh-Hb0" secondAttribute="centerX" id="YTh-YU-QIH"/>
+                                        <constraint firstItem="ctM-Rd-9Am" firstAttribute="centerY" secondItem="O7O-Dh-Hb0" secondAttribute="centerY" id="cuD-jS-xxO"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -90,6 +109,7 @@
                                 <constraint firstItem="ID7-dr-edd" firstAttribute="width" secondItem="tRI-P5-IhI" secondAttribute="width" multiplier="0.852657" id="BPc-FY-NsR"/>
                                 <constraint firstItem="alw-xO-o6S" firstAttribute="bottom" secondItem="aKR-nB-To1" secondAttribute="bottom" id="EoT-Ga-eA4"/>
                                 <constraint firstItem="aKR-nB-To1" firstAttribute="leading" secondItem="tRI-P5-IhI" secondAttribute="leading" id="Gg2-W0-rGB"/>
+                                <constraint firstItem="O7O-Dh-Hb0" firstAttribute="leading" secondItem="tRI-P5-IhI" secondAttribute="leading" id="HIc-x8-GYZ"/>
                                 <constraint firstItem="XlZ-NF-4O3" firstAttribute="leading" secondItem="tRI-P5-IhI" secondAttribute="leading" id="Llw-Iz-Uex"/>
                                 <constraint firstAttribute="trailing" secondItem="XlZ-NF-4O3" secondAttribute="trailing" id="TU6-lC-T5O"/>
                                 <constraint firstItem="ID7-dr-edd" firstAttribute="centerY" secondItem="tRI-P5-IhI" secondAttribute="centerY" id="XQ6-TX-gnO"/>
@@ -99,6 +119,8 @@
                                 <constraint firstItem="alw-xO-o6S" firstAttribute="height" secondItem="aKR-nB-To1" secondAttribute="height" multiplier="0.25" id="iE7-Vi-v8c"/>
                                 <constraint firstItem="alw-xO-o6S" firstAttribute="centerX" secondItem="aKR-nB-To1" secondAttribute="centerX" id="k86-vA-rA9"/>
                                 <constraint firstItem="aKR-nB-To1" firstAttribute="leading" secondItem="tRI-P5-IhI" secondAttribute="leading" id="uIa-sS-JRg"/>
+                                <constraint firstAttribute="trailing" secondItem="O7O-Dh-Hb0" secondAttribute="trailing" id="wYp-08-RgV"/>
+                                <constraint firstItem="O7O-Dh-Hb0" firstAttribute="height" secondItem="aKR-nB-To1" secondAttribute="height" multiplier="0.159509" id="xFe-mB-D9w"/>
                             </constraints>
                         </view>
                     </subviews>
@@ -123,6 +145,7 @@
                 <constraint firstItem="VVh-p5-Oph" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Z4y-56-Elq"/>
                 <constraint firstItem="TFL-qu-Lm4" firstAttribute="top" secondItem="VVh-p5-Oph" secondAttribute="bottom" constant="10" id="gGn-J5-hX5"/>
                 <constraint firstItem="TFL-qu-Lm4" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="stS-N1-50K"/>
+                <constraint firstItem="O7O-Dh-Hb0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="u5L-rr-t1n"/>
                 <constraint firstItem="TFL-qu-Lm4" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.75" id="y9c-m5-puD"/>
                 <constraint firstItem="TFL-qu-Lm4" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.07" id="yRt-dg-SZ6"/>
             </constraints>
@@ -132,5 +155,8 @@
     <resources>
         <image name="map" width="1200" height="533"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

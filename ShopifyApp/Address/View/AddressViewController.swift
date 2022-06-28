@@ -13,10 +13,13 @@ import CoreMIDI
 import NVActivityIndicatorView
 
 class AddressViewController: UIViewController {
-
+    
+    private let refreshController = UIRefreshControl()
     var isComingWithOrder = false
     let userDefault = Utilities()
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
+    @IBOutlet weak var networkView: UIView!
+    @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet weak var noAddressView: UIView!
     @IBOutlet weak var map: UIImageView!
     @IBOutlet weak var btnConfirmAddress: UIButton!
@@ -31,6 +34,7 @@ class AddressViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupTable()
         viewModel = AddressViewModel(network: APIClient())
         addressTableView.separatorStyle = .none
@@ -39,6 +43,8 @@ class AddressViewController: UIViewController {
         
         let gesture = UITapGestureRecognizer(target: self, action: #selector(mapTapped))
         map.addGestureRecognizer(gesture)
+        refreshController.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+        scrollView.addSubview(refreshController)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +57,17 @@ class AddressViewController: UIViewController {
         }
     }
         
+    @objc func pullToRefresh(){
+        refreshController.beginRefreshing()
+        checkNetwork()
+        DispatchQueue.main.asyncAfter(deadline: .now()+5) { 
+            if self.arr.isEmpty{
+                self.refreshController.endRefreshing()
+            }
+        }
+        
+    }
+    
     @objc func mapTapped(){
         let map = MapViewController(nibName: "MapViewController", bundle: nil)
         self.navigationController?.pushViewController(map, animated: true)
@@ -61,8 +78,9 @@ class AddressViewController: UIViewController {
         viewModel.networkObservable.subscribe {[weak self] isConn in
             self?.isConn = isConn
             if isConn == false{
-                self?.showSnackBar()
+                self?.networkView.isHidden = false
             }else{
+                self?.networkView.isHidden = true
                 let id:String = String((self?.userDefault.getCustomerId())!)
                 self?.getAddresses(id: id)
             }
@@ -79,14 +97,16 @@ class AddressViewController: UIViewController {
     func getAddresses(id:String) {
         viewModel.getAddressesForCurrentUser(id: id)
         viewModel.addressObservable.subscribe(on: ConcurrentDispatchQueueScheduler.init(qos: .background)).observe(on: MainScheduler.instance).subscribe { [weak self]result in
-            self?.arr = result
-            if self?.arr?.count == 0{
-                self?.addressTableView.isHidden = true
-                self?.noAddressView.isHidden = false
+            guard let self = self else {return}
+            self.arr = result
+            if self.arr?.count == 0{
+                self.addressTableView.isHidden = true
+                self.noAddressView.isHidden = false
             }else{
-                self?.noAddressView.isHidden = true
-                self?.addressTableView.isHidden = false
-                self?.addressTableView.reloadData()
+                self.noAddressView.isHidden = true
+                self.addressTableView.isHidden = false
+                self.addressTableView.reloadData()
+                if self.refreshController.isRefreshing{self.refreshController.endRefreshing()}
             }
         } onError: { error in
             //MARK: show Dialog
