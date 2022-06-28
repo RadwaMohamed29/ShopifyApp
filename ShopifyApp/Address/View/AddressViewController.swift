@@ -18,6 +18,7 @@ class AddressViewController: UIViewController {
     var isComingWithOrder = false
     let userDefault = Utilities()
     let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
+    @IBOutlet weak var networkView: UIView!
     @IBOutlet private weak var scrollView: UIScrollView!
     @IBOutlet weak var noAddressView: UIView!
     @IBOutlet weak var map: UIImageView!
@@ -59,7 +60,7 @@ class AddressViewController: UIViewController {
     @objc func pullToRefresh(){
         refreshController.beginRefreshing()
         checkNetwork()
-        DispatchQueue.main.asyncAfter(deadline: .now()+5) { [self]
+        DispatchQueue.main.asyncAfter(deadline: .now()+5) { 
             if self.arr.isEmpty{
                 self.refreshController.endRefreshing()
             }
@@ -77,8 +78,9 @@ class AddressViewController: UIViewController {
         viewModel.networkObservable.subscribe {[weak self] isConn in
             self?.isConn = isConn
             if isConn == false{
-//                self?.showSnackBar()
+                self?.networkView.isHidden = false
             }else{
+                self?.networkView.isHidden = true
                 let id:String = String((self?.userDefault.getCustomerId())!)
                 self?.getAddresses(id: id)
             }
