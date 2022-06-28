@@ -139,7 +139,7 @@ class AddressViewController: UIViewController {
         }
         else{
             let alert = UIAlertController(title: "Address", message: "please add address to continue", preferredStyle: .alert)
-            let cancle = UIAlertAction(title: "Cancle", style: .cancel)
+            let cancle = UIAlertAction(title: "Cancel", style: .cancel)
             alert.addAction(cancle)
             self.present(alert, animated: true, completion: nil)
             
