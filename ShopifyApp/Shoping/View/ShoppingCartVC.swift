@@ -42,7 +42,6 @@ class ShoppingCartVC: UIViewController {
             getCartProductsFromCoreData()
             getItemsDraft()
             UpdateTotalPrice()
-            self.emptyView.isHidden=true
         }
         getAllProductsFromApi()
     }
@@ -90,6 +89,7 @@ class ShoppingCartVC: UIViewController {
 
     func showDeleteAlert(indexPath:IndexPath){
         let alert = UIAlertController(title: "Are you sure?", message: "You will remove this item from the cart", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: "OK", style: .destructive, handler: { [self] UIAlertAction in
             if flag == true{
                         self.deleteItemFromCart(indexPath: indexPath)
@@ -99,7 +99,6 @@ class ShoppingCartVC: UIViewController {
                 self.alertWarning(indexPath: indexPath, title: "information", message: "check your connection to detete the item")
             }
         }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     func alertWarning(indexPath:IndexPath,title:String,message:String){
@@ -129,6 +128,7 @@ extension ShoppingCartVC{
             .subscribe{ result in
                 self.itemList = result.element?.lineItems ?? []
                 self.UpdateTotalPrice()
+                self.emptyView.isHidden=true
                 self.tableView.reloadData()
                 print("get items success ")
             }.disposed(by: disposeBag)
@@ -235,6 +235,7 @@ extension ShoppingCartVC{
                     //MARK: LSA M5LST4
                     switch response{
                     case true:
+                        self.emptyView.isHidden=true
                         print("data retrived successfuly")
                     case false:
                         print("data cant't retrieved")
