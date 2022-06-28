@@ -13,6 +13,7 @@
                 <outlet property="btnConfirmAddress" destination="TFL-qu-Lm4" id="DHA-To-zjU"/>
                 <outlet property="map" destination="aKR-nB-To1" id="2O7-l8-xv9"/>
                 <outlet property="noAddressView" destination="ID7-dr-edd" id="Xhf-tR-zUu"/>
+                <outlet property="scrollView" destination="VVh-p5-Oph" id="LEi-fC-ggD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
