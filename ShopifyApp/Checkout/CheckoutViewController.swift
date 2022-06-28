@@ -90,7 +90,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
                     DispatchQueue.main.async {
                         let homeVC = TabBarViewController(nibName: "TabBarViewController", bundle: nil)
                         self?.navigationController?.pushViewController(homeVC, animated: true)
-                        Shared.showMessage(message: "Order will arrive soon", error: false)
+                        Shared.showMessage(message: "Order placed successfully", error: false)
                     }
                 }catch let error{
                     let alert = UIAlertController(title: "Checkout", message: "\(error.localizedDescription)", preferredStyle: .alert)

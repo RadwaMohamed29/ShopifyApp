@@ -36,7 +36,7 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LxU-QR-pIy">
                             <rect key="frame" x="44.5" y="625" width="325" height="60"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="filled" title="Confirm Payment" cornerStyle="capsule">
+                            <buttonConfiguration key="configuration" style="filled" title="Payment Method" cornerStyle="capsule">
                                 <backgroundConfiguration key="background"/>
                                 <color key="baseBackgroundColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </buttonConfiguration>
