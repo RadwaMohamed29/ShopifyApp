@@ -21,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Kka-bL-Oe2">
-                    <rect key="frame" x="0.0" y="44" width="414" height="584"/>
+                    <rect key="frame" x="0.0" y="44" width="463.5" height="584"/>
                     <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="separatorColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="sectionIndexBackgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -45,7 +45,7 @@
                     </variation>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSA-m1-r96">
-                    <rect key="frame" x="45" y="725.5" width="261" height="57.5"/>
+                    <rect key="frame" x="45" y="725.5" width="310.5" height="57.5"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="311" id="drL-sw-O2H"/>
                     </constraints>
@@ -62,10 +62,10 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mSe-P0-8Ib">
-                    <rect key="frame" x="0.0" y="44" width="414" height="836.5"/>
+                    <rect key="frame" x="0.0" y="44" width="463.5" height="836.5"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry not found product in your cart" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Z9-cl-1aI">
-                            <rect key="frame" x="51" y="291" width="312.5" height="49"/>
+                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry not found product in your cart" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Z9-cl-1aI">
+                            <rect key="frame" x="75.5" y="291" width="312.5" height="49"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -78,8 +78,8 @@
                                 <constraint firstAttribute="width" constant="240" id="oTR-Fb-kvi"/>
                             </constraints>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="please add some product to your cart" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kvx-hU-jH6">
-                            <rect key="frame" x="14" y="486.5" width="388" height="23"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sorry, there's no product in your cart" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kvx-hU-jH6">
+                            <rect key="frame" x="38" y="486.5" width="388" height="23"/>
                             <fontDescription key="fontDescription" type="system" pointSize="19"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -99,7 +99,7 @@
             <constraints>
                 <constraint firstItem="3Z9-cl-1aI" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0546875" id="44d-Cb-ob0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="mSe-P0-8Ib" secondAttribute="trailing" id="5Tm-do-1Kv"/>
-                <constraint firstItem="Kvx-hU-jH6" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.836957" constant="41.5" id="A2G-tH-LaJ"/>
+                <constraint firstItem="Kvx-hU-jH6" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.836957" id="A2G-tH-LaJ"/>
                 <constraint firstItem="Kvx-hU-jH6" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0256696" id="FZY-xR-aiV"/>
                 <constraint firstItem="Kka-bL-Oe2" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="H1b-vz-UG4"/>
                 <constraint firstItem="Kka-bL-Oe2" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="JsV-w8-kvC"/>
@@ -111,8 +111,8 @@
                 <constraint firstItem="jIz-He-i1j" firstAttribute="top" secondItem="Kka-bL-Oe2" secondAttribute="bottom" constant="48" id="X9b-eE-T0g"/>
                 <constraint firstItem="RSA-m1-r96" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.75" id="Zcw-jz-zhG"/>
                 <constraint firstItem="XUD-mx-jfF" firstAttribute="top" secondItem="Kka-bL-Oe2" secondAttribute="bottom" constant="48" id="cVu-QW-vRp"/>
-                <constraint firstItem="Kvx-hU-jH6" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" constant="1" id="eOZ-kN-8uO"/>
-                <constraint firstItem="3Z9-cl-1aI" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.673913" constant="33.5" id="fSS-8D-q8w"/>
+                <constraint firstItem="Kvx-hU-jH6" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="eOZ-kN-8uO"/>
+                <constraint firstItem="3Z9-cl-1aI" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.673913" id="fSS-8D-q8w"/>
                 <constraint firstItem="jIz-He-i1j" firstAttribute="leading" secondItem="XUD-mx-jfF" secondAttribute="trailing" constant="8" id="gSd-6G-qsZ"/>
                 <constraint firstItem="Kka-bL-Oe2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="i8E-2Z-MVl"/>
                 <constraint firstItem="RSA-m1-r96" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0641741" id="kqd-ib-LpV"/>

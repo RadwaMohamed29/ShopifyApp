@@ -133,6 +133,10 @@ class MeViewController: UIViewController {
                 print("get items success ")
             }.disposed(by: disBag)
         }
+        else{
+            self.cart.setBadge(text: String("0"))
+
+        }
        }
     
     @IBAction func gotoSignInScreen(_ sender: Any) {

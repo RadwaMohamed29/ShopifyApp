@@ -57,7 +57,7 @@ class CategoryViewController: UIViewController {
                 self.favOutlet.setBadge(text: String(describing: self.localDataSource.getCountOfProductInFav()))
             }
             else{
-                self.cartOutlet.setBadge(text: String("0"))
+            //    self.cartOutlet.setBadge(text: String("0"))
                 self.favOutlet.setBadge(text: String("0"))
             }
         }
@@ -188,6 +188,10 @@ class CategoryViewController: UIViewController {
                 print("get items success ")
             }.disposed(by: disposeBag)
         }
+       else{
+           self.cartOutlet.setBadge(text: String("0"))
+
+       }
        }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

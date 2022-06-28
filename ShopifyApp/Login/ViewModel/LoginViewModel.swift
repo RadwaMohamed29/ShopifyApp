@@ -53,7 +53,7 @@ class LoginViewModel: LoginViewModelType{
                             if comingMail == email && comingPassword == password {
                                 self?.userDefualt.login()
                                 self?.userDefualt.addId(id: item.id ?? 0)
-                                self?.userDefualt.addCustomerName(customerName: "\(item.first_name!) \(item.last_name!)")
+                                self?.userDefualt.addCustomerName(customerName: "\(item.first_name!.split(separator: " ", maxSplits: 1, omittingEmptySubsequences: true)[0]) \(item.last_name!)")
                                 self?.userDefualt.setUserPassword(password: item.tags ?? "")
                                 self?.userDefualt.addCustomerEmail(customerEmail: item.email ?? "")
                                 self?.userDefualt.setUserNote(note: item.note ?? "")
@@ -65,7 +65,7 @@ class LoginViewModel: LoginViewModelType{
                         }
                         guard let _ = self?.navigate else{
                             self?.notFound = true
-                            self?.errorMessage = "user not exist, please check your information"
+                            self?.errorMessage = "user not exist, please check your email"
                             return
                         }
                     case .failure(let error):
