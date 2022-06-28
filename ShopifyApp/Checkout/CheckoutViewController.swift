@@ -132,9 +132,9 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
             if Utilities.utilities.getCode() == copon {
                 if Utilities.utilities.isCodeUsed(code: copon ) != true{
                     discount = subTotal! * (30/100)
-                    discountLB.text = "\(discount)"
+                    discountLB.text = "\(Shared.formatePrice(priceStr: String(discount)))"
                     total = subTotal! - discount
-                    totalPrice.text = "\(total ?? 0)"
+                    totalPrice.text = "Total: \(Shared.formatePrice(priceStr: String(total ?? 0)))"
                     let payment = PaymentMethodViewController(nibName: "PaymentMethodViewController", bundle: nil)
                     payment.totalPrice = Double(total ?? 0)
                 }else{
