@@ -36,7 +36,7 @@ class LoginViewController: UIViewController {
             }
         }
         viewModel.bindDontNavigate = { [weak self] in
-            let message = self?.viewModel.errorMessage ?? "user not exist, please check your information"
+            let message = self?.viewModel.errorMessage ?? "user not exist, please check your email"
             DispatchQueue.main.async {
                 self?.showActivityIndicator(indicator: self?.indicator, startIndicator: false)
             self?.errorLabel.text = message
