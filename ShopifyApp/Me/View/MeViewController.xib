@@ -225,7 +225,7 @@
                             </variation>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMh-Dq-ifu">
-                            <rect key="frame" x="124" y="485.5" width="166" height="57"/>
+                            <rect key="frame" x="52" y="485.5" width="310.5" height="66.5"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
                                 <backgroundConfiguration key="background">
@@ -246,7 +246,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATP-bH-z6g">
-                            <rect key="frame" x="124" y="558.5" width="166" height="57"/>
+                            <rect key="frame" x="52" y="568" width="310.5" height="66.5"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
                                 <backgroundConfiguration key="background">
@@ -279,12 +279,12 @@
                         <constraint firstItem="3Lq-zb-iAp" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.0831296" id="P1T-WA-Kby"/>
                         <constraint firstItem="V87-on-fhf" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.8" id="SNk-Mv-60O"/>
                         <constraint firstItem="zCx-zo-jSM" firstAttribute="top" secondItem="V87-on-fhf" secondAttribute="bottom" constant="32" id="ZUN-aY-Cxw"/>
-                        <constraint firstItem="ATP-bH-z6g" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.4" id="buM-kV-GY2"/>
+                        <constraint firstItem="ATP-bH-z6g" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.75" id="buM-kV-GY2"/>
                         <constraint firstItem="Oil-nQ-9q1" firstAttribute="top" secondItem="3Lq-zb-iAp" secondAttribute="bottom" constant="8" id="cH5-JV-naf"/>
                         <constraint firstItem="3Lq-zb-iAp" firstAttribute="centerX" secondItem="7nS-Ws-oux" secondAttribute="centerX" id="d37-FQ-eZ6"/>
-                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.4" id="fhG-aE-YoA"/>
-                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.06" id="gXI-qJ-S9e"/>
-                        <constraint firstItem="ATP-bH-z6g" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.06" id="i7D-Bv-6Pa"/>
+                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="width" secondItem="7nS-Ws-oux" secondAttribute="width" multiplier="0.75" id="fhG-aE-YoA"/>
+                        <constraint firstItem="TMh-Dq-ifu" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.07" id="gXI-qJ-S9e"/>
+                        <constraint firstItem="ATP-bH-z6g" firstAttribute="height" secondItem="7nS-Ws-oux" secondAttribute="height" multiplier="0.07" id="i7D-Bv-6Pa"/>
                         <constraint firstItem="TMh-Dq-ifu" firstAttribute="top" secondItem="zCx-zo-jSM" secondAttribute="bottom" constant="32" id="jaD-7I-G14"/>
                         <constraint firstItem="ATP-bH-z6g" firstAttribute="top" secondItem="TMh-Dq-ifu" secondAttribute="bottom" constant="16" id="kmf-Cz-3Wd"/>
                         <constraint firstItem="3Lq-zb-iAp" firstAttribute="top" secondItem="7nS-Ws-oux" secondAttribute="top" constant="20" id="omz-1P-ArG"/>
