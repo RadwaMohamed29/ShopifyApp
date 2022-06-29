@@ -142,9 +142,9 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
                 }
             }else{
                 discount = 0
-                discountLB.text = "\(discount)"
+                discountLB.text = "\(Shared.formatePrice(priceStr: String(discount)))"
                 total = subTotal! - discount
-                totalPrice.text = "\(total ?? 0)"
+                totalPrice.text = "Total: \(Shared.formatePrice(priceStr: String(total ?? 0)))"
             }
         }
         

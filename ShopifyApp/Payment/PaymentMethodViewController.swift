@@ -31,7 +31,12 @@ class PaymentMethodViewController: UIViewController {
         HandelConnection.handelConnection.checkNetworkConnection { [weak self] isConnected in
             if isConnected{
                 if self?.segmentedControl.selectedSegmentIndex == 1{
-                    self?.startCheckout(amount: String(self?.totalPrice ?? 0))
+                    var total = self?.totalPrice ?? 0
+                    if Utilities.utilities.getCurrency() == "EGP" {
+                        total = Double(round(100*(self?.totalPrice ?? 0 / 15.669931))/100)
+                        print("price \(total)")
+                    }
+                    self?.startCheckout(amount: String(total))
                 }else{
                     self?.checkoutDelegate?.approvePayment(discoun: self?.discount ?? 0)
                 }
