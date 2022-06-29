@@ -129,6 +129,7 @@
 		BEA1A24D284D54D8004B7E69 /* PostAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEA1A24B284D54D8004B7E69 /* PostAddressViewController.swift */; };
 		BEA1A24E284D54D8004B7E69 /* PostAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BEA1A24C284D54D8004B7E69 /* PostAddressViewController.xib */; };
 		BEB74BBC286BA5C8008A57C8 /* SearchForProductTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB74BBB286BA5C8008A57C8 /* SearchForProductTest.swift */; };
+		BEB74BBE286BD542008A57C8 /* CategoryViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB74BBD286BD542008A57C8 /* CategoryViewModelTest.swift */; };
 		BED44803283E57EA00EA74BC /* CheckoutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED44801283E57EA00EA74BC /* CheckoutViewController.xib */; };
 		BED44804283E57EA00EA74BC /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED44802283E57EA00EA74BC /* CheckoutViewController.swift */; };
 		BED44807283E582500EA74BC /* PaymentMethodViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BED44805283E582400EA74BC /* PaymentMethodViewController.xib */; };
@@ -288,6 +289,7 @@
 		BEA1A24B284D54D8004B7E69 /* PostAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostAddressViewController.swift; sourceTree = "<group>"; };
 		BEA1A24C284D54D8004B7E69 /* PostAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostAddressViewController.xib; sourceTree = "<group>"; };
 		BEB74BBB286BA5C8008A57C8 /* SearchForProductTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForProductTest.swift; sourceTree = "<group>"; };
+		BEB74BBD286BD542008A57C8 /* CategoryViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModelTest.swift; sourceTree = "<group>"; };
 		BED44801283E57EA00EA74BC /* CheckoutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckoutViewController.xib; sourceTree = "<group>"; };
 		BED44802283E57EA00EA74BC /* CheckoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
 		BED44805283E582400EA74BC /* PaymentMethodViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentMethodViewController.xib; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				164C0E012869905C00080D49 /* ProductTest.swift */,
 				3E1DEE94286A77A8002D93B5 /* UtilsTest.swift */,
 				BEB74BBB286BA5C8008A57C8 /* SearchForProductTest.swift */,
+				BEB74BBD286BD542008A57C8 /* CategoryViewModelTest.swift */,
 			);
 			path = ShopifyAppTests;
 			sourceTree = "<group>";
@@ -1356,6 +1359,7 @@
 				164C0DFE28697E8400080D49 /* RegistetUnitTest.swift in Sources */,
 				1654EB852835EB31000B78F1 /* ShopifyAppTests.swift in Sources */,
 				BEB74BBC286BA5C8008A57C8 /* SearchForProductTest.swift in Sources */,
+				BEB74BBE286BD542008A57C8 /* CategoryViewModelTest.swift in Sources */,
 				3E1DEE95286A77A8002D93B5 /* UtilsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
