@@ -16,7 +16,7 @@ class LaunchViewController: UIViewController {
 
         let animationView = AnimationView()
 
-        animationView.animation = Animation.named("Splash")
+        animationView.animation = Animation.named("Animation")
         animationView.contentMode = .scaleAspectFit
         animationView.frame = view.bounds
         animationView.loopMode = .loop
@@ -27,7 +27,6 @@ class LaunchViewController: UIViewController {
            
 
         animationView.play()
-        view.sendSubviewToBack(animationView)
         view.addSubview(animationView)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in

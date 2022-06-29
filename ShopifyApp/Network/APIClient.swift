@@ -106,7 +106,6 @@ class APIClient: NetworkServiceProtocol{
 
     func request<T:Codable>(endpoint: Endpoints, method: Methods, compeletion: @escaping (Result<T, ErrorType>) -> Void) {
         let path = "\(BASE_URL)\(endpoint.path)"
-        print("here is the path: \(path)")
         let urlString = path.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         guard let urlString = urlString else {
             compeletion(.failure(.urlBadFormmated))
@@ -145,7 +144,6 @@ class APIClient: NetworkServiceProtocol{
             request.addValue("application/json", forHTTPHeaderField: "Accept")
             
             session.dataTask(with: request) {(data, response, error)in
-                print("request\(request)")
                 completion(data, response, error)
             }.resume()
         }
@@ -164,11 +162,9 @@ class APIClient: NetworkServiceProtocol{
             
             do{
                 let object = try JSONDecoder().decode(T.self, from: data)
-                print("object discount\(object)")
                 completion(.success(object))
                 
             }    catch {
-                print("error from network \(error.localizedDescription)")
                 print((response as! HTTPURLResponse).statusCode)
                     completion(.failure(.parsingError))
                 

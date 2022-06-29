@@ -56,7 +56,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
         subTotalLB.text = "\(Shared.formatePrice(priceStr: String(subTotal!)))"
         totalPrice.text = "Total: \(Shared.formatePrice(priceStr: String(total ?? 0)))"
         smallView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        smallView.layer.cornerRadius = 20
+        smallView.layer.cornerRadius = 45
         discountLB.text = "\(Shared.formatePrice(priceStr: String(discount)))"
         lableAdress.text = "\(adress!.address2 ?? "") st, \(adress!.city ?? ""), \(adress!.country ?? "")"
         productVM = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
