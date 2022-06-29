@@ -32,7 +32,7 @@ extension MeViewController : UICollectionViewDataSource ,UICollectionViewDelegat
             cell.layer.borderColor = UIColor(red: 0.031, green: 0.498, blue: 0.537, alpha: 1).cgColor
             cell.layer.cornerRadius = 20
             cell.layer.shadowColor = UIColor.black.cgColor
-            cell.date.text = orderList[indexPath.row].createdAt
+            cell.date.text = convertDateFormate(date: orderList[indexPath.row].createdAt)
             cell.price.text = Shared.formatePrice(priceStr: orderList[indexPath.row].tags)
             cell.countOfItems.text = "\(orderList[indexPath.row].lineItems.count)"
             return cell
@@ -132,6 +132,13 @@ extension MeViewController : UICollectionViewDataSource ,UICollectionViewDelegat
             }
         }
         
+    }
+    
+    func convertDateFormate(date:String)->String{
+       let updatedDate = date.split(separator: "T", maxSplits: 3, omittingEmptySubsequences: true)
+        let dated = updatedDate[0]
+        let time = updatedDate[1].split(separator: "+", maxSplits: 1, omittingEmptySubsequences: true)[0]
+        return "\(dated)        \(time)"
     }
 
 }
