@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,10 +22,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="URp-Xy-rLU">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="1423"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KyU-Og-U4y">
-                            <rect key="frame" x="8" y="74" width="398" height="34"/>
+                            <rect key="frame" x="8" y="487" width="398" height="54"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="gray">
                                 <attributedString key="attributedTitle">
@@ -44,7 +44,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s9w-CB-1Sx">
-                            <rect key="frame" x="8" y="116" width="398" height="34"/>
+                            <rect key="frame" x="8" y="549" width="398" height="54"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="gray">
                                 <attributedString key="attributedTitle">
@@ -60,7 +60,7 @@
                             </buttonConfiguration>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4OG-Y9-mQK">
-                            <rect key="frame" x="8" y="158" width="398" height="34"/>
+                            <rect key="frame" x="8" y="611" width="398" height="54"/>
                             <buttonConfiguration key="configuration" style="gray">
                                 <attributedString key="attributedTitle">
                                     <fragment content="About">
@@ -78,7 +78,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Scj-Iz-JBW">
-                            <rect key="frame" x="8" y="200" width="398" height="34"/>
+                            <rect key="frame" x="8" y="673" width="398" height="54"/>
                             <buttonConfiguration key="configuration" style="gray">
                                 <attributedString key="attributedTitle">
                                     <fragment content="Contact Us">
@@ -93,17 +93,18 @@
                             </buttonConfiguration>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VgN-WK-ae7">
-                            <rect key="frame" x="52" y="560" width="310" height="57.5"/>
+                            <rect key="frame" x="52" y="1053" width="310" height="91.5"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
                                 <backgroundConfiguration key="background">
                                     <color key="backgroundColor" red="0.031372549019607843" green="0.49803921568627452" blue="0.53725490196078429" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </backgroundConfiguration>
                                 <attributedString key="attributedTitle">
-                                    <fragment content="Logout">
+                                    <fragment content="Log out">
                                         <attributes>
                                             <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="25" name="Helvetica"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
@@ -118,7 +119,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J9e-td-MqJ">
-                            <rect key="frame" x="279" y="200" width="74" height="34"/>
+                            <rect key="frame" x="279" y="673" width="74" height="54"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="faceboke">
                                 <attributedString key="attributedTitle"/>
@@ -128,7 +129,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BLm-CL-eA5">
-                            <rect key="frame" x="330" y="200" width="74" height="34"/>
+                            <rect key="frame" x="330" y="673" width="74" height="54"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="website" title=""/>
                             <connections>
@@ -136,7 +137,7 @@
                             </connections>
                         </button>
                         <segmentedControl opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4Dh-aw-nOP">
-                            <rect key="frame" x="287" y="116" width="105" height="35"/>
+                            <rect key="frame" x="287" y="549" width="105" height="55"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <segments>
                                 <segment title="USD"/>

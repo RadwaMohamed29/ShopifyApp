@@ -18,11 +18,11 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WhatsApp_Image_2022-06-20_at_4.04.15_AM-removebg-preview" translatesAutoresizingMaskIntoConstraints="NO" id="Smc-NC-sWe">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="672"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Woman_Online_Shopping_generated-removebg-preview" translatesAutoresizingMaskIntoConstraints="NO" id="Smc-NC-sWe">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="537.5"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bc8-Vb-gGL">
-                    <rect key="frame" x="44.5" y="707" width="325" height="71"/>
+                    <rect key="frame" x="44.5" y="775.5" width="325" height="71"/>
                     <color key="tintColor" systemColor="systemGreenColor"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule">
@@ -38,6 +38,24 @@
                         <action selector="getStartedBtn:" destination="-1" eventType="touchUpInside" id="ZTo-pf-6Ea"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enjoy your shopping" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7d-i7-exL">
+                    <rect key="frame" x="25" y="577.5" width="364" height="30"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                    <color key="textColor" red="0.84705882352941175" green="0.37647058823529411" blue="0.396078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                    </variation>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get high quality products for the best prices" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qz3-i6-htM">
+                    <rect key="frame" x="25" y="627.5" width="364" height="48"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                    <color key="textColor" red="0.41176470590000003" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    </variation>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.96399193999999999" green="0.97145468000000001" blue="0.97178679700000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -45,17 +63,25 @@
                 <constraint firstAttribute="trailing" secondItem="Smc-NC-sWe" secondAttribute="trailing" id="4Im-Ot-tdO"/>
                 <constraint firstItem="bc8-Vb-gGL" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0792411" id="5um-xn-7XB"/>
                 <constraint firstItem="Smc-NC-sWe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Ek4-Xc-p6v"/>
+                <constraint firstItem="bc8-Vb-gGL" firstAttribute="top" secondItem="qz3-i6-htM" secondAttribute="bottom" constant="100" id="F8x-Mb-ph9"/>
+                <constraint firstItem="qz3-i6-htM" firstAttribute="top" secondItem="Y7d-i7-exL" secondAttribute="bottom" constant="20" id="FFn-DP-sbA"/>
+                <constraint firstItem="Y7d-i7-exL" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0334821" id="HYT-n3-VBw"/>
                 <constraint firstItem="Smc-NC-sWe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="O24-ax-yVL"/>
+                <constraint firstItem="qz3-i6-htM" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="UF6-ld-BO5"/>
+                <constraint firstItem="Y7d-i7-exL" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.879227" id="bJy-WP-Avq"/>
+                <constraint firstItem="Y7d-i7-exL" firstAttribute="top" secondItem="Smc-NC-sWe" secondAttribute="bottom" constant="40" id="bKc-Fr-L2j"/>
+                <constraint firstItem="qz3-i6-htM" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0535714" id="bPc-VJ-aoR"/>
                 <constraint firstItem="bc8-Vb-gGL" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="c9h-9k-IwO"/>
-                <constraint firstItem="Smc-NC-sWe" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.75" id="cAQ-DS-tgI"/>
-                <constraint firstItem="bc8-Vb-gGL" firstAttribute="top" secondItem="Smc-NC-sWe" secondAttribute="bottom" constant="35" id="nZk-H9-wZP"/>
+                <constraint firstItem="Smc-NC-sWe" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.6" id="cAQ-DS-tgI"/>
+                <constraint firstItem="qz3-i6-htM" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.879227" id="dZp-Yl-KYu"/>
+                <constraint firstItem="Y7d-i7-exL" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="sGX-m6-x1v"/>
                 <constraint firstItem="bc8-Vb-gGL" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.785024" id="xyc-Bw-HuS"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="112.5"/>
         </view>
     </objects>
     <resources>
-        <image name="WhatsApp_Image_2022-06-20_at_4.04.15_AM-removebg-preview" width="500" height="500"/>
+        <image name="Woman_Online_Shopping_generated-removebg-preview" width="577" height="433"/>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
