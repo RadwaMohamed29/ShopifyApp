@@ -56,7 +56,7 @@ extension AllOrdersViewController : UICollectionViewDelegate,UICollectionViewDat
         cell.layer.borderWidth = 1
         cell.layer.borderColor = UIColor(red: 0.031, green: 0.498, blue: 0.537, alpha: 1).cgColor
         cell.layer.cornerRadius = 20
-        cell.date.text = listOfOrders[indexPath.row].createdAt
+        cell.date.text = convertDateFormate(date: listOfOrders[indexPath.row].createdAt)
         cell.price.text = Shared.formatePrice(priceStr: listOfOrders[indexPath.row].tags)
         cell.countOfItems.text = "\(listOfOrders[indexPath.row].lineItems.count)"
         return cell
@@ -70,6 +70,11 @@ extension AllOrdersViewController : UICollectionViewDelegate,UICollectionViewDat
         return CGSize(width: availableWidth, height: availableHieght)
     }
 
-    
+    func convertDateFormate(date:String)->String{
+       let updatedDate = date.split(separator: "T", maxSplits: 3, omittingEmptySubsequences: true)
+        let dated = updatedDate[0]
+        let time = updatedDate[1].split(separator: "+", maxSplits: 1, omittingEmptySubsequences: true)[0]
+        return "\(dated)        \(time)"
+    }
     
 }
