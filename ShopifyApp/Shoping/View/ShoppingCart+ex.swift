@@ -53,7 +53,7 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                          cell.productCount.text = "\(count)"
                          self.itemList[indexPath.row].quantity = count
                          self.totalPrice -= Double(self.itemList[indexPath.row].price)!
-                         self.totalLable.text = String(self.totalPrice)
+                         self.totalLable.text = Shared.formatePrice(priceStr: String(self.totalPrice))
                          self.updateCount(productID: id, count: count)
                          }
                          else{
