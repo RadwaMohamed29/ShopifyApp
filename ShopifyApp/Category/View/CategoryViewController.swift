@@ -51,13 +51,11 @@ class CategoryViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         Utilities.utilities.checkUserIsLoggedIn { isLoggedIn in
             if isLoggedIn{
-                if Utilities.utilities.getUserNote() != "0"{
                     self.getItemsDraft()
-                }
+                
                 self.favOutlet.setBadge(text: String(describing: self.localDataSource.getCountOfProductInFav()))
             }
             else{
-            //    self.cartOutlet.setBadge(text: String("0"))
                 self.favOutlet.setBadge(text: String("0"))
             }
         }
