@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,16 +17,16 @@
             <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Woman_Online_Shopping_generated-removebg-preview" translatesAutoresizingMaskIntoConstraints="NO" id="dn3-Th-mEZ">
-                    <rect key="frame" x="0.0" y="0.0" width="428" height="629.66666666666663"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discover" translatesAutoresizingMaskIntoConstraints="NO" id="dn3-Th-mEZ">
+                    <rect key="frame" x="0.0" y="0.0" width="428" height="555.66666666666663"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find the item you've been looking for..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8y-jF-Nae">
-                    <rect key="frame" x="42.666666666666657" y="639.66666666666663" width="342.66666666666674" height="139"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discover" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8y-jF-Nae">
+                    <rect key="frame" x="42.666666666666657" y="595.66666666666663" width="342.66666666666674" height="46.333333333333371"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                     <color key="textColor" red="0.84758812490000002" green="0.37680727120000002" blue="0.39623568570000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                     <variation key="heightClass=regular-widthClass=regular">
-                        <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
                     </variation>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJv-8e-hOq">
@@ -46,6 +46,15 @@
                         <action selector="btnOnboarding2:" destination="-1" eventType="touchUpInside" id="gew-Pa-4p3"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore world's top brands and boutiques" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l8X-eK-8AB">
+                    <rect key="frame" x="42.666666666666657" y="657" width="343" height="66"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <color key="textColor" red="0.41176470590000003" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="heightClass=regular-widthClass=regular">
+                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                    </variation>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.96399193999999999" green="0.97145468000000001" blue="0.97178679700000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -53,8 +62,8 @@
                 <constraint firstItem="dn3-Th-mEZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="0FO-KB-Crr"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="fJv-8e-hOq" secondAttribute="bottom" constant="35" id="1iw-SW-Rzh"/>
                 <constraint firstItem="dn3-Th-mEZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="800-On-g12"/>
-                <constraint firstItem="s8y-jF-Nae" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.15" id="As3-mv-meQ"/>
-                <constraint firstItem="s8y-jF-Nae" firstAttribute="top" secondItem="dn3-Th-mEZ" secondAttribute="bottom" constant="10" id="BJJ-Bo-fXy"/>
+                <constraint firstItem="s8y-jF-Nae" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="As3-mv-meQ"/>
+                <constraint firstItem="s8y-jF-Nae" firstAttribute="top" secondItem="dn3-Th-mEZ" secondAttribute="bottom" constant="40" id="BJJ-Bo-fXy"/>
                 <constraint firstItem="fJv-8e-hOq" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0602679" id="Ci8-4h-uXf"/>
                 <constraint firstItem="dn3-Th-mEZ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="DoJ-Sp-lLT"/>
                 <constraint firstItem="s8y-jF-Nae" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="EBl-fj-YGj"/>
@@ -63,13 +72,17 @@
                 <constraint firstItem="s8y-jF-Nae" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.8" id="TPA-KN-feh"/>
                 <constraint firstItem="fJv-8e-hOq" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.309179" id="a48-f2-VE0"/>
                 <constraint firstItem="dn3-Th-mEZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dPq-4O-PiA"/>
-                <constraint firstItem="dn3-Th-mEZ" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.68" id="fXR-Dz-F6D"/>
+                <constraint firstItem="dn3-Th-mEZ" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.6" id="fXR-Dz-F6D"/>
                 <constraint firstItem="dn3-Th-mEZ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="qgW-rb-bJc"/>
+                <constraint firstItem="l8X-eK-8AB" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0712743" id="r55-S5-1jI"/>
+                <constraint firstItem="l8X-eK-8AB" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="w2e-v1-aRM"/>
+                <constraint firstItem="l8X-eK-8AB" firstAttribute="top" secondItem="s8y-jF-Nae" secondAttribute="bottom" constant="15" id="x5r-Hx-ODl"/>
+                <constraint firstItem="l8X-eK-8AB" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.801402" id="xnX-Mv-JFZ"/>
             </constraints>
-            <point key="canvasLocation" x="137.68115942028987" y="112.5"/>
+            <point key="canvasLocation" x="137.38317757009344" y="112.09503239740822"/>
         </view>
     </objects>
     <resources>
-        <image name="Woman_Online_Shopping_generated-removebg-preview" width="577" height="433"/>
+        <image name="discover" width="400" height="300"/>
     </resources>
 </document>
