@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -131,7 +131,7 @@
                                     </variation>
                                 </textField>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have account." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Vt-8w-LVS">
-                                    <rect key="frame" x="70" y="717" width="194" height="24"/>
+                                    <rect key="frame" x="70" y="717.5" width="194" height="24"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                     <color key="textColor" red="0.070588235289999995" green="0.074509803920000006" blue="0.19215686269999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -180,30 +180,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     </variation>
                                 </textField>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wid-GG-iZj">
-                                    <rect key="frame" x="122.5" y="644" width="169" height="57"/>
-                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
-                                        <backgroundConfiguration key="background">
-                                            <color key="backgroundColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        </backgroundConfiguration>
-                                        <attributedString key="attributedTitle">
-                                            <fragment content="Sign up">
-                                                <attributes>
-                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                    <font key="NSFont" size="20" name="Helvetica"/>
-                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
-                                    </buttonConfiguration>
-                                    <connections>
-                                        <action selector="signUpBtn:" destination="-1" eventType="touchUpInside" id="mK0-9K-xJV"/>
-                                    </connections>
-                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cdk-We-ePu">
-                                    <rect key="frame" x="266" y="710.5" width="85.5" height="37"/>
+                                    <rect key="frame" x="266" y="711" width="85.5" height="37"/>
                                     <color key="tintColor" red="1" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain">
@@ -230,6 +208,28 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                     </variation>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wid-GG-iZj">
+                                    <rect key="frame" x="52" y="644" width="310.5" height="57.5"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" cornerStyle="capsule">
+                                        <backgroundConfiguration key="background">
+                                            <color key="backgroundColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </backgroundConfiguration>
+                                        <attributedString key="attributedTitle">
+                                            <fragment content="Sign up">
+                                                <attributes>
+                                                    <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                    <font key="NSFont" size="20" name="Helvetica"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                    </buttonConfiguration>
+                                    <connections>
+                                        <action selector="signUpBtn:" destination="-1" eventType="touchUpInside" id="mK0-9K-xJV"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="0.95294117649999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
@@ -274,10 +274,10 @@
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="8w9-nc-zxV" secondAttribute="trailing" id="12v-gA-Csx"/>
-                        <constraint firstItem="Wid-GG-iZj" firstAttribute="height" secondItem="vQk-iE-Ady" secondAttribute="height" multiplier="0.0696822" id="6uJ-G4-k6q"/>
+                        <constraint firstItem="Wid-GG-iZj" firstAttribute="height" secondItem="vQk-iE-Ady" secondAttribute="height" multiplier="0.07" id="6uJ-G4-k6q"/>
                         <constraint firstItem="8w9-nc-zxV" firstAttribute="top" secondItem="vQk-iE-Ady" secondAttribute="top" id="7w6-wb-PXd"/>
                         <constraint firstItem="8w9-nc-zxV" firstAttribute="leading" secondItem="vQk-iE-Ady" secondAttribute="leading" id="dgC-Xt-ZwM"/>
-                        <constraint firstItem="Wid-GG-iZj" firstAttribute="width" secondItem="vQk-iE-Ady" secondAttribute="width" multiplier="0.408213" id="iy7-QI-Bps"/>
+                        <constraint firstItem="Wid-GG-iZj" firstAttribute="width" secondItem="vQk-iE-Ady" secondAttribute="width" multiplier="0.75" id="iy7-QI-Bps"/>
                         <constraint firstAttribute="bottom" secondItem="8w9-nc-zxV" secondAttribute="bottom" id="nRZ-AD-5m7"/>
                         <constraint firstItem="8w9-nc-zxV" firstAttribute="width" secondItem="vQk-iE-Ady" secondAttribute="width" id="v8n-AZ-84H"/>
                     </constraints>

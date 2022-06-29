@@ -25,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFL-qu-Lm4">
-                    <rect key="frame" x="52" y="784.5" width="310.5" height="57.5"/>
+                    <rect key="frame" x="52" y="769.5" width="310.5" height="62.5"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" title="Confirm Address" cornerStyle="capsule">
                         <color key="baseBackgroundColor" red="0.2236998379" green="0.57217949629999998" blue="0.60993856189999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -35,7 +35,7 @@
                     </connections>
                 </button>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VVh-p5-Oph">
-                    <rect key="frame" x="0.0" y="44" width="414" height="730.5"/>
+                    <rect key="frame" x="0.0" y="44" width="414" height="715.5"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tRI-P5-IhI">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
@@ -148,14 +148,14 @@
             <constraints>
                 <constraint firstItem="aKR-nB-To1" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.3" id="6dJ-QV-weK"/>
                 <constraint firstItem="VVh-p5-Oph" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="EK9-cb-Hu2"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="TFL-qu-Lm4" secondAttribute="bottom" constant="20" id="HeY-mJ-zFg"/>
+                <constraint firstAttribute="bottom" secondItem="TFL-qu-Lm4" secondAttribute="bottom" constant="64" id="HeY-mJ-zFg"/>
                 <constraint firstItem="VVh-p5-Oph" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Nur-SK-4WR"/>
                 <constraint firstItem="VVh-p5-Oph" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Z4y-56-Elq"/>
                 <constraint firstItem="TFL-qu-Lm4" firstAttribute="top" secondItem="VVh-p5-Oph" secondAttribute="bottom" constant="10" id="gGn-J5-hX5"/>
+                <constraint firstItem="TFL-qu-Lm4" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.07" id="sQu-VM-LoV"/>
                 <constraint firstItem="TFL-qu-Lm4" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="stS-N1-50K"/>
                 <constraint firstItem="O7O-Dh-Hb0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="u5L-rr-t1n"/>
                 <constraint firstItem="TFL-qu-Lm4" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.75" id="y9c-m5-puD"/>
-                <constraint firstItem="TFL-qu-Lm4" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.07" id="yRt-dg-SZ6"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="124.55357142857142"/>
         </view>
