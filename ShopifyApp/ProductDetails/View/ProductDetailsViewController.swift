@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 import CoreMedia
 import CoreData
+import  NVActivityIndicatorView
 class ProductDetailsViewController: UIViewController,SharedProtocol{
     func presentAlert(alert: UIAlertController) {
         self.present(alert, animated: true, completion: nil)
@@ -72,7 +73,8 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                            ,"Arrived perfect product great quality I recommend arrived with 05 before"
                            ,"For what I paid are perfect. The product has come a long time before so sincerely thank you seller"]
     
-    
+    let indicator = NVActivityIndicatorView(frame: .zero, type: .ballRotateChase, color: .label, padding: 0)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         productViewModel = ProductDetailsViewModel(appDelegate: (UIApplication.shared.delegate as? AppDelegate)!)
@@ -267,6 +269,7 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
         }
     }
     @IBAction func addToCartBtn(_ sender: Any) {
+        self.showActivityIndicator(indicator: self.indicator, startIndicator: true)
         Utilities.utilities.checkUserIsLoggedIn {[self] isLoggedIn in
             if isLoggedIn {
                 productViewModel?.checkProductInCart(id: "\(productId ?? "")")
@@ -290,11 +293,17 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                         self.postDraftOrder()
                         DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
                             self.updateCustomer()
+                            self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
+                            Shared.showMessage(message: "Added To Cart Successfully!", error: false)
+
                         }
                     }else{
                         self.getItemsDraft()
                         DispatchQueue.main.asyncAfter(deadline:.now()+2.0){
                             self.editDraftOrder()
+                            self.showActivityIndicator(indicator: self.indicator, startIndicator: false)
+                            Shared.showMessage(message: "Added To Cart Successfully!", error: false)
+
                         }
                     }
 
@@ -302,7 +311,6 @@ class ProductDetailsViewController: UIViewController,SharedProtocol{
                         try productViewModel?.addProductToCoreDataCart(id: "\(productId!)",title:(product?.title)!,image:(product?.image.src)!,price:(product?.variant[0].price)!, itemCount: 1, quantity:(product?.variant[0].inventoryQuantity)!, completion: { result in
                             switch result{
                             case true:
-                                Shared.showMessage(message: "Added To Cart Successfully!", error: false)
                                 print("add to cart \(inCart)")
                                 
                             case false :

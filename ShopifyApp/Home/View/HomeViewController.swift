@@ -39,12 +39,12 @@ class HomeViewController: UIViewController,brandIdProtocol {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         refreshControl.tintColor = UIColor.darkGray
-        refreshControl.addTarget(self, action:#selector(setupTableView), for: .valueChanged)
+        refreshControl.addTarget(self, action:#selector(checkConnection), for: .valueChanged)
         homeTV.addSubview(refreshControl)
         checkConnection()
 
     }
-  @objc  func setupTableView(){
+    func setupTableView(){
         homeTV.register(AbsTableViewCell.Nib(), forCellReuseIdentifier: AbsTableViewCell.identifier)
         homeTV.register(BrandTableViewCell.Nib(), forCellReuseIdentifier: BrandTableViewCell.identifier)
         homeTV.delegate = self
@@ -134,7 +134,6 @@ extension HomeViewController{
                     }
                 }
                 self.homeTV.reloadData()
-                print("get items success ")
             }.disposed(by: disposeBag)
         }
         else{
