@@ -151,16 +151,17 @@ extension Shared{
            let settingViewModel = SettingsViewModel()
            let currency  = settingViewModel.getCurrency(key: "currency")
            if  currency == "EGP" {
-           return "\(toEGP(amount:Double(priceStr ?? "")! )) EGP"
+           return "\(toEGP(amount:Double(priceStr ?? "")!)) EGP"
            }
            else {
-               return "\(priceStr ?? "") USD" 
+               let price = Double(priceStr ?? "")!
+               return "\(Int(price)) USD"
                
            }
        }
-     static  func toEGP(amount:Double) -> Double {
+     static  func toEGP(amount:Double) -> Int {
             
-           return Double(round(100*(amount * 15.669931))/100)
+           return Int(round(100*(amount * 15.669931))/100)
        }
     
   

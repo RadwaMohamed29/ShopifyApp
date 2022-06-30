@@ -29,7 +29,7 @@ class LaunchViewController: UIViewController {
         animationView.play()
         view.addSubview(animationView)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
             guard let self = self else {return}
             let a = TabBarViewController(nibName:"TabBarViewController", bundle: nil)
             if !Utilities.utilities.isFirstTimeInApp(){

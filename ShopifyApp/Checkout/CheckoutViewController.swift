@@ -129,7 +129,7 @@ class CheckoutViewController: UIViewController,PaymentCheckoutDelegation{
     
     @IBAction func btnCheckDiscount(_ sender: Any) {
             copon = couponTxtField.text ?? ""
-            if Utilities.utilities.getCode() == copon {
+            if Utilities.utilities.getCode() == copon  && Utilities.utilities.getCode() != ""{
                 if Utilities.utilities.isCodeUsed(code: "\(Utilities.utilities.getCustomerId())\(copon)" ) != true{
                     discount = subTotal! * (30/100)
                     discountLB.text = "\(Shared.formatePrice(priceStr: String(discount)))"
