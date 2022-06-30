@@ -154,7 +154,7 @@ extension Shared{
            return "\(toEGP(amount:Double(priceStr ?? "")!)) EGP"
            }
            else {
-               let price = Double(priceStr ?? "")!
+               let price = Double(priceStr ?? "") ?? 0
                return "\(Int(price)) USD"
                
            }
