@@ -21,7 +21,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="537.5"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bc8-Vb-gGL">
-                    <rect key="frame" x="44.5" y="775.5" width="325" height="71"/>
+                    <rect key="frame" x="44.5" y="767" width="325" height="71"/>
                     <color key="tintColor" red="0.031372549020000001" green="0.49803921569999998" blue="0.53725490200000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" cornerStyle="capsule">
@@ -47,7 +47,7 @@
                     </variation>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get high quality products for the best prices" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qz3-i6-htM">
-                    <rect key="frame" x="25" y="627.5" width="364" height="48"/>
+                    <rect key="frame" x="25" y="627.5" width="364" height="89.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <color key="textColor" red="0.41176470590000003" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -62,14 +62,14 @@
                 <constraint firstAttribute="trailing" secondItem="Smc-NC-sWe" secondAttribute="trailing" id="4Im-Ot-tdO"/>
                 <constraint firstItem="bc8-Vb-gGL" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0792411" id="5um-xn-7XB"/>
                 <constraint firstItem="Smc-NC-sWe" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Ek4-Xc-p6v"/>
-                <constraint firstItem="bc8-Vb-gGL" firstAttribute="top" secondItem="qz3-i6-htM" secondAttribute="bottom" constant="100" id="F8x-Mb-ph9"/>
+                <constraint firstItem="bc8-Vb-gGL" firstAttribute="top" secondItem="qz3-i6-htM" secondAttribute="bottom" constant="50" id="F8x-Mb-ph9"/>
                 <constraint firstItem="qz3-i6-htM" firstAttribute="top" secondItem="Y7d-i7-exL" secondAttribute="bottom" constant="20" id="FFn-DP-sbA"/>
                 <constraint firstItem="Y7d-i7-exL" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0334821" id="HYT-n3-VBw"/>
                 <constraint firstItem="Smc-NC-sWe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="O24-ax-yVL"/>
                 <constraint firstItem="qz3-i6-htM" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="UF6-ld-BO5"/>
                 <constraint firstItem="Y7d-i7-exL" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.879227" id="bJy-WP-Avq"/>
                 <constraint firstItem="Y7d-i7-exL" firstAttribute="top" secondItem="Smc-NC-sWe" secondAttribute="bottom" constant="40" id="bKc-Fr-L2j"/>
-                <constraint firstItem="qz3-i6-htM" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0535714" id="bPc-VJ-aoR"/>
+                <constraint firstItem="qz3-i6-htM" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.1" id="bPc-VJ-aoR"/>
                 <constraint firstItem="bc8-Vb-gGL" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="c9h-9k-IwO"/>
                 <constraint firstItem="Smc-NC-sWe" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.6" id="cAQ-DS-tgI"/>
                 <constraint firstItem="qz3-i6-htM" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.879227" id="dZp-Yl-KYu"/>

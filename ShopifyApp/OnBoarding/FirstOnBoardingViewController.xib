@@ -47,7 +47,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore world's top brands and boutiques" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l8X-eK-8AB">
-                    <rect key="frame" x="42.666666666666657" y="657" width="343" height="66"/>
+                    <rect key="frame" x="42.666666666666657" y="657" width="343" height="92.666666666666629"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <color key="textColor" red="0.41176470590000003" green="0.3921568627" blue="0.3921568627" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -74,7 +74,7 @@
                 <constraint firstItem="dn3-Th-mEZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dPq-4O-PiA"/>
                 <constraint firstItem="dn3-Th-mEZ" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.6" id="fXR-Dz-F6D"/>
                 <constraint firstItem="dn3-Th-mEZ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="qgW-rb-bJc"/>
-                <constraint firstItem="l8X-eK-8AB" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.0712743" id="r55-S5-1jI"/>
+                <constraint firstItem="l8X-eK-8AB" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.1" id="r55-S5-1jI"/>
                 <constraint firstItem="l8X-eK-8AB" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="w2e-v1-aRM"/>
                 <constraint firstItem="l8X-eK-8AB" firstAttribute="top" secondItem="s8y-jF-Nae" secondAttribute="bottom" constant="15" id="x5r-Hx-ODl"/>
                 <constraint firstItem="l8X-eK-8AB" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.801402" id="xnX-Mv-JFZ"/>
