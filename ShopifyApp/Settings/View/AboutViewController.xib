@@ -29,7 +29,7 @@
                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
                     </variation>
                 </textView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="deModa" translatesAutoresizingMaskIntoConstraints="NO" id="b2w-nL-qHD">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="b2w-nL-qHD">
                     <rect key="frame" x="56" y="81" width="302" height="233"/>
                 </imageView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="veV-BO-pDa">
@@ -68,7 +68,7 @@ Abdelrahman Sayed</string>
         </view>
     </objects>
     <resources>
-        <image name="deModa" width="448" height="440"/>
+        <image name="logo" width="396" height="396"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
