@@ -7,7 +7,10 @@
 
 import UIKit
 import Kingfisher
-
+import SwiftMessages
+protocol AlertProtoco{
+    func showAlert()
+}
 class OrdersTVC : UITableViewCell {
     var productVM : ProductDetailsViewModel?
     @IBOutlet weak var productImage: UIImageView!
@@ -23,7 +26,7 @@ class OrdersTVC : UITableViewCell {
     var item: LineItem?
     var itemsImages = ""
     var totalPrice=0.0
-
+    var alertProtocol : AlertProtoco?
     static func nib() ->UINib{
         UINib(nibName: "OrdersTVC", bundle: nil)
     }
@@ -60,15 +63,40 @@ class OrdersTVC : UITableViewCell {
     var deleteFromBagProducts:()->() = {}
     var addCount:()->() = {}
     var subCount:()->() = {}
+    func setAlert(shopping:ShoppingCartVC){
+       alertProtocol = shopping
+    }
     @IBAction func deleteCart(_ sender: Any) {
-        deleteFromBagProducts()
+        HandelConnection.handelConnection.checkNetworkConnection { result in
+            if result{
+                self.deleteFromBagProducts()
+            }
+            else{
+                self.alertProtocol?.showAlert()
+
+            }
+        }
+        
     }
     @IBAction func subCount(_ sender: Any) {
-        
-        subCount()
+        HandelConnection.handelConnection.checkNetworkConnection { [self] result in
+            if result{
+                self.subCount()
+            }
+            else{
+                self.alertProtocol?.showAlert()
+            }
+        }
     }
     @IBAction func addCount(_ sender: Any) {
-        addCount()
+        HandelConnection.handelConnection.checkNetworkConnection { result in
+            if result{
+                self.addCount()
+            }
+            else{
+                self.alertProtocol?.showAlert()
 
+            }
+        }
   }
 }

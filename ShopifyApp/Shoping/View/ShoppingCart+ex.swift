@@ -17,9 +17,10 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCell(withIdentifier: OrdersTVC.identifier, for: indexPath) as! OrdersTVC
+        cell.setAlert(shopping: self)
         cell.deleteFromBagProducts = {
-            self.checkConnection()
             self.showDeleteAlert(indexPath: indexPath)
         }
         if flag == true{
@@ -29,8 +30,6 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
             let id = self.itemList[indexPath.row].productID
             if !quantityOfProducts.isEmpty{
                 let quantity = quantityOfProducts[indexPath.row].variant[0].inventoryQuantity
-                if flag == true{
-                  self.checkConnection()
                   cell.addCount={ [self] in
                    if Int(count) == Int(quantity) {
                         alertWarning(indexPath: indexPath, title: "warning", message: "quantity not avalible")
@@ -45,7 +44,6 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                     }
                   }
                      cell.subCount={
-                     self.checkConnection()
                      if (count != 1)
                          {
                          cell.subBtn.isEnabled = true
@@ -59,10 +57,6 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                          else{
                             self.alertWarning(indexPath: indexPath, title: "warning", message: "can't decrease count of item to zero")
                             }
-                     }
-                    
-                }else{
-                    self.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to modifay the item")
                     
                 }
             }
@@ -82,18 +76,17 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
                         .transition(.fade(1)),
                         .cacheOriginalImage
                             ])
-                //    cell.trash_icon.isEnabled = false
                     cell.productCount.text = " \(CartProducts[indexPath.row].count)"
                     cell.productPrice.text = Shared.formatePrice(priceStr: CartProducts[indexPath.row].price!)
                     cell.deleteFromBagProducts = {[weak self] in
-                        self?.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to delete the item")
+                        self?.alertWarning(indexPath: indexPath,  title: "information", message: "check your internet connection")
                     }
             cell.addCount={
-                self.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to modifay the item")
+                self.alertWarning(indexPath: indexPath,  title: "information", message: "check your internet connection")
 
             }
             cell.subCount={
-                self.alertWarning(indexPath: indexPath,  title: "information", message: "check your connection to modifay the item")
+                self.alertWarning(indexPath: indexPath,  title: "information", message: "check your internet connection")
 
             }
         }
@@ -120,14 +113,18 @@ extension ShoppingCartVC :UITableViewDelegate, UITableViewDataSource{
         self.navigationController?.pushViewController(detalisVC, animated: true)
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if flag == true {
-            if editingStyle == .delete {
-                showDeleteAlert(indexPath: indexPath)
+        HandelConnection.handelConnection.checkNetworkConnection { result in
+            if result{
+                if editingStyle == .delete {
+                    self.showDeleteAlert(indexPath: indexPath)
+                }
+                 
             }
+            else{
+                    self.alertWarning(indexPath: indexPath, title: "information", message: "check your internet connection")
+                }
         }
-        else{
-            self.alertWarning(indexPath: indexPath, title: "information", message: "check your connection to detete the item")
-        }
+  
     }
     
 

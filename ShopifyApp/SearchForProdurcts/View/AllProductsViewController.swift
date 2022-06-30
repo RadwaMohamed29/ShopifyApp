@@ -199,7 +199,6 @@ extension AllProductsViewController : UICollectionViewDelegate ,UICollectionView
                  self?.searchProductsCV.reloadData()
              }else{
                  self?.networkView.isHidden = false
-                 self?.showAlertForInterNetConnection()
                  self?.searchProductsCV.reloadData()
                  self?.showSnackBar()
              }

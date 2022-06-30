@@ -10,7 +10,11 @@ import Kingfisher
 import RxSwift
 import Lottie
 import NVActivityIndicatorView
-class ShoppingCartVC: UIViewController {
+class ShoppingCartVC: UIViewController,AlertProtoco {
+    func showAlert() {
+        self.alertWarning(indexPath: [], title: "information", message: "check your internet connection")
+    }
+    
     @IBOutlet weak var totalLable: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
@@ -51,6 +55,7 @@ class ShoppingCartVC: UIViewController {
         refreshControl.tintColor = UIColor.darkGray
         refreshControl.addTarget(self, action:#selector(setCartView), for: .valueChanged)
         tableView.addSubview(refreshControl)
+        
     }
     func checkCartIsEmpty(){
         if itemList.isEmpty || CartProducts.isEmpty {
@@ -96,25 +101,23 @@ class ShoppingCartVC: UIViewController {
                         self.deleteItemFromCoreData(index: indexPath)
                     }
             else{
-                self.alertWarning(indexPath: indexPath, title: "information", message: "check your connection to detete the item")
+                self.alertWarning(indexPath: indexPath, title: "information", message: "check your internet connection")
             }
         }))
         self.present(alert, animated: true, completion: nil)
     }
-    func alertWarning(indexPath:IndexPath,title:String,message:String){
-        let alert = UIAlertController(title:title , message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .destructive))
-        self.present(alert, animated: true, completion: nil)
-    }
-
     @IBAction func goToAddress(_ sender: Any) {
-        if !itemList.isEmpty || !CartProducts.isEmpty{
-            let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
-            address.itemList = itemList
-            address.isComingWithOrder = true
-            Utilities.utilities.setTotalPrice(totalPrice: totalPrice )
-            self.navigationController?.pushViewController(address, animated: true)
-            
+        HandelConnection.handelConnection.checkNetworkConnection { [self] result in
+            if result{
+                let address = AddressViewController(nibName: "AddressViewController", bundle: nil)
+                address.itemList = itemList
+                address.isComingWithOrder = true
+                Utilities.utilities.setTotalPrice(totalPrice: totalPrice )
+                self.navigationController?.pushViewController(address, animated: true)
+            }
+            else{
+                alertWarning(indexPath: [], title: "information", message: "check your internet connection")
+            }
         }
     }
 }
