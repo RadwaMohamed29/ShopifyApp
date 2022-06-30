@@ -27,6 +27,9 @@ class SettingsViewModel:NSObject, SettingsViewModelType{
     
     func getCurrency(key: String) -> String {
         self.currency = userDefualts.getCurrency(key: key)
+        if currency == "" {
+            currency = "USD"
+        }
         return currency!
     }
     

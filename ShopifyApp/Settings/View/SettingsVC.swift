@@ -45,6 +45,7 @@ class SettingsVC: UIViewController {
         Utilities.utilities.addCustomerId(id: 0)
         Utilities.utilities.logout()
         Utilities.utilities.addCustomerName(customerName: "")
+        Utilities.utilities.setCurrency(Key: "currency", value: "")
       //  let key = Utilities.utilities.getCode()
        // Utilities.utilities.setCodeUsed(code: key,isUsed: false)
         self.navigationController?.popViewController(animated: true)
